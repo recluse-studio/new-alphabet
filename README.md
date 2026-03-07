@@ -16,6 +16,7 @@ The current contents are the governing documents:
 - `progress.txt` is append-only project memory.
 - `crates/new-alphabet-foundation` contains the first runtime implementation of the constitutional foundation layer.
 - `crates/new-alphabet-primitives` contains the initial structural primitives for page shell and region geometry.
+- `examples/primitive-composition.json` contains the current primitive composition rules and reusable example index.
 
 The foundation runtime now exists. Primitive implementation now includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`. Components, recipes, CLI, and validation are still to be implemented.
 

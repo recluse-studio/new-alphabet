@@ -22,3 +22,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-016 | Implemented Rail, Stack, Row, and ColumnGroup with token-driven composition metadata and SSR-rendered editorial and workflow examples.
 2026-03-07 | DECISION | primitives | Panel hierarchy and bounded surface state stay explicit through border and state tokens instead of decorative visual treatment.
 2026-03-07 | PRD | US-017 | Implemented Panel, Band, SectionHeader, and Divider with editorial and settings examples proving bounded structural surfaces.
+2026-03-07 | DECISION | examples | Primitive composition rules and example coverage now live in a shared machine-readable map for later docs, validation, and agent work.
+2026-03-07 | PRD | US-018 | Published primitive composition maps and reusable editorial and workflow examples in documentation and JSON form.

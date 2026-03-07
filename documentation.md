@@ -423,6 +423,44 @@ Working interpretation:
 4. Define state behavior before polish.
 5. Validate the composition against spacing, accessibility, and anti-pattern rules.
 
+## Primitive Composition Maps
+
+Primitive composition is finite and queryable. The canonical machine-readable map lives at `examples/primitive-composition.json`.
+
+### Allowed core combinations
+
+| Rule | Composition | Why it is allowed |
+| --- | --- | --- |
+| `P-001` | `AppShell -> PageGrid -> Region(main)` | every serious screen starts with a named primary region |
+| `P-002` | `PageGrid -> Rail -> Region(main)` | side structure may support the primary region without replacing it |
+| `P-003` | `Region(main) -> Stack -> ColumnGroup` | editorial subdivision stays inside the primary region |
+| `P-004` | `Region(main) -> Stack -> Row` | workflow alignment stays local and token-driven |
+| `P-005` | `Panel -> SectionHeader -> Divider -> content` | bounded surfaces remain explicit and quiet |
+| `P-006` | `Band -> SectionHeader` | full-width framing surfaces stay structural and typographic |
+
+### Disallowed core combinations
+
+| Rule | Composition | Why it is disallowed |
+| --- | --- | --- |
+| `P-101` | `PageGrid` without `Region(main)` | the grid becomes decorative scaffolding |
+| `P-102` | multiple rails on one side | side structure stops being bounded |
+| `P-103` | `Rail` inside `ColumnGroup` | page structure is being collapsed into local layout |
+| `P-104` | arbitrary spacing wrappers between `Stack` or `Row` children | rhythm is being repaired locally instead of governed by tokens |
+| `P-105` | `Panel` using color or motion as its only hierarchy signal | structure is being replaced by decoration |
+
+### Primitive example set
+
+The current example components are:
+
+- `EditorialAnchorExample`
+- `WorkspaceAnchorExample`
+- `EditorialStructureExample`
+- `WorkflowStructureExample`
+- `EditorialSurfaceExample`
+- `SettingsSurfaceExample`
+
+These examples are intended to be reused by later docs, validation rules, and the agent contract rather than rewritten in parallel.
+
 ## Monorepo Shape
 
 The PRD proposes the following layout.

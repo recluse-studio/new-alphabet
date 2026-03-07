@@ -1,0 +1,115 @@
+{
+  "version": "0.1.0",
+  "rules": [
+    {
+      "id": "P-001",
+      "kind": "allowed",
+      "composition": ["AppShell", "PageGrid", "Region(main)"],
+      "reason": "Every serious screen starts from a named primary region."
+    },
+    {
+      "id": "P-002",
+      "kind": "allowed",
+      "composition": ["PageGrid", "Rail(start|end)", "Region(main)"],
+      "reason": "Secondary navigation or filter structure may sit beside the primary region."
+    },
+    {
+      "id": "P-003",
+      "kind": "allowed",
+      "composition": ["Region(main)", "Stack", "ColumnGroup"],
+      "reason": "Editorial and documentation flow may subdivide inside the primary region without inventing new page geometry."
+    },
+    {
+      "id": "P-004",
+      "kind": "allowed",
+      "composition": ["Region(main)", "Stack", "Row"],
+      "reason": "Workflow surfaces may express local horizontal alignment inside a token-driven vertical rhythm."
+    },
+    {
+      "id": "P-005",
+      "kind": "allowed",
+      "composition": ["Panel", "SectionHeader", "Divider", "content"],
+      "reason": "Bounded surfaces carry hierarchy through border, spacing, and explicit section framing."
+    },
+    {
+      "id": "P-006",
+      "kind": "allowed",
+      "composition": ["Band", "SectionHeader"],
+      "reason": "Full-width opening or transition surfaces remain structural and typographic."
+    },
+    {
+      "id": "P-101",
+      "kind": "disallowed",
+      "composition": ["PageGrid without Region(main)"],
+      "reason": "A grid without a named primary region collapses into decorative scaffolding."
+    },
+    {
+      "id": "P-102",
+      "kind": "disallowed",
+      "composition": ["More than one Rail on the same side"],
+      "reason": "Side structure must stay bounded and predictable."
+    },
+    {
+      "id": "P-103",
+      "kind": "disallowed",
+      "composition": ["Rail inside ColumnGroup"],
+      "reason": "Rails are page structure, not local content layout."
+    },
+    {
+      "id": "P-104",
+      "kind": "disallowed",
+      "composition": ["Arbitrary spacing wrappers between Stack or Row children"],
+      "reason": "Rhythm belongs to primitive tokens, not local repair layers."
+    },
+    {
+      "id": "P-105",
+      "kind": "disallowed",
+      "composition": ["Panel using color or motion as its only hierarchy signal"],
+      "reason": "Bounded surfaces must remain legible without decorative emphasis."
+    }
+  ],
+  "examples": [
+    {
+      "id": "editorial_anchor",
+      "component": "EditorialAnchorExample",
+      "path": "crates/new-alphabet-primitives/src/examples.rs",
+      "surfaces": ["editorial"],
+      "primitives": ["AppShell", "PageGrid", "Region"]
+    },
+    {
+      "id": "workspace_anchor",
+      "component": "WorkspaceAnchorExample",
+      "path": "crates/new-alphabet-primitives/src/examples.rs",
+      "surfaces": ["workflow"],
+      "primitives": ["AppShell", "PageGrid", "Region"]
+    },
+    {
+      "id": "editorial_structure",
+      "component": "EditorialStructureExample",
+      "path": "crates/new-alphabet-primitives/src/examples.rs",
+      "surfaces": ["editorial"],
+      "primitives": ["AppShell", "PageGrid", "Region", "Stack", "ColumnGroup"]
+    },
+    {
+      "id": "workflow_structure",
+      "component": "WorkflowStructureExample",
+      "path": "crates/new-alphabet-primitives/src/examples.rs",
+      "surfaces": ["workflow"],
+      "primitives": ["AppShell", "PageGrid", "Rail", "Region", "Stack", "Row"]
+    },
+    {
+      "id": "editorial_surface",
+      "component": "EditorialSurfaceExample",
+      "path": "crates/new-alphabet-primitives/src/examples.rs",
+      "surfaces": ["editorial"],
+      "primitives": ["Band", "Panel", "SectionHeader", "Divider"]
+    },
+    {
+      "id": "settings_surface",
+      "component": "SettingsSurfaceExample",
+      "path": "crates/new-alphabet-primitives/src/examples.rs",
+      "surfaces": ["workflow"],
+      "primitives": ["Panel", "SectionHeader", "Divider"]
+    }
+  ]
+}
