@@ -1,156 +1,106 @@
 use new_alphabet_core::IntentKind;
+use new_alphabet_schema::contract_bundle;
 
 pub struct RecipeTemplate {
-    pub canonical_name: &'static str,
-    pub module_name: &'static str,
-    pub surface_name: &'static str,
-    pub example_component: &'static str,
+    pub canonical_name: String,
+    pub module_name: String,
+    pub surface_name: String,
+    pub example_component: String,
     pub intent: IntentKind,
+    pub required_regions: Vec<String>,
+    pub optional_regions: Vec<String>,
+    pub primitives: Vec<String>,
+    pub components: Vec<String>,
+    pub example_ids: Vec<String>,
+    pub documentation_paths: Vec<String>,
+}
+
+pub struct ComponentTemplate {
+    pub canonical_name: String,
+    pub module_name: String,
+    pub required_states: Vec<String>,
+    pub built_from: Vec<String>,
+    pub foundation_bindings: Vec<String>,
+    pub example_ids: Vec<String>,
+    pub documentation_paths: Vec<String>,
 }
 
 pub fn recipe_template(name: &str) -> Option<RecipeTemplate> {
-    match normalize(name).as_str() {
-        "blogindex" => Some(RecipeTemplate {
-            canonical_name: "BlogIndex",
-            module_name: "blog_index",
-            surface_name: "BlogIndexSurface",
-            example_component: "BlogIndexExample",
-            intent: IntentKind::Editorial,
-        }),
-        "articleshell" => Some(RecipeTemplate {
-            canonical_name: "ArticleShell",
-            module_name: "article_shell",
-            surface_name: "ArticleShellSurface",
-            example_component: "ArticleShellExample",
-            intent: IntentKind::Editorial,
-        }),
-        "docsshell" => Some(RecipeTemplate {
-            canonical_name: "DocsShell",
-            module_name: "docs_shell",
-            surface_name: "DocsShellSurface",
-            example_component: "DocsShellExample",
-            intent: IntentKind::Editorial,
-        }),
-        "searchresultsworkspace" => Some(RecipeTemplate {
-            canonical_name: "SearchResultsWorkspace",
-            module_name: "search_results_workspace",
-            surface_name: "SearchResultsWorkspaceSurface",
-            example_component: "SearchResultsWorkspaceExample",
-            intent: IntentKind::Workspace,
-        }),
-        "reviewqueue" => Some(RecipeTemplate {
-            canonical_name: "ReviewQueue",
-            module_name: "review_queue",
-            surface_name: "ReviewQueueSurface",
-            example_component: "ReviewQueueExample",
-            intent: IntentKind::Workspace,
-        }),
-        "settingsworkspace" => Some(RecipeTemplate {
-            canonical_name: "SettingsWorkspace",
-            module_name: "settings_workspace",
-            surface_name: "SettingsWorkspaceSurface",
-            example_component: "SettingsWorkspaceExample",
-            intent: IntentKind::Workspace,
-        }),
-        "dashboardshell" => Some(RecipeTemplate {
-            canonical_name: "DashboardShell",
-            module_name: "dashboard_shell",
-            surface_name: "DashboardShellSurface",
-            example_component: "DashboardShellExample",
-            intent: IntentKind::Workspace,
-        }),
-        _ => None,
-    }
+    let recipe = contract_bundle()
+        .recipes
+        .into_iter()
+        .find(|recipe| normalize(&recipe.id) == normalize(name))?;
+
+    Some(RecipeTemplate {
+        module_name: to_snake_case(&recipe.id),
+        surface_name: format!("{}Surface", recipe.id),
+        example_component: format!("{}Example", recipe.id),
+        documentation_paths: recipe_documentation_paths(recipe.intent.clone()),
+        canonical_name: recipe.id,
+        intent: recipe.intent,
+        required_regions: recipe.required_regions,
+        optional_regions: recipe.optional_regions,
+        primitives: recipe.primitives,
+        components: recipe.components,
+        example_ids: recipe.example_ids,
+    })
 }
 
 pub fn render_recipe_module(template: &RecipeTemplate) -> String {
     format!(
-        "use leptos::prelude::*;\nuse new_alphabet_recipes::{};\n\n#[component]\npub fn {}() -> impl IntoView {{\n    view! {{ <{} /> }}\n}}\n",
-        template.example_component, template.surface_name, template.example_component
+        "use leptos::prelude::*;\nuse new_alphabet_recipes::{};\n\npub const RECIPE_ID: &str = \"{}\";\npub const REQUIRED_REGIONS: &[&str] = &[\n{}];\npub const OPTIONAL_REGIONS: &[&str] = &[\n{}];\npub const REQUIRED_PRIMITIVES: &[&str] = &[\n{}];\npub const REQUIRED_COMPONENTS: &[&str] = &[\n{}];\npub const REFERENCE_EXAMPLES: &[&str] = &[\n{}];\npub const DOCUMENTATION_PATHS: &[&str] = &[\n{}];\n\n#[component]\npub fn {}() -> impl IntoView {{\n    view! {{ <{} /> }}\n}}\n",
+        template.example_component,
+        template.canonical_name,
+        render_string_array(&template.required_regions),
+        render_string_array(&template.optional_regions),
+        render_string_array(&template.primitives),
+        render_string_array(&template.components),
+        render_string_array(&template.example_ids),
+        render_string_array(&template.documentation_paths),
+        template.surface_name,
+        template.example_component
     )
 }
 
-pub fn component_names() -> &'static [&'static str] {
-    &[
-        "Button",
-        "LinkAction",
-        "TextField",
-        "Textarea",
-        "Select",
-        "Checkbox",
-        "RadioGroup",
-        "Switch",
-        "StatusBadge",
-        "InlineAlert",
-        "EmptyState",
-        "Table",
-        "MetricBlock",
-        "Pagination",
-        "NavIndex",
-        "CommandBar",
-        "FilterRail",
-        "DetailPane",
-    ]
+pub fn component_names() -> Vec<String> {
+    contract_bundle()
+        .components
+        .into_iter()
+        .map(|component| component.id)
+        .collect()
 }
 
-pub fn component_module_name(name: &str) -> Option<&'static str> {
-    match normalize(name).as_str() {
-        "button" => Some("button"),
-        "linkaction" => Some("link_action"),
-        "textfield" => Some("text_field"),
-        "textarea" => Some("textarea"),
-        "select" => Some("select"),
-        "checkbox" => Some("checkbox"),
-        "radiogroup" => Some("radio_group"),
-        "switch" => Some("switch"),
-        "statusbadge" => Some("status_badge"),
-        "inlinealert" => Some("inline_alert"),
-        "emptystate" => Some("empty_state"),
-        "table" => Some("table"),
-        "metricblock" => Some("metric_block"),
-        "pagination" => Some("pagination"),
-        "navindex" => Some("nav_index"),
-        "commandbar" => Some("command_bar"),
-        "filterrail" => Some("filter_rail"),
-        "detailpane" => Some("detail_pane"),
-        _ => None,
-    }
+pub fn component_module_name(name: &str) -> Option<String> {
+    let component = contract_bundle()
+        .components
+        .into_iter()
+        .find(|component| normalize(&component.id) == normalize(name))?;
+
+    Some(to_snake_case(&component.id))
 }
 
-pub fn component_required_states(name: &str) -> &'static [&'static str] {
-    match normalize(name).as_str() {
-        "button" | "linkaction" => &[
-            "default",
-            "loading",
-            "disabled",
-            "hover",
-            "active",
-            "focus_visible",
-        ],
-        "textfield" | "textarea" | "select" | "checkbox" | "radiogroup" | "switch" => {
-            &["default", "error", "success", "disabled", "focus_visible"]
-        }
-        "statusbadge" => &["info", "success", "warning", "error"],
-        "inlinealert" => &["info", "success", "warning", "error"],
-        "emptystate" => &["empty"],
-        "table" => &["default", "loading", "empty", "error"],
-        "metricblock" => &["default"],
-        "pagination" => &["default", "disabled"],
-        "navindex" => &["default", "current"],
-        "commandbar" => &["default", "loading", "disabled"],
-        "filterrail" => &["default", "zero_result"],
-        "detailpane" => &["default", "loading", "unavailable"],
-        _ => &[],
-    }
+fn component_template(name: &str) -> Option<ComponentTemplate> {
+    let component = contract_bundle()
+        .components
+        .into_iter()
+        .find(|component| normalize(&component.id) == normalize(name))?;
+
+    Some(ComponentTemplate {
+        module_name: to_snake_case(&component.id),
+        foundation_bindings: component_foundation_bindings(&component.id),
+        documentation_paths: component_documentation_paths(&component.id),
+        canonical_name: component.id,
+        required_states: component.required_states,
+        built_from: component.built_from,
+        example_ids: component.example_ids,
+    })
 }
 
 pub fn render_component_module(name: &str) -> Option<String> {
-    let states = component_required_states(name)
-        .iter()
-        .map(|state| format!("    \"{state}\",\n"))
-        .collect::<String>();
+    let template = component_template(name)?;
+    let states = render_string_array(&template.required_states);
 
-    match normalize(name).as_str() {
+    let rendered = match template.module_name.as_str() {
         "button" => Some(with_states(
             r#"use leptos::prelude::*;
 use new_alphabet_components::{ActionPriority, ActionState, Button};
@@ -570,7 +520,9 @@ pub fn DetailPaneScaffold() -> impl IntoView {
             &states,
         )),
         _ => None,
-    }
+    }?;
+
+    Some(inject_component_contract_metadata(rendered, &template))
 }
 
 pub fn normalize(value: &str) -> String {
@@ -579,6 +531,107 @@ pub fn normalize(value: &str) -> String {
         .filter(|character| character.is_ascii_alphanumeric())
         .map(|character| character.to_ascii_lowercase())
         .collect()
+}
+
+fn render_string_array(values: &[String]) -> String {
+    values
+        .iter()
+        .map(|value| format!("    \"{value}\",\n"))
+        .collect()
+}
+
+fn to_snake_case(value: &str) -> String {
+    let mut rendered = String::new();
+
+    for (index, character) in value.chars().enumerate() {
+        if character.is_ascii_uppercase() {
+            if index > 0 {
+                rendered.push('_');
+            }
+            rendered.push(character.to_ascii_lowercase());
+        } else {
+            rendered.push(character);
+        }
+    }
+
+    rendered
+}
+
+fn recipe_documentation_paths(intent: IntentKind) -> Vec<String> {
+    let mut paths = vec![
+        "docs/cli.md".to_owned(),
+        "docs/foundations.md".to_owned(),
+        "docs/primitives.md".to_owned(),
+        "docs/recipes.md".to_owned(),
+    ];
+
+    if matches!(intent, IntentKind::Workspace) {
+        paths.push("docs/components.md".to_owned());
+    }
+
+    paths
+}
+
+fn component_documentation_paths(id: &str) -> Vec<String> {
+    let mut paths = vec![
+        "docs/cli.md".to_owned(),
+        "docs/foundations.md".to_owned(),
+        "docs/primitives.md".to_owned(),
+        "docs/components.md".to_owned(),
+    ];
+
+    if matches!(
+        id,
+        "Table" | "NavIndex" | "CommandBar" | "FilterRail" | "DetailPane"
+    ) {
+        paths.push("docs/recipes.md".to_owned());
+    }
+
+    paths
+}
+
+fn component_foundation_bindings(id: &str) -> Vec<String> {
+    match id {
+        "Button" | "LinkAction" => vec![
+            "type.action.label".to_owned(),
+            "spacing.control.inset".to_owned(),
+            "state.interactive".to_owned(),
+        ],
+        "TextField" | "Textarea" | "Select" | "Checkbox" | "RadioGroup" | "Switch" => vec![
+            "type.label.control".to_owned(),
+            "spacing.control.inset".to_owned(),
+            "state.field".to_owned(),
+        ],
+        "StatusBadge" | "InlineAlert" | "EmptyState" => vec![
+            "type.label.meta".to_owned(),
+            "color.status.semantic".to_owned(),
+            "state.feedback".to_owned(),
+        ],
+        "Table" | "MetricBlock" | "Pagination" | "NavIndex" | "CommandBar" | "FilterRail"
+        | "DetailPane" => vec![
+            "type.data.compact".to_owned(),
+            "spacing.stack.default".to_owned(),
+            "state.workspace".to_owned(),
+        ],
+        _ => Vec::new(),
+    }
+}
+
+fn inject_component_contract_metadata(body: String, template: &ComponentTemplate) -> String {
+    let metadata = format!(
+        "pub const COMPONENT_ID: &str = \"{}\";\npub const BUILT_FROM_PRIMITIVES: &[&str] = &[\n{}];\npub const FOUNDATION_BINDINGS: &[&str] = &[\n{}];\npub const REFERENCE_EXAMPLES: &[&str] = &[\n{}];\npub const DOCUMENTATION_PATHS: &[&str] = &[\n{}];",
+        template.canonical_name,
+        render_string_array(&template.built_from),
+        render_string_array(&template.foundation_bindings),
+        render_string_array(&template.example_ids),
+        render_string_array(&template.documentation_paths),
+    );
+
+    body.replacen(
+        "\n\n#[component]",
+        &format!("\n\n{metadata}\n\n#[component]"),
+        1,
+    )
 }
 
 fn with_states(template: &str, states: &str) -> String {

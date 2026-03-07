@@ -71,3 +71,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-032 | Exported the checked-in schema and example artifact set in schemas/ with the canonical bundle, split layer data, split schema documents, anti-patterns, examples, and prompt-intent files.
 2026-03-07 | DECISION | validation | Validation now reports visual, layout, API, implementation, and agentic drift as constitutional findings with repair-oriented errors, warnings, and explicit passing notes.
 2026-03-07 | PRD | US-033 | Expanded constitutional validation with canonical inventory checks, stronger anti-pattern coverage, passing notes, stricter tests, and refreshed schema exports.
+2026-03-07 | DECISION | cli | Scaffold generation now reads the canonical contract bundle and writes recipe and component modules with explicit primitives, states, examples, documentation paths, and idempotent file behavior.
+2026-03-07 | PRD | US-034 | Tightened init and add flows so scaffolds stay contract-backed, approved-inventory-only, additive, and explicit about their structural bindings.

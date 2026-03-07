@@ -15,12 +15,13 @@ use new_alphabet_schema::{
 };
 
 use crate::templates::{
-    component_module_name, component_names, component_required_states, normalize, recipe_template,
-    render_component_module, render_recipe_module,
+    component_module_name, component_names, normalize, recipe_template, render_component_module,
+    render_recipe_module,
 };
 
 const MANIFEST_FILE: &str = "new-alphabet.json";
 
+#[derive(Debug)]
 pub struct CommandResult {
     pub stdout: String,
     pub wrote_files: Vec<PathBuf>,
@@ -285,10 +286,10 @@ fn add_recipe(cwd: &Path, name: &str) -> Result<CommandResult, String> {
     if !manifest
         .surfaces
         .iter()
-        .any(|surface| normalize(&surface.recipe) == normalize(template.canonical_name))
+        .any(|surface| normalize(&surface.recipe) == normalize(&template.canonical_name))
     {
         manifest.surfaces.push(recipe_surface_manifest(
-            template.canonical_name,
+            template.canonical_name.as_str(),
             template.intent,
         ));
         write_json_file(&manifest_path, &manifest, &mut wrote_files)?;
@@ -614,6 +615,7 @@ fn plan_intent(intent: &str) -> Result<CommandResult, String> {
 
 fn recipe_surface_manifest(recipe_name: &str, intent: IntentKind) -> SurfaceManifest {
     let bundle = contract_bundle();
+    let component_contracts = bundle.components.clone();
     let recipe = bundle
         .recipes
         .into_iter()
@@ -635,10 +637,11 @@ fn recipe_surface_manifest(recipe_name: &str, intent: IntentKind) -> SurfaceMani
         .iter()
         .map(|component| ComponentInstance {
             id: component.clone(),
-            states: component_required_states(component)
+            states: component_contracts
                 .iter()
-                .map(|state| (*state).to_owned())
-                .collect(),
+                .find(|candidate| candidate.id == *component)
+                .map(|candidate| candidate.required_states.clone())
+                .unwrap_or_default(),
             accessible_name: true,
             keyboard_support: true,
             text_equivalent: true,
@@ -891,6 +894,19 @@ mod tests {
     }
 
     #[test]
+    fn init_is_idempotent() {
+        let root = unique_test_dir("init-idempotent");
+        run_from(["new-alphabet", "init", "--name", "proof"], &root).expect("init");
+
+        let result =
+            run_from(["new-alphabet", "init", "--name", "proof"], &root).expect("second init");
+
+        assert_eq!(result.stdout, "init: no file changes");
+        let manifest = fs::read_to_string(root.join("new-alphabet.json")).expect("manifest");
+        assert!(manifest.contains("\"project_name\": \"proof\""));
+    }
+
+    #[test]
     fn add_recipe_updates_manifest_and_writes_scaffold() {
         let root = unique_test_dir("add-recipe");
         run_from(["new-alphabet", "init"], &root).expect("init");
@@ -902,8 +918,37 @@ mod tests {
             root.join("src/new_alphabet/recipes/review_queue.rs")
                 .exists()
         );
+        let scaffold = fs::read_to_string(root.join("src/new_alphabet/recipes/review_queue.rs"))
+            .expect("recipe scaffold");
+        assert!(scaffold.contains("REQUIRED_PRIMITIVES"));
+        assert!(scaffold.contains("REQUIRED_COMPONENTS"));
+        assert!(scaffold.contains("REFERENCE_EXAMPLES"));
+        assert!(scaffold.contains("DOCUMENTATION_PATHS"));
         let manifest = fs::read_to_string(root.join("new-alphabet.json")).expect("manifest");
         assert!(manifest.contains("\"recipe\": \"ReviewQueue\""));
+    }
+
+    #[test]
+    fn add_recipe_is_idempotent() {
+        let root = unique_test_dir("add-recipe-idempotent");
+        run_from(["new-alphabet", "init"], &root).expect("init");
+        run_from(["new-alphabet", "add", "recipe", "review-queue"], &root).expect("first add");
+
+        let result =
+            run_from(["new-alphabet", "add", "recipe", "review-queue"], &root).expect("second add");
+
+        assert_eq!(result.stdout, "add recipe: no file changes");
+    }
+
+    #[test]
+    fn add_recipe_rejects_unsupported_name() {
+        let root = unique_test_dir("add-recipe-unsupported");
+        run_from(["new-alphabet", "init"], &root).expect("init");
+
+        let error = run_from(["new-alphabet", "add", "recipe", "magic-dashboard"], &root)
+            .expect_err("unsupported recipe to fail");
+
+        assert!(error.contains("unsupported recipe"));
     }
 
     #[test]
@@ -916,8 +961,23 @@ mod tests {
         assert!(result.stdout.contains("button.rs"));
         let scaffold = fs::read_to_string(root.join("src/new_alphabet/components/button.rs"))
             .expect("scaffold");
+        assert!(scaffold.contains("COMPONENT_ID"));
         assert!(scaffold.contains("REQUIRED_STATES"));
+        assert!(scaffold.contains("BUILT_FROM_PRIMITIVES"));
+        assert!(scaffold.contains("FOUNDATION_BINDINGS"));
+        assert!(scaffold.contains("DOCUMENTATION_PATHS"));
         assert!(scaffold.contains("ActionPriority::Primary"));
+    }
+
+    #[test]
+    fn add_component_rejects_unsupported_name() {
+        let root = unique_test_dir("add-component-unsupported");
+        run_from(["new-alphabet", "init"], &root).expect("init");
+
+        let error = run_from(["new-alphabet", "add", "component", "magic-panel"], &root)
+            .expect_err("unsupported component to fail");
+
+        assert!(error.contains("unsupported component"));
     }
 
     #[test]
