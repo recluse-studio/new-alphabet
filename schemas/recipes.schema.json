@@ -1,0 +1,20 @@
+{
+  "$id": "https://schemas.newalphabet.dev/recipes-0.1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "items": {
+    "required": [
+      "id",
+      "intent",
+      "purpose",
+      "required_regions",
+      "optional_regions",
+      "adaptation_limits",
+      "primitives",
+      "components",
+      "example_ids"
+    ],
+    "type": "object"
+  },
+  "title": "New Alphabet Recipes",
+  "type": "array"
+}

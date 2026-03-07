@@ -1,0 +1,245 @@
+[
+  {
+    "id": "BlogIndex",
+    "intent": "editorial",
+    "purpose": "Archive-first publication surface for essays and notes.",
+    "required_regions": [
+      "main"
+    ],
+    "optional_regions": [
+      "support"
+    ],
+    "adaptation_limits": [
+      "Taxonomy and archive support remain optional.",
+      "The surface must read as archive or publication rather than marketing landing page."
+    ],
+    "primitives": [
+      "AppShell",
+      "PageGrid",
+      "Region",
+      "Panel",
+      "Stack",
+      "SectionHeader"
+    ],
+    "components": [
+      "EmptyState",
+      "NavIndex"
+    ],
+    "example_ids": [
+      "BlogIndexExample",
+      "BlogIndexMinimalExample"
+    ]
+  },
+  {
+    "id": "ArticleShell",
+    "intent": "editorial",
+    "purpose": "Longform article shell that keeps the reading flow primary.",
+    "required_regions": [
+      "lead",
+      "main"
+    ],
+    "optional_regions": [
+      "support"
+    ],
+    "adaptation_limits": [
+      "Metadata, local navigation, and adjacent links stay secondary.",
+      "The article body remains the primary reading field."
+    ],
+    "primitives": [
+      "AppShell",
+      "PageGrid",
+      "Region",
+      "Stack",
+      "SectionHeader",
+      "Panel"
+    ],
+    "components": [
+      "NavIndex"
+    ],
+    "example_ids": [
+      "ArticleShellExample",
+      "ArticleShellMinimalExample"
+    ]
+  },
+  {
+    "id": "DocsShell",
+    "intent": "editorial",
+    "purpose": "Documentation shell with persistent rail and optional detail context.",
+    "required_regions": [
+      "rail",
+      "main"
+    ],
+    "optional_regions": [
+      "detail"
+    ],
+    "adaptation_limits": [
+      "Documentation stays in the editorial family rather than becoming a separate docs-site style.",
+      "The table of contents and context detail remain optional."
+    ],
+    "primitives": [
+      "AppShell",
+      "PageGrid",
+      "Rail",
+      "Region",
+      "Panel",
+      "Stack"
+    ],
+    "components": [
+      "NavIndex",
+      "DetailPane"
+    ],
+    "example_ids": [
+      "DocsShellExample",
+      "DocsShellMinimalExample"
+    ]
+  },
+  {
+    "id": "SearchResultsWorkspace",
+    "intent": "workspace",
+    "purpose": "Dense search workspace with query rail, results, actions, and optional detail.",
+    "required_regions": [
+      "rail",
+      "main"
+    ],
+    "optional_regions": [
+      "action_band",
+      "detail"
+    ],
+    "adaptation_limits": [
+      "Search, filtering, and results remain coherent under dense operational use.",
+      "The detail pane may disappear but the results field stays primary."
+    ],
+    "primitives": [
+      "AppShell",
+      "PageGrid",
+      "Rail",
+      "Region",
+      "Panel",
+      "Stack",
+      "Band"
+    ],
+    "components": [
+      "TextField",
+      "FilterRail",
+      "Table",
+      "Pagination",
+      "InlineAlert",
+      "CommandBar",
+      "DetailPane"
+    ],
+    "example_ids": [
+      "SearchResultsWorkspaceExample",
+      "SearchResultsWorkspaceLoadingExample",
+      "SearchResultsWorkspaceZeroResultsExample"
+    ]
+  },
+  {
+    "id": "ReviewQueue",
+    "intent": "workspace",
+    "purpose": "Queue, decision, and inspection surface for repeated review work.",
+    "required_regions": [
+      "action_band",
+      "main",
+      "detail"
+    ],
+    "optional_regions": [
+      "rail"
+    ],
+    "adaptation_limits": [
+      "Queue and detail must coexist without collapsing into generic admin chrome.",
+      "Optional rail structures remain bounded and secondary."
+    ],
+    "primitives": [
+      "AppShell",
+      "PageGrid",
+      "Rail",
+      "Region",
+      "Panel",
+      "Stack",
+      "Band"
+    ],
+    "components": [
+      "CommandBar",
+      "InlineAlert",
+      "Table",
+      "FilterRail",
+      "DetailPane",
+      "NavIndex"
+    ],
+    "example_ids": [
+      "ReviewQueueExample",
+      "ReviewQueueLoadingExample",
+      "ReviewQueueEmptyExample",
+      "ReviewQueueUnavailableDetailExample"
+    ]
+  },
+  {
+    "id": "SettingsWorkspace",
+    "intent": "workspace",
+    "purpose": "Sectioned settings workspace with native form controls and optional context.",
+    "required_regions": [
+      "rail",
+      "main"
+    ],
+    "optional_regions": [
+      "action_band",
+      "detail"
+    ],
+    "adaptation_limits": [
+      "Settings panels stay narrow and structural rather than template-driven.",
+      "Context help remains optional and secondary."
+    ],
+    "primitives": [
+      "AppShell",
+      "PageGrid",
+      "Rail",
+      "Region",
+      "Panel",
+      "Stack",
+      "Band"
+    ],
+    "components": [
+      "NavIndex",
+      "TextField",
+      "Select",
+      "Switch",
+      "Checkbox",
+      "InlineAlert"
+    ],
+    "example_ids": [
+      "SettingsWorkspaceExample"
+    ]
+  },
+  {
+    "id": "DashboardShell",
+    "intent": "workspace",
+    "purpose": "Operational summary surface with metrics, dense tables, and optional context.",
+    "required_regions": [
+      "main"
+    ],
+    "optional_regions": [
+      "action_band",
+      "detail"
+    ],
+    "adaptation_limits": [
+      "Metrics remain typographic and quiet rather than ornamental cards.",
+      "The summary table keeps the same explicit state law as other dense surfaces."
+    ],
+    "primitives": [
+      "AppShell",
+      "PageGrid",
+      "Region",
+      "Panel",
+      "Stack",
+      "Band"
+    ],
+    "components": [
+      "MetricBlock",
+      "Table",
+      "InlineAlert"
+    ],
+    "example_ids": [
+      "DashboardShellExample"
+    ]
+  }
+]

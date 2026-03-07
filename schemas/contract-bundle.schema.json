@@ -1,0 +1,75 @@
+{
+  "$id": "https://schemas.newalphabet.dev/contract-bundle-0.1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "anti_patterns": {
+      "type": "array"
+    },
+    "bundle_format_version": {
+      "type": "string"
+    },
+    "components": {
+      "type": "array"
+    },
+    "composition_rules": {
+      "type": "array"
+    },
+    "doctrine": {
+      "type": "object"
+    },
+    "examples": {
+      "type": "array"
+    },
+    "foundations": {
+      "type": "array"
+    },
+    "generation_sequence": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "primitives": {
+      "type": "array"
+    },
+    "prompt_intents": {
+      "type": "array"
+    },
+    "recipes": {
+      "type": "array"
+    },
+    "repair_sequence": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "schemas": {
+      "type": "array"
+    },
+    "state_contracts": {
+      "type": "array"
+    },
+    "validation_rules": {
+      "type": "array"
+    }
+  },
+  "required": [
+    "bundle_format_version",
+    "doctrine",
+    "foundations",
+    "primitives",
+    "components",
+    "recipes",
+    "composition_rules",
+    "state_contracts",
+    "anti_patterns",
+    "validation_rules",
+    "schemas",
+    "prompt_intents",
+    "generation_sequence",
+    "repair_sequence"
+  ],
+  "title": "New Alphabet Contract Bundle",
+  "type": "object"
+}

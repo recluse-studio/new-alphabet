@@ -1,0 +1,58 @@
+[
+  {
+    "id": "V-001",
+    "category": "composition",
+    "default_severity": "error",
+    "summary": "Every surface must include a named main region or an equivalent required recipe field.",
+    "repair": "Add Region(main) or the missing required recipe regions before adjusting local details."
+  },
+  {
+    "id": "V-002",
+    "category": "composition",
+    "default_severity": "error",
+    "summary": "Recipe regions must stay inside the allowed required and optional set.",
+    "repair": "Delete the invalid region or switch to the correct recipe before adding more structure."
+  },
+  {
+    "id": "V-003",
+    "category": "spacing",
+    "default_severity": "error",
+    "summary": "Spacing must use named tokens only.",
+    "repair": "Replace arbitrary spacing values with Stack, Row, Panel, or foundation spacing tokens."
+  },
+  {
+    "id": "V-004",
+    "category": "naming",
+    "default_severity": "warning",
+    "summary": "Surface and component names must be role-based rather than decorative.",
+    "repair": "Rename the target by structure or product intent rather than mood or ornament."
+  },
+  {
+    "id": "V-005",
+    "category": "state_coverage",
+    "default_severity": "error",
+    "summary": "Components with state contracts must declare the full required state set.",
+    "repair": "Add the missing states to the manifest or simplify the surface until the contract is true."
+  },
+  {
+    "id": "V-006",
+    "category": "accessibility",
+    "default_severity": "error",
+    "summary": "Interactive components require accessible names, keyboard support, and visible focus.",
+    "repair": "Use the component accessibility checklist and restore missing semantic coverage."
+  },
+  {
+    "id": "V-007",
+    "category": "accessibility",
+    "default_severity": "error",
+    "summary": "Status meaning must remain legible without color alone.",
+    "repair": "Add explicit text or semantic status markup so severity is readable without color."
+  },
+  {
+    "id": "V-008",
+    "category": "anti_pattern_usage",
+    "default_severity": "error",
+    "summary": "Style escape hatches and invented layouts are constitutional drift.",
+    "repair": "Delete the escape hatch, choose the nearest valid recipe, and re-validate."
+  }
+]

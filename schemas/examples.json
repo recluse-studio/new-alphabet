@@ -1,0 +1,65 @@
+[
+  {
+    "id": "example.primitive.editorial_anchor",
+    "layer": "primitive",
+    "target": "EditorialAnchorExample",
+    "source_path": "crates/new-alphabet-primitives/src/examples.rs",
+    "summary": "Minimal editorial anchor proving AppShell, PageGrid, and Region(main)."
+  },
+  {
+    "id": "example.primitive.workflow_structure",
+    "layer": "primitive",
+    "target": "WorkflowStructureExample",
+    "source_path": "crates/new-alphabet-primitives/src/examples.rs",
+    "summary": "Workflow composition proving rails, rows, and named page geometry."
+  },
+  {
+    "id": "example.component.search_workflow",
+    "layer": "component",
+    "target": "SearchWorkflowExample",
+    "source_path": "crates/new-alphabet-components/src/examples.rs",
+    "summary": "Workflow chrome example tying nav, filters, and dense results together."
+  },
+  {
+    "id": "example.component.accessibility_coverage",
+    "layer": "component",
+    "target": "AccessibilityCoverageExample",
+    "source_path": "crates/new-alphabet-components/src/examples.rs",
+    "summary": "Coverage example bound to the machine-readable accessibility checklist."
+  },
+  {
+    "id": "example.recipe.blog_index",
+    "layer": "recipe",
+    "target": "BlogIndexExample",
+    "source_path": "crates/new-alphabet-recipes/src/editorial.rs",
+    "summary": "Archive-first editorial recipe proof."
+  },
+  {
+    "id": "example.recipe.docs_shell",
+    "layer": "recipe",
+    "target": "DocsShellExample",
+    "source_path": "crates/new-alphabet-recipes/src/editorial.rs",
+    "summary": "Documentation shell proof with rail and optional detail context."
+  },
+  {
+    "id": "example.recipe.review_queue",
+    "layer": "recipe",
+    "target": "ReviewQueueExample",
+    "source_path": "crates/new-alphabet-recipes/src/workflow.rs",
+    "summary": "Dense workflow proof with action band, queue, rail, and detail."
+  },
+  {
+    "id": "example.recipe.settings_workspace",
+    "layer": "recipe",
+    "target": "SettingsWorkspaceExample",
+    "source_path": "crates/new-alphabet-recipes/src/workflow.rs",
+    "summary": "Settings proof with section navigation and editable panels."
+  },
+  {
+    "id": "example.recipe.dashboard_shell",
+    "layer": "recipe",
+    "target": "DashboardShellExample",
+    "source_path": "crates/new-alphabet-recipes/src/workflow.rs",
+    "summary": "Dashboard proof with metric blocks, summary table, and optional context help."
+  }
+]

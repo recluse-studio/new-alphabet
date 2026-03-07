@@ -1,0 +1,477 @@
+[
+  {
+    "id": "Button",
+    "purpose": "Primary and secondary action trigger with explicit activity states.",
+    "built_from": [
+      "Panel",
+      "SectionHeader"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "disabled",
+      "hover",
+      "active",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [
+      {
+        "name": "priority",
+        "values": [
+          "primary",
+          "secondary",
+          "tertiary"
+        ]
+      },
+      {
+        "name": "type",
+        "values": [
+          "button",
+          "submit",
+          "reset"
+        ]
+      }
+    ],
+    "example_ids": [
+      "WorkflowActionExample",
+      "EditorialActionExample"
+    ]
+  },
+  {
+    "id": "LinkAction",
+    "purpose": "Semantic link action for secondary or navigational operations.",
+    "built_from": [
+      "Panel",
+      "SectionHeader"
+    ],
+    "required_states": [
+      "default",
+      "hover",
+      "active",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [
+      {
+        "name": "priority",
+        "values": [
+          "primary",
+          "secondary",
+          "tertiary"
+        ]
+      }
+    ],
+    "example_ids": [
+      "WorkflowActionExample",
+      "EditorialActionExample"
+    ]
+  },
+  {
+    "id": "TextField",
+    "purpose": "Single-line text input with explicit label, help, and message binding.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default",
+      "error",
+      "success",
+      "disabled",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "SettingsFieldExample",
+      "FormFieldExample"
+    ]
+  },
+  {
+    "id": "Textarea",
+    "purpose": "Multi-line text input with the same field-state law as TextField.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default",
+      "error",
+      "success",
+      "disabled",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "FormFieldExample"
+    ]
+  },
+  {
+    "id": "Select",
+    "purpose": "Finite choice picker bound to named options only.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default",
+      "error",
+      "success",
+      "disabled",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "SettingsChoiceExample",
+      "FormChoiceExample"
+    ]
+  },
+  {
+    "id": "Checkbox",
+    "purpose": "Boolean choice control with native semantics.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default",
+      "error",
+      "success",
+      "disabled",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "SettingsChoiceExample",
+      "FormChoiceExample"
+    ]
+  },
+  {
+    "id": "RadioGroup",
+    "purpose": "Single-choice group for named alternatives.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default",
+      "error",
+      "success",
+      "disabled",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "FormChoiceExample"
+    ]
+  },
+  {
+    "id": "Switch",
+    "purpose": "Binary workflow toggle with explicit text and state.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default",
+      "error",
+      "success",
+      "disabled",
+      "focus_visible"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "SettingsChoiceExample"
+    ]
+  },
+  {
+    "id": "StatusBadge",
+    "purpose": "Compact status marker that pairs severity text with structure.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "info",
+      "success",
+      "warning",
+      "error"
+    ],
+    "accessibility": [
+      "semantic_name",
+      "color_independent_meaning"
+    ],
+    "finite_options": [
+      {
+        "name": "severity",
+        "values": [
+          "info",
+          "success",
+          "warning",
+          "error"
+        ]
+      }
+    ],
+    "example_ids": [
+      "EditorialStatusExample",
+      "WorkflowStatusExample"
+    ]
+  },
+  {
+    "id": "InlineAlert",
+    "purpose": "Structural status message for action bands and bounded surfaces.",
+    "built_from": [
+      "Band",
+      "Panel"
+    ],
+    "required_states": [
+      "info",
+      "success",
+      "warning",
+      "error"
+    ],
+    "accessibility": [
+      "semantic_name",
+      "color_independent_meaning"
+    ],
+    "finite_options": [
+      {
+        "name": "severity",
+        "values": [
+          "info",
+          "success",
+          "warning",
+          "error"
+        ]
+      }
+    ],
+    "example_ids": [
+      "EditorialStatusExample",
+      "WorkflowStatusExample"
+    ]
+  },
+  {
+    "id": "EmptyState",
+    "purpose": "Explicit absence surface with next-action text.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "empty"
+    ],
+    "accessibility": [
+      "semantic_name",
+      "color_independent_meaning"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "ReviewDataExample",
+      "DashboardDataExample"
+    ]
+  },
+  {
+    "id": "Table",
+    "purpose": "Dense data surface with explicit loading, empty, error, wrap, and truncate behavior.",
+    "built_from": [
+      "Panel",
+      "SectionHeader"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ],
+    "accessibility": [
+      "semantic_name",
+      "color_independent_meaning"
+    ],
+    "finite_options": [
+      {
+        "name": "cell_mode",
+        "values": [
+          "truncate",
+          "wrap"
+        ]
+      }
+    ],
+    "example_ids": [
+      "DashboardDataExample",
+      "ReviewDataExample"
+    ]
+  },
+  {
+    "id": "MetricBlock",
+    "purpose": "Typographic operational summary block with optional context and note.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default"
+    ],
+    "accessibility": [
+      "semantic_name",
+      "color_independent_meaning"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "DashboardDataExample"
+    ]
+  },
+  {
+    "id": "Pagination",
+    "purpose": "Previous and next navigation with explicit page position.",
+    "built_from": [
+      "Panel",
+      "Stack"
+    ],
+    "required_states": [
+      "default",
+      "disabled"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [
+      {
+        "name": "direction",
+        "values": [
+          "previous",
+          "next"
+        ]
+      }
+    ],
+    "example_ids": [
+      "DashboardDataExample"
+    ]
+  },
+  {
+    "id": "NavIndex",
+    "purpose": "Section and archive navigation surface with current-item semantics.",
+    "built_from": [
+      "Rail",
+      "Panel"
+    ],
+    "required_states": [
+      "default",
+      "current"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "DocumentationNavigationExample",
+      "SearchWorkflowExample"
+    ]
+  },
+  {
+    "id": "CommandBar",
+    "purpose": "Primary and secondary action structure for workflow surfaces.",
+    "built_from": [
+      "Band",
+      "Panel"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "disabled"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "ReviewQueueCommandExample"
+    ]
+  },
+  {
+    "id": "FilterRail",
+    "purpose": "Bounded filter group surface with explicit zero-result state.",
+    "built_from": [
+      "Rail",
+      "Panel"
+    ],
+    "required_states": [
+      "default",
+      "zero_result"
+    ],
+    "accessibility": [
+      "keyboard",
+      "focus_visible",
+      "semantic_name"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "SearchWorkflowExample"
+    ]
+  },
+  {
+    "id": "DetailPane",
+    "purpose": "Context inspection surface with loading and unavailable states.",
+    "built_from": [
+      "Region",
+      "Panel"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "unavailable"
+    ],
+    "accessibility": [
+      "semantic_name",
+      "color_independent_meaning"
+    ],
+    "finite_options": [],
+    "example_ids": [
+      "ReviewQueueCommandExample",
+      "SearchWorkflowExample"
+    ]
+  }
+]

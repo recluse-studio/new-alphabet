@@ -1,0 +1,65 @@
+[
+  {
+    "id": "prompt.blog",
+    "level": "sparse",
+    "prompt": "Build me a blog for longform essays and notes using New Alphabet.",
+    "recommended_recipe": "BlogIndex",
+    "plan_outline": [
+      "Choose BlogIndex for the archive surface and ArticleShell for reading flow.",
+      "Keep taxonomy and archive support optional and secondary.",
+      "Validate archive naming, support-region usage, and empty-state coverage."
+    ],
+    "validation_focus": [
+      "composition",
+      "state_coverage",
+      "naming"
+    ]
+  },
+  {
+    "id": "prompt.review_workspace",
+    "level": "moderate",
+    "prompt": "Build me a B2B admin workspace for reviewing submissions with a left rail, dense table, and right-side detail pane.",
+    "recommended_recipe": "ReviewQueue",
+    "plan_outline": [
+      "Choose ReviewQueue because the prompt names queue, action, and detail structure.",
+      "Bind filters and navigation to the optional rail rather than custom dashboard chrome.",
+      "Validate table, detail, and action state coverage before adding examples."
+    ],
+    "validation_focus": [
+      "composition",
+      "state_coverage",
+      "accessibility"
+    ]
+  },
+  {
+    "id": "prompt.settings",
+    "level": "high",
+    "prompt": "Use New Alphabet to scaffold a settings workspace with section navigation and editable panels.",
+    "recommended_recipe": "SettingsWorkspace",
+    "plan_outline": [
+      "Choose SettingsWorkspace and keep navigation in the rail and editable panels in the main region.",
+      "Use native form controls only and keep context help optional.",
+      "Validate field-state coverage, naming, and accessibility bindings before export."
+    ],
+    "validation_focus": [
+      "composition",
+      "state_coverage",
+      "accessibility"
+    ]
+  },
+  {
+    "id": "prompt.docs",
+    "level": "moderate",
+    "prompt": "Explain which recipe I should use for a documentation site with article pages and archive navigation.",
+    "recommended_recipe": "DocsShell",
+    "plan_outline": [
+      "Use DocsShell for the documentation index and ArticleShell for the reading pages.",
+      "Keep navigation persistent in the rail and move supporting context to the optional detail region.",
+      "Validate family resemblance against editorial recipes rather than inventing docs-only chrome."
+    ],
+    "validation_focus": [
+      "composition",
+      "naming"
+    ]
+  }
+]

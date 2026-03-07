@@ -1,0 +1,68 @@
+[
+  {
+    "id": "P-001",
+    "kind": "allowed",
+    "composition": "AppShell -> PageGrid -> Region(main)",
+    "reason": "Every serious screen starts with a named primary region."
+  },
+  {
+    "id": "P-002",
+    "kind": "allowed",
+    "composition": "PageGrid -> Rail -> Region(main)",
+    "reason": "Side structure may support the primary region without replacing it."
+  },
+  {
+    "id": "P-003",
+    "kind": "allowed",
+    "composition": "Region(main) -> Stack -> ColumnGroup",
+    "reason": "Editorial subdivision stays inside the primary region."
+  },
+  {
+    "id": "P-004",
+    "kind": "allowed",
+    "composition": "Region(main) -> Stack -> Row",
+    "reason": "Workflow alignment stays local and token-driven."
+  },
+  {
+    "id": "P-005",
+    "kind": "allowed",
+    "composition": "Panel -> SectionHeader -> Divider -> content",
+    "reason": "Bounded surfaces remain explicit and quiet."
+  },
+  {
+    "id": "P-006",
+    "kind": "allowed",
+    "composition": "Band -> SectionHeader",
+    "reason": "Full-width framing surfaces stay structural and typographic."
+  },
+  {
+    "id": "P-101",
+    "kind": "disallowed",
+    "composition": "PageGrid without Region(main)",
+    "reason": "The grid becomes decorative scaffolding."
+  },
+  {
+    "id": "P-102",
+    "kind": "disallowed",
+    "composition": "multiple rails on one side",
+    "reason": "Side structure stops being bounded."
+  },
+  {
+    "id": "P-103",
+    "kind": "disallowed",
+    "composition": "Rail inside ColumnGroup",
+    "reason": "Page structure is being collapsed into local layout."
+  },
+  {
+    "id": "P-104",
+    "kind": "disallowed",
+    "composition": "arbitrary spacing wrappers between Stack or Row children",
+    "reason": "Rhythm is being repaired locally instead of governed by tokens."
+  },
+  {
+    "id": "P-105",
+    "kind": "disallowed",
+    "composition": "Panel using color or motion as its only hierarchy signal",
+    "reason": "Structure is being replaced by decoration."
+  }
+]

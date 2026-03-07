@@ -1,0 +1,114 @@
+[
+  {
+    "id": "state.global.surface",
+    "applies_to": [
+      "surfaces"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "empty",
+      "error",
+      "success"
+    ],
+    "notes": [
+      "Global surface states remain part of the constitution rather than implementation leftovers."
+    ]
+  },
+  {
+    "id": "state.global.interactive",
+    "applies_to": [
+      "interactive_components"
+    ],
+    "required_states": [
+      "hover",
+      "focus_visible",
+      "active",
+      "disabled"
+    ],
+    "notes": [
+      "Interactive states are first-class across buttons, links, and controls."
+    ]
+  },
+  {
+    "id": "state.table",
+    "applies_to": [
+      "Table"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ],
+    "notes": [
+      "Dense tables must define both structural cell behavior and empty or failure behavior."
+    ]
+  },
+  {
+    "id": "state.detail_pane",
+    "applies_to": [
+      "DetailPane"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "unavailable"
+    ],
+    "notes": [
+      "Detail inspection remains explicit even when nothing can be shown."
+    ]
+  },
+  {
+    "id": "state.filter_rail",
+    "applies_to": [
+      "FilterRail"
+    ],
+    "required_states": [
+      "default",
+      "zero_result"
+    ],
+    "notes": [
+      "Filters must explain when current criteria collapse the result set."
+    ]
+  },
+  {
+    "id": "state.fields",
+    "applies_to": [
+      "TextField",
+      "Textarea",
+      "Select",
+      "Checkbox",
+      "RadioGroup",
+      "Switch"
+    ],
+    "required_states": [
+      "default",
+      "error",
+      "success",
+      "disabled",
+      "focus_visible"
+    ],
+    "notes": [
+      "Field controls keep feedback and focus visible in the same semantic grammar."
+    ]
+  },
+  {
+    "id": "state.actions",
+    "applies_to": [
+      "Button",
+      "LinkAction"
+    ],
+    "required_states": [
+      "default",
+      "loading",
+      "disabled",
+      "hover",
+      "active",
+      "focus_visible"
+    ],
+    "notes": [
+      "Action controls expose activity rather than hiding it behind style."
+    ]
+  }
+]

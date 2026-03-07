@@ -67,3 +67,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-009 | Added the docs reference set and apps/docs generator with a New Alphabet-built manual covering foundations, primitives, components, recipes, CLI, agent workflows, contributing, roadmap, and release notes.
 2026-03-07 | DECISION | release | Public release posture lives in root roadmap, contributing, release, issue-template, and license artifacts so repository readiness is explicit instead of implied.
 2026-03-07 | PRD | US-010 | Added OSS launch materials with contributor guidance, roadmap, release-notes template, issue and PR templates, explicit dual-license files, and a README release-posture index.
+2026-03-07 | DECISION | schemas | Canonical exports are checked in as one versioned bundle plus split JSON artifacts so coding sessions can load only the sections they need without losing parity.
+2026-03-07 | PRD | US-032 | Exported the checked-in schema and example artifact set in schemas/ with the canonical bundle, split layer data, split schema documents, anti-patterns, examples, and prompt-intent files.

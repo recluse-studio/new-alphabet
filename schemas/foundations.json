@@ -1,0 +1,1067 @@
+[
+  {
+    "id": "foundation.runtime",
+    "title": "Runtime",
+    "tokens": [
+      {
+        "id": "foundation.spec",
+        "description": "The runtime foundation is SSR-safe and hydration-ready.",
+        "values": [
+          {
+            "name": "version",
+            "value": "0.1.0"
+          },
+          {
+            "name": "ssr_safe",
+            "value": "true"
+          },
+          {
+            "name": "hydration_ready",
+            "value": "true"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foundation.grid",
+    "title": "Grid and breakpoints",
+    "tokens": [
+      {
+        "id": "compact",
+        "description": "Named breakpoint columns are fixed by law.",
+        "values": [
+          {
+            "name": "columns",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "id": "medium",
+        "description": "Named breakpoint columns are fixed by law.",
+        "values": [
+          {
+            "name": "columns",
+            "value": "8"
+          }
+        ]
+      },
+      {
+        "id": "wide",
+        "description": "Named breakpoint columns are fixed by law.",
+        "values": [
+          {
+            "name": "columns",
+            "value": "12"
+          }
+        ]
+      },
+      {
+        "id": "region.full",
+        "description": "Region spans stay explicit across breakpoints.",
+        "values": [
+          {
+            "name": "compact",
+            "value": "4"
+          },
+          {
+            "name": "medium",
+            "value": "8"
+          },
+          {
+            "name": "wide",
+            "value": "12"
+          }
+        ]
+      },
+      {
+        "id": "region.main",
+        "description": "Region spans stay explicit across breakpoints.",
+        "values": [
+          {
+            "name": "compact",
+            "value": "4"
+          },
+          {
+            "name": "medium",
+            "value": "6"
+          },
+          {
+            "name": "wide",
+            "value": "8"
+          }
+        ]
+      },
+      {
+        "id": "region.support",
+        "description": "Region spans stay explicit across breakpoints.",
+        "values": [
+          {
+            "name": "compact",
+            "value": "4"
+          },
+          {
+            "name": "medium",
+            "value": "2"
+          },
+          {
+            "name": "wide",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "id": "region.rail",
+        "description": "Region spans stay explicit across breakpoints.",
+        "values": [
+          {
+            "name": "compact",
+            "value": "stacked"
+          },
+          {
+            "name": "medium",
+            "value": "2"
+          },
+          {
+            "name": "wide",
+            "value": "3"
+          }
+        ]
+      },
+      {
+        "id": "region.detail",
+        "description": "Region spans stay explicit across breakpoints.",
+        "values": [
+          {
+            "name": "compact",
+            "value": "stacked"
+          },
+          {
+            "name": "medium",
+            "value": "stacked"
+          },
+          {
+            "name": "wide",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "id": "region.action_band",
+        "description": "Region spans stay explicit across breakpoints.",
+        "values": [
+          {
+            "name": "compact",
+            "value": "4"
+          },
+          {
+            "name": "medium",
+            "value": "8"
+          },
+          {
+            "name": "wide",
+            "value": "12"
+          }
+        ]
+      },
+      {
+        "id": "layout.rail.narrow.width",
+        "description": "Rail widths collapse on compact and remain finite elsewhere.",
+        "values": [
+          {
+            "name": "medium_columns",
+            "value": "2"
+          },
+          {
+            "name": "wide_columns",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "id": "layout.rail.default.width",
+        "description": "Rail widths collapse on compact and remain finite elsewhere.",
+        "values": [
+          {
+            "name": "medium_columns",
+            "value": "2"
+          },
+          {
+            "name": "wide_columns",
+            "value": "3"
+          }
+        ]
+      },
+      {
+        "id": "layout.rail.broad.width",
+        "description": "Rail widths collapse on compact and remain finite elsewhere.",
+        "values": [
+          {
+            "name": "medium_columns",
+            "value": "3"
+          },
+          {
+            "name": "wide_columns",
+            "value": "4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foundation.spacing",
+    "title": "Spacing",
+    "tokens": [
+      {
+        "id": "spacing.stack.tight",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "12"
+          },
+          {
+            "name": "density.regular",
+            "value": "8"
+          },
+          {
+            "name": "density.dense",
+            "value": "6"
+          }
+        ]
+      },
+      {
+        "id": "spacing.stack.default",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "16"
+          },
+          {
+            "name": "density.regular",
+            "value": "12"
+          },
+          {
+            "name": "density.dense",
+            "value": "8"
+          }
+        ]
+      },
+      {
+        "id": "spacing.stack.loose",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "24"
+          },
+          {
+            "name": "density.regular",
+            "value": "16"
+          },
+          {
+            "name": "density.dense",
+            "value": "12"
+          }
+        ]
+      },
+      {
+        "id": "spacing.region.default",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "32"
+          },
+          {
+            "name": "density.regular",
+            "value": "24"
+          },
+          {
+            "name": "density.dense",
+            "value": "16"
+          }
+        ]
+      },
+      {
+        "id": "spacing.region.spacious",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "48"
+          },
+          {
+            "name": "density.regular",
+            "value": "32"
+          },
+          {
+            "name": "density.dense",
+            "value": "24"
+          }
+        ]
+      },
+      {
+        "id": "spacing.panel.content",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "24"
+          },
+          {
+            "name": "density.regular",
+            "value": "16"
+          },
+          {
+            "name": "density.dense",
+            "value": "12"
+          }
+        ]
+      },
+      {
+        "id": "spacing.control.inset",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "12"
+          },
+          {
+            "name": "density.regular",
+            "value": "10"
+          },
+          {
+            "name": "density.dense",
+            "value": "8"
+          }
+        ]
+      },
+      {
+        "id": "spacing.table.row",
+        "description": "Spacing is finite and density-aware.",
+        "values": [
+          {
+            "name": "density.calm",
+            "value": "16"
+          },
+          {
+            "name": "density.regular",
+            "value": "12"
+          },
+          {
+            "name": "density.dense",
+            "value": "8"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foundation.type",
+    "title": "Type",
+    "tokens": [
+      {
+        "id": "type.display.large",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "48"
+          },
+          {
+            "name": "line_height_px",
+            "value": "56"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      },
+      {
+        "id": "type.display.default",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "36"
+          },
+          {
+            "name": "line_height_px",
+            "value": "44"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      },
+      {
+        "id": "type.heading.1",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "28"
+          },
+          {
+            "name": "line_height_px",
+            "value": "34"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      },
+      {
+        "id": "type.heading.2",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "22"
+          },
+          {
+            "name": "line_height_px",
+            "value": "28"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      },
+      {
+        "id": "type.heading.3",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "18"
+          },
+          {
+            "name": "line_height_px",
+            "value": "24"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      },
+      {
+        "id": "type.body.reading",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "18"
+          },
+          {
+            "name": "line_height_px",
+            "value": "30"
+          },
+          {
+            "name": "weight",
+            "value": "400"
+          }
+        ]
+      },
+      {
+        "id": "type.body.default",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "16"
+          },
+          {
+            "name": "line_height_px",
+            "value": "24"
+          },
+          {
+            "name": "weight",
+            "value": "400"
+          }
+        ]
+      },
+      {
+        "id": "type.body.compact",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "14"
+          },
+          {
+            "name": "line_height_px",
+            "value": "20"
+          },
+          {
+            "name": "weight",
+            "value": "400"
+          }
+        ]
+      },
+      {
+        "id": "type.annotation.default",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "12"
+          },
+          {
+            "name": "line_height_px",
+            "value": "16"
+          },
+          {
+            "name": "weight",
+            "value": "500"
+          }
+        ]
+      },
+      {
+        "id": "type.annotation.strong",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "12"
+          },
+          {
+            "name": "line_height_px",
+            "value": "16"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      },
+      {
+        "id": "type.data.label",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "12"
+          },
+          {
+            "name": "line_height_px",
+            "value": "16"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      },
+      {
+        "id": "type.data.cell",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "14"
+          },
+          {
+            "name": "line_height_px",
+            "value": "18"
+          },
+          {
+            "name": "weight",
+            "value": "500"
+          }
+        ]
+      },
+      {
+        "id": "type.data.metric",
+        "description": "Type roles are shared across editorial and workflow surfaces.",
+        "values": [
+          {
+            "name": "size_px",
+            "value": "20"
+          },
+          {
+            "name": "line_height_px",
+            "value": "24"
+          },
+          {
+            "name": "weight",
+            "value": "600"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foundation.density",
+    "title": "Density",
+    "tokens": [
+      {
+        "id": "density.calm",
+        "description": "Density alters spacing and typographic rhythm together.",
+        "values": []
+      },
+      {
+        "id": "density.regular",
+        "description": "Density alters spacing and typographic rhythm together.",
+        "values": []
+      },
+      {
+        "id": "density.dense",
+        "description": "Density alters spacing and typographic rhythm together.",
+        "values": []
+      }
+    ]
+  },
+  {
+    "id": "foundation.color",
+    "title": "Color",
+    "tokens": [
+      {
+        "id": "color.canvas.base",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#F7F4EC"
+          }
+        ]
+      },
+      {
+        "id": "color.canvas.elevated",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#FFFFFF"
+          }
+        ]
+      },
+      {
+        "id": "color.canvas.inset",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#ECE7DA"
+          }
+        ]
+      },
+      {
+        "id": "color.text.primary",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#111111"
+          }
+        ]
+      },
+      {
+        "id": "color.text.secondary",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#4C4C47"
+          }
+        ]
+      },
+      {
+        "id": "color.text.inverse",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#FAF8F2"
+          }
+        ]
+      },
+      {
+        "id": "color.accent.primary",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#D9371E"
+          }
+        ]
+      },
+      {
+        "id": "color.accent.muted",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#A04B3A"
+          }
+        ]
+      },
+      {
+        "id": "color.border.default",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#C9C1B1"
+          }
+        ]
+      },
+      {
+        "id": "color.border.strong",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#7E7463"
+          }
+        ]
+      },
+      {
+        "id": "color.border.focus",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#111111"
+          }
+        ]
+      },
+      {
+        "id": "color.status.info",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#165A8A"
+          }
+        ]
+      },
+      {
+        "id": "color.status.success",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#17603A"
+          }
+        ]
+      },
+      {
+        "id": "color.status.warning",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#8A5A00"
+          }
+        ]
+      },
+      {
+        "id": "color.status.error",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#A2211F"
+          }
+        ]
+      },
+      {
+        "id": "color.emphasis.subtle",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#D9D2C4"
+          }
+        ]
+      },
+      {
+        "id": "color.emphasis.strong",
+        "description": "Color roles stay semantic and finite.",
+        "values": [
+          {
+            "name": "hex",
+            "value": "#2A2620"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foundation.border",
+    "title": "Border",
+    "tokens": [
+      {
+        "id": "border.region.default",
+        "description": "Borders carry structural emphasis instead of decorative styling.",
+        "values": [
+          {
+            "name": "width_px",
+            "value": "1"
+          },
+          {
+            "name": "color",
+            "value": "color.border.default"
+          }
+        ]
+      },
+      {
+        "id": "border.panel.default",
+        "description": "Borders carry structural emphasis instead of decorative styling.",
+        "values": [
+          {
+            "name": "width_px",
+            "value": "1"
+          },
+          {
+            "name": "color",
+            "value": "color.border.default"
+          }
+        ]
+      },
+      {
+        "id": "border.panel.strong",
+        "description": "Borders carry structural emphasis instead of decorative styling.",
+        "values": [
+          {
+            "name": "width_px",
+            "value": "2"
+          },
+          {
+            "name": "color",
+            "value": "color.border.strong"
+          }
+        ]
+      },
+      {
+        "id": "border.control.default",
+        "description": "Borders carry structural emphasis instead of decorative styling.",
+        "values": [
+          {
+            "name": "width_px",
+            "value": "1"
+          },
+          {
+            "name": "color",
+            "value": "color.border.default"
+          }
+        ]
+      },
+      {
+        "id": "border.control.focus",
+        "description": "Borders carry structural emphasis instead of decorative styling.",
+        "values": [
+          {
+            "name": "width_px",
+            "value": "2"
+          },
+          {
+            "name": "color",
+            "value": "color.border.focus"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foundation.motion",
+    "title": "Motion",
+    "tokens": [
+      {
+        "id": "motion.transition.fast",
+        "description": "Motion remains short, purposeful, and reduced-motion aware.",
+        "values": [
+          {
+            "name": "duration_ms",
+            "value": "120"
+          },
+          {
+            "name": "easing",
+            "value": "ease-out"
+          },
+          {
+            "name": "reduced",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "motion.transition.default",
+        "description": "Motion remains short, purposeful, and reduced-motion aware.",
+        "values": [
+          {
+            "name": "duration_ms",
+            "value": "180"
+          },
+          {
+            "name": "easing",
+            "value": "ease-out"
+          },
+          {
+            "name": "reduced",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "motion.region.enter",
+        "description": "Motion remains short, purposeful, and reduced-motion aware.",
+        "values": [
+          {
+            "name": "duration_ms",
+            "value": "180"
+          },
+          {
+            "name": "easing",
+            "value": "ease-out"
+          },
+          {
+            "name": "reduced",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "motion.region.exit",
+        "description": "Motion remains short, purposeful, and reduced-motion aware.",
+        "values": [
+          {
+            "name": "duration_ms",
+            "value": "140"
+          },
+          {
+            "name": "easing",
+            "value": "ease-in"
+          },
+          {
+            "name": "reduced",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "motion.reduced.none",
+        "description": "Motion remains short, purposeful, and reduced-motion aware.",
+        "values": [
+          {
+            "name": "duration_ms",
+            "value": "0"
+          },
+          {
+            "name": "easing",
+            "value": "linear"
+          },
+          {
+            "name": "reduced",
+            "value": "true"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foundation.state",
+    "title": "State",
+    "tokens": [
+      {
+        "id": "state.focus.ring",
+        "description": "Global state tokens stay explicit and reusable.",
+        "values": [
+          {
+            "name": "border",
+            "value": "border.control.focus"
+          },
+          {
+            "name": "color",
+            "value": "color.border.focus"
+          },
+          {
+            "name": "opacity_percent",
+            "value": "100"
+          }
+        ]
+      },
+      {
+        "id": "state.loading.muted",
+        "description": "Global state tokens stay explicit and reusable.",
+        "values": [
+          {
+            "name": "border",
+            "value": "none"
+          },
+          {
+            "name": "color",
+            "value": "color.emphasis.subtle"
+          },
+          {
+            "name": "opacity_percent",
+            "value": "72"
+          }
+        ]
+      },
+      {
+        "id": "state.success.emphasis",
+        "description": "Global state tokens stay explicit and reusable.",
+        "values": [
+          {
+            "name": "border",
+            "value": "border.panel.strong"
+          },
+          {
+            "name": "color",
+            "value": "color.status.success"
+          },
+          {
+            "name": "opacity_percent",
+            "value": "100"
+          }
+        ]
+      },
+      {
+        "id": "state.error.emphasis",
+        "description": "Global state tokens stay explicit and reusable.",
+        "values": [
+          {
+            "name": "border",
+            "value": "border.panel.strong"
+          },
+          {
+            "name": "color",
+            "value": "color.status.error"
+          },
+          {
+            "name": "opacity_percent",
+            "value": "100"
+          }
+        ]
+      },
+      {
+        "id": "state.disabled.alpha",
+        "description": "Global state tokens stay explicit and reusable.",
+        "values": [
+          {
+            "name": "border",
+            "value": "none"
+          },
+          {
+            "name": "color",
+            "value": "none"
+          },
+          {
+            "name": "opacity_percent",
+            "value": "48"
+          }
+        ]
+      }
+    ]
+  }
+]

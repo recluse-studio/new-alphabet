@@ -1,0 +1,18 @@
+{
+  "$id": "https://schemas.newalphabet.dev/components-0.1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "items": {
+    "required": [
+      "id",
+      "purpose",
+      "built_from",
+      "required_states",
+      "accessibility",
+      "finite_options",
+      "example_ids"
+    ],
+    "type": "object"
+  },
+  "title": "New Alphabet Components",
+  "type": "array"
+}

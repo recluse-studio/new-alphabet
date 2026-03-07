@@ -1,0 +1,39 @@
+{
+  "$id": "https://schemas.newalphabet.dev/project-0.1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "project_name": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "surfaces": {
+      "items": {
+        "required": [
+          "id",
+          "name",
+          "intent",
+          "recipe",
+          "regions",
+          "primitives",
+          "components",
+          "spacing_tokens",
+          "custom_spacing_values",
+          "accessibility",
+          "style_escape_hatch",
+          "invented_layout"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "project_name",
+    "surfaces"
+  ],
+  "title": "New Alphabet Project Manifest",
+  "type": "object"
+}

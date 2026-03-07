@@ -1,0 +1,62 @@
+[
+  {
+    "id": "AP-001",
+    "title": "Ad hoc layout",
+    "summary": "Ad hoc layout rules outside named grid behavior break the constitutional geometry.",
+    "repair": "Return the screen to PageGrid, named regions, and finite primitive combinations."
+  },
+  {
+    "id": "AP-002",
+    "title": "Spacing repair",
+    "summary": "Arbitrary spacing values repair local rhythm instead of using token law.",
+    "repair": "Delete local spacing wrappers and replace them with Stack, Row, or token-bound props."
+  },
+  {
+    "id": "AP-003",
+    "title": "Decorative wrapper",
+    "summary": "Decorative wrappers with no structural responsibility obscure the real surface law.",
+    "repair": "Delete the wrapper unless it owns a named primitive or semantic role."
+  },
+  {
+    "id": "AP-004",
+    "title": "Decorative naming",
+    "summary": "Components named after style, palette, or mood dissolve the role-based system.",
+    "repair": "Rename the surface by structure, intent, or product role."
+  },
+  {
+    "id": "AP-005",
+    "title": "Variant sprawl",
+    "summary": "Open-ended variants and boolean prop sprawl weaken finite APIs.",
+    "repair": "Replace freeform variants with finite enums or a narrower semantic split."
+  },
+  {
+    "id": "AP-006",
+    "title": "Prompt invented layout",
+    "summary": "Prompt-to-prompt layout invention without recipe or primitive fit abandons the doctrine.",
+    "repair": "Choose a recipe or allowed primitive composition before writing new UI code."
+  },
+  {
+    "id": "AP-007",
+    "title": "Default library identity",
+    "summary": "Component-library defaults treated as product identity flatten the system into generic SaaS.",
+    "repair": "Recompose from New Alphabet primitives, components, and recipes instead of imported taste."
+  },
+  {
+    "id": "AP-008",
+    "title": "Per-screen exception",
+    "summary": "Per-screen exceptions weaken family resemblance and hide drift.",
+    "repair": "Prefer the shared grammar or add a documented constitutional expansion."
+  },
+  {
+    "id": "AP-009",
+    "title": "Ornament over hierarchy",
+    "summary": "Color or ornament doing work that hierarchy, type, or structure should do is not allowed.",
+    "repair": "Move hierarchy back into structure, typography, and semantic status text."
+  },
+  {
+    "id": "AP-010",
+    "title": "AI taste simulation",
+    "summary": "AI-generated output that simulates taste instead of enforcing law is outside the project.",
+    "repair": "Require schema-backed recipes, state coverage, and validation before accepting generated output."
+  }
+]

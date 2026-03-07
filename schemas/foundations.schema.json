@@ -1,0 +1,59 @@
+{
+  "$id": "https://schemas.newalphabet.dev/foundations-0.1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "items": {
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "tokens": {
+        "items": {
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "values": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "id",
+            "description",
+            "values"
+          ],
+          "type": "object"
+        },
+        "type": "array"
+      }
+    },
+    "required": [
+      "id",
+      "title",
+      "tokens"
+    ],
+    "type": "object"
+  },
+  "title": "New Alphabet Foundations",
+  "type": "array"
+}

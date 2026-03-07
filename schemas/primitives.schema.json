@@ -1,0 +1,18 @@
+{
+  "$id": "https://schemas.newalphabet.dev/primitives-0.1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "items": {
+    "required": [
+      "id",
+      "purpose",
+      "required_props",
+      "optional_props",
+      "finite_options",
+      "composition_notes",
+      "example_ids"
+    ],
+    "type": "object"
+  },
+  "title": "New Alphabet Primitives",
+  "type": "array"
+}

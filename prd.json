@@ -705,7 +705,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 32,
-      "passes": false,
+      "passes": true,
       "notes": "Rooted in documentation sections Product Shape, Installation Story, Agent Model, and the agent contract recommended artifacts preserved in prd_v1 canonicalSpec.",
       "dependsOn": [
         "US-007",

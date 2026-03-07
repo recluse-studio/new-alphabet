@@ -25,6 +25,7 @@ The CLI name is `new-alphabet`.
 - `new-alphabet export context [--output path]`
   - exports the canonical contract bundle
   - stays network-free
+  - the repo currently checks in the exported results under `schemas/`
 - `new-alphabet plan <intent>`
   - emits a structured recipe-first plan from the prompt intent catalog
 

@@ -1,0 +1,2858 @@
+{
+  "bundle_format_version": "0.1.0",
+  "doctrine": {
+    "thesis": "New Alphabet is a strict, grid-governed, typographic design constitution for Rust and Leptos.",
+    "posture": [
+      "order before ornament",
+      "grid as operating law",
+      "information over personality",
+      "constraint over styling freedom",
+      "systems over pages",
+      "agents need rules not vibes"
+    ],
+    "required_session_context": [
+      "foundations",
+      "primitives",
+      "components",
+      "recipes",
+      "composition_rules",
+      "state_contracts",
+      "anti_patterns",
+      "examples"
+    ],
+    "hard_rules": [
+      "Do not invent layout outside the defined primitive and recipe model unless the PRD is expanded.",
+      "Do not weaken the doctrine to make generation easier.",
+      "Do not hide uncertainty behind decorative output."
+    ]
+  },
+  "foundations": [
+    {
+      "id": "foundation.runtime",
+      "title": "Runtime",
+      "tokens": [
+        {
+          "id": "foundation.spec",
+          "description": "The runtime foundation is SSR-safe and hydration-ready.",
+          "values": [
+            {
+              "name": "version",
+              "value": "0.1.0"
+            },
+            {
+              "name": "ssr_safe",
+              "value": "true"
+            },
+            {
+              "name": "hydration_ready",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation.grid",
+      "title": "Grid and breakpoints",
+      "tokens": [
+        {
+          "id": "compact",
+          "description": "Named breakpoint columns are fixed by law.",
+          "values": [
+            {
+              "name": "columns",
+              "value": "4"
+            }
+          ]
+        },
+        {
+          "id": "medium",
+          "description": "Named breakpoint columns are fixed by law.",
+          "values": [
+            {
+              "name": "columns",
+              "value": "8"
+            }
+          ]
+        },
+        {
+          "id": "wide",
+          "description": "Named breakpoint columns are fixed by law.",
+          "values": [
+            {
+              "name": "columns",
+              "value": "12"
+            }
+          ]
+        },
+        {
+          "id": "region.full",
+          "description": "Region spans stay explicit across breakpoints.",
+          "values": [
+            {
+              "name": "compact",
+              "value": "4"
+            },
+            {
+              "name": "medium",
+              "value": "8"
+            },
+            {
+              "name": "wide",
+              "value": "12"
+            }
+          ]
+        },
+        {
+          "id": "region.main",
+          "description": "Region spans stay explicit across breakpoints.",
+          "values": [
+            {
+              "name": "compact",
+              "value": "4"
+            },
+            {
+              "name": "medium",
+              "value": "6"
+            },
+            {
+              "name": "wide",
+              "value": "8"
+            }
+          ]
+        },
+        {
+          "id": "region.support",
+          "description": "Region spans stay explicit across breakpoints.",
+          "values": [
+            {
+              "name": "compact",
+              "value": "4"
+            },
+            {
+              "name": "medium",
+              "value": "2"
+            },
+            {
+              "name": "wide",
+              "value": "4"
+            }
+          ]
+        },
+        {
+          "id": "region.rail",
+          "description": "Region spans stay explicit across breakpoints.",
+          "values": [
+            {
+              "name": "compact",
+              "value": "stacked"
+            },
+            {
+              "name": "medium",
+              "value": "2"
+            },
+            {
+              "name": "wide",
+              "value": "3"
+            }
+          ]
+        },
+        {
+          "id": "region.detail",
+          "description": "Region spans stay explicit across breakpoints.",
+          "values": [
+            {
+              "name": "compact",
+              "value": "stacked"
+            },
+            {
+              "name": "medium",
+              "value": "stacked"
+            },
+            {
+              "name": "wide",
+              "value": "4"
+            }
+          ]
+        },
+        {
+          "id": "region.action_band",
+          "description": "Region spans stay explicit across breakpoints.",
+          "values": [
+            {
+              "name": "compact",
+              "value": "4"
+            },
+            {
+              "name": "medium",
+              "value": "8"
+            },
+            {
+              "name": "wide",
+              "value": "12"
+            }
+          ]
+        },
+        {
+          "id": "layout.rail.narrow.width",
+          "description": "Rail widths collapse on compact and remain finite elsewhere.",
+          "values": [
+            {
+              "name": "medium_columns",
+              "value": "2"
+            },
+            {
+              "name": "wide_columns",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "id": "layout.rail.default.width",
+          "description": "Rail widths collapse on compact and remain finite elsewhere.",
+          "values": [
+            {
+              "name": "medium_columns",
+              "value": "2"
+            },
+            {
+              "name": "wide_columns",
+              "value": "3"
+            }
+          ]
+        },
+        {
+          "id": "layout.rail.broad.width",
+          "description": "Rail widths collapse on compact and remain finite elsewhere.",
+          "values": [
+            {
+              "name": "medium_columns",
+              "value": "3"
+            },
+            {
+              "name": "wide_columns",
+              "value": "4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation.spacing",
+      "title": "Spacing",
+      "tokens": [
+        {
+          "id": "spacing.stack.tight",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "12"
+            },
+            {
+              "name": "density.regular",
+              "value": "8"
+            },
+            {
+              "name": "density.dense",
+              "value": "6"
+            }
+          ]
+        },
+        {
+          "id": "spacing.stack.default",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "16"
+            },
+            {
+              "name": "density.regular",
+              "value": "12"
+            },
+            {
+              "name": "density.dense",
+              "value": "8"
+            }
+          ]
+        },
+        {
+          "id": "spacing.stack.loose",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "24"
+            },
+            {
+              "name": "density.regular",
+              "value": "16"
+            },
+            {
+              "name": "density.dense",
+              "value": "12"
+            }
+          ]
+        },
+        {
+          "id": "spacing.region.default",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "32"
+            },
+            {
+              "name": "density.regular",
+              "value": "24"
+            },
+            {
+              "name": "density.dense",
+              "value": "16"
+            }
+          ]
+        },
+        {
+          "id": "spacing.region.spacious",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "48"
+            },
+            {
+              "name": "density.regular",
+              "value": "32"
+            },
+            {
+              "name": "density.dense",
+              "value": "24"
+            }
+          ]
+        },
+        {
+          "id": "spacing.panel.content",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "24"
+            },
+            {
+              "name": "density.regular",
+              "value": "16"
+            },
+            {
+              "name": "density.dense",
+              "value": "12"
+            }
+          ]
+        },
+        {
+          "id": "spacing.control.inset",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "12"
+            },
+            {
+              "name": "density.regular",
+              "value": "10"
+            },
+            {
+              "name": "density.dense",
+              "value": "8"
+            }
+          ]
+        },
+        {
+          "id": "spacing.table.row",
+          "description": "Spacing is finite and density-aware.",
+          "values": [
+            {
+              "name": "density.calm",
+              "value": "16"
+            },
+            {
+              "name": "density.regular",
+              "value": "12"
+            },
+            {
+              "name": "density.dense",
+              "value": "8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation.type",
+      "title": "Type",
+      "tokens": [
+        {
+          "id": "type.display.large",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "48"
+            },
+            {
+              "name": "line_height_px",
+              "value": "56"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        },
+        {
+          "id": "type.display.default",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "36"
+            },
+            {
+              "name": "line_height_px",
+              "value": "44"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        },
+        {
+          "id": "type.heading.1",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "28"
+            },
+            {
+              "name": "line_height_px",
+              "value": "34"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        },
+        {
+          "id": "type.heading.2",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "22"
+            },
+            {
+              "name": "line_height_px",
+              "value": "28"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        },
+        {
+          "id": "type.heading.3",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "18"
+            },
+            {
+              "name": "line_height_px",
+              "value": "24"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        },
+        {
+          "id": "type.body.reading",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "18"
+            },
+            {
+              "name": "line_height_px",
+              "value": "30"
+            },
+            {
+              "name": "weight",
+              "value": "400"
+            }
+          ]
+        },
+        {
+          "id": "type.body.default",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "16"
+            },
+            {
+              "name": "line_height_px",
+              "value": "24"
+            },
+            {
+              "name": "weight",
+              "value": "400"
+            }
+          ]
+        },
+        {
+          "id": "type.body.compact",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "14"
+            },
+            {
+              "name": "line_height_px",
+              "value": "20"
+            },
+            {
+              "name": "weight",
+              "value": "400"
+            }
+          ]
+        },
+        {
+          "id": "type.annotation.default",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "12"
+            },
+            {
+              "name": "line_height_px",
+              "value": "16"
+            },
+            {
+              "name": "weight",
+              "value": "500"
+            }
+          ]
+        },
+        {
+          "id": "type.annotation.strong",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "12"
+            },
+            {
+              "name": "line_height_px",
+              "value": "16"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        },
+        {
+          "id": "type.data.label",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "12"
+            },
+            {
+              "name": "line_height_px",
+              "value": "16"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        },
+        {
+          "id": "type.data.cell",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "14"
+            },
+            {
+              "name": "line_height_px",
+              "value": "18"
+            },
+            {
+              "name": "weight",
+              "value": "500"
+            }
+          ]
+        },
+        {
+          "id": "type.data.metric",
+          "description": "Type roles are shared across editorial and workflow surfaces.",
+          "values": [
+            {
+              "name": "size_px",
+              "value": "20"
+            },
+            {
+              "name": "line_height_px",
+              "value": "24"
+            },
+            {
+              "name": "weight",
+              "value": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation.density",
+      "title": "Density",
+      "tokens": [
+        {
+          "id": "density.calm",
+          "description": "Density alters spacing and typographic rhythm together.",
+          "values": []
+        },
+        {
+          "id": "density.regular",
+          "description": "Density alters spacing and typographic rhythm together.",
+          "values": []
+        },
+        {
+          "id": "density.dense",
+          "description": "Density alters spacing and typographic rhythm together.",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "foundation.color",
+      "title": "Color",
+      "tokens": [
+        {
+          "id": "color.canvas.base",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#F7F4EC"
+            }
+          ]
+        },
+        {
+          "id": "color.canvas.elevated",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#FFFFFF"
+            }
+          ]
+        },
+        {
+          "id": "color.canvas.inset",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#ECE7DA"
+            }
+          ]
+        },
+        {
+          "id": "color.text.primary",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#111111"
+            }
+          ]
+        },
+        {
+          "id": "color.text.secondary",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#4C4C47"
+            }
+          ]
+        },
+        {
+          "id": "color.text.inverse",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#FAF8F2"
+            }
+          ]
+        },
+        {
+          "id": "color.accent.primary",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#D9371E"
+            }
+          ]
+        },
+        {
+          "id": "color.accent.muted",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#A04B3A"
+            }
+          ]
+        },
+        {
+          "id": "color.border.default",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#C9C1B1"
+            }
+          ]
+        },
+        {
+          "id": "color.border.strong",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#7E7463"
+            }
+          ]
+        },
+        {
+          "id": "color.border.focus",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#111111"
+            }
+          ]
+        },
+        {
+          "id": "color.status.info",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#165A8A"
+            }
+          ]
+        },
+        {
+          "id": "color.status.success",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#17603A"
+            }
+          ]
+        },
+        {
+          "id": "color.status.warning",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#8A5A00"
+            }
+          ]
+        },
+        {
+          "id": "color.status.error",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#A2211F"
+            }
+          ]
+        },
+        {
+          "id": "color.emphasis.subtle",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#D9D2C4"
+            }
+          ]
+        },
+        {
+          "id": "color.emphasis.strong",
+          "description": "Color roles stay semantic and finite.",
+          "values": [
+            {
+              "name": "hex",
+              "value": "#2A2620"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation.border",
+      "title": "Border",
+      "tokens": [
+        {
+          "id": "border.region.default",
+          "description": "Borders carry structural emphasis instead of decorative styling.",
+          "values": [
+            {
+              "name": "width_px",
+              "value": "1"
+            },
+            {
+              "name": "color",
+              "value": "color.border.default"
+            }
+          ]
+        },
+        {
+          "id": "border.panel.default",
+          "description": "Borders carry structural emphasis instead of decorative styling.",
+          "values": [
+            {
+              "name": "width_px",
+              "value": "1"
+            },
+            {
+              "name": "color",
+              "value": "color.border.default"
+            }
+          ]
+        },
+        {
+          "id": "border.panel.strong",
+          "description": "Borders carry structural emphasis instead of decorative styling.",
+          "values": [
+            {
+              "name": "width_px",
+              "value": "2"
+            },
+            {
+              "name": "color",
+              "value": "color.border.strong"
+            }
+          ]
+        },
+        {
+          "id": "border.control.default",
+          "description": "Borders carry structural emphasis instead of decorative styling.",
+          "values": [
+            {
+              "name": "width_px",
+              "value": "1"
+            },
+            {
+              "name": "color",
+              "value": "color.border.default"
+            }
+          ]
+        },
+        {
+          "id": "border.control.focus",
+          "description": "Borders carry structural emphasis instead of decorative styling.",
+          "values": [
+            {
+              "name": "width_px",
+              "value": "2"
+            },
+            {
+              "name": "color",
+              "value": "color.border.focus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation.motion",
+      "title": "Motion",
+      "tokens": [
+        {
+          "id": "motion.transition.fast",
+          "description": "Motion remains short, purposeful, and reduced-motion aware.",
+          "values": [
+            {
+              "name": "duration_ms",
+              "value": "120"
+            },
+            {
+              "name": "easing",
+              "value": "ease-out"
+            },
+            {
+              "name": "reduced",
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "id": "motion.transition.default",
+          "description": "Motion remains short, purposeful, and reduced-motion aware.",
+          "values": [
+            {
+              "name": "duration_ms",
+              "value": "180"
+            },
+            {
+              "name": "easing",
+              "value": "ease-out"
+            },
+            {
+              "name": "reduced",
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "id": "motion.region.enter",
+          "description": "Motion remains short, purposeful, and reduced-motion aware.",
+          "values": [
+            {
+              "name": "duration_ms",
+              "value": "180"
+            },
+            {
+              "name": "easing",
+              "value": "ease-out"
+            },
+            {
+              "name": "reduced",
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "id": "motion.region.exit",
+          "description": "Motion remains short, purposeful, and reduced-motion aware.",
+          "values": [
+            {
+              "name": "duration_ms",
+              "value": "140"
+            },
+            {
+              "name": "easing",
+              "value": "ease-in"
+            },
+            {
+              "name": "reduced",
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "id": "motion.reduced.none",
+          "description": "Motion remains short, purposeful, and reduced-motion aware.",
+          "values": [
+            {
+              "name": "duration_ms",
+              "value": "0"
+            },
+            {
+              "name": "easing",
+              "value": "linear"
+            },
+            {
+              "name": "reduced",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation.state",
+      "title": "State",
+      "tokens": [
+        {
+          "id": "state.focus.ring",
+          "description": "Global state tokens stay explicit and reusable.",
+          "values": [
+            {
+              "name": "border",
+              "value": "border.control.focus"
+            },
+            {
+              "name": "color",
+              "value": "color.border.focus"
+            },
+            {
+              "name": "opacity_percent",
+              "value": "100"
+            }
+          ]
+        },
+        {
+          "id": "state.loading.muted",
+          "description": "Global state tokens stay explicit and reusable.",
+          "values": [
+            {
+              "name": "border",
+              "value": "none"
+            },
+            {
+              "name": "color",
+              "value": "color.emphasis.subtle"
+            },
+            {
+              "name": "opacity_percent",
+              "value": "72"
+            }
+          ]
+        },
+        {
+          "id": "state.success.emphasis",
+          "description": "Global state tokens stay explicit and reusable.",
+          "values": [
+            {
+              "name": "border",
+              "value": "border.panel.strong"
+            },
+            {
+              "name": "color",
+              "value": "color.status.success"
+            },
+            {
+              "name": "opacity_percent",
+              "value": "100"
+            }
+          ]
+        },
+        {
+          "id": "state.error.emphasis",
+          "description": "Global state tokens stay explicit and reusable.",
+          "values": [
+            {
+              "name": "border",
+              "value": "border.panel.strong"
+            },
+            {
+              "name": "color",
+              "value": "color.status.error"
+            },
+            {
+              "name": "opacity_percent",
+              "value": "100"
+            }
+          ]
+        },
+        {
+          "id": "state.disabled.alpha",
+          "description": "Global state tokens stay explicit and reusable.",
+          "values": [
+            {
+              "name": "border",
+              "value": "none"
+            },
+            {
+              "name": "color",
+              "value": "none"
+            },
+            {
+              "name": "opacity_percent",
+              "value": "48"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "primitives": [
+    {
+      "id": "AppShell",
+      "purpose": "Root frame that binds density and surface intent.",
+      "required_props": [],
+      "optional_props": [
+        "density",
+        "intent"
+      ],
+      "finite_options": [
+        {
+          "name": "density",
+          "values": [
+            "density.calm",
+            "density.regular",
+            "density.dense"
+          ]
+        },
+        {
+          "name": "intent",
+          "values": [
+            "editorial",
+            "workspace"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Every serious screen begins inside AppShell before any local composition."
+      ],
+      "example_ids": [
+        "EditorialAnchorExample",
+        "WorkspaceAnchorExample"
+      ]
+    },
+    {
+      "id": "PageGrid",
+      "purpose": "Canonical page geometry with fixed breakpoint columns.",
+      "required_props": [],
+      "optional_props": [
+        "intent"
+      ],
+      "finite_options": [
+        {
+          "name": "intent",
+          "values": [
+            "editorial",
+            "workspace"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "PageGrid must contain a named main region and may support rails, detail, or action bands."
+      ],
+      "example_ids": [
+        "EditorialStructureExample",
+        "WorkflowStructureExample"
+      ]
+    },
+    {
+      "id": "Region",
+      "purpose": "Named page regions with explicit span behavior.",
+      "required_props": [
+        "kind",
+        "placement"
+      ],
+      "optional_props": [
+        "tag"
+      ],
+      "finite_options": [
+        {
+          "name": "kind",
+          "values": [
+            "full",
+            "main",
+            "support",
+            "rail",
+            "detail",
+            "action_band"
+          ]
+        },
+        {
+          "name": "placement",
+          "values": [
+            "lead",
+            "main",
+            "support",
+            "rail_start",
+            "rail_end",
+            "detail",
+            "action_band"
+          ]
+        },
+        {
+          "name": "tag",
+          "values": [
+            "main",
+            "section",
+            "aside",
+            "nav",
+            "header"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Regions remain structural and must not be repurposed as decorative wrappers."
+      ],
+      "example_ids": [
+        "EditorialAnchorExample",
+        "WorkspaceAnchorExample"
+      ]
+    },
+    {
+      "id": "Rail",
+      "purpose": "Bounded side structure for navigation or filters.",
+      "required_props": [],
+      "optional_props": [
+        "width",
+        "side"
+      ],
+      "finite_options": [
+        {
+          "name": "width",
+          "values": [
+            "layout.rail.narrow.width",
+            "layout.rail.default.width",
+            "layout.rail.broad.width"
+          ]
+        },
+        {
+          "name": "side",
+          "values": [
+            "start",
+            "end"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Rails support the main region; they do not replace it or multiply without need."
+      ],
+      "example_ids": [
+        "WorkflowStructureExample",
+        "SettingsSurfaceExample"
+      ]
+    },
+    {
+      "id": "Stack",
+      "purpose": "Vertical rhythm governed by spacing tokens.",
+      "required_props": [],
+      "optional_props": [
+        "spacing"
+      ],
+      "finite_options": [
+        {
+          "name": "spacing",
+          "values": [
+            "spacing.stack.tight",
+            "spacing.stack.default",
+            "spacing.stack.loose"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Use Stack instead of ad hoc wrappers when local rhythm is needed."
+      ],
+      "example_ids": [
+        "EditorialStructureExample",
+        "WorkflowStructureExample"
+      ]
+    },
+    {
+      "id": "Row",
+      "purpose": "Local horizontal alignment for dense operational groupings.",
+      "required_props": [],
+      "optional_props": [
+        "align",
+        "distribution",
+        "gap"
+      ],
+      "finite_options": [
+        {
+          "name": "align",
+          "values": [
+            "start",
+            "center",
+            "baseline"
+          ]
+        },
+        {
+          "name": "distribution",
+          "values": [
+            "start",
+            "between"
+          ]
+        },
+        {
+          "name": "gap",
+          "values": [
+            "spacing.stack.tight",
+            "spacing.stack.default"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Rows stay local inside the main region and do not replace page geometry."
+      ],
+      "example_ids": [
+        "WorkflowStructureExample"
+      ]
+    },
+    {
+      "id": "ColumnGroup",
+      "purpose": "Finite multi-column subdivision inside a named region.",
+      "required_props": [],
+      "optional_props": [
+        "preset"
+      ],
+      "finite_options": [
+        {
+          "name": "preset",
+          "values": [
+            "two",
+            "three",
+            "main_support"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "ColumnGroup is for internal subdivision, not for rebuilding the page grid."
+      ],
+      "example_ids": [
+        "EditorialStructureExample"
+      ]
+    },
+    {
+      "id": "Panel",
+      "purpose": "Bounded surface with explicit hierarchy and state.",
+      "required_props": [],
+      "optional_props": [
+        "strength",
+        "state"
+      ],
+      "finite_options": [
+        {
+          "name": "strength",
+          "values": [
+            "default",
+            "strong"
+          ]
+        },
+        {
+          "name": "state",
+          "values": [
+            "default",
+            "loading",
+            "success",
+            "error"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Panel hierarchy depends on borders and state tokens rather than ornament."
+      ],
+      "example_ids": [
+        "EditorialSurfaceExample",
+        "SettingsSurfaceExample"
+      ]
+    },
+    {
+      "id": "Band",
+      "purpose": "Full-width structural framing surface.",
+      "required_props": [],
+      "optional_props": [
+        "strength"
+      ],
+      "finite_options": [
+        {
+          "name": "strength",
+          "values": [
+            "default",
+            "strong"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Bands remain typographic and structural rather than promotional."
+      ],
+      "example_ids": [
+        "EditorialSurfaceExample",
+        "WorkflowStructureExample"
+      ]
+    },
+    {
+      "id": "SectionHeader",
+      "purpose": "Shared structural heading for panels, bands, and regions.",
+      "required_props": [
+        "title"
+      ],
+      "optional_props": [
+        "subtitle",
+        "annotation"
+      ],
+      "finite_options": [],
+      "composition_notes": [
+        "SectionHeader keeps hierarchy typographic and quiet across the system."
+      ],
+      "example_ids": [
+        "EditorialSurfaceExample",
+        "SettingsSurfaceExample"
+      ]
+    },
+    {
+      "id": "Divider",
+      "purpose": "Explicit separation marker for bounded surfaces.",
+      "required_props": [],
+      "optional_props": [
+        "strength"
+      ],
+      "finite_options": [
+        {
+          "name": "strength",
+          "values": [
+            "default",
+            "strong"
+          ]
+        }
+      ],
+      "composition_notes": [
+        "Use Divider when the structure needs a visible seam, not extra space."
+      ],
+      "example_ids": [
+        "SettingsSurfaceExample"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "Button",
+      "purpose": "Primary and secondary action trigger with explicit activity states.",
+      "built_from": [
+        "Panel",
+        "SectionHeader"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "disabled",
+        "hover",
+        "active",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [
+        {
+          "name": "priority",
+          "values": [
+            "primary",
+            "secondary",
+            "tertiary"
+          ]
+        },
+        {
+          "name": "type",
+          "values": [
+            "button",
+            "submit",
+            "reset"
+          ]
+        }
+      ],
+      "example_ids": [
+        "WorkflowActionExample",
+        "EditorialActionExample"
+      ]
+    },
+    {
+      "id": "LinkAction",
+      "purpose": "Semantic link action for secondary or navigational operations.",
+      "built_from": [
+        "Panel",
+        "SectionHeader"
+      ],
+      "required_states": [
+        "default",
+        "hover",
+        "active",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [
+        {
+          "name": "priority",
+          "values": [
+            "primary",
+            "secondary",
+            "tertiary"
+          ]
+        }
+      ],
+      "example_ids": [
+        "WorkflowActionExample",
+        "EditorialActionExample"
+      ]
+    },
+    {
+      "id": "TextField",
+      "purpose": "Single-line text input with explicit label, help, and message binding.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default",
+        "error",
+        "success",
+        "disabled",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "SettingsFieldExample",
+        "FormFieldExample"
+      ]
+    },
+    {
+      "id": "Textarea",
+      "purpose": "Multi-line text input with the same field-state law as TextField.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default",
+        "error",
+        "success",
+        "disabled",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "FormFieldExample"
+      ]
+    },
+    {
+      "id": "Select",
+      "purpose": "Finite choice picker bound to named options only.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default",
+        "error",
+        "success",
+        "disabled",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "SettingsChoiceExample",
+        "FormChoiceExample"
+      ]
+    },
+    {
+      "id": "Checkbox",
+      "purpose": "Boolean choice control with native semantics.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default",
+        "error",
+        "success",
+        "disabled",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "SettingsChoiceExample",
+        "FormChoiceExample"
+      ]
+    },
+    {
+      "id": "RadioGroup",
+      "purpose": "Single-choice group for named alternatives.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default",
+        "error",
+        "success",
+        "disabled",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "FormChoiceExample"
+      ]
+    },
+    {
+      "id": "Switch",
+      "purpose": "Binary workflow toggle with explicit text and state.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default",
+        "error",
+        "success",
+        "disabled",
+        "focus_visible"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "SettingsChoiceExample"
+      ]
+    },
+    {
+      "id": "StatusBadge",
+      "purpose": "Compact status marker that pairs severity text with structure.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ],
+      "accessibility": [
+        "semantic_name",
+        "color_independent_meaning"
+      ],
+      "finite_options": [
+        {
+          "name": "severity",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        }
+      ],
+      "example_ids": [
+        "EditorialStatusExample",
+        "WorkflowStatusExample"
+      ]
+    },
+    {
+      "id": "InlineAlert",
+      "purpose": "Structural status message for action bands and bounded surfaces.",
+      "built_from": [
+        "Band",
+        "Panel"
+      ],
+      "required_states": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ],
+      "accessibility": [
+        "semantic_name",
+        "color_independent_meaning"
+      ],
+      "finite_options": [
+        {
+          "name": "severity",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        }
+      ],
+      "example_ids": [
+        "EditorialStatusExample",
+        "WorkflowStatusExample"
+      ]
+    },
+    {
+      "id": "EmptyState",
+      "purpose": "Explicit absence surface with next-action text.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "empty"
+      ],
+      "accessibility": [
+        "semantic_name",
+        "color_independent_meaning"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "ReviewDataExample",
+        "DashboardDataExample"
+      ]
+    },
+    {
+      "id": "Table",
+      "purpose": "Dense data surface with explicit loading, empty, error, wrap, and truncate behavior.",
+      "built_from": [
+        "Panel",
+        "SectionHeader"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ],
+      "accessibility": [
+        "semantic_name",
+        "color_independent_meaning"
+      ],
+      "finite_options": [
+        {
+          "name": "cell_mode",
+          "values": [
+            "truncate",
+            "wrap"
+          ]
+        }
+      ],
+      "example_ids": [
+        "DashboardDataExample",
+        "ReviewDataExample"
+      ]
+    },
+    {
+      "id": "MetricBlock",
+      "purpose": "Typographic operational summary block with optional context and note.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default"
+      ],
+      "accessibility": [
+        "semantic_name",
+        "color_independent_meaning"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "DashboardDataExample"
+      ]
+    },
+    {
+      "id": "Pagination",
+      "purpose": "Previous and next navigation with explicit page position.",
+      "built_from": [
+        "Panel",
+        "Stack"
+      ],
+      "required_states": [
+        "default",
+        "disabled"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [
+        {
+          "name": "direction",
+          "values": [
+            "previous",
+            "next"
+          ]
+        }
+      ],
+      "example_ids": [
+        "DashboardDataExample"
+      ]
+    },
+    {
+      "id": "NavIndex",
+      "purpose": "Section and archive navigation surface with current-item semantics.",
+      "built_from": [
+        "Rail",
+        "Panel"
+      ],
+      "required_states": [
+        "default",
+        "current"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "DocumentationNavigationExample",
+        "SearchWorkflowExample"
+      ]
+    },
+    {
+      "id": "CommandBar",
+      "purpose": "Primary and secondary action structure for workflow surfaces.",
+      "built_from": [
+        "Band",
+        "Panel"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "disabled"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "ReviewQueueCommandExample"
+      ]
+    },
+    {
+      "id": "FilterRail",
+      "purpose": "Bounded filter group surface with explicit zero-result state.",
+      "built_from": [
+        "Rail",
+        "Panel"
+      ],
+      "required_states": [
+        "default",
+        "zero_result"
+      ],
+      "accessibility": [
+        "keyboard",
+        "focus_visible",
+        "semantic_name"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "SearchWorkflowExample"
+      ]
+    },
+    {
+      "id": "DetailPane",
+      "purpose": "Context inspection surface with loading and unavailable states.",
+      "built_from": [
+        "Region",
+        "Panel"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "unavailable"
+      ],
+      "accessibility": [
+        "semantic_name",
+        "color_independent_meaning"
+      ],
+      "finite_options": [],
+      "example_ids": [
+        "ReviewQueueCommandExample",
+        "SearchWorkflowExample"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "BlogIndex",
+      "intent": "editorial",
+      "purpose": "Archive-first publication surface for essays and notes.",
+      "required_regions": [
+        "main"
+      ],
+      "optional_regions": [
+        "support"
+      ],
+      "adaptation_limits": [
+        "Taxonomy and archive support remain optional.",
+        "The surface must read as archive or publication rather than marketing landing page."
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Region",
+        "Panel",
+        "Stack",
+        "SectionHeader"
+      ],
+      "components": [
+        "EmptyState",
+        "NavIndex"
+      ],
+      "example_ids": [
+        "BlogIndexExample",
+        "BlogIndexMinimalExample"
+      ]
+    },
+    {
+      "id": "ArticleShell",
+      "intent": "editorial",
+      "purpose": "Longform article shell that keeps the reading flow primary.",
+      "required_regions": [
+        "lead",
+        "main"
+      ],
+      "optional_regions": [
+        "support"
+      ],
+      "adaptation_limits": [
+        "Metadata, local navigation, and adjacent links stay secondary.",
+        "The article body remains the primary reading field."
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Region",
+        "Stack",
+        "SectionHeader",
+        "Panel"
+      ],
+      "components": [
+        "NavIndex"
+      ],
+      "example_ids": [
+        "ArticleShellExample",
+        "ArticleShellMinimalExample"
+      ]
+    },
+    {
+      "id": "DocsShell",
+      "intent": "editorial",
+      "purpose": "Documentation shell with persistent rail and optional detail context.",
+      "required_regions": [
+        "rail",
+        "main"
+      ],
+      "optional_regions": [
+        "detail"
+      ],
+      "adaptation_limits": [
+        "Documentation stays in the editorial family rather than becoming a separate docs-site style.",
+        "The table of contents and context detail remain optional."
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Rail",
+        "Region",
+        "Panel",
+        "Stack"
+      ],
+      "components": [
+        "NavIndex",
+        "DetailPane"
+      ],
+      "example_ids": [
+        "DocsShellExample",
+        "DocsShellMinimalExample"
+      ]
+    },
+    {
+      "id": "SearchResultsWorkspace",
+      "intent": "workspace",
+      "purpose": "Dense search workspace with query rail, results, actions, and optional detail.",
+      "required_regions": [
+        "rail",
+        "main"
+      ],
+      "optional_regions": [
+        "action_band",
+        "detail"
+      ],
+      "adaptation_limits": [
+        "Search, filtering, and results remain coherent under dense operational use.",
+        "The detail pane may disappear but the results field stays primary."
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Rail",
+        "Region",
+        "Panel",
+        "Stack",
+        "Band"
+      ],
+      "components": [
+        "TextField",
+        "FilterRail",
+        "Table",
+        "Pagination",
+        "InlineAlert",
+        "CommandBar",
+        "DetailPane"
+      ],
+      "example_ids": [
+        "SearchResultsWorkspaceExample",
+        "SearchResultsWorkspaceLoadingExample",
+        "SearchResultsWorkspaceZeroResultsExample"
+      ]
+    },
+    {
+      "id": "ReviewQueue",
+      "intent": "workspace",
+      "purpose": "Queue, decision, and inspection surface for repeated review work.",
+      "required_regions": [
+        "action_band",
+        "main",
+        "detail"
+      ],
+      "optional_regions": [
+        "rail"
+      ],
+      "adaptation_limits": [
+        "Queue and detail must coexist without collapsing into generic admin chrome.",
+        "Optional rail structures remain bounded and secondary."
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Rail",
+        "Region",
+        "Panel",
+        "Stack",
+        "Band"
+      ],
+      "components": [
+        "CommandBar",
+        "InlineAlert",
+        "Table",
+        "FilterRail",
+        "DetailPane",
+        "NavIndex"
+      ],
+      "example_ids": [
+        "ReviewQueueExample",
+        "ReviewQueueLoadingExample",
+        "ReviewQueueEmptyExample",
+        "ReviewQueueUnavailableDetailExample"
+      ]
+    },
+    {
+      "id": "SettingsWorkspace",
+      "intent": "workspace",
+      "purpose": "Sectioned settings workspace with native form controls and optional context.",
+      "required_regions": [
+        "rail",
+        "main"
+      ],
+      "optional_regions": [
+        "action_band",
+        "detail"
+      ],
+      "adaptation_limits": [
+        "Settings panels stay narrow and structural rather than template-driven.",
+        "Context help remains optional and secondary."
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Rail",
+        "Region",
+        "Panel",
+        "Stack",
+        "Band"
+      ],
+      "components": [
+        "NavIndex",
+        "TextField",
+        "Select",
+        "Switch",
+        "Checkbox",
+        "InlineAlert"
+      ],
+      "example_ids": [
+        "SettingsWorkspaceExample"
+      ]
+    },
+    {
+      "id": "DashboardShell",
+      "intent": "workspace",
+      "purpose": "Operational summary surface with metrics, dense tables, and optional context.",
+      "required_regions": [
+        "main"
+      ],
+      "optional_regions": [
+        "action_band",
+        "detail"
+      ],
+      "adaptation_limits": [
+        "Metrics remain typographic and quiet rather than ornamental cards.",
+        "The summary table keeps the same explicit state law as other dense surfaces."
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Region",
+        "Panel",
+        "Stack",
+        "Band"
+      ],
+      "components": [
+        "MetricBlock",
+        "Table",
+        "InlineAlert"
+      ],
+      "example_ids": [
+        "DashboardShellExample"
+      ]
+    }
+  ],
+  "composition_rules": [
+    {
+      "id": "P-001",
+      "kind": "allowed",
+      "composition": "AppShell -> PageGrid -> Region(main)",
+      "reason": "Every serious screen starts with a named primary region."
+    },
+    {
+      "id": "P-002",
+      "kind": "allowed",
+      "composition": "PageGrid -> Rail -> Region(main)",
+      "reason": "Side structure may support the primary region without replacing it."
+    },
+    {
+      "id": "P-003",
+      "kind": "allowed",
+      "composition": "Region(main) -> Stack -> ColumnGroup",
+      "reason": "Editorial subdivision stays inside the primary region."
+    },
+    {
+      "id": "P-004",
+      "kind": "allowed",
+      "composition": "Region(main) -> Stack -> Row",
+      "reason": "Workflow alignment stays local and token-driven."
+    },
+    {
+      "id": "P-005",
+      "kind": "allowed",
+      "composition": "Panel -> SectionHeader -> Divider -> content",
+      "reason": "Bounded surfaces remain explicit and quiet."
+    },
+    {
+      "id": "P-006",
+      "kind": "allowed",
+      "composition": "Band -> SectionHeader",
+      "reason": "Full-width framing surfaces stay structural and typographic."
+    },
+    {
+      "id": "P-101",
+      "kind": "disallowed",
+      "composition": "PageGrid without Region(main)",
+      "reason": "The grid becomes decorative scaffolding."
+    },
+    {
+      "id": "P-102",
+      "kind": "disallowed",
+      "composition": "multiple rails on one side",
+      "reason": "Side structure stops being bounded."
+    },
+    {
+      "id": "P-103",
+      "kind": "disallowed",
+      "composition": "Rail inside ColumnGroup",
+      "reason": "Page structure is being collapsed into local layout."
+    },
+    {
+      "id": "P-104",
+      "kind": "disallowed",
+      "composition": "arbitrary spacing wrappers between Stack or Row children",
+      "reason": "Rhythm is being repaired locally instead of governed by tokens."
+    },
+    {
+      "id": "P-105",
+      "kind": "disallowed",
+      "composition": "Panel using color or motion as its only hierarchy signal",
+      "reason": "Structure is being replaced by decoration."
+    }
+  ],
+  "state_contracts": [
+    {
+      "id": "state.global.surface",
+      "applies_to": [
+        "surfaces"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "success"
+      ],
+      "notes": [
+        "Global surface states remain part of the constitution rather than implementation leftovers."
+      ]
+    },
+    {
+      "id": "state.global.interactive",
+      "applies_to": [
+        "interactive_components"
+      ],
+      "required_states": [
+        "hover",
+        "focus_visible",
+        "active",
+        "disabled"
+      ],
+      "notes": [
+        "Interactive states are first-class across buttons, links, and controls."
+      ]
+    },
+    {
+      "id": "state.table",
+      "applies_to": [
+        "Table"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ],
+      "notes": [
+        "Dense tables must define both structural cell behavior and empty or failure behavior."
+      ]
+    },
+    {
+      "id": "state.detail_pane",
+      "applies_to": [
+        "DetailPane"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "unavailable"
+      ],
+      "notes": [
+        "Detail inspection remains explicit even when nothing can be shown."
+      ]
+    },
+    {
+      "id": "state.filter_rail",
+      "applies_to": [
+        "FilterRail"
+      ],
+      "required_states": [
+        "default",
+        "zero_result"
+      ],
+      "notes": [
+        "Filters must explain when current criteria collapse the result set."
+      ]
+    },
+    {
+      "id": "state.fields",
+      "applies_to": [
+        "TextField",
+        "Textarea",
+        "Select",
+        "Checkbox",
+        "RadioGroup",
+        "Switch"
+      ],
+      "required_states": [
+        "default",
+        "error",
+        "success",
+        "disabled",
+        "focus_visible"
+      ],
+      "notes": [
+        "Field controls keep feedback and focus visible in the same semantic grammar."
+      ]
+    },
+    {
+      "id": "state.actions",
+      "applies_to": [
+        "Button",
+        "LinkAction"
+      ],
+      "required_states": [
+        "default",
+        "loading",
+        "disabled",
+        "hover",
+        "active",
+        "focus_visible"
+      ],
+      "notes": [
+        "Action controls expose activity rather than hiding it behind style."
+      ]
+    }
+  ],
+  "anti_patterns": [
+    {
+      "id": "AP-001",
+      "title": "Ad hoc layout",
+      "summary": "Ad hoc layout rules outside named grid behavior break the constitutional geometry.",
+      "repair": "Return the screen to PageGrid, named regions, and finite primitive combinations."
+    },
+    {
+      "id": "AP-002",
+      "title": "Spacing repair",
+      "summary": "Arbitrary spacing values repair local rhythm instead of using token law.",
+      "repair": "Delete local spacing wrappers and replace them with Stack, Row, or token-bound props."
+    },
+    {
+      "id": "AP-003",
+      "title": "Decorative wrapper",
+      "summary": "Decorative wrappers with no structural responsibility obscure the real surface law.",
+      "repair": "Delete the wrapper unless it owns a named primitive or semantic role."
+    },
+    {
+      "id": "AP-004",
+      "title": "Decorative naming",
+      "summary": "Components named after style, palette, or mood dissolve the role-based system.",
+      "repair": "Rename the surface by structure, intent, or product role."
+    },
+    {
+      "id": "AP-005",
+      "title": "Variant sprawl",
+      "summary": "Open-ended variants and boolean prop sprawl weaken finite APIs.",
+      "repair": "Replace freeform variants with finite enums or a narrower semantic split."
+    },
+    {
+      "id": "AP-006",
+      "title": "Prompt invented layout",
+      "summary": "Prompt-to-prompt layout invention without recipe or primitive fit abandons the doctrine.",
+      "repair": "Choose a recipe or allowed primitive composition before writing new UI code."
+    },
+    {
+      "id": "AP-007",
+      "title": "Default library identity",
+      "summary": "Component-library defaults treated as product identity flatten the system into generic SaaS.",
+      "repair": "Recompose from New Alphabet primitives, components, and recipes instead of imported taste."
+    },
+    {
+      "id": "AP-008",
+      "title": "Per-screen exception",
+      "summary": "Per-screen exceptions weaken family resemblance and hide drift.",
+      "repair": "Prefer the shared grammar or add a documented constitutional expansion."
+    },
+    {
+      "id": "AP-009",
+      "title": "Ornament over hierarchy",
+      "summary": "Color or ornament doing work that hierarchy, type, or structure should do is not allowed.",
+      "repair": "Move hierarchy back into structure, typography, and semantic status text."
+    },
+    {
+      "id": "AP-010",
+      "title": "AI taste simulation",
+      "summary": "AI-generated output that simulates taste instead of enforcing law is outside the project.",
+      "repair": "Require schema-backed recipes, state coverage, and validation before accepting generated output."
+    }
+  ],
+  "validation_rules": [
+    {
+      "id": "V-001",
+      "category": "composition",
+      "default_severity": "error",
+      "summary": "Every surface must include a named main region or an equivalent required recipe field.",
+      "repair": "Add Region(main) or the missing required recipe regions before adjusting local details."
+    },
+    {
+      "id": "V-002",
+      "category": "composition",
+      "default_severity": "error",
+      "summary": "Recipe regions must stay inside the allowed required and optional set.",
+      "repair": "Delete the invalid region or switch to the correct recipe before adding more structure."
+    },
+    {
+      "id": "V-003",
+      "category": "spacing",
+      "default_severity": "error",
+      "summary": "Spacing must use named tokens only.",
+      "repair": "Replace arbitrary spacing values with Stack, Row, Panel, or foundation spacing tokens."
+    },
+    {
+      "id": "V-004",
+      "category": "naming",
+      "default_severity": "warning",
+      "summary": "Surface and component names must be role-based rather than decorative.",
+      "repair": "Rename the target by structure or product intent rather than mood or ornament."
+    },
+    {
+      "id": "V-005",
+      "category": "state_coverage",
+      "default_severity": "error",
+      "summary": "Components with state contracts must declare the full required state set.",
+      "repair": "Add the missing states to the manifest or simplify the surface until the contract is true."
+    },
+    {
+      "id": "V-006",
+      "category": "accessibility",
+      "default_severity": "error",
+      "summary": "Interactive components require accessible names, keyboard support, and visible focus.",
+      "repair": "Use the component accessibility checklist and restore missing semantic coverage."
+    },
+    {
+      "id": "V-007",
+      "category": "accessibility",
+      "default_severity": "error",
+      "summary": "Status meaning must remain legible without color alone.",
+      "repair": "Add explicit text or semantic status markup so severity is readable without color."
+    },
+    {
+      "id": "V-008",
+      "category": "anti_pattern_usage",
+      "default_severity": "error",
+      "summary": "Style escape hatches and invented layouts are constitutional drift.",
+      "repair": "Delete the escape hatch, choose the nearest valid recipe, and re-validate."
+    }
+  ],
+  "schemas": [
+    {
+      "id": "new-alphabet.contract",
+      "title": "New Alphabet Contract Bundle",
+      "layer": "contract",
+      "document": {
+        "$id": "https://schemas.newalphabet.dev/contract-bundle-0.1.0.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "anti_patterns": {
+            "type": "array"
+          },
+          "bundle_format_version": {
+            "type": "string"
+          },
+          "components": {
+            "type": "array"
+          },
+          "composition_rules": {
+            "type": "array"
+          },
+          "doctrine": {
+            "type": "object"
+          },
+          "examples": {
+            "type": "array"
+          },
+          "foundations": {
+            "type": "array"
+          },
+          "generation_sequence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "primitives": {
+            "type": "array"
+          },
+          "prompt_intents": {
+            "type": "array"
+          },
+          "recipes": {
+            "type": "array"
+          },
+          "repair_sequence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "schemas": {
+            "type": "array"
+          },
+          "state_contracts": {
+            "type": "array"
+          },
+          "validation_rules": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "bundle_format_version",
+          "doctrine",
+          "foundations",
+          "primitives",
+          "components",
+          "recipes",
+          "composition_rules",
+          "state_contracts",
+          "anti_patterns",
+          "validation_rules",
+          "schemas",
+          "prompt_intents",
+          "generation_sequence",
+          "repair_sequence"
+        ],
+        "title": "New Alphabet Contract Bundle",
+        "type": "object"
+      }
+    },
+    {
+      "id": "new-alphabet.foundations",
+      "title": "New Alphabet Foundations",
+      "layer": "foundation",
+      "document": {
+        "$id": "https://schemas.newalphabet.dev/foundations-0.1.0.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "items": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "tokens": {
+              "items": {
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "values": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "value"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "id",
+                  "description",
+                  "values"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "tokens"
+          ],
+          "type": "object"
+        },
+        "title": "New Alphabet Foundations",
+        "type": "array"
+      }
+    },
+    {
+      "id": "new-alphabet.primitives",
+      "title": "New Alphabet Primitives",
+      "layer": "primitive",
+      "document": {
+        "$id": "https://schemas.newalphabet.dev/primitives-0.1.0.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "items": {
+          "required": [
+            "id",
+            "purpose",
+            "required_props",
+            "optional_props",
+            "finite_options",
+            "composition_notes",
+            "example_ids"
+          ],
+          "type": "object"
+        },
+        "title": "New Alphabet Primitives",
+        "type": "array"
+      }
+    },
+    {
+      "id": "new-alphabet.components",
+      "title": "New Alphabet Components",
+      "layer": "component",
+      "document": {
+        "$id": "https://schemas.newalphabet.dev/components-0.1.0.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "items": {
+          "required": [
+            "id",
+            "purpose",
+            "built_from",
+            "required_states",
+            "accessibility",
+            "finite_options",
+            "example_ids"
+          ],
+          "type": "object"
+        },
+        "title": "New Alphabet Components",
+        "type": "array"
+      }
+    },
+    {
+      "id": "new-alphabet.recipes",
+      "title": "New Alphabet Recipes",
+      "layer": "recipe",
+      "document": {
+        "$id": "https://schemas.newalphabet.dev/recipes-0.1.0.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "items": {
+          "required": [
+            "id",
+            "intent",
+            "purpose",
+            "required_regions",
+            "optional_regions",
+            "adaptation_limits",
+            "primitives",
+            "components",
+            "example_ids"
+          ],
+          "type": "object"
+        },
+        "title": "New Alphabet Recipes",
+        "type": "array"
+      }
+    },
+    {
+      "id": "new-alphabet.project",
+      "title": "New Alphabet Project Manifest",
+      "layer": "project",
+      "document": {
+        "$id": "https://schemas.newalphabet.dev/project-0.1.0.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "project_name": {
+            "type": "string"
+          },
+          "schema_version": {
+            "const": "0.1.0"
+          },
+          "surfaces": {
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "intent",
+                "recipe",
+                "regions",
+                "primitives",
+                "components",
+                "spacing_tokens",
+                "custom_spacing_values",
+                "accessibility",
+                "style_escape_hatch",
+                "invented_layout"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "schema_version",
+          "project_name",
+          "surfaces"
+        ],
+        "title": "New Alphabet Project Manifest",
+        "type": "object"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "example.primitive.editorial_anchor",
+      "layer": "primitive",
+      "target": "EditorialAnchorExample",
+      "source_path": "crates/new-alphabet-primitives/src/examples.rs",
+      "summary": "Minimal editorial anchor proving AppShell, PageGrid, and Region(main)."
+    },
+    {
+      "id": "example.primitive.workflow_structure",
+      "layer": "primitive",
+      "target": "WorkflowStructureExample",
+      "source_path": "crates/new-alphabet-primitives/src/examples.rs",
+      "summary": "Workflow composition proving rails, rows, and named page geometry."
+    },
+    {
+      "id": "example.component.search_workflow",
+      "layer": "component",
+      "target": "SearchWorkflowExample",
+      "source_path": "crates/new-alphabet-components/src/examples.rs",
+      "summary": "Workflow chrome example tying nav, filters, and dense results together."
+    },
+    {
+      "id": "example.component.accessibility_coverage",
+      "layer": "component",
+      "target": "AccessibilityCoverageExample",
+      "source_path": "crates/new-alphabet-components/src/examples.rs",
+      "summary": "Coverage example bound to the machine-readable accessibility checklist."
+    },
+    {
+      "id": "example.recipe.blog_index",
+      "layer": "recipe",
+      "target": "BlogIndexExample",
+      "source_path": "crates/new-alphabet-recipes/src/editorial.rs",
+      "summary": "Archive-first editorial recipe proof."
+    },
+    {
+      "id": "example.recipe.docs_shell",
+      "layer": "recipe",
+      "target": "DocsShellExample",
+      "source_path": "crates/new-alphabet-recipes/src/editorial.rs",
+      "summary": "Documentation shell proof with rail and optional detail context."
+    },
+    {
+      "id": "example.recipe.review_queue",
+      "layer": "recipe",
+      "target": "ReviewQueueExample",
+      "source_path": "crates/new-alphabet-recipes/src/workflow.rs",
+      "summary": "Dense workflow proof with action band, queue, rail, and detail."
+    },
+    {
+      "id": "example.recipe.settings_workspace",
+      "layer": "recipe",
+      "target": "SettingsWorkspaceExample",
+      "source_path": "crates/new-alphabet-recipes/src/workflow.rs",
+      "summary": "Settings proof with section navigation and editable panels."
+    },
+    {
+      "id": "example.recipe.dashboard_shell",
+      "layer": "recipe",
+      "target": "DashboardShellExample",
+      "source_path": "crates/new-alphabet-recipes/src/workflow.rs",
+      "summary": "Dashboard proof with metric blocks, summary table, and optional context help."
+    }
+  ],
+  "prompt_intents": [
+    {
+      "id": "prompt.blog",
+      "level": "sparse",
+      "prompt": "Build me a blog for longform essays and notes using New Alphabet.",
+      "recommended_recipe": "BlogIndex",
+      "plan_outline": [
+        "Choose BlogIndex for the archive surface and ArticleShell for reading flow.",
+        "Keep taxonomy and archive support optional and secondary.",
+        "Validate archive naming, support-region usage, and empty-state coverage."
+      ],
+      "validation_focus": [
+        "composition",
+        "state_coverage",
+        "naming"
+      ]
+    },
+    {
+      "id": "prompt.review_workspace",
+      "level": "moderate",
+      "prompt": "Build me a B2B admin workspace for reviewing submissions with a left rail, dense table, and right-side detail pane.",
+      "recommended_recipe": "ReviewQueue",
+      "plan_outline": [
+        "Choose ReviewQueue because the prompt names queue, action, and detail structure.",
+        "Bind filters and navigation to the optional rail rather than custom dashboard chrome.",
+        "Validate table, detail, and action state coverage before adding examples."
+      ],
+      "validation_focus": [
+        "composition",
+        "state_coverage",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "prompt.settings",
+      "level": "high",
+      "prompt": "Use New Alphabet to scaffold a settings workspace with section navigation and editable panels.",
+      "recommended_recipe": "SettingsWorkspace",
+      "plan_outline": [
+        "Choose SettingsWorkspace and keep navigation in the rail and editable panels in the main region.",
+        "Use native form controls only and keep context help optional.",
+        "Validate field-state coverage, naming, and accessibility bindings before export."
+      ],
+      "validation_focus": [
+        "composition",
+        "state_coverage",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "prompt.docs",
+      "level": "moderate",
+      "prompt": "Explain which recipe I should use for a documentation site with article pages and archive navigation.",
+      "recommended_recipe": "DocsShell",
+      "plan_outline": [
+        "Use DocsShell for the documentation index and ArticleShell for the reading pages.",
+        "Keep navigation persistent in the rail and move supporting context to the optional detail region.",
+        "Validate family resemblance against editorial recipes rather than inventing docs-only chrome."
+      ],
+      "validation_focus": [
+        "composition",
+        "naming"
+      ]
+    }
+  ],
+  "generation_sequence": [
+    "Interpret user intent.",
+    "Choose a recipe or primitive composition before writing UI code.",
+    "Select semantic components that satisfy the required states.",
+    "Generate only valid structures and finite variants.",
+    "Run validation and explain the result in framework terms."
+  ],
+  "repair_sequence": [
+    "Inspect the current structure.",
+    "Identify which constitutional rule is being violated.",
+    "Prefer narrowing or deleting invalid structure before adding new abstractions.",
+    "Re-validate after repair."
+  ]
+}

@@ -1,0 +1,334 @@
+[
+  {
+    "id": "AppShell",
+    "purpose": "Root frame that binds density and surface intent.",
+    "required_props": [],
+    "optional_props": [
+      "density",
+      "intent"
+    ],
+    "finite_options": [
+      {
+        "name": "density",
+        "values": [
+          "density.calm",
+          "density.regular",
+          "density.dense"
+        ]
+      },
+      {
+        "name": "intent",
+        "values": [
+          "editorial",
+          "workspace"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Every serious screen begins inside AppShell before any local composition."
+    ],
+    "example_ids": [
+      "EditorialAnchorExample",
+      "WorkspaceAnchorExample"
+    ]
+  },
+  {
+    "id": "PageGrid",
+    "purpose": "Canonical page geometry with fixed breakpoint columns.",
+    "required_props": [],
+    "optional_props": [
+      "intent"
+    ],
+    "finite_options": [
+      {
+        "name": "intent",
+        "values": [
+          "editorial",
+          "workspace"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "PageGrid must contain a named main region and may support rails, detail, or action bands."
+    ],
+    "example_ids": [
+      "EditorialStructureExample",
+      "WorkflowStructureExample"
+    ]
+  },
+  {
+    "id": "Region",
+    "purpose": "Named page regions with explicit span behavior.",
+    "required_props": [
+      "kind",
+      "placement"
+    ],
+    "optional_props": [
+      "tag"
+    ],
+    "finite_options": [
+      {
+        "name": "kind",
+        "values": [
+          "full",
+          "main",
+          "support",
+          "rail",
+          "detail",
+          "action_band"
+        ]
+      },
+      {
+        "name": "placement",
+        "values": [
+          "lead",
+          "main",
+          "support",
+          "rail_start",
+          "rail_end",
+          "detail",
+          "action_band"
+        ]
+      },
+      {
+        "name": "tag",
+        "values": [
+          "main",
+          "section",
+          "aside",
+          "nav",
+          "header"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Regions remain structural and must not be repurposed as decorative wrappers."
+    ],
+    "example_ids": [
+      "EditorialAnchorExample",
+      "WorkspaceAnchorExample"
+    ]
+  },
+  {
+    "id": "Rail",
+    "purpose": "Bounded side structure for navigation or filters.",
+    "required_props": [],
+    "optional_props": [
+      "width",
+      "side"
+    ],
+    "finite_options": [
+      {
+        "name": "width",
+        "values": [
+          "layout.rail.narrow.width",
+          "layout.rail.default.width",
+          "layout.rail.broad.width"
+        ]
+      },
+      {
+        "name": "side",
+        "values": [
+          "start",
+          "end"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Rails support the main region; they do not replace it or multiply without need."
+    ],
+    "example_ids": [
+      "WorkflowStructureExample",
+      "SettingsSurfaceExample"
+    ]
+  },
+  {
+    "id": "Stack",
+    "purpose": "Vertical rhythm governed by spacing tokens.",
+    "required_props": [],
+    "optional_props": [
+      "spacing"
+    ],
+    "finite_options": [
+      {
+        "name": "spacing",
+        "values": [
+          "spacing.stack.tight",
+          "spacing.stack.default",
+          "spacing.stack.loose"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Use Stack instead of ad hoc wrappers when local rhythm is needed."
+    ],
+    "example_ids": [
+      "EditorialStructureExample",
+      "WorkflowStructureExample"
+    ]
+  },
+  {
+    "id": "Row",
+    "purpose": "Local horizontal alignment for dense operational groupings.",
+    "required_props": [],
+    "optional_props": [
+      "align",
+      "distribution",
+      "gap"
+    ],
+    "finite_options": [
+      {
+        "name": "align",
+        "values": [
+          "start",
+          "center",
+          "baseline"
+        ]
+      },
+      {
+        "name": "distribution",
+        "values": [
+          "start",
+          "between"
+        ]
+      },
+      {
+        "name": "gap",
+        "values": [
+          "spacing.stack.tight",
+          "spacing.stack.default"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Rows stay local inside the main region and do not replace page geometry."
+    ],
+    "example_ids": [
+      "WorkflowStructureExample"
+    ]
+  },
+  {
+    "id": "ColumnGroup",
+    "purpose": "Finite multi-column subdivision inside a named region.",
+    "required_props": [],
+    "optional_props": [
+      "preset"
+    ],
+    "finite_options": [
+      {
+        "name": "preset",
+        "values": [
+          "two",
+          "three",
+          "main_support"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "ColumnGroup is for internal subdivision, not for rebuilding the page grid."
+    ],
+    "example_ids": [
+      "EditorialStructureExample"
+    ]
+  },
+  {
+    "id": "Panel",
+    "purpose": "Bounded surface with explicit hierarchy and state.",
+    "required_props": [],
+    "optional_props": [
+      "strength",
+      "state"
+    ],
+    "finite_options": [
+      {
+        "name": "strength",
+        "values": [
+          "default",
+          "strong"
+        ]
+      },
+      {
+        "name": "state",
+        "values": [
+          "default",
+          "loading",
+          "success",
+          "error"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Panel hierarchy depends on borders and state tokens rather than ornament."
+    ],
+    "example_ids": [
+      "EditorialSurfaceExample",
+      "SettingsSurfaceExample"
+    ]
+  },
+  {
+    "id": "Band",
+    "purpose": "Full-width structural framing surface.",
+    "required_props": [],
+    "optional_props": [
+      "strength"
+    ],
+    "finite_options": [
+      {
+        "name": "strength",
+        "values": [
+          "default",
+          "strong"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Bands remain typographic and structural rather than promotional."
+    ],
+    "example_ids": [
+      "EditorialSurfaceExample",
+      "WorkflowStructureExample"
+    ]
+  },
+  {
+    "id": "SectionHeader",
+    "purpose": "Shared structural heading for panels, bands, and regions.",
+    "required_props": [
+      "title"
+    ],
+    "optional_props": [
+      "subtitle",
+      "annotation"
+    ],
+    "finite_options": [],
+    "composition_notes": [
+      "SectionHeader keeps hierarchy typographic and quiet across the system."
+    ],
+    "example_ids": [
+      "EditorialSurfaceExample",
+      "SettingsSurfaceExample"
+    ]
+  },
+  {
+    "id": "Divider",
+    "purpose": "Explicit separation marker for bounded surfaces.",
+    "required_props": [],
+    "optional_props": [
+      "strength"
+    ],
+    "finite_options": [
+      {
+        "name": "strength",
+        "values": [
+          "default",
+          "strong"
+        ]
+      }
+    ],
+    "composition_notes": [
+      "Use Divider when the structure needs a visible seam, not extra space."
+    ],
+    "example_ids": [
+      "SettingsSurfaceExample"
+    ]
+  }
+]

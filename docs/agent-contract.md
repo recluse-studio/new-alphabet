@@ -30,6 +30,18 @@ The current schema crate exports documents for:
 - recipes,
 - and the project manifest.
 
+The checked-in export set lives in `schemas/` and currently includes:
+
+- `context-bundle-0.1.0.json`
+- `foundations.json`
+- `primitives.json`
+- `components.json`
+- `recipes.json`
+- `anti-patterns.json`
+- `examples.json`
+- `prompt-intents.json`
+- the split `*.schema.json` documents
+
 ## Validation categories
 
 - `composition`
