@@ -1,0 +1,80 @@
+# New Alphabet
+
+New Alphabet is a Crouwelian design constitution for the web.
+
+It is a Rust-first, Leptos-native framework project for building severe, typographic, grid-governed products without collapsing into generic SaaS defaults or prompt drift. The doctrine is primary. The framework, CLI, and agent contract are downstream expressions of that doctrine.
+
+## Status
+
+This repository is in its initial definition phase.
+
+The current contents are the governing documents:
+
+- `documentation.md` defines the human-readable doctrine.
+- `prd.json` defines the machine-readable product requirements.
+- `AGENTS.md` defines the repository contract for agents working here.
+- `progress.txt` is append-only project memory.
+
+The runtime, CLI, recipes, and validation surface are planned but not yet implemented in this repository.
+
+## Thesis
+
+Modern web products drift because they are built from loose taste, broad component libraries, and prompt-by-prompt improvisation. New Alphabet rejects that posture.
+
+The project is built on a small set of laws:
+
+- order before ornament
+- the grid as operating law
+- information over personality
+- constraint over styling freedom
+- systems over pages
+- explicit structure over decorative cleverness
+
+## V0 Shape
+
+New Alphabet aims to ship three connected surfaces:
+
+1. A Rust and Leptos framework with foundations, primitives, components, and recipes.
+2. A CLI named `new-alphabet` for scaffolding, validation, explanation, and export.
+3. A versioned agent contract that lets coding agents work from the real system rather than approximating it.
+
+V0 is intended to prove one grammar across both editorial and workflow-heavy product surfaces.
+
+## What New Alphabet Is Not
+
+New Alphabet is not:
+
+- a broad theming engine
+- a bag of interchangeable UI components
+- a generic SaaS starter
+- a loose visual homage without structural law
+- a prompt-friendly wrapper around arbitrary layout invention
+
+## Repository Direction
+
+The project favors:
+
+- Rust first
+- Leptos first
+- SSR and hydration first
+- JSON schemas and deterministic exports
+- narrow APIs
+- explicit naming
+- finite composition rules
+
+If a solution adds optionality, abstraction, or ornament without strengthening the doctrine, it is likely wrong.
+
+## Near-Term Work
+
+The initial implementation path is:
+
+1. Freeze the doctrine and naming model.
+2. Implement the foundation runtime.
+3. Implement structural primitives.
+4. Implement the core semantic component set.
+5. Prove the grammar on editorial and SaaS recipes.
+6. Ship the CLI and agent contract surface.
+
+## License Target
+
+The intended license target is `MIT OR Apache-2.0`.
