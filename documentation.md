@@ -484,6 +484,41 @@ Names in New Alphabet are constitutional labels, not brand theater.
 - If a name could apply to many unrelated responsibilities, it is too vague.
 - If a name hides structure, state, or intent, it weakens the doctrine.
 
+## Foundation Token Taxonomy
+
+Canonical token identifiers use lowercase dot-separated segments.
+
+- The first segment is the family.
+- Middle segments describe structural role, relation, or mode.
+- Final segments may define state, emphasis, or density when needed.
+- Token names never encode palette marketing, mood language, or ornamental aliases.
+
+### Token families
+
+| Family | Owns | Example identifiers |
+| --- | --- | --- |
+| `layout` | page geometry and region behavior | `layout.page.columns`, `layout.region.main.span`, `layout.rail.default.width` |
+| `spacing` | rhythm and separation | `spacing.stack.tight`, `spacing.region.default`, `spacing.panel.content` |
+| `type` | typographic hierarchy | `type.display.large`, `type.body.default`, `type.annotation.strong` |
+| `density` | calm, regular, and dense operating modes | `density.calm`, `density.regular`, `density.dense` |
+| `color` | semantic surface, text, border, accent, and status roles | `color.canvas.base`, `color.text.primary`, `color.status.error.fg` |
+| `border` | structural separation and emphasis | `border.region.default`, `border.control.focus`, `border.panel.strong` |
+| `motion` | state change and region transition behavior | `motion.transition.fast`, `motion.region.enter`, `motion.reduced.none` |
+| `state` | shared loading, focus, success, error, and disabled treatment | `state.focus.ring`, `state.loading.muted`, `state.disabled.alpha` |
+
+### Taxonomy rules
+
+- A token name must answer what role it serves before how it looks.
+- Families stay finite and constitutional.
+- New tokens extend an existing family before creating a new one.
+- If two tokens differ only by decoration, one of them is probably invalid.
+
+### Rust and schema reading
+
+- Rust implementations should mirror these families with plain enums, structs, or constants.
+- JSON schema and export surfaces should preserve the same segment order.
+- Human docs, code, and exported context must describe the same token families with the same names.
+
 ## Design Rules
 
 ### Layout law

@@ -6,3 +6,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | DECISION | repository | Authenticated GitHub CLI as recluse-studio to enable pushes to origin over HTTPS.
 2026-03-07 | DECISION | documentation.md | New Alphabet names foundations, primitives, components, and recipes by role, structure, and intent rather than decoration.
 2026-03-07 | PRD | US-001 | Froze the constitution, naming law, anti-pattern registry, and doctrine hierarchy in the human and machine-readable project sources.
+2026-03-07 | DECISION | foundations | Canonical foundation tokens use lowercase dot-separated identifiers grouped into finite role-based families.
+2026-03-07 | PRD | US-011 | Defined the foundation token taxonomy and naming format for layout, spacing, type, density, color, border, motion, and state.

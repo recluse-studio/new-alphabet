@@ -42,6 +42,8 @@ New Alphabet names by role, structure, and intent.
 
 If a name sounds decorative, branded, or mood-driven, it is outside the doctrine.
 
+Foundation tokens follow the same rule. Their canonical identifiers are lowercase, dot-separated, and role-based, using finite families such as `layout`, `spacing`, `type`, `density`, `color`, `border`, `motion`, and `state`.
+
 ## V0 Shape
 
 New Alphabet aims to ship three connected surfaces:
