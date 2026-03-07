@@ -2831,6 +2831,23 @@
       ]
     },
     {
+      "id": "prompt.review_workspace_dense",
+      "level": "high",
+      "prompt": "Build a dense review workspace with left navigation rail, center results table, right detail pane, persistent action strip, loading and dirty states, and a calm editorial tone.",
+      "recommended_recipe": "ReviewQueue",
+      "plan_outline": [
+        "Choose ReviewQueue because the prompt explicitly names navigation, results, detail, and action structure.",
+        "Keep the action strip in action_band, results in main, and dirty feedback adjacent to the detail path rather than decorative chrome.",
+        "Validate loading, unavailable, focus, and state-change coverage before exporting the scaffold."
+      ],
+      "validation_focus": [
+        "composition",
+        "state_coverage",
+        "accessibility",
+        "naming"
+      ]
+    },
+    {
       "id": "prompt.settings",
       "level": "high",
       "prompt": "Use New Alphabet to scaffold a settings workspace with section navigation and editable panels.",

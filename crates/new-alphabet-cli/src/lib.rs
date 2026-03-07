@@ -1156,6 +1156,28 @@ mod tests {
         assert!(result.stdout.contains("recommended_components:"));
     }
 
+    #[test]
+    fn plan_matches_high_specific_review_prompt() {
+        let root = unique_test_dir("plan-high");
+        let result = run_from(
+            [
+                "new-alphabet",
+                "plan",
+                "Build a dense review workspace with left navigation rail, center results table, right detail pane, persistent action strip, loading and dirty states, and a calm editorial tone.",
+            ],
+            &root,
+        )
+        .expect("plan");
+
+        assert!(result.stdout.contains("plan prompt.review_workspace_dense"));
+        assert!(result.stdout.contains("recipe: ReviewQueue"));
+        assert!(
+            result
+                .stdout
+                .contains("validation_focus: composition, state_coverage, accessibility, naming")
+        );
+    }
+
     fn unique_test_dir(label: &str) -> PathBuf {
         let nonce = SystemTime::now()
             .duration_since(UNIX_EPOCH)

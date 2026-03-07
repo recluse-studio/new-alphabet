@@ -1212,6 +1212,25 @@ fn prompt_intents() -> Vec<PromptIntent> {
             ]),
         },
         PromptIntent {
+            id: "prompt.review_workspace_dense".to_owned(),
+            level: PromptLevel::High,
+            prompt:
+                "Build a dense review workspace with left navigation rail, center results table, right detail pane, persistent action strip, loading and dirty states, and a calm editorial tone."
+                    .to_owned(),
+            recommended_recipe: "ReviewQueue".to_owned(),
+            plan_outline: text_list(&[
+                "Choose ReviewQueue because the prompt explicitly names navigation, results, detail, and action structure.",
+                "Keep the action strip in action_band, results in main, and dirty feedback adjacent to the detail path rather than decorative chrome.",
+                "Validate loading, unavailable, focus, and state-change coverage before exporting the scaffold.",
+            ]),
+            validation_focus: text_list(&[
+                "composition",
+                "state_coverage",
+                "accessibility",
+                "naming",
+            ]),
+        },
+        PromptIntent {
             id: "prompt.settings".to_owned(),
             level: PromptLevel::High,
             prompt:

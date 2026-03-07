@@ -58,6 +58,33 @@ The checked-in export set lives in `schemas/` and currently includes:
 - repair prefers deleting invalid structure before adding abstraction,
 - explanations cite the same rules used by validation and scaffolding.
 
+## Required session context
+
+- `AGENTS.md`
+- `documentation.md`
+- `prd.json`
+- `progress.txt`
+- `schemas/context-bundle-0.1.0.json`
+
+Load targeted layer docs only when the task touches that layer:
+
+- `docs/foundations.md`
+- `docs/primitives.md`
+- `docs/components.md`
+- `docs/recipes.md`
+- `docs/cli.md`
+
+## Session bootstrap materials
+
+The checked-in prompt bootstrap set lives in `prompts/` and currently includes:
+
+- `session-bootstrap.md`
+- `sparse-blog.md`
+- `moderate-review-workspace.md`
+- `high-review-workspace.md`
+
+These files are intended to be copy-paste ready in a coding session and to stay in parity with `schemas/prompt-intents.json`.
+
 ## Export path
 
 Use `new-alphabet export context` to emit the current bundle. The exported data is versioned and does not depend on the network.

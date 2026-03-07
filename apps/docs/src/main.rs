@@ -42,6 +42,7 @@ const SECTIONS: &[ArticleSection] = &[
         "Docs set",
         &[
             "Foundations, primitives, components, recipes, CLI, agent contract, contributing, roadmap, and release notes live in the /docs directory.",
+            "Reusable session bootstrap material and sparse, moderate, and high-guidance prompt examples live in /prompts.",
             "Each document is written against the current runtime and contract rather than paraphrasing an imagined future system.",
         ],
     ),
@@ -66,6 +67,7 @@ const SECTIONS: &[ArticleSection] = &[
         "Agent workflow",
         &[
             "The agent contract exports foundations, primitives, components, recipes, composition rules, state contracts, anti-patterns, schemas, examples, and prompt intents.",
+            "Session bootstrap material in /prompts tells agents which repo files and schema sections must be loaded before planning or repair.",
             "Generation chooses recipes or primitive compositions before writing UI code, and repair prefers deleting invalid structure before adding abstractions.",
         ],
     ),

@@ -75,3 +75,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-034 | Tightened init and add flows so scaffolds stay contract-backed, approved-inventory-only, additive, and explicit about their structural bindings.
 2026-03-07 | DECISION | cli | Read-only CLI commands now speak in contract terms by surfacing recipe inventory, structural dependencies, validation findings, and reference examples from the canonical bundle.
 2026-03-07 | PRD | US-035 | Deepened explain, inspect, validate, export, and plan so they report real framework structure, violations, and recipe-first plans instead of thin summaries.
+2026-03-07 | DECISION | prompts | Prompt examples and session bootstrap material now stay in parity with the exported prompt catalog so human and agent sessions start from the same recipe-first context.
+2026-03-07 | PRD | US-036 | Added reusable session bootstrap docs, sparse/moderate/high prompt examples, a high-specific review prompt intent, and prompt references in the public docs set.
