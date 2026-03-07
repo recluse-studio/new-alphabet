@@ -1,3 +1,3 @@
 [workspace]
-members = ["crates/new-alphabet-foundation"]
+members = ["crates/new-alphabet-foundation", "crates/new-alphabet-primitives"]
 resolver = "2"

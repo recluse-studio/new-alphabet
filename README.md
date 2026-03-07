@@ -15,8 +15,9 @@ The current contents are the governing documents:
 - `AGENTS.md` defines the repository contract for agents working here.
 - `progress.txt` is append-only project memory.
 - `crates/new-alphabet-foundation` contains the first runtime implementation of the constitutional foundation layer.
+- `crates/new-alphabet-primitives` contains the initial structural primitives for page shell and region geometry.
 
-The foundation runtime now exists. Primitives, components, recipes, CLI, and validation are still to be implemented.
+The foundation runtime now exists. Primitive implementation has begun with `AppShell`, `PageGrid`, and `Region`. Components, recipes, CLI, and validation are still to be implemented.
 
 Current local verification is `cargo test --workspace`.
 
