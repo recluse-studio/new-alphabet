@@ -5,7 +5,8 @@ mod editorial;
 pub use editorial::{
     ArticleAdjacentLink, ArticleAdjacentLinks, ArticleMetaItem, ArticleSection, ArticleShell,
     ArticleShellExample, ArticleShellMinimalExample, ArticleSidebarNav, BlogIndex, BlogIndexEntry,
-    BlogIndexExample, BlogIndexMinimalExample, BlogIndexSection,
+    BlogIndexExample, BlogIndexMinimalExample, BlogIndexSection, DocsContextItem, DocsNavSection,
+    DocsShell, DocsShellExample, DocsShellMinimalExample,
 };
 
 #[cfg(test)]
@@ -85,6 +86,51 @@ const MINIMAL_ARTICLE_SECTIONS: &[ArticleSection] = &[ArticleSection::new(
     "opening",
     "Opening",
     MINIMAL_ARTICLE_PARAGRAPHS,
+)];
+
+#[cfg(test)]
+const DOCS_NAV_ITEMS: &[new_alphabet_components::NavIndexItem] = &[
+    new_alphabet_components::NavIndexItem::current("Foundations", "/docs/foundations"),
+    new_alphabet_components::NavIndexItem::new("Primitives", "/docs/primitives"),
+];
+
+#[cfg(test)]
+const DOCS_NAVIGATION: DocsNavSection = DocsNavSection::new("Documentation", DOCS_NAV_ITEMS);
+
+#[cfg(test)]
+const DOCS_TOC_ITEMS: &[new_alphabet_components::NavIndexItem] = &[
+    new_alphabet_components::NavIndexItem::current("Layer model", "#layer-model"),
+    new_alphabet_components::NavIndexItem::new("State law", "#state-law"),
+];
+
+#[cfg(test)]
+const DOCS_TOC: DocsNavSection = DocsNavSection::new("On this page", DOCS_TOC_ITEMS);
+
+#[cfg(test)]
+const DOCS_CONTEXT: &[DocsContextItem] = &[
+    DocsContextItem::new("Package", "new-alphabet-recipes"),
+    DocsContextItem::new("Surface", "DocsShell"),
+];
+
+#[cfg(test)]
+const DOCS_SECTIONS: &[ArticleSection] = &[
+    ArticleSection::new(
+        "layer-model",
+        "Layer model",
+        &["DocsShell keeps navigation and reading flow in the same grammar."],
+    ),
+    ArticleSection::new(
+        "state-law",
+        "State law",
+        &["Supporting context belongs in an adjacent detail region."],
+    ),
+];
+
+#[cfg(test)]
+const MINIMAL_DOCS_SECTIONS: &[ArticleSection] = &[ArticleSection::new(
+    "foundations",
+    "Foundations",
+    &["A narrow docs surface can run as rail plus reading column."],
 )];
 
 #[cfg(test)]
@@ -225,5 +271,63 @@ mod tests {
         assert!(html.contains("Opening Note"));
         assert!(!html.contains("data-region=\"support\""));
         assert!(html.contains("data-span-compact=\"4\""));
+    }
+
+    #[test]
+    fn docs_shell_renders_navigation_content_and_detail_regions() {
+        let html = render(|| {
+            view! {
+                <DocsShell
+                    title="New Alphabet Manual"
+                    navigation=DOCS_NAVIGATION
+                    sections=DOCS_SECTIONS
+                    table_of_contents=DOCS_TOC
+                    context=DOCS_CONTEXT
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Documentation"));
+        assert!(html.contains("Layer model"));
+        assert!(html.contains("On this page"));
+        assert!(html.contains("Context"));
+        assert!(html.contains("data-region=\"detail\""));
+    }
+
+    #[test]
+    fn docs_shell_omits_detail_region_when_optional_sections_are_absent() {
+        let html = render(|| {
+            view! {
+                <DocsShell
+                    title="Foundations"
+                    navigation=DOCS_NAVIGATION
+                    sections=MINIMAL_DOCS_SECTIONS
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Foundations"));
+        assert!(!html.contains("data-region=\"detail\""));
+        assert!(html.contains("data-side=\"start\""));
+    }
+
+    #[test]
+    fn docs_shell_example_renders_family_resemblance() {
+        let html = render(|| view! { <DocsShellExample/> }.into_any());
+
+        assert!(html.contains("New Alphabet Manual"));
+        assert!(html.contains("data-intent=\"editorial\""));
+        assert!(html.contains("DocsShell"));
+    }
+
+    #[test]
+    fn docs_shell_minimal_example_renders_two_region_docs_surface() {
+        let html = render(|| view! { <DocsShellMinimalExample/> }.into_any());
+
+        assert!(html.contains("Foundations"));
+        assert!(!html.contains("data-region=\"detail\""));
+        assert!(html.contains("data-side=\"start\""));
     }
 }

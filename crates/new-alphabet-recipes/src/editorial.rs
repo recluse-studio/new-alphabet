@@ -2,8 +2,8 @@ use leptos::prelude::*;
 use new_alphabet_components::{EmptyState, NavIndex, NavIndexItem};
 use new_alphabet_foundation::{DensityMode, RegionClass, StateToken};
 use new_alphabet_primitives::{
-    AppShell, Band, FrameIntent, PageGrid, Panel, Region, RegionPlacement, SectionHeader, Stack,
-    StackSpace, SurfaceStrength,
+    AppShell, Band, FrameIntent, PageGrid, Panel, Rail, RailSide, Region, RegionPlacement,
+    SectionHeader, Stack, StackSpace, SurfaceStrength,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -111,6 +111,30 @@ impl ArticleAdjacentLinks {
         next: Option<ArticleAdjacentLink>,
     ) -> Self {
         Self { previous, next }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct DocsNavSection {
+    pub title: &'static str,
+    pub items: &'static [NavIndexItem],
+}
+
+impl DocsNavSection {
+    pub const fn new(title: &'static str, items: &'static [NavIndexItem]) -> Self {
+        Self { title, items }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct DocsContextItem {
+    pub label: &'static str,
+    pub value: &'static str,
+}
+
+impl DocsContextItem {
+    pub const fn new(label: &'static str, value: &'static str) -> Self {
+        Self { label, value }
     }
 }
 
@@ -364,6 +388,127 @@ pub fn ArticleShell(
     }
 }
 
+#[component]
+pub fn DocsShell(
+    title: &'static str,
+    navigation: DocsNavSection,
+    sections: &'static [ArticleSection],
+    #[prop(optional)] introduction: Option<&'static str>,
+    #[prop(optional)] table_of_contents: Option<DocsNavSection>,
+    #[prop(optional)] context: Option<&'static [DocsContextItem]>,
+) -> impl IntoView {
+    let has_detail = table_of_contents.is_some() || context.is_some();
+    let header = match introduction {
+        Some(introduction) => view! {
+            <SectionHeader
+                title=title
+                subtitle=introduction
+                annotation="Docs"
+            />
+        }
+        .into_any(),
+        None => view! {
+            <SectionHeader
+                title=title
+                annotation="Docs"
+            />
+        }
+        .into_any(),
+    };
+
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Editorial>
+            <Band strength=SurfaceStrength::Strong>
+                {header}
+            </Band>
+            <PageGrid intent=FrameIntent::Editorial>
+                <Rail side=RailSide::Start>
+                    <Panel strength=SurfaceStrength::Strong>
+                        <SectionHeader
+                            title=navigation.title
+                            subtitle="Documentation navigation stays persistent and structural."
+                        />
+                        <NavIndex label=navigation.title items=navigation.items />
+                    </Panel>
+                </Rail>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <article class="na-docs-shell">
+                        <Stack spacing=StackSpace::Loose>
+                            {sections
+                                .iter()
+                                .map(|section| {
+                                    view! {
+                                        <section id=section.id class="na-docs-shell__section">
+                                            <h2>{section.title}</h2>
+                                            <Stack spacing=StackSpace::Default>
+                                                {section
+                                                    .paragraphs
+                                                    .iter()
+                                                    .map(|paragraph| view! { <p>{*paragraph}</p> })
+                                                    .collect_view()}
+                                            </Stack>
+                                        </section>
+                                    }
+                                })
+                                .collect_view()}
+                        </Stack>
+                    </article>
+                </Region>
+                {if has_detail {
+                    view! {
+                        <Region kind=RegionClass::Detail placement=RegionPlacement::Detail>
+                            <Stack spacing=StackSpace::Tight>
+                                {table_of_contents.map(|table_of_contents| {
+                                    view! {
+                                        <Panel>
+                                            <SectionHeader
+                                                title=table_of_contents.title
+                                                subtitle="On-page structure remains adjacent and quiet."
+                                            />
+                                            <NavIndex
+                                                label=table_of_contents.title
+                                                items=table_of_contents.items
+                                            />
+                                        </Panel>
+                                    }
+                                    .into_any()
+                                })}
+                                {context.map(|context| {
+                                    view! {
+                                        <Panel>
+                                            <SectionHeader
+                                                title="Context"
+                                                subtitle="Supporting implementation notes stay outside the reading column."
+                                            />
+                                            <dl class="na-docs-shell__context">
+                                                {context
+                                                    .iter()
+                                                    .map(|item| {
+                                                        view! {
+                                                            <div class="na-docs-shell__context-item">
+                                                                <dt>{item.label}</dt>
+                                                                <dd>{item.value}</dd>
+                                                            </div>
+                                                        }
+                                                    })
+                                                    .collect_view()}
+                                            </dl>
+                                        </Panel>
+                                    }
+                                    .into_any()
+                                })}
+                            </Stack>
+                        </Region>
+                    }
+                    .into_any()
+                } else {
+                    view! { <></> }.into_any()
+                }}
+            </PageGrid>
+        </AppShell>
+    }
+}
+
 const STUDIO_NOTES_ENTRIES: &[BlogIndexEntry] = &[
     BlogIndexEntry::new(
         "Grid Notes for Quiet Systems",
@@ -446,6 +591,51 @@ const MINIMAL_ARTICLE_SECTION: &[ArticleSection] = &[ArticleSection::new(
     ],
 )];
 
+const DOCS_NAV_ITEMS: &[NavIndexItem] = &[
+    NavIndexItem::current("Foundations", "/docs/foundations"),
+    NavIndexItem::new("Primitives", "/docs/primitives"),
+    NavIndexItem::new("Components", "/docs/components"),
+];
+
+const DOCS_NAVIGATION: DocsNavSection = DocsNavSection::new("Documentation", DOCS_NAV_ITEMS);
+
+const DOCS_TOC_ITEMS: &[NavIndexItem] = &[
+    NavIndexItem::current("Layer model", "#layer-model"),
+    NavIndexItem::new("State law", "#state-law"),
+];
+
+const DOCS_TOC: DocsNavSection = DocsNavSection::new("On this page", DOCS_TOC_ITEMS);
+
+const DOCS_CONTEXT: &[DocsContextItem] = &[
+    DocsContextItem::new("Package", "new-alphabet-recipes"),
+    DocsContextItem::new("Surface", "DocsShell"),
+];
+
+const DOCS_SECTIONS: &[ArticleSection] = &[
+    ArticleSection::new(
+        "layer-model",
+        "Layer model",
+        &[
+            "DocsShell keeps navigation and reading flow in the same grammar rather than introducing a separate docs-site language.",
+            "The left rail holds durable section navigation while the main column keeps prose primary.",
+        ],
+    ),
+    ArticleSection::new(
+        "state-law",
+        "State law",
+        &[
+            "Documentation surfaces still inherit loading, focus-visible, and semantic naming rules.",
+            "Supporting context belongs in an adjacent detail region, not embedded inside the reading column.",
+        ],
+    ),
+];
+
+const MINIMAL_DOCS_SECTIONS: &[ArticleSection] = &[ArticleSection::new(
+    "foundations",
+    "Foundations",
+    &["A narrow docs surface can run as rail plus reading column without a context rail."],
+)];
+
 #[component]
 pub fn BlogIndexExample() -> impl IntoView {
     view! {
@@ -490,6 +680,31 @@ pub fn ArticleShellMinimalExample() -> impl IntoView {
         <ArticleShell
             title="Opening Note"
             sections=MINIMAL_ARTICLE_SECTION
+        />
+    }
+}
+
+#[component]
+pub fn DocsShellExample() -> impl IntoView {
+    view! {
+        <DocsShell
+            title="New Alphabet Manual"
+            introduction="Documentation navigation and reading flow stay inside the same editorial family as the archive and article shells."
+            navigation=DOCS_NAVIGATION
+            sections=DOCS_SECTIONS
+            table_of_contents=DOCS_TOC
+            context=DOCS_CONTEXT
+        />
+    }
+}
+
+#[component]
+pub fn DocsShellMinimalExample() -> impl IntoView {
+    view! {
+        <DocsShell
+            title="Foundations"
+            navigation=DOCS_NAVIGATION
+            sections=MINIMAL_DOCS_SECTIONS
         />
     }
 }

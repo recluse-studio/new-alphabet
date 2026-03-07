@@ -47,3 +47,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | DECISION | recipes | Longform recipe shells keep metadata, local navigation, and adjacent links secondary by moving them to optional support regions instead of the article body.
 2026-03-07 | PRD | US-027 | Implemented ArticleShell with required header and body regions plus optional local navigation, metadata, and adjacent links in editorial examples.
 2026-03-07 | DECISION | code_review_guidelines.md | Added a canonical review standard that evaluates New Alphabet changes as constitutional system changes across architecture, APIs, state, accessibility, testing, security, and documentation.
+2026-03-07 | DECISION | recipes | Documentation surfaces stay in the editorial family by using durable navigation rails and optional detail context rather than a separate docs-site visual language.
+2026-03-07 | PRD | US-028 | Implemented DocsShell with required navigation and content plus optional table of contents and context detail regions in editorial examples.
