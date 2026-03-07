@@ -55,3 +55,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-029 | Implemented SearchResultsWorkspace with required search rail and results region plus loading, zero-result, and unavailable-detail examples.
 2026-03-07 | DECISION | recipes | Review surfaces keep action, queue, and detail as required regions so repeated decisions remain explicit even when optional rail structures disappear.
 2026-03-07 | PRD | US-030 | Implemented ReviewQueue with required action, queue, and detail regions plus loading, empty, and unavailable-detail examples.
+2026-03-07 | DECISION | recipes | Settings and dashboard surfaces stay in family by using section navigation, native form controls, metrics, and context rails instead of inventing separate operational chrome.
+2026-03-07 | PRD | US-031 | Implemented SettingsWorkspace and DashboardShell with section navigation, editable panels, metric blocks, summary tables, and optional context help.

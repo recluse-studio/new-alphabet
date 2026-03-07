@@ -10,10 +10,12 @@ pub use editorial::{
     DocsShell, DocsShellExample, DocsShellMinimalExample,
 };
 pub use workflow::{
-    ReviewQueue, ReviewQueueEmptyExample, ReviewQueueExample, ReviewQueueLoadingExample,
-    ReviewQueueUnavailableDetailExample, SearchResultsWorkspace, SearchResultsWorkspaceExample,
-    SearchResultsWorkspaceLoadingExample, SearchResultsWorkspaceZeroResultsExample,
-    WorkspaceCommands, WorkspaceDetail, WorkspaceNavSection, WorkspacePagination, WorkspaceStatus,
+    DashboardMetric, DashboardShell, DashboardShellExample, ReviewQueue, ReviewQueueEmptyExample,
+    ReviewQueueExample, ReviewQueueLoadingExample, ReviewQueueUnavailableDetailExample,
+    SearchResultsWorkspace, SearchResultsWorkspaceExample, SearchResultsWorkspaceLoadingExample,
+    SearchResultsWorkspaceZeroResultsExample, SettingsControl, SettingsPanel, SettingsWorkspace,
+    SettingsWorkspaceExample, WorkspaceCommands, WorkspaceContextItem, WorkspaceDetail,
+    WorkspaceNavSection, WorkspacePagination, WorkspaceStatus,
 };
 
 #[cfg(test)]
@@ -247,6 +249,90 @@ const REVIEW_DETAIL_FIELDS: &[new_alphabet_components::DetailField] = &[
     new_alphabet_components::DetailField::new("Owner", "Editorial"),
     new_alphabet_components::DetailField::new("Section", "Archive"),
 ];
+
+#[cfg(test)]
+const SETTINGS_NAV_ITEMS: &[new_alphabet_components::NavIndexItem] = &[
+    new_alphabet_components::NavIndexItem::current("Profile", "/settings/profile"),
+    new_alphabet_components::NavIndexItem::new("Workflow", "/settings/workflow"),
+];
+
+#[cfg(test)]
+const SETTINGS_NAVIGATION: WorkspaceNavSection =
+    WorkspaceNavSection::new("Settings sections", SETTINGS_NAV_ITEMS);
+
+#[cfg(test)]
+const SETTINGS_OPTIONS: &[new_alphabet_components::ChoiceOption] = &[
+    new_alphabet_components::ChoiceOption::new("calm", "Calm"),
+    new_alphabet_components::ChoiceOption::new("regular", "Regular"),
+];
+
+#[cfg(test)]
+const SETTINGS_PROFILE_CONTROLS: &[SettingsControl] = &[
+    SettingsControl::text(
+        "Display name",
+        "display-name",
+        "Recluse Studio",
+        new_alphabet_components::FieldState::Success,
+        Some("Public profile label."),
+        Some("Saved."),
+    ),
+    SettingsControl::select(
+        "Workspace density",
+        "workspace-density",
+        "regular",
+        SETTINGS_OPTIONS,
+        new_alphabet_components::FieldState::Default,
+        Some("Applies to queue and detail surfaces."),
+        None,
+    ),
+];
+
+#[cfg(test)]
+const SETTINGS_PANELS: &[SettingsPanel] = &[SettingsPanel::new(
+    "Profile settings",
+    "Editable public-facing labels stay explicit and bounded.",
+    SETTINGS_PROFILE_CONTROLS,
+)];
+
+#[cfg(test)]
+const WORKSPACE_CONTEXT: &[WorkspaceContextItem] = &[
+    WorkspaceContextItem::new("Sync", "Last synced 18 seconds ago"),
+    WorkspaceContextItem::new("Scope", "Workspace-only"),
+];
+
+#[cfg(test)]
+const DASHBOARD_METRICS: &[DashboardMetric] = &[
+    DashboardMetric::new(
+        "Published today",
+        "18",
+        Some("Across archive and review surfaces."),
+        None,
+    ),
+    DashboardMetric::new(
+        "Blocked items",
+        "3",
+        None,
+        Some("Rights and metadata gaps only."),
+    ),
+];
+
+#[cfg(test)]
+const DASHBOARD_COLUMNS: &[new_alphabet_components::TableColumn] = &[
+    new_alphabet_components::TableColumn::truncate("surface", "Surface"),
+    new_alphabet_components::TableColumn::truncate("count", "Count"),
+    new_alphabet_components::TableColumn::wrap("summary", "Summary"),
+];
+
+#[cfg(test)]
+const DASHBOARD_ROWS: &[new_alphabet_components::TableRow] =
+    &[new_alphabet_components::TableRow::new(
+        "review-queue",
+        &[
+            "Review queue",
+            "18",
+            "Three items exceed service rhythm and need action today.",
+        ],
+    )];
 
 #[cfg(test)]
 mod tests {
@@ -563,5 +649,73 @@ mod tests {
         assert!(html.contains(
             "The selected entry cannot be inspected because the archive is still syncing."
         ));
+    }
+
+    #[test]
+    fn settings_workspace_renders_navigation_panels_and_context() {
+        let html = render(|| {
+            view! {
+                <SettingsWorkspace
+                    title="Settings Workspace"
+                    navigation=SETTINGS_NAVIGATION
+                    panels=SETTINGS_PANELS
+                    status=WorkspaceStatus::new(
+                        "Settings saved",
+                        "Profile changes are now active.",
+                        new_alphabet_components::StatusSeverity::Success,
+                    )
+                    context=WORKSPACE_CONTEXT
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Settings sections"));
+        assert!(html.contains("Profile settings"));
+        assert!(html.contains("Last synced 18 seconds ago"));
+    }
+
+    #[test]
+    fn dashboard_shell_renders_metrics_table_and_context() {
+        let html = render(|| {
+            view! {
+                <DashboardShell
+                    title="Operations Dashboard"
+                    metrics=DASHBOARD_METRICS
+                    summary_columns=DASHBOARD_COLUMNS
+                    summary_rows=DASHBOARD_ROWS
+                    status=WorkspaceStatus::new(
+                        "Overview refreshed",
+                        "Metric and queue summaries were updated 18 seconds ago.",
+                        new_alphabet_components::StatusSeverity::Info,
+                    )
+                    context=WORKSPACE_CONTEXT
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Operations Dashboard"));
+        assert!(html.contains("Published today"));
+        assert!(html.contains("Dashboard overview"));
+        assert!(html.contains("Context help"));
+    }
+
+    #[test]
+    fn settings_workspace_example_renders_family_consistency() {
+        let html = render(|| view! { <SettingsWorkspaceExample/> }.into_any());
+
+        assert!(html.contains("Settings Workspace"));
+        assert!(html.contains("data-intent=\"workspace\""));
+        assert!(html.contains("Workflow settings"));
+    }
+
+    #[test]
+    fn dashboard_shell_example_renders_family_consistency() {
+        let html = render(|| view! { <DashboardShellExample/> }.into_any());
+
+        assert!(html.contains("Operations Dashboard"));
+        assert!(html.contains("data-intent=\"workspace\""));
+        assert!(html.contains("Overview refreshed"));
     }
 }

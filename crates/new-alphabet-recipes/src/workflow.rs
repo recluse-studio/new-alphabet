@@ -1,8 +1,9 @@
 use leptos::prelude::*;
 use new_alphabet_components::{
-    CommandAction, CommandBar, DetailField, DetailPane, DetailPaneState, FieldState, FilterGroup,
-    FilterRail, FilterRailState, InlineAlert, NavIndex, NavIndexItem, StatusSeverity, Table,
-    TableColumn, TableRow, TableState, TextField,
+    Checkbox, ChoiceOption, CommandAction, CommandBar, DetailField, DetailPane, DetailPaneState,
+    FieldState, FilterGroup, FilterRail, FilterRailState, InlineAlert, MetricBlock, NavIndex,
+    NavIndexItem, Select, StatusSeverity, Switch, Table, TableColumn, TableRow, TableState,
+    TextField,
 };
 use new_alphabet_foundation::{DensityMode, RegionClass};
 use new_alphabet_primitives::{
@@ -111,6 +112,170 @@ impl WorkspaceNavSection {
     }
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct WorkspaceContextItem {
+    pub label: &'static str,
+    pub value: &'static str,
+}
+
+impl WorkspaceContextItem {
+    pub const fn new(label: &'static str, value: &'static str) -> Self {
+        Self { label, value }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum SettingsControl {
+    Text {
+        label: &'static str,
+        name: &'static str,
+        value: &'static str,
+        state: FieldState,
+        help: Option<&'static str>,
+        message: Option<&'static str>,
+    },
+    Select {
+        label: &'static str,
+        name: &'static str,
+        selected: &'static str,
+        options: &'static [ChoiceOption],
+        state: FieldState,
+        help: Option<&'static str>,
+        message: Option<&'static str>,
+    },
+    Switch {
+        label: &'static str,
+        name: &'static str,
+        checked: bool,
+        state: FieldState,
+        message: Option<&'static str>,
+    },
+    Checkbox {
+        label: &'static str,
+        name: &'static str,
+        checked: bool,
+        state: FieldState,
+        message: Option<&'static str>,
+    },
+}
+
+impl SettingsControl {
+    pub const fn text(
+        label: &'static str,
+        name: &'static str,
+        value: &'static str,
+        state: FieldState,
+        help: Option<&'static str>,
+        message: Option<&'static str>,
+    ) -> Self {
+        Self::Text {
+            label,
+            name,
+            value,
+            state,
+            help,
+            message,
+        }
+    }
+
+    pub const fn select(
+        label: &'static str,
+        name: &'static str,
+        selected: &'static str,
+        options: &'static [ChoiceOption],
+        state: FieldState,
+        help: Option<&'static str>,
+        message: Option<&'static str>,
+    ) -> Self {
+        Self::Select {
+            label,
+            name,
+            selected,
+            options,
+            state,
+            help,
+            message,
+        }
+    }
+
+    pub const fn switch(
+        label: &'static str,
+        name: &'static str,
+        checked: bool,
+        state: FieldState,
+        message: Option<&'static str>,
+    ) -> Self {
+        Self::Switch {
+            label,
+            name,
+            checked,
+            state,
+            message,
+        }
+    }
+
+    pub const fn checkbox(
+        label: &'static str,
+        name: &'static str,
+        checked: bool,
+        state: FieldState,
+        message: Option<&'static str>,
+    ) -> Self {
+        Self::Checkbox {
+            label,
+            name,
+            checked,
+            state,
+            message,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct SettingsPanel {
+    pub title: &'static str,
+    pub description: &'static str,
+    pub controls: &'static [SettingsControl],
+}
+
+impl SettingsPanel {
+    pub const fn new(
+        title: &'static str,
+        description: &'static str,
+        controls: &'static [SettingsControl],
+    ) -> Self {
+        Self {
+            title,
+            description,
+            controls,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct DashboardMetric {
+    pub label: &'static str,
+    pub value: &'static str,
+    pub context: Option<&'static str>,
+    pub note: Option<&'static str>,
+}
+
+impl DashboardMetric {
+    pub const fn new(
+        label: &'static str,
+        value: &'static str,
+        context: Option<&'static str>,
+        note: Option<&'static str>,
+    ) -> Self {
+        Self {
+            label,
+            value,
+            context,
+            note,
+        }
+    }
+}
+
 fn render_pagination(pagination: WorkspacePagination) -> AnyView {
     match (pagination.previous_href, pagination.next_href) {
         (Some(previous_href), Some(next_href)) => view! {
@@ -183,6 +348,230 @@ fn render_detail(detail: WorkspaceDetail) -> AnyView {
                 title=detail.title
                 fields=detail.fields
                 state=detail.state
+            />
+        }
+        .into_any(),
+    }
+}
+
+fn render_context(context: &'static [WorkspaceContextItem], title: &'static str) -> AnyView {
+    view! {
+        <Panel>
+            <SectionHeader
+                title=title
+                subtitle="Supporting context remains adjacent and secondary."
+            />
+            <dl class="na-workspace-context">
+                {context
+                    .iter()
+                    .map(|item| {
+                        view! {
+                            <div class="na-workspace-context__item">
+                                <dt>{item.label}</dt>
+                                <dd>{item.value}</dd>
+                            </div>
+                        }
+                    })
+                    .collect_view()}
+            </dl>
+        </Panel>
+    }
+    .into_any()
+}
+
+fn render_settings_control(control: SettingsControl) -> AnyView {
+    match control {
+        SettingsControl::Text {
+            label,
+            name,
+            value,
+            state,
+            help,
+            message,
+        } => match (help, message) {
+            (Some(help), Some(message)) => view! {
+                <TextField
+                    label=label
+                    name=name
+                    value=value
+                    state=state
+                    help=help
+                    message=message
+                />
+            }
+            .into_any(),
+            (Some(help), None) => view! {
+                <TextField
+                    label=label
+                    name=name
+                    value=value
+                    state=state
+                    help=help
+                />
+            }
+            .into_any(),
+            (None, Some(message)) => view! {
+                <TextField
+                    label=label
+                    name=name
+                    value=value
+                    state=state
+                    message=message
+                />
+            }
+            .into_any(),
+            (None, None) => view! {
+                <TextField
+                    label=label
+                    name=name
+                    value=value
+                    state=state
+                />
+            }
+            .into_any(),
+        },
+        SettingsControl::Select {
+            label,
+            name,
+            selected,
+            options,
+            state,
+            help,
+            message,
+        } => match (help, message) {
+            (Some(help), Some(message)) => view! {
+                <Select
+                    label=label
+                    name=name
+                    selected=selected
+                    options=options
+                    state=state
+                    help=help
+                    message=message
+                />
+            }
+            .into_any(),
+            (Some(help), None) => view! {
+                <Select
+                    label=label
+                    name=name
+                    selected=selected
+                    options=options
+                    state=state
+                    help=help
+                />
+            }
+            .into_any(),
+            (None, Some(message)) => view! {
+                <Select
+                    label=label
+                    name=name
+                    selected=selected
+                    options=options
+                    state=state
+                    message=message
+                />
+            }
+            .into_any(),
+            (None, None) => view! {
+                <Select
+                    label=label
+                    name=name
+                    selected=selected
+                    options=options
+                    state=state
+                />
+            }
+            .into_any(),
+        },
+        SettingsControl::Switch {
+            label,
+            name,
+            checked,
+            state,
+            message,
+        } => match message {
+            Some(message) => view! {
+                <Switch
+                    label=label
+                    name=name
+                    checked=checked
+                    state=state
+                    message=message
+                />
+            }
+            .into_any(),
+            None => view! {
+                <Switch
+                    label=label
+                    name=name
+                    checked=checked
+                    state=state
+                />
+            }
+            .into_any(),
+        },
+        SettingsControl::Checkbox {
+            label,
+            name,
+            checked,
+            state,
+            message,
+        } => match message {
+            Some(message) => view! {
+                <Checkbox
+                    label=label
+                    name=name
+                    checked=checked
+                    state=state
+                    message=message
+                />
+            }
+            .into_any(),
+            None => view! {
+                <Checkbox
+                    label=label
+                    name=name
+                    checked=checked
+                    state=state
+                />
+            }
+            .into_any(),
+        },
+    }
+}
+
+fn render_metric(metric: DashboardMetric) -> AnyView {
+    match (metric.context, metric.note) {
+        (Some(context), Some(note)) => view! {
+            <MetricBlock
+                label=metric.label
+                value=metric.value
+                context=context
+                note=note
+            />
+        }
+        .into_any(),
+        (Some(context), None) => view! {
+            <MetricBlock
+                label=metric.label
+                value=metric.value
+                context=context
+            />
+        }
+        .into_any(),
+        (None, Some(note)) => view! {
+            <MetricBlock
+                label=metric.label
+                value=metric.value
+                note=note
+            />
+        }
+        .into_any(),
+        (None, None) => view! {
+            <MetricBlock
+                label=metric.label
+                value=metric.value
             />
         }
         .into_any(),
@@ -408,6 +797,150 @@ pub fn ReviewQueue(
     }
 }
 
+#[component]
+pub fn SettingsWorkspace(
+    title: &'static str,
+    navigation: WorkspaceNavSection,
+    panels: &'static [SettingsPanel],
+    #[prop(optional)] status: Option<WorkspaceStatus>,
+    #[prop(optional)] context: Option<&'static [WorkspaceContextItem]>,
+) -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <Band strength=SurfaceStrength::Strong>
+                <SectionHeader
+                    title=title
+                    subtitle="Configuration panels stay narrow, structural, and editable without turning into a generic settings template."
+                    annotation="Settings"
+                />
+            </Band>
+            <PageGrid intent=FrameIntent::Workspace>
+                {status.map(|status| {
+                    view! {
+                        <Region kind=RegionClass::ActionBand placement=RegionPlacement::ActionBand>
+                            <InlineAlert
+                                title=status.title
+                                message=status.message
+                                severity=status.severity
+                            />
+                        </Region>
+                    }
+                    .into_any()
+                })}
+                <Rail side=RailSide::Start>
+                    <Panel strength=SurfaceStrength::Strong>
+                        <SectionHeader
+                            title=navigation.title
+                            subtitle="Section navigation stays persistent and quiet."
+                        />
+                        <NavIndex label=navigation.title items=navigation.items />
+                    </Panel>
+                </Rail>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Stack spacing=StackSpace::Default>
+                        {panels
+                            .iter()
+                            .map(|panel| {
+                                view! {
+                                    <Panel>
+                                        <SectionHeader
+                                            title=panel.title
+                                            subtitle=panel.description
+                                        />
+                                        <Stack spacing=StackSpace::Tight>
+                                            {panel.controls.iter().copied().map(render_settings_control).collect_view()}
+                                        </Stack>
+                                    </Panel>
+                                }
+                            })
+                            .collect_view()}
+                    </Stack>
+                </Region>
+                {context.map(|context| {
+                    view! {
+                        <Region kind=RegionClass::Detail placement=RegionPlacement::Detail>
+                            {render_context(context, "Context")}
+                        </Region>
+                    }
+                    .into_any()
+                })}
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn DashboardShell(
+    title: &'static str,
+    metrics: &'static [DashboardMetric],
+    summary_columns: &'static [TableColumn],
+    summary_rows: &'static [TableRow],
+    #[prop(optional)] status: Option<WorkspaceStatus>,
+    #[prop(optional)] context: Option<&'static [WorkspaceContextItem]>,
+    #[prop(optional)] summary_state: Option<TableState>,
+) -> impl IntoView {
+    let summary_state = summary_state.unwrap_or_default();
+
+    view! {
+        <AppShell density=DensityMode::Dense intent=FrameIntent::Workspace>
+            <Band strength=SurfaceStrength::Strong>
+                <SectionHeader
+                    title=title
+                    subtitle="Summary blocks and dense tables remain in the same severe family as the rest of the system."
+                    annotation="Dashboard"
+                />
+            </Band>
+            <PageGrid intent=FrameIntent::Workspace>
+                {status.map(|status| {
+                    view! {
+                        <Region kind=RegionClass::ActionBand placement=RegionPlacement::ActionBand>
+                            <InlineAlert
+                                title=status.title
+                                message=status.message
+                                severity=status.severity
+                            />
+                        </Region>
+                    }
+                    .into_any()
+                })}
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Stack spacing=StackSpace::Default>
+                        <Panel strength=SurfaceStrength::Strong>
+                            <SectionHeader
+                                title="Metrics"
+                                subtitle="Operational summaries stay typographic and quiet."
+                            />
+                            <Stack spacing=StackSpace::Tight>
+                                {metrics.iter().copied().map(render_metric).collect_view()}
+                            </Stack>
+                        </Panel>
+                        <Panel>
+                            <SectionHeader
+                                title="Overview"
+                                subtitle="Dense summary tables keep the same explicit state law as search and review."
+                            />
+                            <Table
+                                label="Dashboard overview"
+                                columns=summary_columns
+                                rows=summary_rows
+                                state=summary_state
+                            />
+                        </Panel>
+                    </Stack>
+                </Region>
+                {context.map(|context| {
+                    view! {
+                        <Region kind=RegionClass::Detail placement=RegionPlacement::Detail>
+                            {render_context(context, "Context help")}
+                        </Region>
+                    }
+                    .into_any()
+                })}
+            </PageGrid>
+        </AppShell>
+    }
+}
+
 const FILTER_TYPE_OPTIONS: &[new_alphabet_components::FilterOption] = &[
     new_alphabet_components::FilterOption::selected("essay", "Essay", 12),
     new_alphabet_components::FilterOption::new("note", "Note", 4),
@@ -549,6 +1082,121 @@ const REVIEW_DETAIL: WorkspaceDetail = WorkspaceDetail::new(
     None,
 );
 
+const SETTINGS_NAV_ITEMS: &[NavIndexItem] = &[
+    NavIndexItem::current("Profile", "/settings/profile"),
+    NavIndexItem::new("Workflow", "/settings/workflow"),
+];
+
+const SETTINGS_NAVIGATION: WorkspaceNavSection =
+    WorkspaceNavSection::new("Settings sections", SETTINGS_NAV_ITEMS);
+
+const DENSITY_OPTIONS: &[ChoiceOption] = &[
+    ChoiceOption::new("calm", "Calm"),
+    ChoiceOption::new("regular", "Regular"),
+    ChoiceOption::new("dense", "Dense"),
+];
+
+const PROFILE_CONTROLS: &[SettingsControl] = &[
+    SettingsControl::text(
+        "Display name",
+        "display-name",
+        "Recluse Studio",
+        FieldState::Success,
+        Some("Public profile label."),
+        Some("Saved."),
+    ),
+    SettingsControl::select(
+        "Workspace density",
+        "workspace-density",
+        "regular",
+        DENSITY_OPTIONS,
+        FieldState::Default,
+        Some("Applies to queue and detail surfaces."),
+        None,
+    ),
+];
+
+const WORKFLOW_CONTROLS: &[SettingsControl] = &[
+    SettingsControl::switch(
+        "Private mode",
+        "private-mode",
+        true,
+        FieldState::Default,
+        Some("Can be changed later in settings."),
+    ),
+    SettingsControl::checkbox(
+        "Attach follow-up automatically",
+        "attach-follow-up",
+        false,
+        FieldState::Default,
+        Some("Adds a note after each review decision."),
+    ),
+];
+
+const SETTINGS_PANELS: &[SettingsPanel] = &[
+    SettingsPanel::new(
+        "Profile settings",
+        "Editable public-facing labels stay explicit and bounded.",
+        PROFILE_CONTROLS,
+    ),
+    SettingsPanel::new(
+        "Workflow settings",
+        "Operational toggles remain native controls rather than custom settings chrome.",
+        WORKFLOW_CONTROLS,
+    ),
+];
+
+const WORKSPACE_CONTEXT: &[WorkspaceContextItem] = &[
+    WorkspaceContextItem::new("Sync", "Last synced 18 seconds ago"),
+    WorkspaceContextItem::new("Scope", "Workspace-only"),
+];
+
+const DASHBOARD_METRICS: &[DashboardMetric] = &[
+    DashboardMetric::new(
+        "Published today",
+        "18",
+        Some("Across archive and review surfaces."),
+        None,
+    ),
+    DashboardMetric::new(
+        "Average queue age",
+        "4h",
+        Some("Measured from the first editorial touch."),
+        None,
+    ),
+    DashboardMetric::new(
+        "Blocked items",
+        "3",
+        None,
+        Some("Rights and metadata gaps only."),
+    ),
+];
+
+const DASHBOARD_COLUMNS: &[TableColumn] = &[
+    TableColumn::truncate("surface", "Surface"),
+    TableColumn::truncate("count", "Count"),
+    TableColumn::wrap("summary", "Summary"),
+];
+
+const DASHBOARD_ROWS: &[TableRow] = &[
+    TableRow::new(
+        "review-queue",
+        &[
+            "Review queue",
+            "18",
+            "Three items exceed service rhythm and need action today.",
+        ],
+    ),
+    TableRow::new(
+        "archive-notes",
+        &[
+            "Archive notes",
+            "42",
+            "All pending archive updates fit inside the current publication window.",
+        ],
+    ),
+];
+
 #[component]
 pub fn SearchResultsWorkspaceExample() -> impl IntoView {
     view! {
@@ -562,6 +1210,41 @@ pub fn SearchResultsWorkspaceExample() -> impl IntoView {
             commands=SEARCH_COMMANDS
             detail=SEARCH_DETAIL
             pagination=SEARCH_PAGINATION
+        />
+    }
+}
+
+#[component]
+pub fn SettingsWorkspaceExample() -> impl IntoView {
+    view! {
+        <SettingsWorkspace
+            title="Settings Workspace"
+            navigation=SETTINGS_NAVIGATION
+            panels=SETTINGS_PANELS
+            status=WorkspaceStatus::new(
+                "Settings saved",
+                "Profile and workflow changes are now active.",
+                StatusSeverity::Success,
+            )
+            context=WORKSPACE_CONTEXT
+        />
+    }
+}
+
+#[component]
+pub fn DashboardShellExample() -> impl IntoView {
+    view! {
+        <DashboardShell
+            title="Operations Dashboard"
+            metrics=DASHBOARD_METRICS
+            summary_columns=DASHBOARD_COLUMNS
+            summary_rows=DASHBOARD_ROWS
+            status=WorkspaceStatus::new(
+                "Overview refreshed",
+                "Metric and queue summaries were updated 18 seconds ago.",
+                StatusSeverity::Info,
+            )
+            context=WORKSPACE_CONTEXT
         />
     }
 }
