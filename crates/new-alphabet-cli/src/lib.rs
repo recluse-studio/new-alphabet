@@ -381,12 +381,13 @@ fn explain_item(item: &str) -> Result<CommandResult, String> {
     {
         return Ok(CommandResult {
             stdout: format!(
-                "primitive {}\npurpose: {}\nrequired_props: {}\noptional_props: {}\nnotes: {}",
+                "primitive {}\npurpose: {}\nrequired_props: {}\noptional_props: {}\nnotes: {}\nexamples: {}",
                 primitive.id,
                 primitive.purpose,
                 list_or_none(&primitive.required_props),
                 list_or_none(&primitive.optional_props),
-                primitive.composition_notes.join(" | ")
+                primitive.composition_notes.join(" | "),
+                list_or_none(&primitive.example_ids)
             ),
             wrote_files: Vec::new(),
         });
@@ -399,9 +400,10 @@ fn explain_item(item: &str) -> Result<CommandResult, String> {
     {
         return Ok(CommandResult {
             stdout: format!(
-                "component {}\npurpose: {}\nrequired_states: {}\naccessibility: {}\nexamples: {}",
+                "component {}\npurpose: {}\nbuilt_from: {}\nrequired_states: {}\naccessibility: {}\nexamples: {}",
                 component.id,
                 component.purpose,
+                list_or_none(&component.built_from),
                 list_or_none(&component.required_states),
                 list_or_none(&component.accessibility),
                 list_or_none(&component.example_ids)
@@ -417,12 +419,15 @@ fn explain_item(item: &str) -> Result<CommandResult, String> {
     {
         return Ok(CommandResult {
             stdout: format!(
-                "recipe {}\npurpose: {}\nrequired_regions: {}\noptional_regions: {}\nadaptation_limits: {}",
+                "recipe {}\npurpose: {}\nrequired_regions: {}\noptional_regions: {}\nprimitives: {}\ncomponents: {}\nadaptation_limits: {}\nexamples: {}",
                 recipe.id,
                 recipe.purpose,
                 list_or_none(&recipe.required_regions),
                 list_or_none(&recipe.optional_regions),
-                recipe.adaptation_limits.join(" | ")
+                list_or_none(&recipe.primitives),
+                list_or_none(&recipe.components),
+                recipe.adaptation_limits.join(" | "),
+                list_or_none(&recipe.example_ids)
             ),
             wrote_files: Vec::new(),
         });
@@ -476,42 +481,103 @@ fn explain_item(item: &str) -> Result<CommandResult, String> {
 fn inspect_manifest(cwd: &Path, path: Option<&str>) -> Result<CommandResult, String> {
     let manifest_path = resolve_manifest_path(cwd, path);
     let manifest = load_manifest(&manifest_path)?;
+    let report = validate_manifest(&manifest);
+    let mut recipe_ids = BTreeSet::new();
+    let mut primitive_ids = BTreeSet::new();
+    let mut component_ids = BTreeSet::new();
     let surfaces = manifest
         .surfaces
         .iter()
         .map(|surface| {
+            recipe_ids.insert(surface.recipe.clone());
+            primitive_ids.extend(surface.primitives.iter().cloned());
+            component_ids.extend(surface.components.iter().map(|component| component.id.clone()));
+
+            let surface_messages = report
+                .messages
+                .iter()
+                .filter(|message| message.target == surface.id)
+                .cloned()
+                .collect::<Vec<_>>();
+            let (error_count, warning_count, note_count) = message_counts(&surface_messages);
+            let validation_lines = if surface_messages.is_empty() {
+                "none".to_owned()
+            } else {
+                surface_messages
+                    .iter()
+                    .map(format_validation_message)
+                    .collect::<Vec<_>>()
+                    .join("\n  ")
+            };
+
             format!(
-                "{} -> {} [{}] regions={} components={}",
+                "surface {}\n  intent: {}\n  recipe: {}\n  regions: {}\n  primitives: {}\n  components: {}\n  validation: {} errors, {} warnings, {} notes\n  {}",
                 surface.id,
-                surface.recipe,
                 match surface.intent {
                     IntentKind::Editorial => "editorial",
                     IntentKind::Workspace => "workspace",
                 },
+                surface.recipe,
                 surface
                     .regions
                     .iter()
                     .map(|region| region.kind.as_str())
                     .collect::<Vec<_>>()
-                    .join(","),
+                    .join(", "),
+                surface.primitives.join(", "),
                 surface
                     .components
                     .iter()
                     .map(|component| component.id.as_str())
                     .collect::<Vec<_>>()
-                    .join(",")
+                    .join(", "),
+                error_count,
+                warning_count,
+                note_count,
+                validation_lines
             )
         })
         .collect::<Vec<_>>()
         .join("\n");
+    let project_messages = report
+        .messages
+        .iter()
+        .filter(|message| {
+            !manifest
+                .surfaces
+                .iter()
+                .any(|surface| surface.id == message.target)
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    let (error_count, warning_count, note_count) = message_counts(&report.messages);
+    let project_validation = if project_messages.is_empty() {
+        String::new()
+    } else {
+        format!(
+            "\nproject_validation:\n{}",
+            project_messages
+                .iter()
+                .map(format_validation_message)
+                .collect::<Vec<_>>()
+                .join("\n")
+        )
+    };
 
     Ok(CommandResult {
         stdout: format!(
-            "project {}\nschema_version: {}\nsurfaces: {}\n{}",
+            "project {}\nschema_version: {}\nsurfaces: {}\nrecipes: {}\nprimitives: {}\ncomponents: {}\nvalidation: {} errors, {} warnings, {} notes\n{}\n{}",
             manifest.project_name,
             manifest.schema_version,
             manifest.surfaces.len(),
-            surfaces
+            recipe_ids.into_iter().collect::<Vec<_>>().join(", "),
+            primitive_ids.into_iter().collect::<Vec<_>>().join(", "),
+            component_ids.into_iter().collect::<Vec<_>>().join(", "),
+            error_count,
+            warning_count,
+            note_count,
+            surfaces,
+            project_validation
         ),
         wrote_files: Vec::new(),
     })
@@ -600,12 +666,21 @@ fn plan_intent(intent: &str) -> Result<CommandResult, String> {
                 .count()
         })
         .ok_or_else(|| "No prompt intents are available.".to_owned())?;
+    let recipe = bundle
+        .recipes
+        .iter()
+        .find(|recipe| recipe.id == best.recommended_recipe)
+        .ok_or_else(|| "The recommended recipe is missing from the contract bundle.".to_owned())?;
 
     Ok(CommandResult {
         stdout: format!(
-            "plan {}\nrecipe: {}\nsteps:\n- {}\nvalidation_focus: {}",
+            "plan {}\nrecipe: {}\nrequired_regions: {}\nrequired_primitives: {}\nrecommended_components: {}\nreference_examples: {}\nsteps:\n- {}\nvalidation_focus: {}",
             best.id,
             best.recommended_recipe,
+            list_or_none(&recipe.required_regions),
+            list_or_none(&recipe.primitives),
+            list_or_none(&recipe.components),
+            list_or_none(&recipe.example_ids),
             best.plan_outline.join("\n- "),
             best.validation_focus.join(", ")
         ),
@@ -848,6 +923,23 @@ fn format_validation_message(message: &ValidationMessage) -> String {
     }
 }
 
+fn message_counts(messages: &[ValidationMessage]) -> (usize, usize, usize) {
+    let error_count = messages
+        .iter()
+        .filter(|message| matches!(message.severity, Severity::Error))
+        .count();
+    let warning_count = messages
+        .iter()
+        .filter(|message| matches!(message.severity, Severity::Warning))
+        .count();
+    let note_count = messages
+        .iter()
+        .filter(|message| matches!(message.severity, Severity::Note))
+        .count();
+
+    (error_count, warning_count, note_count)
+}
+
 fn list_or_none(values: &[String]) -> String {
     if values.is_empty() {
         "none".to_owned()
@@ -986,7 +1078,29 @@ mod tests {
         let result = run_from(["new-alphabet", "explain", "ReviewQueue"], &root).expect("explain");
 
         assert!(result.stdout.contains("required_regions"));
+        assert!(result.stdout.contains("primitives"));
+        assert!(result.stdout.contains("components"));
         assert!(result.stdout.contains("adaptation_limits"));
+    }
+
+    #[test]
+    fn inspect_reports_framework_inventory_and_rule_violations() {
+        let root = unique_test_dir("inspect");
+        fs::create_dir_all(&root).expect("root");
+        fs::write(
+            root.join("new-alphabet.json"),
+            "{\n  \"schema_version\": \"0.1.0\",\n  \"project_name\": \"proof\",\n  \"surfaces\": [\n    {\n      \"id\": \"sparkle-admin\",\n      \"name\": \"Sparkle Magic Dashboard\",\n      \"intent\": \"workspace\",\n      \"recipe\": \"ReviewQueue\",\n      \"regions\": [\n        {\n          \"kind\": \"rail\",\n          \"placement\": \"rail_start\"\n        }\n      ],\n      \"primitives\": [\"AppShell\", \"PageGrid\"],\n      \"components\": [\n        {\n          \"id\": \"Table\",\n          \"states\": [\"default\"],\n          \"accessible_name\": false,\n          \"keyboard_support\": false,\n          \"text_equivalent\": false,\n          \"custom_variant_props\": true\n        }\n      ],\n      \"spacing_tokens\": [\"spacing.stack.default\"],\n      \"custom_spacing_values\": [],\n      \"accessibility\": {\n        \"semantic_html\": true,\n        \"focus_visible\": true,\n        \"color_independent_meaning\": true\n      },\n      \"style_escape_hatch\": false,\n      \"invented_layout\": false\n    }\n  ]\n}\n",
+        )
+        .expect("manifest");
+
+        let result = run_from(["new-alphabet", "inspect"], &root).expect("inspect");
+
+        assert!(result.stdout.contains("recipes: ReviewQueue"));
+        assert!(result.stdout.contains("primitives: AppShell, PageGrid"));
+        assert!(result.stdout.contains("components: Table"));
+        assert!(result.stdout.contains("validation:"));
+        assert!(result.stdout.contains("V-001"));
+        assert!(result.stdout.contains("V-009"));
     }
 
     #[test]
@@ -1038,6 +1152,8 @@ mod tests {
         .expect("plan");
 
         assert!(result.stdout.contains("recipe: ReviewQueue"));
+        assert!(result.stdout.contains("required_regions:"));
+        assert!(result.stdout.contains("recommended_components:"));
     }
 
     fn unique_test_dir(label: &str) -> PathBuf {

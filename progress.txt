@@ -73,3 +73,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-033 | Expanded constitutional validation with canonical inventory checks, stronger anti-pattern coverage, passing notes, stricter tests, and refreshed schema exports.
 2026-03-07 | DECISION | cli | Scaffold generation now reads the canonical contract bundle and writes recipe and component modules with explicit primitives, states, examples, documentation paths, and idempotent file behavior.
 2026-03-07 | PRD | US-034 | Tightened init and add flows so scaffolds stay contract-backed, approved-inventory-only, additive, and explicit about their structural bindings.
+2026-03-07 | DECISION | cli | Read-only CLI commands now speak in contract terms by surfacing recipe inventory, structural dependencies, validation findings, and reference examples from the canonical bundle.
+2026-03-07 | PRD | US-035 | Deepened explain, inspect, validate, export, and plan so they report real framework structure, violations, and recipe-first plans instead of thin summaries.
