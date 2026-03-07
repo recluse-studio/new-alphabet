@@ -153,7 +153,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 7,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B7, the anti-pattern registry, the agent contract bundle requirements, validation categories, generation and repair sequences, and the agent gate from the prior PRD.",
       "dependsOn": [
         "US-001",

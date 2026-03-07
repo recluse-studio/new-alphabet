@@ -921,6 +921,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "new-alphabet-core"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "new-alphabet-foundation"
 version = "0.1.0"
 
@@ -940,6 +948,18 @@ dependencies = [
  "new-alphabet-components",
  "new-alphabet-foundation",
  "new-alphabet-primitives",
+]
+
+[[package]]
+name = "new-alphabet-schema"
+version = "0.1.0"
+dependencies = [
+ "new-alphabet-components",
+ "new-alphabet-core",
+ "new-alphabet-foundation",
+ "new-alphabet-primitives",
+ "new-alphabet-recipes",
+ "serde_json",
 ]
 
 [[package]]

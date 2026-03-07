@@ -1,0 +1,15 @@
+[package]
+name = "new-alphabet-schema"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Canonical schema bundle and validation engine for New Alphabet."
+repository = "https://github.com/recluse-studio/new-alphabet"
+
+[dependencies]
+new-alphabet-components = { path = "../new-alphabet-components" }
+new-alphabet-core = { path = "../new-alphabet-core" }
+new-alphabet-foundation = { path = "../new-alphabet-foundation" }
+new-alphabet-primitives = { path = "../new-alphabet-primitives" }
+new-alphabet-recipes = { path = "../new-alphabet-recipes" }
+serde_json = "1.0"

@@ -59,3 +59,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-031 | Implemented SettingsWorkspace and DashboardShell with section navigation, editable panels, metric blocks, summary tables, and optional context help.
 2026-03-07 | MILESTONE | recipes | The workflow recipe layer now proves search, review, settings, and dashboard surfaces under one severe operational grammar.
 2026-03-07 | PRD | US-006 | Completed the workflow recipe proof with SearchResultsWorkspace, ReviewQueue, SettingsWorkspace, and DashboardShell sharing one constrained operational family.
+2026-03-07 | DECISION | schema | The contract layer mirrors the runtime through versioned Rust data, canonical schema documents, prompt intents, and repair-oriented manifest validation instead of prose-only guidance.
+2026-03-07 | PRD | US-007 | Implemented new-alphabet-core and new-alphabet-schema with a versioned contract bundle, layer schemas, prompt intents, and constitutional validation across composition, spacing, naming, state, accessibility, and anti-pattern drift.
