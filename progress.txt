@@ -18,3 +18,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-002 | Implemented the foundation runtime as a buildable Rust crate covering grid, spacing, type, density, color, border, motion, breakpoints, and state tokens.
 2026-03-07 | DECISION | primitives | Region placement stays explicit through named placements, semantic tags, and foundation span metadata in the rendered markup.
 2026-03-07 | PRD | US-015 | Implemented AppShell, PageGrid, and Region as Leptos primitives with SSR-rendered editorial and workspace anchor examples.
+2026-03-07 | DECISION | primitives | Rail, stack, row, and column composition stay finite by encoding width, spacing, alignment, and column count as enums rather than open props.
+2026-03-07 | PRD | US-016 | Implemented Rail, Stack, Row, and ColumnGroup with token-driven composition metadata and SSR-rendered editorial and workflow examples.

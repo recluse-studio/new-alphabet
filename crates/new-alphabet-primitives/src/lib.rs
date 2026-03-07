@@ -1,9 +1,17 @@
 #![forbid(unsafe_code)]
 
+mod composition;
 mod examples;
 mod frame;
 
-pub use examples::{EditorialAnchorExample, WorkspaceAnchorExample};
+pub use composition::{
+    ColumnGroup, ColumnPreset, Rail, RailSide, Row, RowAlign, RowDistribution, RowGap, Stack,
+    StackSpace,
+};
+pub use examples::{
+    EditorialAnchorExample, EditorialStructureExample, WorkflowStructureExample,
+    WorkspaceAnchorExample,
+};
 pub use frame::{AppShell, FrameIntent, PageGrid, Region, RegionPlacement, RegionTag};
 
 #[cfg(test)]
@@ -28,5 +36,19 @@ mod tests {
         let html = render(|| view! { <WorkspaceAnchorExample/> }.into_any());
         assert!(html.contains("data-region=\"detail\""));
         assert!(html.contains("data-placement=\"detail\""));
+    }
+
+    #[test]
+    fn workflow_structure_renders_rail_contract() {
+        let html = render(|| view! { <WorkflowStructureExample/> }.into_any());
+        assert!(html.contains("data-rail-width=\"layout.rail.default.width\""));
+        assert!(html.contains("data-columns-wide=\"3\""));
+    }
+
+    #[test]
+    fn editorial_structure_renders_token_driven_composition() {
+        let html = render(|| view! { <EditorialStructureExample/> }.into_any());
+        assert!(html.contains("data-gap-token=\"spacing.stack.loose\""));
+        assert!(html.contains("data-columns-medium=\"2\""));
     }
 }
