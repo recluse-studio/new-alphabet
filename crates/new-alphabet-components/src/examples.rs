@@ -1,14 +1,15 @@
 use leptos::prelude::*;
-use new_alphabet_foundation::{DensityMode, RegionClass};
+use new_alphabet_foundation::{DensityMode, RailWidthToken, RegionClass};
 use new_alphabet_primitives::{
-    AppShell, FrameIntent, PageGrid, Panel, Region, RegionPlacement, Row, RowAlign,
+    AppShell, FrameIntent, PageGrid, Panel, Rail, RailSide, Region, RegionPlacement, Row, RowAlign,
     RowDistribution, SectionHeader, Stack, StackSpace, SurfaceStrength,
 };
 
 use crate::{
-    ActionPriority, ActionState, Button, Checkbox, ChoiceOption, EmptyState, FieldState,
-    InlineAlert, LinkAction, MetricBlock, Pagination, RadioGroup, Select, StatusBadge,
-    StatusSeverity, Switch, Table, TableColumn, TableRow, TextField, Textarea,
+    ActionPriority, ActionState, Button, Checkbox, ChoiceOption, CommandAction, CommandBar,
+    DetailField, DetailPane, EmptyState, FieldState, FilterGroup, FilterOption, FilterRail,
+    InlineAlert, LinkAction, MetricBlock, NavIndex, NavIndexItem, Pagination, RadioGroup, Select,
+    StatusBadge, StatusSeverity, Switch, Table, TableColumn, TableRow, TextField, Textarea,
 };
 
 const DENSITY_OPTIONS: &[ChoiceOption] = &[
@@ -71,6 +72,47 @@ const REVIEW_TABLE_COLUMNS: &[TableColumn] = &[
     TableColumn::truncate("entry", "Entry"),
     TableColumn::truncate("state", "State"),
     TableColumn::wrap("note", "Review note"),
+];
+
+const SEARCH_NAV_ITEMS: &[NavIndexItem] = &[
+    NavIndexItem::current("Results", "/search"),
+    NavIndexItem::new("Review queue", "/review"),
+    NavIndexItem::new("Settings", "/settings"),
+];
+
+const DOCS_NAV_ITEMS: &[NavIndexItem] = &[
+    NavIndexItem::current("Foundations", "/docs/foundations"),
+    NavIndexItem::new("Primitives", "/docs/primitives"),
+    NavIndexItem::new("Components", "/docs/components"),
+];
+
+const FILTER_TYPE_OPTIONS: &[FilterOption] = &[
+    FilterOption::selected("essay", "Essay", 12),
+    FilterOption::new("note", "Note", 4),
+];
+
+const FILTER_STATE_OPTIONS: &[FilterOption] = &[
+    FilterOption::selected("ready", "Ready", 8),
+    FilterOption::new("hold", "Hold", 3),
+];
+
+const SEARCH_FILTER_GROUPS: &[FilterGroup] = &[
+    FilterGroup::new("Type", FILTER_TYPE_OPTIONS),
+    FilterGroup::new("State", FILTER_STATE_OPTIONS),
+];
+
+const REVIEW_COMMAND_PRIMARY: CommandAction =
+    CommandAction::ready("Approve selection", "/review/approve");
+
+const REVIEW_COMMAND_SECONDARY: &[CommandAction] = &[
+    CommandAction::ready("Open history", "/review/history"),
+    CommandAction::loading("Sync notes", "/review/sync"),
+];
+
+const REVIEW_DETAIL_FIELDS: &[DetailField] = &[
+    DetailField::new("State", "Ready"),
+    DetailField::new("Section", "Archive"),
+    DetailField::new("Owner", "Editorial"),
 ];
 
 #[component]
@@ -389,6 +431,107 @@ pub fn ReviewDataExample() -> impl IntoView {
                                 next_href="/review?page=3"
                             />
                         </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn SearchWorkflowExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Dense intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Rail width=RailWidthToken::Default side=RailSide::Start>
+                    <Stack spacing=StackSpace::Default>
+                        <NavIndex label="Workspace sections" items=SEARCH_NAV_ITEMS />
+                        <FilterRail label="Search filters" groups=SEARCH_FILTER_GROUPS />
+                    </Stack>
+                </Rail>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Search results"
+                            subtitle="Navigation and filter structures remain quiet while the result field stays dense."
+                        />
+                        <Stack spacing=StackSpace::Tight>
+                            <Table
+                                label="Search result entries"
+                                columns=REVIEW_TABLE_COLUMNS
+                                rows=REVIEW_TABLE_ROWS
+                            />
+                            <Pagination
+                                current_page=1
+                                total_pages=3
+                                next_href="/search?page=2"
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn ReviewQueueCommandExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Dense intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Review queue"
+                            subtitle="Action hierarchy is explicit and separated from the dense queue surface."
+                        />
+                        <Stack spacing=StackSpace::Tight>
+                            <CommandBar
+                                label="Review commands"
+                                primary=REVIEW_COMMAND_PRIMARY
+                                secondary=REVIEW_COMMAND_SECONDARY
+                            />
+                            <Table
+                                label="Review queue entries"
+                                columns=REVIEW_TABLE_COLUMNS
+                                rows=REVIEW_TABLE_ROWS
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+                <Region kind=RegionClass::Detail placement=RegionPlacement::Detail>
+                    <DetailPane
+                        title="Essay 142"
+                        summary="Inspection stays adjacent, bounded, and explicit."
+                        fields=REVIEW_DETAIL_FIELDS
+                    />
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn DocumentationNavigationExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Calm intent=FrameIntent::Editorial>
+            <PageGrid intent=FrameIntent::Editorial>
+                <Region kind=RegionClass::Support placement=RegionPlacement::Support>
+                    <Panel strength=SurfaceStrength::Strong>
+                        <SectionHeader
+                            title="Manual"
+                            subtitle="Documentation navigation stays structural and typographic."
+                        />
+                        <NavIndex label="Documentation sections" items=DOCS_NAV_ITEMS />
+                    </Panel>
+                </Region>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel strength=SurfaceStrength::Strong>
+                        <SectionHeader
+                            title="Foundations"
+                            subtitle="The docs surface shares the same grammar as workflow navigation."
+                        />
+                        <p>"Foundations define layout, spacing, type, density, color, border, motion, and state law."</p>
                     </Panel>
                 </Region>
             </PageGrid>

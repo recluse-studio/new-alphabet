@@ -6,6 +6,7 @@ mod data_display;
 mod examples;
 mod fields;
 mod status;
+mod workflow;
 
 pub use actions::{ActionPriority, ActionState, Button, ButtonType, LinkAction};
 pub use choices::{Checkbox, ChoiceOption, RadioGroup, Select, Switch};
@@ -14,12 +15,17 @@ pub use data_display::{
     TableState,
 };
 pub use examples::{
-    DashboardDataExample, EditorialActionExample, EditorialStatusExample, FormChoiceExample,
-    FormFieldExample, ReviewDataExample, SettingsChoiceExample, SettingsFieldExample,
+    DashboardDataExample, DocumentationNavigationExample, EditorialActionExample,
+    EditorialStatusExample, FormChoiceExample, FormFieldExample, ReviewDataExample,
+    ReviewQueueCommandExample, SearchWorkflowExample, SettingsChoiceExample, SettingsFieldExample,
     WorkflowActionExample, WorkflowStatusExample,
 };
 pub use fields::{FieldState, TextField, Textarea};
 pub use status::{EmptyState, InlineAlert, StatusBadge, StatusSeverity};
+pub use workflow::{
+    CommandAction, CommandBar, DetailField, DetailPane, DetailPaneState, FilterGroup, FilterOption,
+    FilterRail, FilterRailState, NavIndex, NavIndexItem, NavIndexItemState,
+};
 
 #[cfg(test)]
 const PLAN_OPTIONS: &[ChoiceOption] = &[
@@ -58,6 +64,46 @@ const QUEUE_ROW_TWO: &[&str] = &[
 const QUEUE_TABLE_ROWS: &[TableRow] = &[
     TableRow::new("essay-142", QUEUE_ROW_ONE),
     TableRow::new("essay-143", QUEUE_ROW_TWO),
+];
+
+#[cfg(test)]
+const WORKSPACE_NAV_ITEMS: &[NavIndexItem] = &[
+    NavIndexItem::current("Results", "/search"),
+    NavIndexItem::new("Review queue", "/review"),
+];
+
+#[cfg(test)]
+const PRIMARY_REVIEW_ACTION: CommandAction = CommandAction::ready("Approve selection", "/approve");
+
+#[cfg(test)]
+const SECONDARY_REVIEW_ACTIONS: &[CommandAction] = &[
+    CommandAction::ready("Open history", "/history"),
+    CommandAction::disabled("Export queue", "/export"),
+];
+
+#[cfg(test)]
+const FILTER_TYPE_OPTIONS: &[FilterOption] = &[
+    FilterOption::selected("essay", "Essay", 12),
+    FilterOption::new("note", "Note", 4),
+];
+
+#[cfg(test)]
+const FILTER_STATE_OPTIONS: &[FilterOption] = &[
+    FilterOption::selected("ready", "Ready", 8),
+    FilterOption::new("hold", "Hold", 3),
+];
+
+#[cfg(test)]
+const FILTER_GROUPS: &[FilterGroup] = &[
+    FilterGroup::new("Type", FILTER_TYPE_OPTIONS),
+    FilterGroup::new("State", FILTER_STATE_OPTIONS),
+];
+
+#[cfg(test)]
+const REVIEW_DETAIL_FIELDS: &[DetailField] = &[
+    DetailField::new("State", "Ready"),
+    DetailField::new("Section", "Archive"),
+    DetailField::new("Owner", "Editorial"),
 ];
 
 #[cfg(test)]
@@ -442,5 +488,146 @@ mod tests {
         assert!(html.contains("Review queue"));
         assert!(html.contains("Review queue entries"));
         assert!(html.contains("Page 2 of 6"));
+    }
+
+    #[test]
+    fn nav_index_renders_current_item() {
+        let html = render(|| {
+            view! {
+                <NavIndex label="Workspace sections" items=WORKSPACE_NAV_ITEMS />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("aria-label=\"Workspace sections\""));
+        assert!(html.contains("aria-current=\"page\""));
+        assert!(html.contains("Review queue"));
+    }
+
+    #[test]
+    fn command_bar_renders_primary_and_secondary_hierarchy() {
+        let html = render(|| {
+            view! {
+                <CommandBar
+                    label="Review commands"
+                    primary=PRIMARY_REVIEW_ACTION
+                    secondary=SECONDARY_REVIEW_ACTIONS
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-kind=\"command-bar\""));
+        assert!(html.contains("data-priority=\"primary\""));
+        assert!(html.contains("data-priority=\"secondary\""));
+        assert!(html.contains("Approve selection"));
+    }
+
+    #[test]
+    fn filter_rail_renders_groups_and_zero_result_state() {
+        let html = render(|| {
+            view! {
+                <FilterRail
+                    label="Search filters"
+                    groups=FILTER_GROUPS
+                    state=FilterRailState::ZeroResults
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-state=\"zero_results\""));
+        assert!(html.contains("No results match the current filters."));
+        assert!(html.contains("Essay"));
+        assert!(html.contains(">12<"));
+    }
+
+    #[test]
+    fn detail_pane_renders_default_fields() {
+        let html = render(|| {
+            view! {
+                <DetailPane
+                    title="Essay 142"
+                    summary="Inspection stays adjacent, bounded, and explicit."
+                    fields=REVIEW_DETAIL_FIELDS
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-state=\"default\""));
+        assert!(html.contains("Inspection stays adjacent, bounded, and explicit."));
+        assert!(html.contains("Archive"));
+    }
+
+    #[test]
+    fn detail_pane_renders_loading_empty_and_unavailable_states() {
+        let loading_html = render(|| {
+            view! {
+                <DetailPane
+                    title="Essay 142"
+                    fields=REVIEW_DETAIL_FIELDS
+                    state=DetailPaneState::Loading
+                />
+            }
+            .into_any()
+        });
+        let empty_html = render(|| {
+            view! {
+                <DetailPane
+                    title="Essay 142"
+                    fields=&[]
+                />
+            }
+            .into_any()
+        });
+        let unavailable_html = render(|| {
+            view! {
+                <DetailPane
+                    title="Essay 142"
+                    fields=REVIEW_DETAIL_FIELDS
+                    state=DetailPaneState::Unavailable
+                    unavailable_message="This entry is unavailable because the archive is still syncing."
+                />
+            }
+            .into_any()
+        });
+
+        assert!(loading_html.contains("data-state=\"loading\""));
+        assert!(loading_html.contains("Loading detail."));
+        assert!(empty_html.contains("data-state=\"empty\""));
+        assert!(empty_html.contains("Select an entry to inspect."));
+        assert!(unavailable_html.contains("data-state=\"unavailable\""));
+        assert!(
+            unavailable_html
+                .contains("This entry is unavailable because the archive is still syncing.")
+        );
+    }
+
+    #[test]
+    fn search_workflow_example_renders_navigation_and_filters() {
+        let html = render(|| view! { <SearchWorkflowExample/> }.into_any());
+
+        assert!(html.contains("Workspace sections"));
+        assert!(html.contains("Search filters"));
+        assert!(html.contains("Search result entries"));
+    }
+
+    #[test]
+    fn review_queue_command_example_renders_command_bar_and_detail() {
+        let html = render(|| view! { <ReviewQueueCommandExample/> }.into_any());
+
+        assert!(html.contains("Review commands"));
+        assert!(html.contains("Approve selection"));
+        assert!(html.contains("Essay 142"));
+    }
+
+    #[test]
+    fn documentation_navigation_example_renders_editorial_navigation() {
+        let html = render(|| view! { <DocumentationNavigationExample/> }.into_any());
+
+        assert!(html.contains("Documentation sections"));
+        assert!(html.contains("Foundations"));
+        assert!(html.contains("Manual"));
     }
 }

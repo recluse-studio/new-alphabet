@@ -36,3 +36,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-022 | Implemented StatusBadge, InlineAlert, and EmptyState with editorial and workflow examples plus explicit severity handling.
 2026-03-07 | DECISION | components | Dense data display stays finite by binding truncation and wrapping to named column contracts and paging to explicit previous and next semantics.
 2026-03-07 | PRD | US-023 | Implemented Table, MetricBlock, and Pagination with dashboard and review examples plus explicit loading, empty, and error table states.
+2026-03-07 | DECISION | components | Workflow chrome stays finite by making nav, filters, commands, and detail inspection explicit semantic structures with named state contracts.
+2026-03-07 | PRD | US-024 | Implemented NavIndex, CommandBar, FilterRail, and DetailPane with search, review, and documentation examples plus explicit zero-result and unavailable states.
