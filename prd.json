@@ -1,0 +1,906 @@
+{
+  "project": "New Alphabet",
+  "branchName": "main",
+  "description": "Rust-first, Leptos-native web framework and design constitution for replacing vibe-coded websites and web apps with a strict, typographic, grid-governed, Crouwelian alternative. V0 proves one grammar across editorial and SaaS surfaces, ships a CLI and agent-readable contract, and stays narrow, severe, adaptable, and constrained rather than broad or theme-driven.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Freeze the constitution and naming model",
+      "description": "As the New Alphabet team, we need a fixed doctrine, naming system, and anti-vibe-coded position so the framework is governed by law instead of local taste.",
+      "acceptanceCriteria": [
+        "The core thesis is explicit: New Alphabet is a Crouwelian design constitution for the web and a strict alternative to vibe-coded products",
+        "Core philosophy is written and stable: order before ornament, grid as operating law, information over personality, constraint generates freedom, systems over pages, medium truth, and agents need rules not vibes",
+        "The aesthetic position is explicit: modern, severe, typographic, structured, calm, exact, and recognizable, while rejecting nostalgic, ornamental, cute, trend-chasing, or generic contemporary SaaS output",
+        "Goals, non-goals, and anti-patterns are documented clearly enough to narrow implementation choices",
+        "Naming rules for foundations, primitives, components, and recipes are fixed and role-based rather than decorative",
+        "The doctrine is primary and the framework, CLI, and agent contract are defined as downstream expressions of that doctrine",
+        "Documentation for this story is exact, restrained, and systemic rather than promotional",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "Ports canonical backlog item B1 and milestone M0. This story owns the core thesis, aesthetic position, goals, non-goals, anti-pattern posture, naming rules, and doctrine hierarchy from the prior PRD.",
+      "dependsOn": []
+    },
+    {
+      "id": "US-002",
+      "title": "Implement the foundation runtime",
+      "description": "As a developer, I need the constitutional rules to exist as real runtime law so spacing, type, density, color roles, borders, motion, state, and breakpoints are not left to improvisation.",
+      "acceptanceCriteria": [
+        "A foundation layer exists in Rust with explicit contracts for grid, spacing scale, type scale, density modes, color roles, border rules, motion rules, breakpoints, and state tokens",
+        "The grid defines named page and region behavior rather than ad hoc layout choices",
+        "Spacing is finite and token-driven, and arbitrary spacing values are structurally disallowed in framework code",
+        "Typography supports both editorial reading and dense operational surfaces under one grammar",
+        "Density modes are defined and visibly alter spacing, type, and dense data behavior",
+        "Color roles are semantic and do not create open-ended palette freedom at V0",
+        "Foundation rules are documented well enough to support primitive and recipe implementation",
+        "The implementation is SSR-safe and ready for hydration",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "Ports canonical backlog item B2, milestone M1 foundations scope, and the full design-system foundation contracts from the prior PRD.",
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "Implement structural primitives",
+      "description": "As a product engineer, I need structural primitives that define constitutional page geometry so layouts are composed from law rather than invented per screen.",
+      "acceptanceCriteria": [
+        "AppShell, PageGrid, Region, Rail, Stack, Row, ColumnGroup, Panel, Band, SectionHeader, and Divider exist as real Leptos primitives",
+        "Primitive APIs are narrow, structural, and aligned with the grid and spacing law",
+        "Primitives support predictable region placement, rail behavior, stacking rhythm, and bounded panel structure",
+        "Primitives remain structural and do not take on domain-specific semantic meaning",
+        "Primitive composition is responsive, SSR-safe, and hydration-safe",
+        "Allowed and disallowed region combinations are explicit enough to support later validation",
+        "Primitive examples exist and prove the geometry can serve both editorial and SaaS surfaces",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Ports canonical backlog item B3 and the primitive contracts for AppShell, PageGrid, Region, Rail, Stack, and Panel from the prior PRD.",
+      "dependsOn": [
+        "US-002"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "Implement the core semantic component set",
+      "description": "As a developer, I need the minimum semantic component layer so serious product UI can be built without broad component-library sprawl or visual wrapper abstractions.",
+      "acceptanceCriteria": [
+        "A minimum semantic component inventory exists, including Button, LinkAction, TextField, Textarea, Select, Checkbox, RadioGroup, Switch, StatusBadge, InlineAlert, EmptyState, Table, MetricBlock, NavIndex, CommandBar, FilterRail, DetailPane, and Pagination",
+        "Components expose finite, role-based APIs rather than open-ended visual props",
+        "State coverage is explicit where relevant, including default, loading, empty, error, success, disabled, focus-visible, hover, and active behavior",
+        "Dense surfaces such as Table and DetailPane define truncation, wrapping, loading, unavailable, and zero-result behavior",
+        "Accessibility requirements are first-class, including semantic HTML, keyboard use, accessible names, and color-independent meaning",
+        "Components remain built on primitives and do not bypass the foundation layer",
+        "Component examples and state examples exist and are documented",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Ports canonical backlog item B4, milestone M2, the state model, and the component contracts for Button, TextField, Select, StatusBadge, InlineAlert, EmptyState, Table, CommandBar, and DetailPane from the prior PRD.",
+      "dependsOn": [
+        "US-002",
+        "US-003"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "Prove the grammar on editorial recipes",
+      "description": "As a user of the framework, I need editorial recipes that prove New Alphabet can support archives, documentation, and longform reading without collapsing into marketing or nostalgia.",
+      "acceptanceCriteria": [
+        "BlogIndex, ArticleShell, and DocsShell exist as recipe-level compositions built from foundations, primitives, and semantic components",
+        "Editorial surfaces remain typographic, structured, calm, and clearly New Alphabet",
+        "ArticleShell keeps the reading flow primary while still supporting adjacent navigation and metadata",
+        "BlogIndex reads as an archive or publication surface rather than a marketing landing page",
+        "DocsShell proves that navigation and reading flow can coexist under the same grammar",
+        "Editorial recipes define required and optional regions, adaptation limits, and responsive behavior",
+        "The editorial surfaces visibly belong to the same family as later SaaS recipes without looking identical",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Ports canonical backlog item B5 and the recipe contracts for BlogIndex, ArticleShell, and DocsShell from the prior PRD.",
+      "dependsOn": [
+        "US-003",
+        "US-004"
+      ]
+    },
+    {
+      "id": "US-006",
+      "title": "Prove the grammar on SaaS and workflow recipes",
+      "description": "As a product engineer, I need workflow-heavy recipes that prove the same grammar can handle search, review, settings, dashboards, and dense operational use.",
+      "acceptanceCriteria": [
+        "SearchResultsWorkspace, ReviewQueue, SettingsWorkspace, and DashboardShell exist as recipe-level compositions built from the same underlying grammar",
+        "Search, filtering, result regions, detail panes, navigation rails, and action regions remain coherent and legible under dense operational use",
+        "SettingsWorkspace supports section navigation and editable panels without becoming a generic settings template",
+        "ReviewQueue proves that dense queue, detail, and action structures can coexist under one system",
+        "SaaS surfaces remain recognizably New Alphabet and do not collapse into generic contemporary admin UI",
+        "Recipe intent, required regions, optional regions, and adaptation limits are documented",
+        "Editorial and SaaS proofs visibly read as one family",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Ports canonical backlog item B6, milestone M3, and the recipe contracts for SearchResultsWorkspace, ReviewQueue, and SettingsWorkspace from the prior PRD.",
+      "dependsOn": [
+        "US-003",
+        "US-004"
+      ]
+    },
+    {
+      "id": "US-007",
+      "title": "Implement the schema bundle and validation engine",
+      "description": "As an AI-assisted builder, I need the doctrine to be machine-readable and enforceable so agents can scaffold and repair code without drifting away from the system.",
+      "acceptanceCriteria": [
+        "A versioned agent contract exists and covers foundations, primitives, components, recipes, composition rules, state contracts, anti-patterns, and examples",
+        "Schemas exist for foundations, primitives, core components, and V0 recipes",
+        "Validation detects composition, spacing, naming, state-coverage, accessibility, and anti-pattern violations",
+        "Validation reports are expressed in framework terms and can suggest repairs",
+        "Generation and repair sequences are defined so an agent chooses recipes or primitive compositions before inventing layout",
+        "The contract mirrors the real runtime system rather than a simplified alias",
+        "At least three prompt-to-plan or prompt-to-scaffold examples are supported by the exported context",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Ports canonical backlog item B7, the anti-pattern registry, the agent contract bundle requirements, validation categories, generation and repair sequences, and the agent gate from the prior PRD.",
+      "dependsOn": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005",
+        "US-006"
+      ]
+    },
+    {
+      "id": "US-008",
+      "title": "Implement the CLI surface",
+      "description": "As a developer or coding agent, I need a CLI that can initialize, scaffold, explain, validate, inspect, and export New Alphabet safely and deterministically.",
+      "acceptanceCriteria": [
+        "The CLI name is `new-alphabet` and it supports at minimum init, add recipe, add component, explain, validate, and export context",
+        "Plan support is designed as a should-ship V0 surface and can be present if it emits structured plans rather than design prose",
+        "CLI writes are explicit and visible, and read-only commands do not mutate project state",
+        "Scaffolds generate approved structures bound to foundations, primitives, and state coverage",
+        "Explain and inspect behavior map code back to framework concepts rather than generic implementation language",
+        "Validate differentiates errors, warnings, and notes and reports next steps in framework terms",
+        "Export context produces a versioned machine-readable bundle and does not depend on the network",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "Ports canonical backlog item B8, the command surface, CLI design principles, validation severity model, output principles, and write policy from the prior PRD.",
+      "dependsOn": [
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-007"
+      ]
+    },
+    {
+      "id": "US-009",
+      "title": "Build the docs site and canonical public documentation",
+      "description": "As a contributor or adopter, I need the documentation site and repo docs to explain the system exactly, show runnable examples, and make the doctrine legible without marketing inflation.",
+      "acceptanceCriteria": [
+        "A docs site exists and is built with New Alphabet wherever possible",
+        "Public documentation covers what New Alphabet is, what it is not, core philosophy, anti-patterns, foundation rules, primitives, components, recipes, CLI usage, agent-session usage, contributing, roadmap, and release notes",
+        "Documentation style remains exact, restrained, low-jargon, example-driven, and systemic rather than promotional",
+        "README, docs site, examples, prompts, and exported context agree on naming and the layer model",
+        "Runnable examples exist and are mapped to the relevant docs",
+        "Contributor guidance protects the doctrine and discourages generic broadening",
+        "The docs themselves read as a proof of the system rather than a parallel explanation detached from the runtime",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": "Ports canonical backlog item B9, documentation requirements, voice guardrails, required supporting artifacts, and the docs gate from the prior PRD.",
+      "dependsOn": [
+        "US-005",
+        "US-006",
+        "US-008"
+      ]
+    },
+    {
+      "id": "US-010",
+      "title": "Prepare the OSS launch and V0 release discipline",
+      "description": "As the maintainer, I need the repository, release posture, and V0 scope to read as a serious public offering with explicit gates, roadmap, risks, and open questions.",
+      "acceptanceCriteria": [
+        "The public repo includes README, contributing guidance, roadmap, release notes template, issue templates, and an explicit license",
+        "V0 scope is clearly separated into must-ship, should-ship, and later work, with sharpness prioritized over breadth",
+        "Milestones M0 through M5 remain explicit and preserve the sequence of law, runtime, components, proofs, tooling, and release",
+        "Quality requirements cover performance, doctrinal quality, reliability, security, and maintainability",
+        "Testing strategy covers unit, integration, visual, conformance, and agentic verification",
+        "Acceptance gates cover design, aesthetic, API, state, accessibility, platform, agent, docs, and OSS readiness",
+        "Definition of done, risks, roadmap, success metrics, and open questions are all carried forward into the release posture",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": "Ports canonical backlog item B10 plus the prior PRD's milestones, workstreams, roadmap, success metrics, quality and testing strategy, acceptance gates, definition of done, risks, and open questions.",
+      "dependsOn": [
+        "US-007",
+        "US-008",
+        "US-009"
+      ]
+    },
+    {
+      "id": "US-011",
+      "title": "Define the token taxonomy and naming rules",
+      "description": "As a foundation implementer, I need named tokens and naming rules so every later primitive and component is built on role-based law instead of appearance-based improvisation.",
+      "acceptanceCriteria": [
+        "Foundation token names are defined by role rather than decoration or palette",
+        "Naming rules for foundations, primitives, semantic components, and recipes are documented and consistent",
+        "The token taxonomy is rooted in the documentation sections on the layer model, design rules, and naming posture",
+        "Token naming is severe, plain, and structurally legible rather than branded or ornamental",
+        "The taxonomy is ready to support spacing, type, density, color, state, and layout rules",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 11,
+      "passes": false,
+      "notes": "Rooted in documentation sections Document Purpose, Core Thesis, Core Philosophy, Layer Model, and the naming rules preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-012",
+      "title": "Specify the grid and responsive region system",
+      "description": "As a primitive builder, I need the grid and breakpoint model fixed so page geometry and region placement are constitutional rather than ad hoc.",
+      "acceptanceCriteria": [
+        "The grid defines page column logic, named region spans, rail widths, and major breakpoint behavior",
+        "Responsive rules for rails, detail panes, and region collapse are explicit",
+        "The grid model is rooted in the documentation sections on the problem, solution, layer model, monorepo shape, and design rules",
+        "Free-positioned major regions and ad hoc layout rules are explicitly forbidden at V0",
+        "The grid is documented well enough to drive PageGrid, Region, and Rail implementation",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 12,
+      "passes": false,
+      "notes": "Rooted in documentation sections Core Philosophy, Layer Model, Design Rules, and the foundation grid contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-011"
+      ]
+    },
+    {
+      "id": "US-013",
+      "title": "Define type scale and density modes",
+      "description": "As a designer-engineer, I need a shared type scale and named density modes so editorial reading and dense workflow surfaces stay under one grammar.",
+      "acceptanceCriteria": [
+        "A type scale exists for display, heading, body, annotation, and dense-data roles",
+        "Named density modes are defined and visibly alter spacing, type, and table behavior",
+        "The type and density model is rooted in the documentation sections on aesthetic position, typographic law, state model, and use cases",
+        "Editorial and SaaS surfaces can be expressed under the same typographic grammar",
+        "Density choices remain finite and constitutional rather than per-screen taste decisions",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 13,
+      "passes": false,
+      "notes": "Rooted in documentation sections Aesthetic Position, Design Rules, State Model, and the type_scale and density_modes contracts in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-011"
+      ]
+    },
+    {
+      "id": "US-014",
+      "title": "Define color roles, borders, motion, and state tokens",
+      "description": "As a foundation implementer, I need the rest of the constitutional surface language fixed so status, separation, motion, and emphasis do not devolve into decorative exceptions.",
+      "acceptanceCriteria": [
+        "Color roles are defined semantically for canvas, text, accent, border, status, and emphasis",
+        "Border, motion, and state token rules are explicit and constrained by the doctrine",
+        "Reduced-motion behavior and focus-visible emphasis are part of the definition",
+        "Color is not allowed to be the sole carrier of meaning",
+        "The rules are rooted in the documentation sections on aesthetic position, design rules, state model, and accessibility law",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 14,
+      "passes": false,
+      "notes": "Rooted in documentation sections Aesthetic Position, Design Rules, State Model, and the color_roles, border_rules, motion_rules, and state_tokens contracts in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-011",
+        "US-013"
+      ]
+    },
+    {
+      "id": "US-015",
+      "title": "Implement AppShell, PageGrid, and Region",
+      "description": "As a developer, I need the core top-level layout primitives so every serious screen starts from constitutional geometry rather than custom wrappers.",
+      "acceptanceCriteria": [
+        "AppShell, PageGrid, and Region exist as Leptos primitives with narrow, structural APIs",
+        "These primitives obey the grid, breakpoint, and spacing rules from the foundation layer",
+        "Region naming and placement are explicit and semantically clear",
+        "The implementation is rooted in the documentation sections on layer model, installation story, and layout law",
+        "Examples show that these primitives can anchor both editorial and SaaS surfaces",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 15,
+      "passes": false,
+      "notes": "Rooted in documentation sections Layer Model, Monorepo Shape, Design Rules, and the AppShell, PageGrid, and Region primitive contracts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-002",
+        "US-012"
+      ]
+    },
+    {
+      "id": "US-016",
+      "title": "Implement Rail, Stack, Row, and ColumnGroup",
+      "description": "As a primitive builder, I need the core compositional primitives for secondary structure and rhythm so the system can express navigation, grouping, and dense layouts without custom layout invention.",
+      "acceptanceCriteria": [
+        "Rail, Stack, Row, and ColumnGroup exist as structural primitives with finite APIs",
+        "Rail width, collapse, and hierarchy behavior follow the foundation contracts",
+        "Stack and row rhythm are token-driven rather than locally improvised",
+        "The implementation is rooted in the documentation sections on design rules, use cases, and layer model",
+        "Examples show these primitives serving both editorial and workflow surfaces",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 16,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Layer Model, Design Rules, and the Rail and Stack contracts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-002",
+        "US-012"
+      ]
+    },
+    {
+      "id": "US-017",
+      "title": "Implement Panel, Band, SectionHeader, and Divider",
+      "description": "As a product engineer, I need bounded structural surfaces and separators so grouped information and action blocks remain calm, exact, and repeatable.",
+      "acceptanceCriteria": [
+        "Panel, Band, SectionHeader, and Divider exist as structural primitives with narrow responsibilities",
+        "These primitives reinforce hierarchy through proportion, border rules, and spacing rather than decoration",
+        "Panel state treatment and header/content relationships are explicit where relevant",
+        "The implementation is rooted in the documentation sections on typographic law, layout law, and the layer model",
+        "Examples prove these primitives can structure both settings and editorial contexts",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 17,
+      "passes": false,
+      "notes": "Rooted in documentation sections Layer Model, Design Rules, and the Panel contract and initial inventory preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-002",
+        "US-014"
+      ]
+    },
+    {
+      "id": "US-018",
+      "title": "Publish primitive composition maps and examples",
+      "description": "As a contributor or agent, I need primitive composition maps and examples so structural law is queryable, teachable, and enforceable.",
+      "acceptanceCriteria": [
+        "Composition rules for core primitive combinations are documented and example-backed",
+        "Allowed and disallowed region combinations are explicit enough to support validation",
+        "Primitive examples are rooted in the documentation sections on the layer model, how a new feature should be built, and design rules",
+        "Examples cover both editorial and SaaS structures",
+        "The examples can be reused by docs, validation, and the agent contract",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 18,
+      "passes": false,
+      "notes": "Rooted in documentation sections Layer Model, Design Rules, and the composition maps implied by prd_v1 agent_contract_surface outputs.",
+      "dependsOn": [
+        "US-015",
+        "US-016",
+        "US-017"
+      ]
+    },
+    {
+      "id": "US-019",
+      "title": "Implement Button and LinkAction",
+      "description": "As a user, I need core action components that express intent clearly and remain structurally quiet so hierarchy is carried by the system rather than decorative flourish.",
+      "acceptanceCriteria": [
+        "Button and LinkAction exist with semantic variants, finite props, and explicit interactive states",
+        "Primary and secondary actions are differentiated by hierarchy rather than palette sprawl",
+        "Focus-visible, disabled, active, and loading behavior are explicit",
+        "The components are rooted in the documentation sections on API discipline, state law, and accessibility law",
+        "Examples prove the components work in editorial and SaaS recipes",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 19,
+      "passes": false,
+      "notes": "Rooted in documentation sections Design Rules, State Model, and the Button component contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-004",
+        "US-015"
+      ]
+    },
+    {
+      "id": "US-020",
+      "title": "Implement TextField and Textarea",
+      "description": "As a user, I need text entry components that remain calm and legible while making labels, errors, and help text structurally explicit.",
+      "acceptanceCriteria": [
+        "TextField and Textarea exist with clear label, help, error, success, disabled, and focus-visible behavior",
+        "Field chrome remains quiet and semantic relationships are explicit",
+        "Text entry components stay finite in props and avoid visual override escape hatches",
+        "The implementation is rooted in the documentation sections on API discipline, state law, accessibility law, and dense surfaces",
+        "Examples show the components used in settings and form contexts",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 20,
+      "passes": false,
+      "notes": "Rooted in documentation sections Design Rules, State Model, and the TextField contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-004",
+        "US-015"
+      ]
+    },
+    {
+      "id": "US-021",
+      "title": "Implement Select, Checkbox, RadioGroup, and Switch",
+      "description": "As a user, I need finite choice controls that remain explicit, accessible, and semantically appropriate so forms do not drift into arbitrary UI patterns.",
+      "acceptanceCriteria": [
+        "Select, Checkbox, RadioGroup, and Switch exist with constrained semantic APIs",
+        "Choice controls support keyboard use, labels, disabled state, and error treatment where relevant",
+        "The components are rooted in the documentation sections on API discipline, accessibility law, and state law",
+        "Choice controls are used only where finite named options exist",
+        "Examples prove their use in settings and form sequences",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 21,
+      "passes": false,
+      "notes": "Rooted in documentation sections Design Rules, State Model, and the Select component contract plus initial inventory preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-004",
+        "US-015"
+      ]
+    },
+    {
+      "id": "US-022",
+      "title": "Implement StatusBadge, InlineAlert, and EmptyState",
+      "description": "As a user, I need compact status and feedback components so absence, warnings, errors, and workflow messages remain legible without decorative excess.",
+      "acceptanceCriteria": [
+        "StatusBadge, InlineAlert, and EmptyState exist with semantic roles and explicit severity handling",
+        "Color is not the sole carrier of meaning in any of these components",
+        "EmptyState explains absence and possible next action rather than acting as placeholder filler",
+        "The implementation is rooted in the documentation sections on anti-vibe-coded posture, state law, and accessibility law",
+        "Examples prove these components on editorial and workflow surfaces",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 22,
+      "passes": false,
+      "notes": "Rooted in documentation sections Anti-Vibe-Coded Position, Design Rules, State Model, and the StatusBadge, InlineAlert, and EmptyState contracts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-004",
+        "US-017"
+      ]
+    },
+    {
+      "id": "US-023",
+      "title": "Implement Table, MetricBlock, and Pagination",
+      "description": "As a product engineer, I need dense data-display components so New Alphabet can support operational products without collapsing into generic admin UI.",
+      "acceptanceCriteria": [
+        "Table, MetricBlock, and Pagination exist with explicit dense-data behavior and finite APIs",
+        "Table defines truncation, wrapping, loading, empty, and error behavior",
+        "MetricBlock and Pagination remain structural and semantic rather than decorative widgets",
+        "The implementation is rooted in the documentation sections on use cases, state model, and dense-data rules",
+        "Examples prove these components in dashboard and workspace contexts",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 23,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, State Model, Initial Inventory, and the Table contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-004",
+        "US-016",
+        "US-017"
+      ]
+    },
+    {
+      "id": "US-024",
+      "title": "Implement NavIndex, CommandBar, FilterRail, and DetailPane",
+      "description": "As a workflow user, I need navigation and command structures that keep dense surfaces ordered, inspectable, and actionable without generic dashboard sprawl.",
+      "acceptanceCriteria": [
+        "NavIndex, CommandBar, FilterRail, and DetailPane exist with semantic, finite APIs",
+        "CommandBar action hierarchy is explicit and DetailPane defines loading, empty, unavailable, and default states",
+        "Filter and navigation structures remain quiet, structural, and aligned with the rail and region model",
+        "The implementation is rooted in the documentation sections on use cases, layer model, state law, and workflow recipes",
+        "Examples prove these components in SearchResultsWorkspace, ReviewQueue, and documentation contexts",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 24,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Layer Model, Design Rules, and the CommandBar and DetailPane contracts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-004",
+        "US-016",
+        "US-017"
+      ]
+    },
+    {
+      "id": "US-025",
+      "title": "Establish accessibility and keyboard coverage across components",
+      "description": "As a user, I need the system to remain usable with keyboard navigation, focus visibility, and explicit naming so accessibility is part of the constitution rather than an afterthought.",
+      "acceptanceCriteria": [
+        "All interactive V0 components expose accessible names and keyboard interaction behavior",
+        "Focus-visible behavior is explicit and consistent across the component layer",
+        "Color-independent meaning and semantic HTML usage are validated for core components",
+        "Accessibility examples and checks are rooted in the documentation sections on accessibility law and acceptance gates",
+        "The component layer reads as accessibility-first rather than accessibility-patched",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 25,
+      "passes": false,
+      "notes": "Rooted in documentation sections Design Rules, Acceptance Gates, and the accessibility gate and conformance checks preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-019",
+        "US-020",
+        "US-021",
+        "US-022",
+        "US-023",
+        "US-024"
+      ]
+    },
+    {
+      "id": "US-026",
+      "title": "Build the BlogIndex recipe",
+      "description": "As an editorial publisher, I need a blog index recipe so archives, article lists, and publication structure can be scaffolded inside the New Alphabet grammar.",
+      "acceptanceCriteria": [
+        "BlogIndex exists as a recipe-level composition built from foundations, primitives, and semantic components",
+        "The recipe includes its required regions and honors optional taxonomy, archive, and editorial introduction regions where appropriate",
+        "The surface reads as a publication archive rather than a marketing page",
+        "The implementation is rooted in the documentation sections on editorial use cases, recipe contracts, and strong-fit interpretation",
+        "Examples prove responsive behavior and family resemblance with other recipes",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 26,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Initial Inventory, and the BlogIndex recipe contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-018",
+        "US-019",
+        "US-022"
+      ]
+    },
+    {
+      "id": "US-027",
+      "title": "Build the ArticleShell recipe",
+      "description": "As a reader, I need a longform article shell so the reading flow remains primary while still supporting metadata and adjacent navigation.",
+      "acceptanceCriteria": [
+        "ArticleShell exists as a recipe-level composition with article header and body content as required regions",
+        "Optional local navigation, metadata, and adjacent links are supported without displacing the reading flow",
+        "The surface remains typographic, calm, and structurally exact",
+        "The implementation is rooted in the documentation sections on editorial use cases, aesthetic position, and recipe contracts",
+        "Examples prove the reading flow stays primary on responsive layouts",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 27,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Aesthetic Position, and the ArticleShell recipe contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-018",
+        "US-019",
+        "US-022"
+      ]
+    },
+    {
+      "id": "US-028",
+      "title": "Build the DocsShell recipe",
+      "description": "As a documentation reader, I need a docs shell recipe so navigation and reading flow coexist under the same grammar without creating a separate design language.",
+      "acceptanceCriteria": [
+        "DocsShell exists as a recipe-level composition with content and navigation as required regions",
+        "Optional table of contents and context rail regions are supported within the same layout law",
+        "The surface remains clearly New Alphabet and does not drift into generic docs-site patterns",
+        "The implementation is rooted in the documentation sections on editorial use cases, product shape, and recipe contracts",
+        "Examples prove that DocsShell belongs to the same family as BlogIndex and ArticleShell",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 28,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Product Shape, and the DocsShell contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-018",
+        "US-024"
+      ]
+    },
+    {
+      "id": "US-029",
+      "title": "Build the SearchResultsWorkspace recipe",
+      "description": "As an operator, I need a search and results workspace so filtering, results review, and contextual detail can be handled under one severe system.",
+      "acceptanceCriteria": [
+        "SearchResultsWorkspace exists with search or filter structure and results region as required regions",
+        "Optional detail pane, command bar, and status summary regions are supported",
+        "The surface remains legible under dense operational use and does not collapse into generic admin UI",
+        "The implementation is rooted in the documentation sections on workflow use cases, layer model, and recipe contracts",
+        "Examples prove state behavior for loading, zero-results, and detail availability",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 29,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Layer Model, and the SearchResultsWorkspace contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-018",
+        "US-023",
+        "US-024"
+      ]
+    },
+    {
+      "id": "US-030",
+      "title": "Build the ReviewQueue recipe",
+      "description": "As a reviewer, I need a dense queue-and-detail recipe so repeated operational decisions can be made quickly without sacrificing hierarchy or calmness.",
+      "acceptanceCriteria": [
+        "ReviewQueue exists with queue or table, detail region, and action region as required structure",
+        "Optional navigation rail and filter rail are supported within the same grammar",
+        "The surface remains legible under dense operational use and clearly New Alphabet",
+        "The implementation is rooted in the documentation sections on workflow use cases, strong-fit interpretation, and recipe contracts",
+        "Examples prove selection, empty, loading, and unavailable-detail behavior",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 30,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Strong-Fit Interpretation, and the ReviewQueue contract preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-018",
+        "US-023",
+        "US-024"
+      ]
+    },
+    {
+      "id": "US-031",
+      "title": "Build the SettingsWorkspace and DashboardShell recipes",
+      "description": "As a product team, we need configuration and overview surfaces so the grammar proves itself on settings panels and summary-heavy operational screens.",
+      "acceptanceCriteria": [
+        "SettingsWorkspace exists with section navigation and editable content as required regions",
+        "DashboardShell exists and proves summary and dense-data blocks can remain within the same grammar",
+        "Optional context help and status feedback are supported without weakening structure",
+        "The implementation is rooted in the documentation sections on SaaS use cases, recipe contracts, and initial inventory",
+        "Examples prove these surfaces remain part of the same family as editorial recipes",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 31,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Initial Inventory, and the SettingsWorkspace contract plus DashboardShell inventory preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-018",
+        "US-019",
+        "US-020",
+        "US-021",
+        "US-022",
+        "US-023",
+        "US-024"
+      ]
+    },
+    {
+      "id": "US-032",
+      "title": "Export canonical schemas and reference examples",
+      "description": "As an AI-assisted builder, I need exported schemas and examples so the system can be loaded into a coding session without reading the entire repo by hand.",
+      "acceptanceCriteria": [
+        "Exported artifacts cover foundations, primitives, components, recipes, anti-patterns, and prompt-intent examples",
+        "Reference examples are tied to the exported schema shape rather than stored as disconnected prose",
+        "The export set is rooted in the documentation sections on product shape, installation story, and agent model",
+        "Exports are versioned and deterministic",
+        "The output is sufficient to support prompt-to-plan and prompt-to-scaffold workflows",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 32,
+      "passes": false,
+      "notes": "Rooted in documentation sections Product Shape, Installation Story, Agent Model, and the agent contract recommended artifacts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-007",
+        "US-018",
+        "US-026",
+        "US-027",
+        "US-028",
+        "US-029",
+        "US-030",
+        "US-031"
+      ]
+    },
+    {
+      "id": "US-033",
+      "title": "Implement validation rules and anti-pattern reporting",
+      "description": "As a maintainer or coding agent, I need real constitutional validation so drift is identified as rules violations rather than style opinions.",
+      "acceptanceCriteria": [
+        "Validation rules cover composition, spacing, state coverage, naming, accessibility, and anti-pattern usage",
+        "Anti-pattern reporting exists for visual, layout, API, implementation, and agentic drift",
+        "Validation messages are rooted in the documentation sections on anti-vibe-coded position, design rules, acceptance gates, and risks",
+        "Reports distinguish errors, warnings, and notes and can suggest repairs in framework terms",
+        "Validation tests prove the system catches meaningful drift rather than superficial style differences",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 33,
+      "passes": false,
+      "notes": "Rooted in documentation sections Anti-Vibe-Coded Position, Design Rules, Acceptance Gates, Risks, and the validation categories and anti-pattern registry preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-007",
+        "US-032"
+      ]
+    },
+    {
+      "id": "US-034",
+      "title": "Implement CLI init and add scaffolding flows",
+      "description": "As a developer, I need initialization and scaffold commands so new projects and new structures start inside the doctrine instead of inventing their own system.",
+      "acceptanceCriteria": [
+        "`new-alphabet init` creates or wires the minimum project structure needed for New Alphabet",
+        "`new-alphabet add recipe <name>` and `new-alphabet add component <name>` scaffold approved structures only",
+        "Scaffold output binds to foundations, primitives, state coverage, and documentation expectations",
+        "The implementation is rooted in the documentation sections on installation story, CLI surface, and the command contracts preserved in prd_v1 canonicalSpec",
+        "Write behavior is explicit and does not rewrite unrelated project structure",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 34,
+      "passes": false,
+      "notes": "Rooted in documentation sections Installation Story, CLI Surface, and the init/add command contracts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-008",
+        "US-018",
+        "US-032",
+        "US-033"
+      ]
+    },
+    {
+      "id": "US-035",
+      "title": "Implement CLI explain, inspect, validate, export, and plan flows",
+      "description": "As a developer or coding agent, I need the read-heavy CLI surfaces so New Alphabet can explain itself, inspect real projects, validate drift, export context, and plan from intent in framework terms.",
+      "acceptanceCriteria": [
+        "`new-alphabet explain`, `inspect`, `validate`, and `export context` exist and operate in framework language",
+        "`new-alphabet plan <intent>` exists if shipped and emits structured implementation plans rather than design prose",
+        "Inspect output maps code back to recipes, primitives, components, and rule violations",
+        "Export context produces the canonical bundle needed for coding-session use",
+        "The implementation is rooted in the documentation sections on CLI surface, agent model, example prompts, and the command and agent contracts preserved in prd_v1 canonicalSpec",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 35,
+      "passes": false,
+      "notes": "Rooted in documentation sections CLI Surface, Agent Model, Example User Prompts, and the explain/inspect/validate/export/plan contracts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-008",
+        "US-032",
+        "US-033",
+        "US-034"
+      ]
+    },
+    {
+      "id": "US-036",
+      "title": "Publish prompt examples and agent-session bootstraps",
+      "description": "As an AI-assisted builder, I need prompt examples and session bootstrap materials so New Alphabet can be loaded into real coding sessions with minimal drift and minimal explanation overhead.",
+      "acceptanceCriteria": [
+        "Prompt examples exist for sparse, moderate, and highly specific guidance levels",
+        "Session bootstrap materials explain which context sections an agent must load",
+        "Examples are rooted in the documentation sections on agent model, installation story, and example user prompts",
+        "Prompt examples map to real recipes, primitives, and validation expectations",
+        "The materials are precise enough to be reused in the remote without extra explanation",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 36,
+      "passes": false,
+      "notes": "Rooted in documentation sections Agent Model, Installation Story, Example User Prompts, and the prompt artifacts preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-032",
+        "US-035"
+      ]
+    },
+    {
+      "id": "US-037",
+      "title": "Build the demo-blog reference application",
+      "description": "As an adopter, I need a working demo blog so the framework proves its editorial grammar in a full application rather than a set of isolated examples.",
+      "acceptanceCriteria": [
+        "A demo-blog app exists in the monorepo and is built with New Alphabet itself",
+        "The app uses BlogIndex and ArticleShell as real surfaces and proves editorial coherence",
+        "The app is rooted in the documentation sections on editorial use cases, product shape, and the monorepo layout",
+        "Examples, screenshots, or reference outputs can be produced from the app for docs and regression use",
+        "The demo is remote-ready and belongs in the final public repository",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 37,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Product Shape, Monorepo Shape, and milestone M3 as preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-026",
+        "US-027",
+        "US-028",
+        "US-034"
+      ]
+    },
+    {
+      "id": "US-038",
+      "title": "Build the demo-saas reference application",
+      "description": "As an adopter, I need a working demo SaaS app so the framework proves its workflow grammar in a full application rather than isolated recipe screenshots.",
+      "acceptanceCriteria": [
+        "A demo-saas app exists in the monorepo and is built with New Alphabet itself",
+        "The app uses SearchResultsWorkspace, ReviewQueue, SettingsWorkspace, and DashboardShell as real surfaces",
+        "The app is rooted in the documentation sections on workflow use cases, product shape, and the monorepo layout",
+        "Examples, screenshots, or reference outputs can be produced from the app for docs and regression use",
+        "The demo is remote-ready and belongs in the final public repository",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 38,
+      "passes": false,
+      "notes": "Rooted in documentation sections Use Cases, Product Shape, Monorepo Shape, and milestone M3 as preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-029",
+        "US-030",
+        "US-031",
+        "US-034"
+      ]
+    },
+    {
+      "id": "US-039",
+      "title": "Assemble the public docs, examples, schemas, prompts, and scripts package",
+      "description": "As a maintainer, I need every public-facing support artifact in the repository so the remote contains the full New Alphabet offering rather than only runtime code.",
+      "acceptanceCriteria": [
+        "The remote-ready repo includes docs, examples, schemas, prompts, and scripts directories aligned with the monorepo plan",
+        "README, contributing guidance, roadmap, release notes template, issue templates, and license are present and consistent with the doctrine",
+        "Reference examples, exported schemas, and prompt examples are all linked from documentation",
+        "The package is rooted in the documentation sections on product shape, documentation requirements, roadmap, and recommended next documentation set",
+        "The repository reads as a coherent public system rather than a partial internal dump",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 39,
+      "passes": false,
+      "notes": "Rooted in documentation sections Product Shape, Monorepo Shape, Documentation Requirements, Recommended Next Documentation Set, and milestone M5 as preserved in prd_v1 canonicalSpec.",
+      "dependsOn": [
+        "US-009",
+        "US-032",
+        "US-036",
+        "US-037",
+        "US-038"
+      ]
+    },
+    {
+      "id": "US-040",
+      "title": "Publish the exact remote-ready V0 repository",
+      "description": "As the maintainer, I need the remote repository to contain exactly the complete V0 New Alphabet offering so a user or coding agent can clone it and find the doctrine, runtime, demos, CLI, contract surface, docs, and release posture in one place.",
+      "acceptanceCriteria": [
+        "The remote contains the framework crates, CLI, schema layer, agent layer, docs app, demo-blog app, demo-saas app, examples, prompts, and scripts described in the documentation and canonical spec",
+        "The remote contains the public documentation, contributor guidance, roadmap, release notes template, issue templates, and license needed for OSS launch",
+        "The remote carries the demos, exported context support, validation system, and prompt materials needed to prove the agent thesis",
+        "The remote reflects the doctrine, milestones, acceptance gates, and definition of done without hidden missing pieces",
+        "All prior user stories required for V0 are represented in the remote in a form that another developer or coding agent can actually use",
+        "This story closes only when the remote has exactly what the documentation and canonical spec say V0 must ship, with no critical omissions",
+        "Any code written for this story remains terse, constrained, and purposeful",
+        "A final local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
+      ],
+      "priority": 40,
+      "passes": false,
+      "notes": "Rooted in documentation sections V0 Scope, Definition of Done, Product Shape, Monorepo Shape, Risks, and the public-OSS posture preserved in prd_v1 canonicalSpec. This is the explicit remote-completeness story.",
+      "dependsOn": [
+        "US-010",
+        "US-035",
+        "US-036",
+        "US-037",
+        "US-038",
+        "US-039"
+      ]
+    }
+  ]
+}

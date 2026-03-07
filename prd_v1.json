@@ -1,0 +1,1959 @@
+{
+  "name": "New Alphabet",
+  "description": "New Alphabet is a Crouwelian design constitution for the web: a strict, typographic, grid-governed alternative to vibe-coded products.",
+  "branchName": "feature/new-alphabet",
+  "userStories": [
+    {
+      "id": "B1",
+      "title": "Write constitution manifesto",
+      "description": "Write the constitution manifesto that states the anti-vibe-coded thesis, core philosophy, aesthetic position, goals, and anti-pattern posture in one coherent language.",
+      "acceptanceCriteria": [
+        "The manifesto states the anti-vibe-coded thesis, core philosophy, goals, non-goals, and aesthetic position.",
+        "Naming, layer model, and anti-pattern posture are explicit enough to guide implementation.",
+        "The language is exact, restrained, and systemic rather than promotional.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 1,
+      "passes": false,
+      "labels": [
+        "foundation"
+      ],
+      "dependsOn": [],
+      "notes": "Layer: foundation."
+    },
+    {
+      "id": "B2",
+      "title": "Implement token and grid system",
+      "description": "Implement the token and grid system so the constitutional rules for spacing, type, density, and alignment become concrete runtime law.",
+      "acceptanceCriteria": [
+        "The token and grid system defines spacing, type, density, and alignment rules clearly enough for runtime use.",
+        "Arbitrary layout values are structurally disallowed by the design system shape.",
+        "The foundation rules are documented and ready to support primitives and recipes.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 1,
+      "passes": false,
+      "labels": [
+        "foundation"
+      ],
+      "dependsOn": [
+        "B1"
+      ],
+      "notes": "Layer: foundation."
+    },
+    {
+      "id": "B3",
+      "title": "Implement AppShell, PageGrid, Region, Rail, Stack, Row, ColumnGroup, Panel",
+      "description": "Implement the core structural primitives that define page geometry and make region-level composition real in Leptos.",
+      "acceptanceCriteria": [
+        "AppShell, PageGrid, Region, Rail, Stack, Row, ColumnGroup, and Panel exist as real structural primitives.",
+        "Primitive APIs are narrow, structural, and aligned with the grid and spacing law.",
+        "Primitive composition is SSR-safe and ready to support semantic components.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 1,
+      "passes": false,
+      "labels": [
+        "primitives"
+      ],
+      "dependsOn": [
+        "B2"
+      ],
+      "notes": "Layer: primitives."
+    },
+    {
+      "id": "B4",
+      "title": "Implement Button, TextField, Select, StatusBadge, InlineAlert, EmptyState, Table",
+      "description": "Implement the minimum semantic component set needed to prove serious product work without broad component-library sprawl.",
+      "acceptanceCriteria": [
+        "The minimum semantic component set exists with explicit states and accessibility support.",
+        "Component props remain finite and semantic rather than visual or open-ended.",
+        "The component layer proves that serious product UI can be built without broad optionality.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 1,
+      "passes": false,
+      "labels": [
+        "components"
+      ],
+      "dependsOn": [
+        "B2",
+        "B3"
+      ],
+      "notes": "Layer: components."
+    },
+    {
+      "id": "B5",
+      "title": "Build BlogIndex and ArticleShell recipes",
+      "description": "Build the editorial proof surfaces that show the grammar can support archives and longform reading without collapsing into marketing or novelty design.",
+      "acceptanceCriteria": [
+        "BlogIndex and ArticleShell prove the grammar on editorial surfaces.",
+        "The editorial surfaces remain typographic, structured, and clearly New Alphabet.",
+        "The result does not collapse into marketing-site conventions or retro mimicry.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 2,
+      "passes": false,
+      "labels": [
+        "recipes"
+      ],
+      "dependsOn": [
+        "B2",
+        "B3",
+        "B4"
+      ],
+      "notes": "Layer: recipes."
+    },
+    {
+      "id": "B6",
+      "title": "Build SearchResultsWorkspace and SettingsWorkspace recipes",
+      "description": "Build the SaaS proof surfaces that show the same grammar can handle dense operational workflows and settings UI.",
+      "acceptanceCriteria": [
+        "SearchResultsWorkspace and SettingsWorkspace prove the grammar on workflow-heavy SaaS surfaces.",
+        "Dense data, navigation, detail, and action regions remain coherent and legible.",
+        "The SaaS surfaces feel like the same family as the editorial surfaces without looking identical.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 2,
+      "passes": false,
+      "labels": [
+        "recipes"
+      ],
+      "dependsOn": [
+        "B2",
+        "B3",
+        "B4"
+      ],
+      "notes": "Layer: recipes."
+    },
+    {
+      "id": "B7",
+      "title": "Implement schema bundle and validation engine",
+      "description": "Implement the schema bundle and validation engine so the doctrine becomes machine-readable and enforceable.",
+      "acceptanceCriteria": [
+        "Schemas cover foundations, primitives, core components, and V0 recipes.",
+        "Validation can detect meaningful composition, spacing, state, and anti-pattern drift.",
+        "The contract surface mirrors the real system rather than a simplified alias.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 2,
+      "passes": false,
+      "labels": [
+        "agent_contract"
+      ],
+      "dependsOn": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6"
+      ],
+      "notes": "Layer: agent_contract."
+    },
+    {
+      "id": "B8",
+      "title": "Implement CLI init/add/explain/validate/export",
+      "description": "Implement the CLI surfaces that initialize, scaffold, explain, validate, and export New Alphabet inside real development workflows.",
+      "acceptanceCriteria": [
+        "The CLI can initialize, scaffold, explain, validate, and export New Alphabet structures.",
+        "Write behavior is explicit and read-only commands do not mutate project state.",
+        "CLI output explains results in framework terms rather than generic scaffolding language.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 2,
+      "passes": false,
+      "labels": [
+        "cli"
+      ],
+      "dependsOn": [
+        "B2",
+        "B3",
+        "B4",
+        "B7"
+      ],
+      "notes": "Layer: cli."
+    },
+    {
+      "id": "B9",
+      "title": "Build docs site using New Alphabet",
+      "description": "Build the documentation site in New Alphabet itself so the public face of the project proves the system rather than describing it from the outside.",
+      "acceptanceCriteria": [
+        "The docs site is built with New Alphabet wherever possible.",
+        "The site covers philosophy, foundations, primitives, components, recipes, CLI, and agent workflow.",
+        "Examples and documentation agree on naming, layer model, and doctrine.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 3,
+      "passes": false,
+      "labels": [
+        "docs"
+      ],
+      "dependsOn": [
+        "B5",
+        "B6",
+        "B8"
+      ],
+      "notes": "Layer: docs."
+    },
+    {
+      "id": "B10",
+      "title": "Prepare OSS launch materials",
+      "description": "Prepare the OSS launch materials so the repository reads as a serious public offering rather than an internal experiment.",
+      "acceptanceCriteria": [
+        "README, contributing guidance, roadmap, release notes template, issue templates, and license are present.",
+        "The public repo reads as a coherent OSS product rather than a partial dump of internal work.",
+        "Launch materials accurately describe scope, doctrine, and the agent contract without overclaiming.",
+        "Code remains terse, constrained, and purposeful.",
+        "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+        "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+      ],
+      "priority": 3,
+      "passes": false,
+      "labels": [
+        "release"
+      ],
+      "dependsOn": [
+        "B7",
+        "B8",
+        "B9"
+      ],
+      "notes": "Layer: release."
+    }
+  ],
+  "metadata": {
+    "prdVersion": "1.0.0",
+    "prdType": "canonical_ralph_wiggum_json",
+    "source": "Expanded canonical PRD preserved inside Ralph-compatible metadata.",
+    "globalAcceptanceCriteria": [
+      "Code remains terse, constrained, and purposeful.",
+      "Implementation follows New Alphabet's doctrine rather than generic framework habits.",
+      "Completed work is committed locally and pushed to remote with a small technical commit carrying a random Crouwel quote or theme."
+    ],
+    "gateReminders": {
+      "codeQuality": "Code must stay terse, constrained, and purposeful.",
+      "gitDiscipline": "Mini commits should be local-first, pushed to remote, and paired with a technical but random Crouwel quote or theme."
+    },
+    "canonicalSpec": {
+      "project": {
+        "name": "New Alphabet",
+        "namesake": "Wim Crouwel's New Alphabet",
+        "category": "rust_first_web_framework",
+        "tagline": "A Crouwelian design-system engine for Rust, Leptos, and agentic product building.",
+        "status": "proposed",
+        "open_source_intent": true,
+        "primary_release_channel": "GitHub",
+        "license_target": "MIT OR Apache-2.0",
+        "repo_strategy": "monorepo",
+        "default_branch": "main"
+      },
+      "executive_summary": {
+        "problem": "Most UI libraries optimize for breadth, styling flexibility, and human improvisation. They do not provide a strict visual grammar, a narrow system of composition, or an installable agent-facing design constitution that an LLM can reliably build from.",
+        "solution": "Build New Alphabet as a Rust-first, Leptos-native framework for web blogs and web-based SaaS, with a strict foundational grammar, constrained primitives, semantic components, recipe-level patterns, and an agent-readable contract surface exposed through code, CLI, and protocol-friendly tooling.",
+        "why_now": [
+          "Rust and Leptos now make a serious full-stack Rust web framework viable.",
+          "AI coding sessions are becoming normal, but they lack strong installable design constitutions.",
+          "Teams need repeatable systems for content-heavy and workflow-heavy web products.",
+          "A sharply opinionated OSS offering is more memorable than another generic component library."
+        ],
+        "release_thesis": "New Alphabet should launch as both a real framework and a live system an LLM can load into a coding session to plan, scaffold, implement, validate, and explain product UIs with low drift."
+      },
+      "core_thesis": {
+        "statement": "New Alphabet is a Crouwelian design constitution for the web: a strict, typographic, grid-governed alternative to vibe-coded products.",
+        "problem_reading": [
+          "The failure in modern product UI is not only taste but the absence of a governing language.",
+          "Vibe-coded products drift because each screen is composed from local decisions instead of system law.",
+          "AI-assisted implementation amplifies this drift when the system cannot be loaded as an explicit design contract."
+        ],
+        "answer": [
+          "Establish one explicit doctrine for layout, hierarchy, components, states, and recipes.",
+          "Implement that doctrine in Rust and Leptos rather than leaving it as doc-only guidance.",
+          "Expose the doctrine through CLI and agent surfaces so scaffolding, explanation, and validation operate on the real system."
+        ],
+        "anti_vibe_coded_position": {
+          "rejects": [
+            "Prompt-to-prompt layout invention with no stable grammar.",
+            "Component-library defaults masquerading as product identity.",
+            "Local taste decisions that accumulate into drift.",
+            "Open-ended styling freedom that weakens family resemblance."
+          ],
+          "favors": [
+            "System law over improvisation.",
+            "Composition over decoration.",
+            "Finite APIs over optionality sprawl.",
+            "A recognizable family resemblance across many surfaces."
+          ]
+        },
+        "doctrine_hierarchy": [
+          "The doctrine is primary.",
+          "The framework implements the doctrine.",
+          "The CLI operationalizes the doctrine.",
+          "The agent contract exposes the doctrine."
+        ]
+      },
+      "aesthetic_position": {
+        "desired_character": [
+          "Modern",
+          "Severe",
+          "Typographic",
+          "Structured",
+          "Calm",
+          "Exact",
+          "Recognizable"
+        ],
+        "rejected_character": [
+          "Nostalgic",
+          "Ornamental",
+          "Cute",
+          "Trend-chasing",
+          "Generic contemporary SaaS"
+        ],
+        "litmus_tests": [
+          "If a surface could be mistaken for a standard component-library demo, the system is being applied too loosely.",
+          "If a screen requires decorative exceptions to feel finished, the underlying structure is not carrying enough weight.",
+          "If editorial and SaaS surfaces do not feel like members of one family, the grammar is not strong enough."
+        ]
+      },
+      "core_philosophy": {
+        "order_before_ornament": "Structure precedes style. The interface must first clarify what this surface is, what matters, how parts relate, and what action follows.",
+        "grid_as_operating_law": "The grid governs layout, spacing, hierarchy, and rhythm. It is constitutional, not decorative.",
+        "information_over_personality": "The UI exists to make relationships legible. Character may emerge, but communication remains primary.",
+        "constraint_generates_freedom": "A reduced design vocabulary is a strength. Precision and composition replace arbitrary optionality.",
+        "systems_over_pages": "The core artifact is not a pretty screen but a repeatable language that can generate many coherent screens.",
+        "medium_truth": "Loading, empty, error, focus, responsiveness, semantics, accessibility, and maintainability are part of design, not implementation afterthoughts.",
+        "agents_need_rules_not_vibes": "New Alphabet must be consumable by humans and LLMs through explicit schemas, composition rules, state contracts, and validation gates."
+      },
+      "goals": {
+        "primary": [
+          "Build a Rust-first framework for coherent web blogs and web-based SaaS.",
+          "Use Leptos as the core application framework for SSR, hydration, and shared Rust logic.",
+          "Encode a strict Crouwelian design grammar across foundation, primitives, semantic components, and recipes.",
+          "Provide a CLI that can scaffold, inspect, validate, and explain New Alphabet structures.",
+          "Provide an agent-facing contract surface that an LLM can load into a coding session and build from.",
+          "Ship a serious first public OSS release with a strong README, docs, examples, release discipline, and contribution posture."
+        ],
+        "secondary": [
+          "Demonstrate one grammar powering both editorial/blog and SaaS/workflow surfaces.",
+          "Support sparse-prompt and highly-directed user workflows equally well.",
+          "Make the framework feel like a school of design rather than a generic toolkit.",
+          "Prepare the system for future agent validation and recipe synthesis."
+        ]
+      },
+      "non_goals": [
+        "Do not compete with broad component ecosystems on total component count.",
+        "Do not support unlimited styling freedom at V0.",
+        "Do not reproduce only Crouwel's look without his systemic rigor.",
+        "Do not treat AI as a source of decorative randomization.",
+        "Do not build native mobile or desktop runtimes in the initial release.",
+        "Do not attempt multi-framework adapters before the Leptos implementation is stable.",
+        "Do not promise a full autonomous design agent at V0."
+      ],
+      "users": {
+        "primary_personas": [
+          {
+            "id": "P1",
+            "name": "Solo Rust Builder",
+            "needs": [
+              "Strong visual system without designing from scratch",
+              "Fast path from idea to coherent blog or SaaS",
+              "Clear examples and scaffolds"
+            ]
+          },
+          {
+            "id": "P2",
+            "name": "Product Engineer",
+            "needs": [
+              "Composable but strict UI primitives",
+              "Predictable APIs and low design drift",
+              "SSR-safe and accessible patterns"
+            ]
+          },
+          {
+            "id": "P3",
+            "name": "AI-Assisted Builder",
+            "needs": [
+              "Installable framework context in an LLM coding session",
+              "Schema-driven generation",
+              "Validation and explainability"
+            ]
+          }
+        ],
+        "secondary_personas": [
+          {
+            "id": "P4",
+            "name": "Design-Minded OSS Contributor",
+            "needs": [
+              "Clear philosophy",
+              "Tight contribution rules",
+              "Visible design coherence"
+            ]
+          }
+        ]
+      },
+      "use_cases": {
+        "editorial": [
+          "Personal or studio blog",
+          "Documentation site",
+          "Essay and article archive",
+          "Knowledge publication site"
+        ],
+        "saas": [
+          "Admin console",
+          "Review queue workspace",
+          "Settings and account surfaces",
+          "Search and filter-heavy back-office tools",
+          "Analytics and operational dashboards"
+        ],
+        "agentic": [
+          "Attach New Alphabet to a Codex session and scaffold a product from user intent",
+          "Validate whether generated code conforms to New Alphabet rules",
+          "Explain which recipe or primitive should be used for a requested page",
+          "Transform a natural-language product description into framework-native implementation tasks"
+        ]
+      },
+      "product_shape": {
+        "distribution_surfaces": [
+          {
+            "surface": "framework",
+            "purpose": "Actual Rust and Leptos implementation of foundations, primitives, semantic components, and recipes."
+          },
+          {
+            "surface": "cli",
+            "purpose": "Human and agent entry point for init, add, plan, validate, inspect, explain, and scaffold commands."
+          },
+          {
+            "surface": "agent_contract",
+            "purpose": "Machine-readable schemas, recipes, constraints, examples, and validation logic that can be loaded into an AI coding session."
+          }
+        ],
+        "installation_story": {
+          "human": [
+            "Create a new Leptos app using New Alphabet templates or add New Alphabet to an existing project.",
+            "Use CLI commands to scaffold common layouts and recipes.",
+            "Use docs and examples to understand the system."
+          ],
+          "llm_session": [
+            "Attach New Alphabet to the coding session via local repo, packaged context bundle, or future protocol adapter.",
+            "Allow the model to inspect foundations, primitives, semantic components, recipes, rules, and anti-patterns.",
+            "Permit the model to scaffold and implement inside defined boundaries rather than inventing structure from scratch."
+          ]
+        }
+      },
+      "architecture": {
+        "stack": {
+          "language": "Rust",
+          "web_framework": "Leptos",
+          "rendering": [
+            "SSR",
+            "hydration",
+            "CSR where appropriate"
+          ],
+          "styling_strategy": "framework-controlled tokens and class generation with strict composition rules",
+          "schema_format": "JSON for canonical contracts; optional Rust types generated or mirrored from schema",
+          "documentation_site": "New Alphabet site built with New Alphabet itself where possible"
+        },
+        "layers": [
+          {
+            "id": "L1",
+            "name": "foundation",
+            "description": "Grid, spacing, type, density, color roles, borders, motion rules, breakpoints, semantics.",
+            "outputs": [
+              "tokens",
+              "grid_spec",
+              "type_scale",
+              "density_modes",
+              "color_roles",
+              "state_rules"
+            ]
+          },
+          {
+            "id": "L2",
+            "name": "structural_primitives",
+            "description": "Low-level layout building blocks that define the constitutional geometry of a screen.",
+            "outputs": [
+              "AppShell",
+              "PageGrid",
+              "Region",
+              "Rail",
+              "Stack",
+              "Row",
+              "ColumnGroup",
+              "Panel",
+              "Band",
+              "SectionHeader"
+            ]
+          },
+          {
+            "id": "L3",
+            "name": "semantic_components",
+            "description": "Meaning-bearing UI elements for actual product work.",
+            "outputs": [
+              "Button",
+              "LinkAction",
+              "Field",
+              "Select",
+              "Checkbox",
+              "RadioGroup",
+              "StatusBadge",
+              "Table",
+              "InlineAlert",
+              "EmptyState",
+              "CommandBar",
+              "FilterRail",
+              "DetailPane",
+              "MetricBlock",
+              "NavIndex"
+            ]
+          },
+          {
+            "id": "L4",
+            "name": "recipes",
+            "description": "Opinionated, reusable full-screen and multi-region compositions for blogs and SaaS.",
+            "outputs": [
+              "BlogIndex",
+              "ArticleShell",
+              "DocsShell",
+              "SettingsWorkspace",
+              "AdminConsole",
+              "ReviewQueue",
+              "SearchResultsWorkspace",
+              "BillingSurface",
+              "AccountWorkspace",
+              "AnalyticsOverview"
+            ]
+          },
+          {
+            "id": "L5",
+            "name": "agent_contract_surface",
+            "description": "Machine-readable formalization of the first four layers for agent use.",
+            "outputs": [
+              "component_schemas",
+              "recipe_schemas",
+              "composition_maps",
+              "state_contracts",
+              "naming_rules",
+              "accessibility_rules",
+              "anti_patterns",
+              "validation_rules",
+              "promptable_intents"
+            ]
+          }
+        ]
+      },
+      "design_system_spec": {
+        "governing_principles": [
+          "The grid decides major layout before individual components are chosen.",
+          "Tokens are constitutional inputs rather than optional theme values.",
+          "Semantics outrank appearance when naming or composing UI.",
+          "Recipes are approved compositions, not marketing templates."
+        ],
+        "foundation_contracts": {
+          "grid": {
+            "role": "Constitutional geometry for page and region layout.",
+            "must_define": [
+              "Page column logic",
+              "Named region spans",
+              "Rail widths and offsets",
+              "Breakpoint behavior for major regions"
+            ],
+            "must_forbid": [
+              "Free-positioned major regions in V0",
+              "Ad hoc layout rules outside named grid behavior"
+            ]
+          },
+          "spacing_scale": {
+            "role": "Single spacing law for rhythm and separation.",
+            "must_define": [
+              "A finite spacing scale",
+              "Rules for intra-component spacing",
+              "Rules for inter-region spacing",
+              "Dense versus regular usage"
+            ],
+            "must_forbid": [
+              "Arbitrary spacing values",
+              "One-off spacing fixes for individual screens"
+            ]
+          },
+          "type_scale": {
+            "role": "Shared typographic hierarchy across editorial and SaaS surfaces.",
+            "must_define": [
+              "Display, heading, body, and annotation roles",
+              "Rules for dense data surfaces",
+              "Rules for longform editorial reading"
+            ]
+          },
+          "density_modes": {
+            "role": "Named intensity modes for information density.",
+            "must_define": [
+              "At least calm, regular, and dense modes or their equivalents",
+              "How density changes spacing, type, and table behavior"
+            ]
+          },
+          "color_roles": {
+            "role": "Semantic color usage rather than expressive palette freedom.",
+            "must_define": [
+              "Canvas, text, accent, border, status, and emphasis roles",
+              "Contrast expectations for primary states"
+            ],
+            "must_forbid": [
+              "Color as the only carrier of meaning",
+              "Unlimited variant color theming at V0"
+            ]
+          },
+          "border_rules": {
+            "role": "Structural separation and emphasis.",
+            "must_define": [
+              "When borders separate regions",
+              "When borders separate controls",
+              "How border weight supports hierarchy"
+            ]
+          },
+          "motion_rules": {
+            "role": "Purposeful motion that clarifies change rather than decorates it.",
+            "must_define": [
+              "State-change transitions",
+              "Region transition behavior",
+              "Reduced-motion behavior"
+            ],
+            "must_forbid": [
+              "Decorative animation loops",
+              "Motion that competes with hierarchy"
+            ]
+          },
+          "breakpoints": {
+            "role": "Responsive adaptation of the same grammar.",
+            "must_define": [
+              "Small-screen region collapse rules",
+              "Tablet and desktop region behavior",
+              "How rails and detail panes adapt"
+            ]
+          },
+          "state_tokens": {
+            "role": "Shared visual language for loading, error, success, focus, and disabled states.",
+            "must_define": [
+              "Focus-visible emphasis",
+              "Loading affordances",
+              "Error and success emphasis",
+              "Disabled-state reduction rules"
+            ]
+          }
+        },
+        "primitive_contracts": {
+          "AppShell": {
+            "role": "Top-level application or site frame.",
+            "must_support": [
+              "Global navigation or masthead",
+              "Primary content region",
+              "Optional rails or support regions"
+            ],
+            "must_not_be": [
+              "A decorative wrapper with no structural responsibility"
+            ]
+          },
+          "PageGrid": {
+            "role": "Named page-level grid for region placement.",
+            "must_support": [
+              "Consistent region alignment",
+              "Responsive span changes",
+              "Shared alignment across recipes"
+            ]
+          },
+          "Region": {
+            "role": "Primary semantic area of a screen.",
+            "must_support": [
+              "Named intent",
+              "Predictable width behavior",
+              "Clear relation to adjacent regions"
+            ]
+          },
+          "Rail": {
+            "role": "Persistent side structure for navigation, filtering, or utility content.",
+            "must_support": [
+              "Stable width rules",
+              "Clear secondary hierarchy",
+              "Explicit collapse behavior"
+            ],
+            "must_not_be": [
+              "A place for arbitrary overflow content"
+            ]
+          },
+          "Stack": {
+            "role": "Vertical composition with token-governed rhythm.",
+            "must_support": [
+              "Finite spacing steps",
+              "Clear grouping",
+              "Reusability across editorial and SaaS surfaces"
+            ]
+          },
+          "Panel": {
+            "role": "Bounded structural surface for grouped content or action.",
+            "must_support": [
+              "Header/content/footer relationships when needed",
+              "Clear state treatment",
+              "Consistent internal spacing"
+            ]
+          }
+        },
+        "component_contracts": {
+          "Button": {
+            "role": "Intentional action trigger.",
+            "required_states": [
+              "default",
+              "hover",
+              "focus_visible",
+              "active",
+              "disabled",
+              "loading"
+            ],
+            "notes": [
+              "Variants should be semantic rather than purely visual.",
+              "Primary action weight should come from hierarchy, not palette sprawl."
+            ]
+          },
+          "TextField": {
+            "role": "Single-line input control.",
+            "required_states": [
+              "default",
+              "focus_visible",
+              "disabled",
+              "error",
+              "success"
+            ],
+            "notes": [
+              "Field chrome should remain quiet.",
+              "Label, help, and error relationships must be explicit."
+            ]
+          },
+          "Select": {
+            "role": "Constrained choice input.",
+            "required_states": [
+              "default",
+              "focus_visible",
+              "disabled",
+              "error"
+            ],
+            "notes": [
+              "Use when choices are finite and named.",
+              "Do not use as a visual styling workaround."
+            ]
+          },
+          "StatusBadge": {
+            "role": "Compact state signifier.",
+            "required_states": [
+              "default"
+            ],
+            "notes": [
+              "Color cannot be the only signal.",
+              "Labels must remain meaningful without surrounding context."
+            ]
+          },
+          "InlineAlert": {
+            "role": "Contextual message inside workflow or reading flow.",
+            "required_states": [
+              "info",
+              "success",
+              "warning",
+              "error"
+            ],
+            "notes": [
+              "Severity should be obvious through structure and label, not only color."
+            ]
+          },
+          "EmptyState": {
+            "role": "Structured response to absence of content or results.",
+            "required_states": [
+              "default"
+            ],
+            "notes": [
+              "Must explain absence and possible next action.",
+              "Must not collapse into generic placeholder copy."
+            ]
+          },
+          "Table": {
+            "role": "Dense tabular data surface.",
+            "required_states": [
+              "default",
+              "loading",
+              "empty",
+              "error"
+            ],
+            "notes": [
+              "Truncation, wrapping, and alignment rules must be explicit.",
+              "Table density must map to named density modes."
+            ]
+          },
+          "CommandBar": {
+            "role": "Persistent or local action strip.",
+            "required_states": [
+              "default",
+              "disabled"
+            ],
+            "notes": [
+              "Actions should remain finite and hierarchically ordered.",
+              "Do not overload with secondary controls."
+            ]
+          },
+          "DetailPane": {
+            "role": "Focused contextual inspection surface.",
+            "required_states": [
+              "loading",
+              "empty",
+              "unavailable",
+              "default"
+            ],
+            "notes": [
+              "Must define relation to source list or table.",
+              "Should preserve hierarchy when data is absent."
+            ]
+          }
+        },
+        "recipe_contracts": {
+          "BlogIndex": {
+            "intent": "Editorial archive and entry surface.",
+            "required_regions": [
+              "page header",
+              "index or list region"
+            ],
+            "optional_regions": [
+              "taxonomy rail",
+              "archive navigation",
+              "editorial introduction"
+            ],
+            "adaptation_limits": [
+              "Must remain readable as an archive rather than a marketing landing page."
+            ]
+          },
+          "ArticleShell": {
+            "intent": "Longform reading surface.",
+            "required_regions": [
+              "article header",
+              "body content"
+            ],
+            "optional_regions": [
+              "local navigation",
+              "metadata block",
+              "adjacent article links"
+            ],
+            "adaptation_limits": [
+              "The reading flow must stay primary."
+            ]
+          },
+          "DocsShell": {
+            "intent": "Documentation surface with navigation and reading flow.",
+            "required_regions": [
+              "content region",
+              "navigation structure"
+            ],
+            "optional_regions": [
+              "table of contents",
+              "context rail"
+            ]
+          },
+          "SearchResultsWorkspace": {
+            "intent": "Operational surface for search, filtering, and results review.",
+            "required_regions": [
+              "search or filter structure",
+              "results region"
+            ],
+            "optional_regions": [
+              "detail pane",
+              "command bar",
+              "status summary"
+            ]
+          },
+          "ReviewQueue": {
+            "intent": "Dense review workflow with queue, detail, and action logic.",
+            "required_regions": [
+              "queue or table",
+              "detail region",
+              "action region"
+            ],
+            "optional_regions": [
+              "navigation rail",
+              "filter rail"
+            ],
+            "adaptation_limits": [
+              "Must remain legible under dense operational use."
+            ]
+          },
+          "SettingsWorkspace": {
+            "intent": "Configuration surface with section navigation and editable panels.",
+            "required_regions": [
+              "section navigation",
+              "editable content region"
+            ],
+            "optional_regions": [
+              "context help",
+              "status or save feedback"
+            ]
+          }
+        },
+        "naming_rules": {
+          "foundations": [
+            "Use plain names for rules and scales rather than branded terms.",
+            "Name tokens by role, not by appearance alone."
+          ],
+          "primitives": [
+            "Use structural nouns such as Rail, Region, Panel, or Stack.",
+            "Do not name primitives after visual style."
+          ],
+          "semantic_components": [
+            "Use role-based names such as Table or StatusBadge.",
+            "Do not name components after decoration or palette."
+          ],
+          "recipes": [
+            "Use product-surface names such as ArticleShell or ReviewQueue.",
+            "A recipe name should imply intent, not ornament."
+          ]
+        }
+      },
+      "monorepo": {
+        "top_level_layout": [
+          {
+            "path": "crates/new-alphabet-core",
+            "purpose": "Core types, tokens, schema models, shared contracts, and low-level utilities."
+          },
+          {
+            "path": "crates/new-alphabet-foundation",
+            "purpose": "Foundational design rules: grid, spacing, type, density, color roles, motion, borders."
+          },
+          {
+            "path": "crates/new-alphabet-primitives",
+            "purpose": "Structural layout primitives implemented for Leptos."
+          },
+          {
+            "path": "crates/new-alphabet-components",
+            "purpose": "Semantic components built on top of primitives."
+          },
+          {
+            "path": "crates/new-alphabet-recipes",
+            "purpose": "Opinionated page and workflow recipes."
+          },
+          {
+            "path": "crates/new-alphabet-schema",
+            "purpose": "Canonical JSON schemas, validation models, and Rust type mirrors."
+          },
+          {
+            "path": "crates/new-alphabet-cli",
+            "purpose": "CLI for init, add, plan, inspect, explain, and validate."
+          },
+          {
+            "path": "crates/new-alphabet-agent",
+            "purpose": "Agent-facing helpers and future protocol integration layer."
+          },
+          {
+            "path": "apps/docs",
+            "purpose": "Public documentation site and design manifesto."
+          },
+          {
+            "path": "apps/demo-blog",
+            "purpose": "Reference editorial/blog implementation."
+          },
+          {
+            "path": "apps/demo-saas",
+            "purpose": "Reference SaaS/workspace implementation."
+          },
+          {
+            "path": "examples",
+            "purpose": "Small, focused examples for primitives, components, recipes, and integration paths."
+          },
+          {
+            "path": "schemas",
+            "purpose": "Published machine-readable contracts and example context bundles for agent sessions."
+          },
+          {
+            "path": "prompts",
+            "purpose": "Prompt templates, spec examples, and agent session bootstrap materials."
+          },
+          {
+            "path": "scripts",
+            "purpose": "Release, schema export, validation, and contributor automation."
+          }
+        ]
+      },
+      "command_surface": {
+        "cli_name": "new-alphabet",
+        "initial_commands": [
+          {
+            "command": "new-alphabet init",
+            "purpose": "Create a new project or add New Alphabet to an existing Leptos project."
+          },
+          {
+            "command": "new-alphabet add recipe <name>",
+            "purpose": "Scaffold a recipe such as blog-index, article-shell, settings-workspace, or review-queue."
+          },
+          {
+            "command": "new-alphabet add component <name>",
+            "purpose": "Add a semantic component with required states and foundation bindings."
+          },
+          {
+            "command": "new-alphabet plan <intent>",
+            "purpose": "Turn a natural-language product request into a New Alphabet-native plan."
+          },
+          {
+            "command": "new-alphabet explain <item>",
+            "purpose": "Explain a primitive, component, recipe, or rule in framework terms."
+          },
+          {
+            "command": "new-alphabet inspect <path>",
+            "purpose": "Inspect project usage and identify which primitives, components, and recipes are present."
+          },
+          {
+            "command": "new-alphabet validate",
+            "purpose": "Validate conformance to schema, composition, state, spacing, and accessibility rules."
+          },
+          {
+            "command": "new-alphabet export context",
+            "purpose": "Generate an agent-readable bundle containing schema, recipes, examples, and constraints for a coding session."
+          }
+        ],
+        "future_agent_tools": [
+          {
+            "tool": "get_foundation_rules",
+            "purpose": "Return current grid, spacing, type, density, and color-role rules."
+          },
+          {
+            "tool": "list_primitives",
+            "purpose": "Return all primitives with slots, constraints, and examples."
+          },
+          {
+            "tool": "list_components",
+            "purpose": "Return all semantic components with states, variants, and composition rules."
+          },
+          {
+            "tool": "list_recipes",
+            "purpose": "Return recipe-level patterns matched to user intents."
+          },
+          {
+            "tool": "plan_from_intent",
+            "purpose": "Convert a natural-language request into a framework-native implementation plan."
+          },
+          {
+            "tool": "validate_plan",
+            "purpose": "Check whether a proposed composition violates framework rules."
+          },
+          {
+            "tool": "generate_scaffold",
+            "purpose": "Generate New Alphabet-compliant starter code from recipe or intent."
+          }
+        ]
+      },
+      "cli": {
+        "design_principles": [
+          "Commands should be deterministic.",
+          "File writes should be explicit and visible.",
+          "Read-only commands should not mutate project state.",
+          "The CLI should operationalize the doctrine rather than bypass it."
+        ],
+        "command_contracts": [
+          {
+            "command": "new-alphabet init",
+            "status": "must_ship_v0",
+            "side_effect_profile": "writes project setup and framework wiring",
+            "must_do": [
+              "Create or update only the files needed to initialize New Alphabet.",
+              "Explain what was created or changed.",
+              "Preserve existing project code where possible."
+            ],
+            "must_not_do": [
+              "Rewrite unrelated project structure",
+              "Invent optional styling systems"
+            ]
+          },
+          {
+            "command": "new-alphabet add recipe <name>",
+            "status": "must_ship_v0",
+            "side_effect_profile": "writes recipe scaffold files",
+            "must_do": [
+              "Generate only approved recipe structures.",
+              "Bind recipe output to foundations and primitives.",
+              "Include required states where relevant."
+            ]
+          },
+          {
+            "command": "new-alphabet add component <name>",
+            "status": "must_ship_v0",
+            "side_effect_profile": "writes component scaffold files",
+            "must_do": [
+              "Generate semantic components rather than visual wrappers.",
+              "Include explicit state coverage and accessibility hooks.",
+              "Keep prop surfaces finite."
+            ]
+          },
+          {
+            "command": "new-alphabet plan <intent>",
+            "status": "should_ship_v0",
+            "side_effect_profile": "read-only",
+            "must_do": [
+              "Return a structured implementation plan.",
+              "Choose recipes or primitives before proposing custom layout.",
+              "Explain why the plan fits the doctrine."
+            ]
+          },
+          {
+            "command": "new-alphabet explain <item>",
+            "status": "must_ship_v0",
+            "side_effect_profile": "read-only",
+            "must_do": [
+              "Explain primitives, components, recipes, or rules in framework terms.",
+              "Cite constraints, allowed compositions, and required states."
+            ]
+          },
+          {
+            "command": "new-alphabet inspect <path>",
+            "status": "future_or_optional_v0",
+            "side_effect_profile": "read-only",
+            "must_do": [
+              "Map project code back to New Alphabet structures.",
+              "Identify drift from approved primitives, components, and recipes."
+            ]
+          },
+          {
+            "command": "new-alphabet validate",
+            "status": "must_ship_v0",
+            "side_effect_profile": "read-only",
+            "must_do": [
+              "Report schema, composition, spacing, state, and accessibility violations.",
+              "Suggest repairs in framework terms.",
+              "Differentiate errors from warnings."
+            ]
+          },
+          {
+            "command": "new-alphabet export context",
+            "status": "must_ship_v0",
+            "side_effect_profile": "writes export bundle",
+            "must_do": [
+              "Generate a versioned machine-readable context bundle.",
+              "Export the real doctrine, not a simplified alias.",
+              "Remain usable without network dependency."
+            ]
+          }
+        ],
+        "validation_severity_model": [
+          "error",
+          "warning",
+          "note"
+        ],
+        "output_principles": [
+          "Explain results in framework terms.",
+          "Prefer short, exact output over verbose narration.",
+          "Surface next steps only when they are materially useful."
+        ],
+        "write_policy": [
+          "Commands that write files must say so before or while doing it.",
+          "Scaffolds should prefer additive or local edits over sweeping rewrites.",
+          "Generated files should be valid starting points rather than placeholders."
+        ]
+      },
+      "design_rules": {
+        "layout": [
+          "All serious pages must be composed from primitives before semantic embellishment.",
+          "Arbitrary spacing values are forbidden outside the token scale.",
+          "Components must align to the grid and declared density mode.",
+          "Recipes may constrain allowed region combinations."
+        ],
+        "api_discipline": [
+          "Components must expose minimal prop surfaces.",
+          "Variants must be explicit and finite.",
+          "Invalid combinations should be impossible or loudly rejected.",
+          "Slot names must be stable and semantically clear."
+        ],
+        "typography": [
+          "Hierarchy should be carried primarily by type, spacing, and alignment.",
+          "Color and ornament are secondary signals.",
+          "Editorial and SaaS surfaces share one underlying typographic grammar."
+        ],
+        "statefulness": [
+          "Every serious component must define default, disabled, loading, empty, error, and success states where applicable.",
+          "Interactive components must define focus-visible behavior and keyboard rules.",
+          "Overflow and truncation behavior must be explicit for dense surfaces."
+        ],
+        "accessibility": [
+          "Semantic HTML where possible.",
+          "Keyboard navigation is first-class.",
+          "Accessible names and descriptions are required.",
+          "Color is never the sole carrier of meaning.",
+          "Focus order and focus visibility are system-level concerns."
+        ]
+      },
+      "anti_patterns": {
+        "visual": [
+          "Component-library default aesthetics used as product identity.",
+          "Decorative exceptions added to rescue weak structure.",
+          "Color or ornament doing work that hierarchy should do."
+        ],
+        "layout": [
+          "Major page regions invented outside primitives or recipes.",
+          "Arbitrary spacing values used to solve local problems.",
+          "Rails, panels, or detail panes used as generic overflow containers."
+        ],
+        "api": [
+          "Boolean-prop sprawl.",
+          "Variants defined by visual mood instead of semantic role.",
+          "Unsupported prop combinations silently allowed."
+        ],
+        "implementation": [
+          "Recipes bypassing foundations or primitives.",
+          "Schema and runtime drifting apart.",
+          "Optional escape hatches that weaken the system at call sites."
+        ],
+        "agentic": [
+          "Prompt-driven layout invention with no recipe or primitive justification.",
+          "Context exports that omit the real constraints.",
+          "Validation that reports style opinions instead of constitutional rules."
+        ]
+      },
+      "initial_inventory": {
+        "foundations": [
+          "grid",
+          "spacing_scale",
+          "type_scale",
+          "density_modes",
+          "color_roles",
+          "border_rules",
+          "motion_rules",
+          "breakpoints",
+          "z_index_and_layering_rules",
+          "state_tokens"
+        ],
+        "primitives": [
+          "AppShell",
+          "PageGrid",
+          "Region",
+          "Rail",
+          "Stack",
+          "Row",
+          "ColumnGroup",
+          "Panel",
+          "Band",
+          "SectionHeader",
+          "Divider"
+        ],
+        "semantic_components": [
+          "Button",
+          "LinkAction",
+          "TextField",
+          "Textarea",
+          "Select",
+          "Checkbox",
+          "RadioGroup",
+          "Switch",
+          "StatusBadge",
+          "InlineAlert",
+          "EmptyState",
+          "Table",
+          "MetricBlock",
+          "NavIndex",
+          "CommandBar",
+          "FilterRail",
+          "DetailPane",
+          "Pagination"
+        ],
+        "recipes_v0": [
+          "BlogIndex",
+          "ArticleShell",
+          "DocsShell",
+          "DashboardShell",
+          "SearchResultsWorkspace",
+          "ReviewQueue",
+          "SettingsWorkspace"
+        ]
+      },
+      "state_model": {
+        "required_global_states": [
+          "default",
+          "loading",
+          "empty",
+          "error",
+          "success"
+        ],
+        "interactive_states": [
+          "hover",
+          "focus_visible",
+          "active",
+          "disabled"
+        ],
+        "data_dense_rules": [
+          "Tables and lists must define truncation and wrapping rules.",
+          "Detail panes must define loading and unavailable states.",
+          "Filter structures must define zero-result states."
+        ]
+      },
+      "agent_model": {
+        "design_principle": "A model should be able to operate from sparse or highly specific user prompts because New Alphabet supplies the formal language underneath.",
+        "supported_guidance_levels": [
+          {
+            "level": "sparse",
+            "example": "Build me a blog."
+          },
+          {
+            "level": "moderate",
+            "example": "Build me a content-heavy SaaS for reviewing submissions."
+          },
+          {
+            "level": "high",
+            "example": "Build a dense review workspace with left navigation rail, center results table, right detail pane, persistent action strip, loading and dirty states, and a calm editorial tone."
+          }
+        ],
+        "session_contract": {
+          "required_context": [
+            "foundations",
+            "primitives",
+            "components",
+            "recipes",
+            "composition_rules",
+            "state_contracts",
+            "anti_patterns",
+            "examples"
+          ],
+          "ideal_outcomes": [
+            "The LLM can choose an appropriate recipe from a user description.",
+            "The LLM can scaffold valid Leptos code from framework rules.",
+            "The LLM can explain why a chosen composition is valid.",
+            "The LLM can validate or repair drift from New Alphabet's constitution."
+          ]
+        }
+      },
+      "agent_contract": {
+        "bundle_format_version": "0.1.0",
+        "required_sections": [
+          "foundations",
+          "primitives",
+          "components",
+          "recipes",
+          "composition_rules",
+          "state_contracts",
+          "anti_patterns",
+          "examples"
+        ],
+        "recommended_artifacts": [
+          "foundations.json",
+          "primitives.json",
+          "components.json",
+          "recipes.json",
+          "anti-patterns.json",
+          "examples.json",
+          "prompt-intents.json"
+        ],
+        "validation_categories": [
+          "composition",
+          "spacing",
+          "state_coverage",
+          "accessibility",
+          "naming",
+          "anti_pattern_usage"
+        ],
+        "generation_sequence": [
+          "Interpret user intent.",
+          "Choose a recipe or primitive composition before writing UI code.",
+          "Select semantic components that satisfy the required states.",
+          "Generate only valid structures and finite variants.",
+          "Run validation and explain the result in framework terms."
+        ],
+        "repair_sequence": [
+          "Inspect the current structure.",
+          "Identify which constitutional rule is being violated.",
+          "Prefer narrowing or deleting invalid structure before adding new abstractions.",
+          "Re-validate after repair."
+        ],
+        "hard_rules": [
+          "Do not invent layout outside the defined primitive and recipe model unless the PRD is explicitly expanded.",
+          "Do not weaken the doctrine to make generation easier.",
+          "Do not hide uncertainty behind decorative output."
+        ]
+      },
+      "agent_roles": [
+        {
+          "id": "A0",
+          "name": "Constitution Architect",
+          "responsibilities": [
+            "Define and refine philosophy, naming, grid, spacing, type, density, color roles, and anti-patterns.",
+            "Own the canonical contract surface."
+          ]
+        },
+        {
+          "id": "A1",
+          "name": "Foundation Implementer",
+          "responsibilities": [
+            "Implement tokens and low-level rules in Rust.",
+            "Ensure foundations are SSR-safe and framework-wide."
+          ]
+        },
+        {
+          "id": "A2",
+          "name": "Primitive Builder",
+          "responsibilities": [
+            "Build and test structural primitives in Leptos.",
+            "Constrain layout composition and slot behavior."
+          ]
+        },
+        {
+          "id": "A3",
+          "name": "Semantic Component Builder",
+          "responsibilities": [
+            "Build semantic components with explicit states, variants, and accessibility support.",
+            "Keep prop surfaces minimal and deterministic."
+          ]
+        },
+        {
+          "id": "A4",
+          "name": "Recipe Composer",
+          "responsibilities": [
+            "Compose full-screen recipes for blog and SaaS use cases.",
+            "Document recipe intent and allowed adaptations."
+          ]
+        },
+        {
+          "id": "A5",
+          "name": "Contract and CLI Builder",
+          "responsibilities": [
+            "Implement schema export, validation, CLI commands, and agent context bundles.",
+            "Prepare future protocol integration."
+          ]
+        },
+        {
+          "id": "A6",
+          "name": "Quality Critic",
+          "responsibilities": [
+            "Run design, API, accessibility, documentation, and state-completeness gates.",
+            "Identify drift from constitutional rules."
+          ]
+        },
+        {
+          "id": "A7",
+          "name": "OSS Steward",
+          "responsibilities": [
+            "Prepare README, roadmap, contributor docs, issue templates, releases, and examples."
+          ]
+        }
+      ],
+      "workstreams": [
+        {
+          "id": "WS1",
+          "name": "Constitution and Naming",
+          "objective": "Define the visual and conceptual laws of New Alphabet.",
+          "deliverables": [
+            "Design manifesto",
+            "Naming rules",
+            "Grid specification",
+            "Spacing scale",
+            "Typography scale",
+            "Density model",
+            "Color role system",
+            "Anti-pattern registry"
+          ]
+        },
+        {
+          "id": "WS2",
+          "name": "Foundations and Primitives",
+          "objective": "Implement the base grammar in Rust and Leptos.",
+          "deliverables": [
+            "Foundation crates",
+            "Primitive layout layer",
+            "SSR-safe baseline",
+            "Primitive examples"
+          ]
+        },
+        {
+          "id": "WS3",
+          "name": "Semantic Component Layer",
+          "objective": "Create the smallest useful set of semantic product components.",
+          "deliverables": [
+            "Inputs and controls",
+            "Status and alert elements",
+            "Data display components",
+            "State coverage",
+            "Accessibility coverage"
+          ]
+        },
+        {
+          "id": "WS4",
+          "name": "Recipes and Demonstrators",
+          "objective": "Prove that one grammar can serve both editorial and SaaS surfaces.",
+          "deliverables": [
+            "Demo blog",
+            "Demo SaaS workspace",
+            "Recipe documentation",
+            "Reference screenshots and examples"
+          ]
+        },
+        {
+          "id": "WS5",
+          "name": "CLI and Agent Contract Surface",
+          "objective": "Make New Alphabet installable and queryable in human and agent workflows.",
+          "deliverables": [
+            "CLI",
+            "Schema export",
+            "Validation engine",
+            "Context bundle format",
+            "Prompt examples"
+          ]
+        },
+        {
+          "id": "WS6",
+          "name": "Documentation and OSS Release",
+          "objective": "Ship a serious public offering.",
+          "deliverables": [
+            "README",
+            "Docs site",
+            "Contributing guide",
+            "Roadmap",
+            "Release notes template",
+            "Issue templates",
+            "License selection"
+          ]
+        }
+      ],
+      "milestones": [
+        {
+          "id": "M0",
+          "name": "Constitution Freeze",
+          "outcomes": [
+            "Core philosophy fixed for V0",
+            "Naming and layer model fixed",
+            "Grid, spacing, type, density, and color-role rules documented",
+            "Non-goals and anti-patterns explicitly written"
+          ]
+        },
+        {
+          "id": "M1",
+          "name": "Foundation Runtime",
+          "outcomes": [
+            "Foundation crates compile and are documented",
+            "Primitive layout system exists and renders in Leptos",
+            "SSR and hydration baseline works"
+          ]
+        },
+        {
+          "id": "M2",
+          "name": "Core Component Set",
+          "outcomes": [
+            "Minimum semantic component inventory ships",
+            "State completeness defined and tested",
+            "Accessibility baseline in place"
+          ]
+        },
+        {
+          "id": "M3",
+          "name": "Dual Demonstrator Proof",
+          "outcomes": [
+            "Demo blog built from New Alphabet",
+            "Demo SaaS workspace built from New Alphabet",
+            "Shared grammar visibly proven"
+          ]
+        },
+        {
+          "id": "M4",
+          "name": "CLI and Context Export",
+          "outcomes": [
+            "CLI init, add, explain, validate, and export commands function",
+            "Agent-readable context bundle can be generated",
+            "Prompt examples demonstrate coding-session use"
+          ]
+        },
+        {
+          "id": "M5",
+          "name": "Public OSS Launch",
+          "outcomes": [
+            "Repository is public",
+            "Docs and examples are coherent",
+            "Release process exists",
+            "V0 tag is published"
+          ]
+        }
+      ],
+      "acceptance_gates": {
+        "design_gate": [
+          "Every primitive aligns to the declared grid and spacing rules.",
+          "Typography and hierarchy remain coherent across editorial and SaaS examples.",
+          "Recipes visibly read as one family."
+        ],
+        "aesthetic_gate": [
+          "Surfaces should be recognizably New Alphabet rather than generic contemporary SaaS compositions.",
+          "Crouwelian logic should remain visible even when the surface is modernized.",
+          "Editorial and SaaS examples should feel like members of one family without visual mimicry."
+        ],
+        "api_gate": [
+          "Component APIs are narrow and documented.",
+          "Variants are finite and explicit.",
+          "Unsupported prop combinations are blocked or rejected."
+        ],
+        "state_gate": [
+          "Required states are implemented and documented.",
+          "No production component ships with undefined empty, error, or loading behavior where relevant."
+        ],
+        "accessibility_gate": [
+          "Keyboard use is verified.",
+          "Focus-visible behavior exists.",
+          "Semantics and accessible naming are validated."
+        ],
+        "platform_gate": [
+          "SSR works.",
+          "Hydration works.",
+          "Responsive behavior is defined for required recipes."
+        ],
+        "agent_gate": [
+          "Schemas exist for foundations, primitives, core components, and recipes.",
+          "CLI can export a context bundle.",
+          "At least three prompt-to-plan examples are demonstrated."
+        ],
+        "docs_gate": [
+          "README explains philosophy and quick start clearly.",
+          "Docs site covers foundations, primitives, components, recipes, CLI, and agent workflows.",
+          "Examples are runnable and mapped to docs."
+        ],
+        "oss_gate": [
+          "License is selected.",
+          "Contribution guidance exists.",
+          "Issue and PR templates exist.",
+          "Release notes discipline is established."
+        ]
+      },
+      "v0_scope": {
+        "must_ship": [
+          "Foundation layer",
+          "Primitive layout layer",
+          "Core semantic components",
+          "Demo blog",
+          "Demo SaaS workspace",
+          "CLI init/add/explain/validate/export",
+          "Canonical schema bundle",
+          "Docs site",
+          "Public repo"
+        ],
+        "should_ship": [
+          "Plan command from natural language intent",
+          "Anti-pattern validator",
+          "Recipe generator from constrained intents"
+        ],
+        "later": [
+          "Protocol-native MCP adapter",
+          "Interactive recipe browser",
+          "Multiple theme families",
+          "Cross-framework renderers",
+          "Autonomous multi-agent orchestration built into the project"
+        ]
+      },
+      "roadmap": {
+        "v0": {
+          "theme": "Prove the doctrine through runtime, demos, CLI, and contract export.",
+          "includes": [
+            "Constitution freeze",
+            "Foundation runtime",
+            "Core component set",
+            "Editorial and SaaS demonstrators",
+            "CLI export and validation baseline"
+          ]
+        },
+        "v0_5": {
+          "theme": "Tighten validation and deepen recipes without broadening the system excessively.",
+          "includes": [
+            "Plan command maturity",
+            "Anti-pattern validator expansion",
+            "More reference examples",
+            "Sharper recipe adaptation rules"
+          ]
+        },
+        "v1": {
+          "theme": "Broaden the system only after the doctrine is stable and legible.",
+          "includes": [
+            "Additional workflow recipes",
+            "Richer recipe browser or explorer",
+            "More formal agent tooling",
+            "Controlled extension points"
+          ]
+        },
+        "v2": {
+          "theme": "Deeper agent planning and carefully bounded extension mechanisms.",
+          "includes": [
+            "Protocol-native adapters",
+            "Recipe synthesis from constrained intent",
+            "Conformance repair workflows",
+            "Limited theme families that preserve the constitution"
+          ]
+        }
+      },
+      "success_metrics": {
+        "quantitative_minimums": {
+          "reference_apps": 2,
+          "prompt_to_plan_examples": 3,
+          "must_ship_cli_surfaces": 5,
+          "v0_recipe_proofs": 4
+        },
+        "design_and_doctrine": [
+          "The demo blog and demo SaaS read as one family without looking identical.",
+          "No V0 example depends on arbitrary spacing or ad hoc styling escape hatches.",
+          "Editorial and operational surfaces both feel recognizably New Alphabet."
+        ],
+        "runtime_and_tooling": [
+          "Schemas cover foundations, primitives, core components, and V0 recipes.",
+          "Context export contains enough information for prompt-to-plan and prompt-to-scaffold workflows.",
+          "CLI scaffolding and validation work without network dependency."
+        ],
+        "docs_and_release": [
+          "README, docs site, examples, prompts, and exported context agree on naming and layer model.",
+          "Contribution guidance, release notes template, issue templates, and license are present at public launch."
+        ]
+      },
+      "quality_requirements": {
+        "performance": [
+          "No unnecessary runtime styling churn.",
+          "Reasonable SSR performance for demo surfaces.",
+          "Hydration cost kept modest for editorial surfaces."
+        ],
+        "doctrinal_quality": [
+          "No V0 surface should read as generic component-library output.",
+          "The framework should remain recognizable across editorial and SaaS surfaces.",
+          "Adaptability should happen through approved structures rather than ad hoc styling."
+        ],
+        "reliability": [
+          "Strict typing for contracts and component APIs.",
+          "Schema validation integrated into development workflow.",
+          "Deterministic examples and scaffold outputs where feasible."
+        ],
+        "security": [
+          "CLI must not execute arbitrary untrusted instructions by default.",
+          "Scaffolding and export commands must be explicit about file writes.",
+          "No network-dependent behavior required for basic framework use."
+        ],
+        "maintainability": [
+          "Layer boundaries remain clear.",
+          "Schema and implementation parity must be maintained.",
+          "Recipes should not bypass foundations and primitives."
+        ]
+      },
+      "testing_strategy": {
+        "unit": [
+          "Foundation token and rule tests",
+          "Schema serialization and validation tests",
+          "Component prop and state tests"
+        ],
+        "agentic": [
+          "Context bundle completeness tests",
+          "Prompt-to-plan fixture tests",
+          "Validation repair-suggestion tests"
+        ],
+        "integration": [
+          "Recipe composition tests",
+          "SSR and hydration tests",
+          "CLI command tests"
+        ],
+        "snapshot_or_visual": [
+          "Reference output tests for recipes",
+          "Visual regression for key examples"
+        ],
+        "conformance": [
+          "Schema parity checks",
+          "Accessibility checks",
+          "Spacing and anti-pattern checks"
+        ]
+      },
+      "documentation_requirements": {
+        "must_have_docs": [
+          "What New Alphabet is",
+          "What it is not",
+          "Core philosophy",
+          "Anti-patterns",
+          "Foundation rules",
+          "Primitives",
+          "Semantic components",
+          "Recipes",
+          "CLI usage",
+          "Agent-session usage",
+          "Contributing",
+          "Roadmap",
+          "Release notes"
+        ],
+        "documentation_style": [
+          "Exact and restrained",
+          "Example-driven",
+          "Low jargon",
+          "Systemic rather than promotional"
+        ],
+        "voice_guardrails": [
+          "Write like a constitution and a reference rather than a marketing page.",
+          "Explain rules before benefits.",
+          "Avoid inflated language that makes the system sound broader than it is."
+        ],
+        "required_supporting_artifacts": [
+          "Quick-start README",
+          "Runnable reference examples",
+          "Prompt examples for agent workflows",
+          "Contributor guidance that protects the doctrine"
+        ]
+      },
+      "risks": [
+        {
+          "risk": "Over-abstraction",
+          "mitigation": "Keep V0 narrow and implementation-led. Ship blog and SaaS demos early."
+        },
+        {
+          "risk": "Over-expansion",
+          "mitigation": "Treat component count as secondary to grammar quality."
+        },
+        {
+          "risk": "Pastiche",
+          "mitigation": "Continuously test whether the system reflects Crouwel's logic rather than merely his visual aura."
+        },
+        {
+          "risk": "Adoption friction",
+          "mitigation": "Provide scaffolds, examples, and clear docs. Make the strict path legible."
+        },
+        {
+          "risk": "Agent fantasy without executable rules",
+          "mitigation": "Ship schemas and CLI export early; defer protocol complexity until the contract surface is real."
+        }
+      ],
+      "decision_log": [
+        {
+          "decision": "Use a monorepo.",
+          "reason": "The framework, CLI, schemas, demos, docs, and agent surface must evolve together."
+        },
+        {
+          "decision": "Use Rust and Leptos for the initial implementation.",
+          "reason": "This preserves one-language coherence while targeting the web seriously."
+        },
+        {
+          "decision": "Support both blog and SaaS at V0.",
+          "reason": "The framework's thesis is that one grammar should power both content and software."
+        },
+        {
+          "decision": "Include CLI and exported context bundles at V0.",
+          "reason": "Installability into human and agent workflows is central to the product idea, not a later garnish."
+        },
+        {
+          "decision": "Treat the doctrine as primary and the CLI and agent surface as downstream.",
+          "reason": "New Alphabet should not dilute into an operational system with no aesthetic center."
+        },
+        {
+          "decision": "Favor sharpness over breadth at V0.",
+          "reason": "The system will only be persuasive if its grammar is exact before it becomes broad."
+        }
+      ],
+      "definition_of_done": {
+        "project_done_when": [
+          "A developer can create or add New Alphabet to a Leptos project through the CLI.",
+          "A developer or LLM can scaffold at least one blog surface and one SaaS surface from the framework.",
+          "Foundations, primitives, core components, and recipes are documented and schema-backed.",
+          "Validation can detect meaningful drift from the framework's rules.",
+          "The repository reads as a coherent public offering with docs, examples, roadmap, and release structure."
+        ],
+        "v0_done_when": [
+          "M0 through M5 milestones are complete.",
+          "Acceptance gates pass.",
+          "Demo blog and demo SaaS clearly prove the thesis.",
+          "Agent context export works and is documented."
+        ]
+      },
+      "seed_backlog": [
+        {
+          "id": "B1",
+          "title": "Write constitution manifesto",
+          "layer": "foundation"
+        },
+        {
+          "id": "B2",
+          "title": "Implement token and grid system",
+          "layer": "foundation"
+        },
+        {
+          "id": "B3",
+          "title": "Implement AppShell, PageGrid, Region, Rail, Stack, Row, ColumnGroup, Panel",
+          "layer": "primitives"
+        },
+        {
+          "id": "B4",
+          "title": "Implement Button, TextField, Select, StatusBadge, InlineAlert, EmptyState, Table",
+          "layer": "components"
+        },
+        {
+          "id": "B5",
+          "title": "Build BlogIndex and ArticleShell recipes",
+          "layer": "recipes"
+        },
+        {
+          "id": "B6",
+          "title": "Build SearchResultsWorkspace and SettingsWorkspace recipes",
+          "layer": "recipes"
+        },
+        {
+          "id": "B7",
+          "title": "Implement schema bundle and validation engine",
+          "layer": "agent_contract"
+        },
+        {
+          "id": "B8",
+          "title": "Implement CLI init/add/explain/validate/export",
+          "layer": "cli"
+        },
+        {
+          "id": "B9",
+          "title": "Build docs site using New Alphabet",
+          "layer": "docs"
+        },
+        {
+          "id": "B10",
+          "title": "Prepare OSS launch materials",
+          "layer": "release"
+        }
+      ],
+      "example_user_prompts": [
+        "Build me a blog for longform essays and notes using New Alphabet.",
+        "Build me a B2B admin workspace for reviewing submissions with a left rail, dense table, and right-side detail pane.",
+        "Use New Alphabet to scaffold a settings workspace with section navigation and editable panels.",
+        "Explain which recipe I should use for a documentation site with article pages and archive navigation.",
+        "Validate whether this page structure conforms to New Alphabet's grid and state rules."
+      ],
+      "open_questions": [
+        {
+          "question": "How strict should the initial token scales be before real demos expose edge cases?",
+          "why_it_matters": "The doctrine needs enough precision to govern implementation without freezing poor early choices.",
+          "decision_target": "Before M0 exit"
+        },
+        {
+          "question": "What is the exact schema format for recipe composition and validation errors?",
+          "why_it_matters": "The agent contract depends on stable, machine-readable rules rather than prose interpretation.",
+          "decision_target": "Before M4 exit"
+        },
+        {
+          "question": "How much responsive adaptation should recipes handle before a new recipe is required?",
+          "why_it_matters": "The system needs bounded adaptability rather than hidden layout freedom.",
+          "decision_target": "Before recipe documentation freeze"
+        },
+        {
+          "question": "Which parts of the CLI should produce machine-readable JSON output at V0 versus later?",
+          "why_it_matters": "Agent workflows benefit from structured output, but premature protocol design could slow the core system.",
+          "decision_target": "Before CLI contract freeze"
+        },
+        {
+          "question": "How much theming, if any, can be introduced later without dissolving the doctrine?",
+          "why_it_matters": "Future expansion should not turn the framework into a generic design-token engine.",
+          "decision_target": "Post V0"
+        },
+        {
+          "question": "What is the narrowest acceptable path from prompt to scaffold that still proves the agent thesis?",
+          "why_it_matters": "The project should prove installability without promising autonomous design intelligence too early.",
+          "decision_target": "Before public V0 positioning"
+        }
+      ]
+    }
+  }
+}
