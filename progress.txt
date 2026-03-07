@@ -49,3 +49,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | DECISION | code_review_guidelines.md | Added a canonical review standard that evaluates New Alphabet changes as constitutional system changes across architecture, APIs, state, accessibility, testing, security, and documentation.
 2026-03-07 | DECISION | recipes | Documentation surfaces stay in the editorial family by using durable navigation rails and optional detail context rather than a separate docs-site visual language.
 2026-03-07 | PRD | US-028 | Implemented DocsShell with required navigation and content plus optional table of contents and context detail regions in editorial examples.
+2026-03-07 | MILESTONE | recipes | The editorial recipe layer now proves archive, article, and documentation surfaces under one calm typographic family.
+2026-03-07 | PRD | US-005 | Completed the editorial recipe proof with BlogIndex, ArticleShell, and DocsShell sharing one constrained editorial grammar.

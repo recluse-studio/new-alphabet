@@ -107,7 +107,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B5 and the recipe contracts for BlogIndex, ArticleShell, and DocsShell from the prior PRD.",
       "dependsOn": [
         "US-003",
