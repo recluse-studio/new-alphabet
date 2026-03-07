@@ -62,6 +62,11 @@ pub fn TextField(
     let state = state.unwrap_or_default();
     let input_id = format!("{name}-field");
     let described_by = state.described_by(&input_id, help, message);
+    let described_by = if described_by.is_empty() {
+        None
+    } else {
+        Some(described_by)
+    };
 
     view! {
         <div
@@ -97,6 +102,11 @@ pub fn Textarea(
     let state = state.unwrap_or_default();
     let input_id = format!("{name}-field");
     let described_by = state.described_by(&input_id, help, message);
+    let described_by = if described_by.is_empty() {
+        None
+    } else {
+        Some(described_by)
+    };
 
     view! {
         <div

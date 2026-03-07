@@ -545,7 +545,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 25,
-      "passes": false,
+      "passes": true,
       "notes": "Rooted in documentation sections Design Rules, Acceptance Gates, and the accessibility gate and conformance checks preserved in prd_v1 canonicalSpec.",
       "dependsOn": [
         "US-019",

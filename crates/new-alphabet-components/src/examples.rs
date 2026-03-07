@@ -538,3 +538,80 @@ pub fn DocumentationNavigationExample() -> impl IntoView {
         </AppShell>
     }
 }
+
+#[component]
+pub fn AccessibilityCoverageExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Rail width=RailWidthToken::Default side=RailSide::Start>
+                    <NavIndex label="Audit sections" items=SEARCH_NAV_ITEMS />
+                </Rail>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Accessibility coverage"
+                            subtitle="Keyboard order, focus-visible state, semantic naming, and textual status remain explicit."
+                        />
+                        <Stack spacing=StackSpace::Default>
+                            <CommandBar
+                                label="Audit commands"
+                                primary=REVIEW_COMMAND_PRIMARY
+                                secondary=REVIEW_COMMAND_SECONDARY
+                            />
+                            <TextField
+                                label="Display name"
+                                name="accessibility-display-name"
+                                value="Recluse Studio"
+                                help="Public profile label."
+                                message="Saved."
+                            />
+                            <Select
+                                label="Workspace density"
+                                name="accessibility-density"
+                                selected="regular"
+                                options=DENSITY_OPTIONS
+                                help="Applies to queues and detail panes."
+                            />
+                            <RadioGroup
+                                label="Review decision"
+                                name="accessibility-review-decision"
+                                selected="approve"
+                                options=REVIEW_DECISION_OPTIONS
+                                message="Decision is required before approval."
+                            />
+                            <Checkbox
+                                label="Attach follow-up"
+                                name="accessibility-follow-up"
+                                checked=true
+                                message="Adds a note to the review record."
+                            />
+                            <Switch
+                                label="Private mode"
+                                name="accessibility-private-mode"
+                                checked=false
+                                message="Can be changed later in settings."
+                            />
+                            <FilterRail
+                                label="Review filters"
+                                groups=SEARCH_FILTER_GROUPS
+                                state=crate::FilterRailState::ZeroResults
+                            />
+                            <Pagination
+                                current_page=2
+                                total_pages=6
+                                previous_href="/review?page=1"
+                                next_href="/review?page=3"
+                            />
+                            <InlineAlert
+                                title="Review note"
+                                message="Severity is written in text as well as structure."
+                                severity=StatusSeverity::Warning
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}

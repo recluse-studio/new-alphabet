@@ -1,5 +1,6 @@
 #![forbid(unsafe_code)]
 
+mod accessibility;
 mod actions;
 mod choices;
 mod data_display;
@@ -8,6 +9,7 @@ mod fields;
 mod status;
 mod workflow;
 
+pub use accessibility::{AccessibilityCheck, AccessibilityRule, COMPONENT_ACCESSIBILITY_CHECKS};
 pub use actions::{ActionPriority, ActionState, Button, ButtonType, LinkAction};
 pub use choices::{Checkbox, ChoiceOption, RadioGroup, Select, Switch};
 pub use data_display::{
@@ -15,10 +17,10 @@ pub use data_display::{
     TableState,
 };
 pub use examples::{
-    DashboardDataExample, DocumentationNavigationExample, EditorialActionExample,
-    EditorialStatusExample, FormChoiceExample, FormFieldExample, ReviewDataExample,
-    ReviewQueueCommandExample, SearchWorkflowExample, SettingsChoiceExample, SettingsFieldExample,
-    WorkflowActionExample, WorkflowStatusExample,
+    AccessibilityCoverageExample, DashboardDataExample, DocumentationNavigationExample,
+    EditorialActionExample, EditorialStatusExample, FormChoiceExample, FormFieldExample,
+    ReviewDataExample, ReviewQueueCommandExample, SearchWorkflowExample, SettingsChoiceExample,
+    SettingsFieldExample, WorkflowActionExample, WorkflowStatusExample,
 };
 pub use fields::{FieldState, TextField, Textarea};
 pub use status::{EmptyState, InlineAlert, StatusBadge, StatusSeverity};
@@ -629,5 +631,126 @@ mod tests {
         assert!(html.contains("Documentation sections"));
         assert!(html.contains("Foundations"));
         assert!(html.contains("Manual"));
+    }
+
+    #[test]
+    fn accessibility_checklist_covers_v0_component_inventory() {
+        let expected = [
+            "Button",
+            "LinkAction",
+            "TextField",
+            "Textarea",
+            "Select",
+            "Checkbox",
+            "RadioGroup",
+            "Switch",
+            "Table",
+            "MetricBlock",
+            "Pagination",
+            "NavIndex",
+            "CommandBar",
+            "FilterRail",
+            "DetailPane",
+            "StatusBadge",
+            "InlineAlert",
+            "EmptyState",
+        ];
+
+        for component in expected {
+            assert!(
+                COMPONENT_ACCESSIBILITY_CHECKS
+                    .iter()
+                    .any(|check| check.component == component)
+            );
+        }
+
+        assert!(COMPONENT_ACCESSIBILITY_CHECKS.iter().all(|check| {
+            !check.rules.is_empty()
+                && !check.semantic_anchor.is_empty()
+                && check.rules.iter().all(|rule| !rule.id().is_empty())
+        }));
+    }
+
+    #[test]
+    fn controls_omit_empty_described_by_attributes() {
+        let html = render(|| {
+            view! {
+                <div>
+                    <TextField
+                        label="Title"
+                        name="title"
+                        value="New Alphabet"
+                    />
+                    <Select
+                        label="Plan"
+                        name="plan-basic"
+                        selected="solo"
+                        options=PLAN_OPTIONS
+                    />
+                </div>
+            }
+            .into_any()
+        });
+
+        assert!(!html.contains("aria-describedby=\"\""));
+    }
+
+    #[test]
+    fn fields_and_choices_bind_descriptions_to_controls() {
+        let html = render(|| {
+            view! {
+                <div>
+                    <TextField
+                        label="Display name"
+                        name="display-name"
+                        value="Recluse Studio"
+                        help="Public profile label."
+                        message="Saved."
+                    />
+                    <Checkbox
+                        label="Attach follow-up"
+                        name="attach-follow-up"
+                        checked=true
+                        message="Adds a note to the review record."
+                    />
+                    <RadioGroup
+                        label="Review decision"
+                        name="review-decision"
+                        selected="approve"
+                        options=DECISION_OPTIONS
+                        message="Decision is required before approval."
+                    />
+                    <Switch
+                        label="Private mode"
+                        name="private-mode"
+                        checked=false
+                        message="Can be changed later in settings."
+                    />
+                </div>
+            }
+            .into_any()
+        });
+
+        assert!(
+            html.contains(
+                "aria-describedby=\"display-name-field-help display-name-field-message\""
+            )
+        );
+        assert!(html.contains("aria-describedby=\"attach-follow-up-checkbox-message\""));
+        assert!(html.contains("id=\"attach-follow-up-checkbox-message\""));
+        assert!(html.contains("aria-describedby=\"review-decision-message\""));
+        assert!(html.contains("id=\"review-decision-message\""));
+        assert!(html.contains("aria-describedby=\"private-mode-switch-message\""));
+    }
+
+    #[test]
+    fn accessibility_coverage_example_renders_focus_and_textual_status() {
+        let html = render(|| view! { <AccessibilityCoverageExample/> }.into_any());
+
+        assert!(html.contains("Accessibility coverage"));
+        assert!(html.contains("state.focus.ring"));
+        assert!(html.contains("No results match the current filters."));
+        assert!(html.contains("Warning"));
+        assert!(html.contains("Severity is written in text as well as structure."));
     }
 }

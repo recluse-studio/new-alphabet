@@ -40,6 +40,11 @@ pub fn Select(
     let state = state.unwrap_or_default();
     let input_id = format!("{name}-select");
     let aria_described_by = described_by(&input_id, help, message);
+    let aria_described_by = if aria_described_by.is_empty() {
+        None
+    } else {
+        Some(aria_described_by)
+    };
 
     view! {
         <div
@@ -78,6 +83,7 @@ pub fn Checkbox(
 ) -> impl IntoView {
     let state = state.unwrap_or_default();
     let input_id = format!("{name}-checkbox");
+    let message_id = message.map(|_| format!("{input_id}-message"));
 
     view! {
         <div
@@ -92,10 +98,11 @@ pub fn Checkbox(
                     type="checkbox"
                     checked=checked
                     disabled=state.is_disabled()
+                    aria-describedby=message_id.clone()
                 />
                 <span>{label}</span>
             </label>
-            {message.map(|text| view! { <p class="na-field-message">{text}</p> })}
+            {message.zip(message_id.clone()).map(|(text, message_id)| view! { <p id=message_id class="na-field-message">{text}</p> })}
         </div>
     }
 }
@@ -110,6 +117,7 @@ pub fn RadioGroup(
     #[prop(optional)] message: Option<&'static str>,
 ) -> impl IntoView {
     let state = state.unwrap_or_default();
+    let message_id = message.map(|_| format!("{name}-message"));
 
     view! {
         <fieldset
@@ -117,6 +125,7 @@ pub fn RadioGroup(
             data-state=state.id()
             data-focus-token=StateToken::FocusRing.id()
             disabled=state.is_disabled()
+            aria-describedby=message_id.clone()
         >
             <legend>{label}</legend>
             {options.iter().map(|option| {
@@ -136,7 +145,7 @@ pub fn RadioGroup(
                     </label>
                 }
             }).collect_view()}
-            {message.map(|text| view! { <p class="na-field-message">{text}</p> })}
+            {message.zip(message_id.clone()).map(|(text, message_id)| view! { <p id=message_id class="na-field-message">{text}</p> })}
         </fieldset>
     }
 }
@@ -151,6 +160,7 @@ pub fn Switch(
 ) -> impl IntoView {
     let state = state.unwrap_or_default();
     let input_id = format!("{name}-switch");
+    let message_id = message.map(|_| format!("{input_id}-message"));
 
     view! {
         <div
@@ -166,10 +176,11 @@ pub fn Switch(
                     role="switch"
                     checked=checked
                     disabled=state.is_disabled()
+                    aria-describedby=message_id.clone()
                 />
                 <span>{label}</span>
             </label>
-            {message.map(|text| view! { <p class="na-field-message">{text}</p> })}
+            {message.zip(message_id.clone()).map(|(text, message_id)| view! { <p id=message_id class="na-field-message">{text}</p> })}
         </div>
     }
 }
