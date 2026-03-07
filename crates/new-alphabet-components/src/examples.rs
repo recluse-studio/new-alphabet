@@ -7,8 +7,8 @@ use new_alphabet_primitives::{
 
 use crate::{
     ActionPriority, ActionState, Button, Checkbox, ChoiceOption, EmptyState, FieldState,
-    InlineAlert, LinkAction, RadioGroup, Select, StatusBadge, StatusSeverity, Switch, TextField,
-    Textarea,
+    InlineAlert, LinkAction, MetricBlock, Pagination, RadioGroup, Select, StatusBadge,
+    StatusSeverity, Switch, Table, TableColumn, TableRow, TextField, Textarea,
 };
 
 const DENSITY_OPTIONS: &[ChoiceOption] = &[
@@ -21,6 +21,56 @@ const REVIEW_DECISION_OPTIONS: &[ChoiceOption] = &[
     ChoiceOption::new("approve", "Approve"),
     ChoiceOption::new("hold", "Hold"),
     ChoiceOption::new("reject", "Reject"),
+];
+
+const DASHBOARD_METRIC_ROWS: &[TableRow] = &[
+    TableRow::new(
+        "review-queue",
+        &[
+            "Review queue",
+            "18",
+            "Three items exceed service rhythm and need action today.",
+        ],
+    ),
+    TableRow::new(
+        "archive-notes",
+        &[
+            "Archive notes",
+            "42",
+            "All pending archive updates fit inside the current publication window.",
+        ],
+    ),
+];
+
+const DASHBOARD_TABLE_COLUMNS: &[TableColumn] = &[
+    TableColumn::truncate("surface", "Surface"),
+    TableColumn::truncate("count", "Count"),
+    TableColumn::wrap("summary", "Summary"),
+];
+
+const REVIEW_TABLE_ROWS: &[TableRow] = &[
+    TableRow::new(
+        "essay-142",
+        &[
+            "Essay 142",
+            "Ready",
+            "Lead is clear, but the archive citation still needs a source line.",
+        ],
+    ),
+    TableRow::new(
+        "essay-143",
+        &[
+            "Essay 143",
+            "Hold",
+            "Image rights note is incomplete and the caption should be tightened before approval.",
+        ],
+    ),
+];
+
+const REVIEW_TABLE_COLUMNS: &[TableColumn] = &[
+    TableColumn::truncate("entry", "Entry"),
+    TableColumn::truncate("state", "State"),
+    TableColumn::wrap("note", "Review note"),
 ];
 
 #[component]
@@ -251,6 +301,92 @@ pub fn WorkflowStatusExample() -> impl IntoView {
                                 title="No matching entries"
                                 message="Adjust the filters to broaden the queue."
                                 next_action="Clear filters"
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn DashboardDataExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Dense intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Stack spacing=StackSpace::Default>
+                        <Panel>
+                            <SectionHeader
+                                title="Operations Snapshot"
+                                subtitle="Metrics stay structural and typographic in dense workflow contexts."
+                            />
+                            <Row align=RowAlign::Baseline distribution=RowDistribution::Start>
+                                <MetricBlock
+                                    label="Published today"
+                                    value="18"
+                                    context="Across archive and review surfaces."
+                                />
+                                <MetricBlock
+                                    label="Average queue age"
+                                    value="4h"
+                                    context="Measured from the first editorial touch."
+                                />
+                                <MetricBlock
+                                    label="Blocked items"
+                                    value="3"
+                                    note="Rights and metadata gaps only."
+                                />
+                            </Row>
+                        </Panel>
+                        <Panel>
+                            <SectionHeader
+                                title="Queue summary"
+                                subtitle="Dense tables define truncation and wrapping directly in the column contract."
+                            />
+                            <Stack spacing=StackSpace::Tight>
+                                <Table
+                                    label="Dashboard queue summary"
+                                    columns=DASHBOARD_TABLE_COLUMNS
+                                    rows=DASHBOARD_METRIC_ROWS
+                                />
+                                <Pagination
+                                    current_page=1
+                                    total_pages=4
+                                    next_href="/dashboard?page=2"
+                                />
+                            </Stack>
+                        </Panel>
+                    </Stack>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn ReviewDataExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Dense intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Review queue"
+                            subtitle="Workspace tables keep queue state, wrapping, and paging explicit."
+                        />
+                        <Stack spacing=StackSpace::Tight>
+                            <Table
+                                label="Review queue entries"
+                                columns=REVIEW_TABLE_COLUMNS
+                                rows=REVIEW_TABLE_ROWS
+                            />
+                            <Pagination
+                                current_page=2
+                                total_pages=6
+                                previous_href="/review?page=1"
+                                next_href="/review?page=3"
                             />
                         </Stack>
                     </Panel>

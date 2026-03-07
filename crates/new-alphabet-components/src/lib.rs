@@ -2,15 +2,21 @@
 
 mod actions;
 mod choices;
+mod data_display;
 mod examples;
 mod fields;
 mod status;
 
 pub use actions::{ActionPriority, ActionState, Button, ButtonType, LinkAction};
 pub use choices::{Checkbox, ChoiceOption, RadioGroup, Select, Switch};
+pub use data_display::{
+    MetricBlock, Pagination, PaginationDirection, Table, TableCellMode, TableColumn, TableRow,
+    TableState,
+};
 pub use examples::{
-    EditorialActionExample, EditorialStatusExample, FormChoiceExample, FormFieldExample,
-    SettingsChoiceExample, SettingsFieldExample, WorkflowActionExample, WorkflowStatusExample,
+    DashboardDataExample, EditorialActionExample, EditorialStatusExample, FormChoiceExample,
+    FormFieldExample, ReviewDataExample, SettingsChoiceExample, SettingsFieldExample,
+    WorkflowActionExample, WorkflowStatusExample,
 };
 pub use fields::{FieldState, TextField, Textarea};
 pub use status::{EmptyState, InlineAlert, StatusBadge, StatusSeverity};
@@ -25,6 +31,33 @@ const PLAN_OPTIONS: &[ChoiceOption] = &[
 const DECISION_OPTIONS: &[ChoiceOption] = &[
     ChoiceOption::new("approve", "Approve"),
     ChoiceOption::new("hold", "Hold"),
+];
+
+#[cfg(test)]
+const QUEUE_TABLE_COLUMNS: &[TableColumn] = &[
+    TableColumn::truncate("entry", "Entry"),
+    TableColumn::truncate("state", "State"),
+    TableColumn::wrap("note", "Note"),
+];
+
+#[cfg(test)]
+const QUEUE_ROW_ONE: &[&str] = &[
+    "Essay 142",
+    "Ready",
+    "Lead is clear, but the archive citation still needs a source line.",
+];
+
+#[cfg(test)]
+const QUEUE_ROW_TWO: &[&str] = &[
+    "Essay 143",
+    "Hold",
+    "Image rights note is incomplete and the caption should be tightened before approval.",
+];
+
+#[cfg(test)]
+const QUEUE_TABLE_ROWS: &[TableRow] = &[
+    TableRow::new("essay-142", QUEUE_ROW_ONE),
+    TableRow::new("essay-143", QUEUE_ROW_TWO),
 ];
 
 #[cfg(test)]
@@ -284,5 +317,130 @@ mod tests {
         let html = render(|| view! { <WorkflowStatusExample/> }.into_any());
         assert!(html.contains("Sync delayed"));
         assert!(html.contains("No matching entries"));
+    }
+
+    #[test]
+    fn table_renders_dense_columns_and_rows() {
+        let html = render(|| {
+            view! {
+                <Table
+                    label="Review queue entries"
+                    columns=QUEUE_TABLE_COLUMNS
+                    rows=QUEUE_TABLE_ROWS
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-density=\"dense\""));
+        assert!(html.contains("data-cell-mode=\"truncate\""));
+        assert!(html.contains("data-cell-mode=\"wrap\""));
+        assert!(html.contains("Essay 142"));
+    }
+
+    #[test]
+    fn table_renders_loading_state() {
+        let html = render(|| {
+            view! {
+                <Table
+                    label="Review queue entries"
+                    columns=QUEUE_TABLE_COLUMNS
+                    rows=QUEUE_TABLE_ROWS
+                    state=TableState::Loading
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-state=\"loading\""));
+        assert!(html.contains("Loading rows."));
+        assert!(html.contains("state.loading.muted"));
+    }
+
+    #[test]
+    fn table_renders_empty_and_error_states() {
+        let empty_html = render(|| {
+            view! {
+                <Table
+                    label="Review queue entries"
+                    columns=QUEUE_TABLE_COLUMNS
+                    rows=&[]
+                />
+            }
+            .into_any()
+        });
+        let error_html = render(|| {
+            view! {
+                <Table
+                    label="Review queue entries"
+                    columns=QUEUE_TABLE_COLUMNS
+                    rows=QUEUE_TABLE_ROWS
+                    state=TableState::Error
+                    error_message="The review queue could not be loaded."
+                />
+            }
+            .into_any()
+        });
+
+        assert!(empty_html.contains("data-state=\"empty\""));
+        assert!(empty_html.contains("No rows available."));
+        assert!(error_html.contains("data-state=\"error\""));
+        assert!(error_html.contains("The review queue could not be loaded."));
+    }
+
+    #[test]
+    fn metric_block_renders_label_value_and_note() {
+        let html = render(|| {
+            view! {
+                <MetricBlock
+                    label="Blocked items"
+                    value="3"
+                    note="Rights and metadata gaps only."
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Blocked items"));
+        assert!(html.contains(">3<"));
+        assert!(html.contains("Rights and metadata gaps only."));
+    }
+
+    #[test]
+    fn pagination_renders_semantic_navigation() {
+        let html = render(|| {
+            view! {
+                <Pagination
+                    current_page=2
+                    total_pages=6
+                    previous_href="/review?page=1"
+                    next_href="/review?page=3"
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("aria-label=\"Pagination\""));
+        assert!(html.contains("Page 2 of 6"));
+        assert!(html.contains("rel=\"prev\""));
+        assert!(html.contains("rel=\"next\""));
+    }
+
+    #[test]
+    fn dashboard_data_example_renders_metrics_and_table() {
+        let html = render(|| view! { <DashboardDataExample/> }.into_any());
+
+        assert!(html.contains("Operations Snapshot"));
+        assert!(html.contains("Published today"));
+        assert!(html.contains("Dashboard queue summary"));
+    }
+
+    #[test]
+    fn review_data_example_renders_workspace_queue() {
+        let html = render(|| view! { <ReviewDataExample/> }.into_any());
+
+        assert!(html.contains("Review queue"));
+        assert!(html.contains("Review queue entries"));
+        assert!(html.contains("Page 2 of 6"));
     }
 }
