@@ -605,6 +605,69 @@ One typographic grammar serves both editorial reading and dense workflow surface
 - Changing density must alter spacing, type choice, and table rhythm together.
 - Density modes remain finite; per-screen density invention is forbidden.
 
+## Color Roles, Borders, Motion, And State Tokens
+
+Color, separation, and motion are structural signals. They do not replace hierarchy.
+
+### Color roles
+
+| Role family | Canonical tokens | Use |
+| --- | --- | --- |
+| `canvas` | `color.canvas.base`, `color.canvas.elevated`, `color.canvas.inset` | page fields, panels, inset surfaces |
+| `text` | `color.text.primary`, `color.text.secondary`, `color.text.inverse` | reading flow, support copy, inverse surfaces |
+| `accent` | `color.accent.primary`, `color.accent.muted` | action emphasis and navigational orientation |
+| `border` | `color.border.default`, `color.border.strong`, `color.border.focus` | region separation, panel edges, focus emphasis |
+| `status` | `color.status.info`, `color.status.success`, `color.status.warning`, `color.status.error` | contextual feedback and workflow state |
+| `emphasis` | `color.emphasis.subtle`, `color.emphasis.strong` | restrained hierarchy support where type and spacing are already doing the main work |
+
+### Color rules
+
+- Color roles are semantic and finite.
+- Color must never be the sole carrier of meaning.
+- Status surfaces must combine label, structure, or iconography with color.
+- Accent use is restrained; it should orient action, not decorate the page.
+
+### Border rules
+
+| Token | Use |
+| --- | --- |
+| `border.region.default` | separate major page regions |
+| `border.panel.default` | define bounded surfaces and content groups |
+| `border.panel.strong` | mark stronger hierarchy transitions without ornamental chrome |
+| `border.control.default` | input and control boundaries |
+| `border.control.focus` | focus-visible emphasis when interaction state changes |
+
+- Border weight is finite and hierarchical.
+- Borders separate regions or controls; they do not decorate empty space.
+
+### Motion rules
+
+| Token | Use |
+| --- | --- |
+| `motion.transition.fast` | small state changes |
+| `motion.transition.default` | standard control or panel transitions |
+| `motion.region.enter` | region reveal when structure changes |
+| `motion.region.exit` | region removal when structure changes |
+| `motion.reduced.none` | reduced-motion fallback for nonessential movement |
+
+- Motion exists to clarify change, not to add atmosphere.
+- Decorative loops and attention-seeking movement are forbidden.
+- Reduced-motion mode removes nonessential movement and keeps meaning through layout, opacity, or direct state change.
+
+### State tokens
+
+| Token | Use |
+| --- | --- |
+| `state.focus.ring` | focus-visible emphasis |
+| `state.loading.muted` | low-noise loading treatment |
+| `state.success.emphasis` | success confirmation without celebratory excess |
+| `state.error.emphasis` | error emphasis tied to explicit messaging |
+| `state.disabled.alpha` | disabled-state reduction with preserved legibility |
+
+- Focus-visible emphasis is mandatory for interactive elements.
+- Loading, success, error, and disabled treatment must remain legible in calm and dense modes.
+- State tokens are shared across components so unfinished states do not invent their own visual language.
+
 ## Design Rules
 
 ### Layout law

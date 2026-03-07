@@ -12,3 +12,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-012 | Specified the page grid, rail widths, region spans, and responsive collapse behavior for V0 layout primitives.
 2026-03-07 | DECISION | foundations | Type roles are shared across editorial and workflow surfaces and density changes spacing, type, and table rhythm together.
 2026-03-07 | PRD | US-013 | Defined the type scale roles and finite calm, regular, and dense operating modes for New Alphabet surfaces.
+2026-03-07 | DECISION | foundations | Color, border, motion, and state remain semantic, finite, and subordinate to hierarchy rather than decorative freedom.
+2026-03-07 | PRD | US-014 | Defined the color roles, border rules, motion rules, reduced-motion behavior, and shared state tokens for V0.

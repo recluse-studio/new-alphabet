@@ -48,6 +48,8 @@ The page grid is likewise fixed by law: `compact` uses 4 columns, `medium` uses 
 
 Typography is shared across surfaces through explicit `display`, `heading`, `body`, `annotation`, and `data` roles, with finite `calm`, `regular`, and `dense` density modes instead of per-screen taste decisions.
 
+Color, borders, motion, and state are likewise semantic and finite: color cannot carry meaning alone, focus-visible emphasis is required, and reduced-motion behavior is part of the system rather than an afterthought.
+
 ## V0 Shape
 
 New Alphabet aims to ship three connected surfaces:
