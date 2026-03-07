@@ -54,5 +54,19 @@
     "default_severity": "error",
     "summary": "Style escape hatches and invented layouts are constitutional drift.",
     "repair": "Delete the escape hatch, choose the nearest valid recipe, and re-validate."
+  },
+  {
+    "id": "V-009",
+    "category": "composition",
+    "default_severity": "error",
+    "summary": "Recipes must include the canonical primitive scaffolding they depend on.",
+    "repair": "Add the missing primitive scaffolding or narrow the recipe claim until the manifest matches the real structure."
+  },
+  {
+    "id": "N-001",
+    "category": "composition",
+    "default_severity": "note",
+    "summary": "Valid surfaces are called out explicitly so validation can confirm constitutional alignment as well as drift.",
+    "repair": "No repair is required."
   }
 ]

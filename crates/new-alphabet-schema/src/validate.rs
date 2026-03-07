@@ -34,12 +34,91 @@ pub fn validate_manifest(manifest: &ProjectManifest) -> ValidationReport {
 }
 
 fn validate_surface(surface: &SurfaceManifest, report: &mut ValidationReport) {
+    let before = report.messages.len();
+
+    validate_inventory(surface, report);
     validate_regions(surface, report);
     validate_spacing(surface, report);
     validate_naming(surface, report);
     validate_state_coverage(surface, report);
     validate_accessibility(surface, report);
     validate_anti_patterns(surface, report);
+
+    if report.messages.len() == before {
+        report.push(note(
+            "N-001",
+            ValidationCategory::Composition,
+            surface.id.as_str(),
+            format!(
+                "{} conforms to the current recipe, state, accessibility, and anti-pattern rules.",
+                surface.id
+            ),
+        ));
+    }
+}
+
+fn validate_inventory(surface: &SurfaceManifest, report: &mut ValidationReport) {
+    if !known_recipes().contains(&surface.recipe.as_str()) {
+        report.push(message(
+            "AP-011",
+            Severity::Error,
+            ValidationCategory::AntiPatternUsage,
+            surface.id.as_str(),
+            format!(
+                "{} is not a canonical New Alphabet recipe, so the surface is bypassing the published system.",
+                surface.recipe
+            ),
+            "Choose a published recipe or explicitly expand the doctrine before writing new structure.",
+        ));
+    }
+
+    for primitive in &surface.primitives {
+        if !known_primitives().contains(&primitive.as_str()) {
+            report.push(message(
+                "AP-011",
+                Severity::Error,
+                ValidationCategory::AntiPatternUsage,
+                surface.id.as_str(),
+                format!(
+                    "{} is not a canonical primitive, which makes the implementation drift away from the runtime inventory.",
+                    primitive
+                ),
+                "Use a published primitive or expand the primitive inventory deliberately before proceeding.",
+            ));
+        }
+    }
+
+    for primitive in required_primitives(surface.recipe.as_str()) {
+        if !surface.primitives.iter().any(|item| item == primitive) {
+            report.push(message(
+                "V-009",
+                Severity::Error,
+                ValidationCategory::Composition,
+                surface.id.as_str(),
+                format!(
+                    "{} requires the {} primitive in the manifest scaffolding path.",
+                    surface.recipe, primitive
+                ),
+                "Add the missing primitive to the scaffold or narrow the recipe usage until the manifest matches the real structure.",
+            ));
+        }
+    }
+
+    for component in &surface.components {
+        if !known_components().contains(&component.id.as_str()) {
+            report.push(message(
+                "AP-011",
+                Severity::Error,
+                ValidationCategory::AntiPatternUsage,
+                surface.id.as_str(),
+                format!(
+                    "{} is not a canonical component, so the API surface is drifting outside the published inventory.",
+                    component.id
+                ),
+                "Replace the component with a canonical semantic component or add a documented constitutional expansion.",
+            ));
+        }
+    }
 }
 
 fn validate_regions(surface: &SurfaceManifest, report: &mut ValidationReport) {
@@ -177,6 +256,18 @@ fn validate_naming(surface: &SurfaceManifest, report: &mut ValidationReport) {
             ),
             "Rename the surface by structure or task rather than mood, magic, or ornament.",
         ));
+
+        report.push(message(
+            "AP-010",
+            Severity::Warning,
+            ValidationCategory::AntiPatternUsage,
+            surface.id.as_str(),
+            format!(
+                "{} reads like generated taste instead of a constitutional role label.",
+                surface.name
+            ),
+            "Rename the surface by structure or job so the agent and human vocabulary stay aligned.",
+        ));
     }
 }
 
@@ -244,6 +335,16 @@ fn validate_accessibility(surface: &SurfaceManifest, report: &mut ValidationRepo
             "The surface relies on color alone for meaning.".to_owned(),
             "Add explicit text and semantic status markup so meaning survives without color.",
         ));
+
+        report.push(message(
+            "AP-009",
+            Severity::Error,
+            ValidationCategory::AntiPatternUsage,
+            surface.id.as_str(),
+            "Ornament is carrying meaning that should be carried by hierarchy and text."
+                .to_owned(),
+            "Move the meaning back into structural text, semantic status content, or explicit hierarchy.",
+        ));
     }
 
     for component in &surface.components {
@@ -310,6 +411,15 @@ fn validate_anti_patterns(surface: &SurfaceManifest, report: &mut ValidationRepo
                 .to_owned(),
             "Delete the escape hatch and use approved primitives, components, or recipes instead.",
         ));
+
+        report.push(message(
+            "AP-008",
+            Severity::Error,
+            ValidationCategory::AntiPatternUsage,
+            surface.id.as_str(),
+            "The surface depends on a local exception instead of family resemblance.".to_owned(),
+            "Delete the exception and re-enter the shared grammar before adding anything new.",
+        ));
     }
 
     if surface.invented_layout {
@@ -352,6 +462,70 @@ fn required_regions(recipe: &str) -> &'static [&'static str] {
         "DashboardShell" => &["main"],
         _ => &["main"],
     }
+}
+
+fn known_recipes() -> &'static [&'static str] {
+    &[
+        "BlogIndex",
+        "ArticleShell",
+        "DocsShell",
+        "SearchResultsWorkspace",
+        "ReviewQueue",
+        "SettingsWorkspace",
+        "DashboardShell",
+    ]
+}
+
+fn known_primitives() -> &'static [&'static str] {
+    &[
+        "AppShell",
+        "PageGrid",
+        "Region",
+        "Rail",
+        "Stack",
+        "Row",
+        "ColumnGroup",
+        "Panel",
+        "Band",
+        "SectionHeader",
+        "Divider",
+    ]
+}
+
+fn required_primitives(recipe: &str) -> &'static [&'static str] {
+    match recipe {
+        "BlogIndex" => &["AppShell", "PageGrid", "Region", "Panel", "Stack"],
+        "ArticleShell" => &["AppShell", "PageGrid", "Region", "Stack"],
+        "DocsShell" => &["AppShell", "PageGrid", "Rail", "Region"],
+        "SearchResultsWorkspace" => &["AppShell", "PageGrid", "Rail", "Region"],
+        "ReviewQueue" => &["AppShell", "PageGrid", "Region", "Band"],
+        "SettingsWorkspace" => &["AppShell", "PageGrid", "Rail", "Region"],
+        "DashboardShell" => &["AppShell", "PageGrid", "Region", "Panel"],
+        _ => &[],
+    }
+}
+
+fn known_components() -> &'static [&'static str] {
+    &[
+        "Button",
+        "LinkAction",
+        "TextField",
+        "Textarea",
+        "Select",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "StatusBadge",
+        "InlineAlert",
+        "EmptyState",
+        "Table",
+        "MetricBlock",
+        "Pagination",
+        "NavIndex",
+        "CommandBar",
+        "FilterRail",
+        "DetailPane",
+    ]
 }
 
 fn allowed_regions(recipe: &str) -> BTreeSet<&'static str> {
@@ -429,5 +603,21 @@ fn message(
         target: target.to_owned(),
         message,
         repair: Some(repair.to_owned()),
+    }
+}
+
+fn note(
+    rule_id: &str,
+    category: ValidationCategory,
+    target: &str,
+    message: String,
+) -> ValidationMessage {
+    ValidationMessage {
+        rule_id: rule_id.to_owned(),
+        severity: Severity::Note,
+        category,
+        target: target.to_owned(),
+        message,
+        repair: None,
     }
 }

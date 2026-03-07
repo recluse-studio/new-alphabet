@@ -69,3 +69,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-010 | Added OSS launch materials with contributor guidance, roadmap, release-notes template, issue and PR templates, explicit dual-license files, and a README release-posture index.
 2026-03-07 | DECISION | schemas | Canonical exports are checked in as one versioned bundle plus split JSON artifacts so coding sessions can load only the sections they need without losing parity.
 2026-03-07 | PRD | US-032 | Exported the checked-in schema and example artifact set in schemas/ with the canonical bundle, split layer data, split schema documents, anti-patterns, examples, and prompt-intent files.
+2026-03-07 | DECISION | validation | Validation now reports visual, layout, API, implementation, and agentic drift as constitutional findings with repair-oriented errors, warnings, and explicit passing notes.
+2026-03-07 | PRD | US-033 | Expanded constitutional validation with canonical inventory checks, stronger anti-pattern coverage, passing notes, stricter tests, and refreshed schema exports.

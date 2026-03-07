@@ -91,6 +91,7 @@ pub fn example_project_manifest() -> ProjectManifest {
                 "Region".to_owned(),
                 "Panel".to_owned(),
                 "Stack".to_owned(),
+                "Band".to_owned(),
             ],
             components: vec![
                 component_instance("Table", &["default", "loading", "empty", "error"]),
@@ -1052,6 +1053,12 @@ fn anti_patterns() -> Vec<AntiPattern> {
             "AI-generated output that simulates taste instead of enforcing law is outside the project.",
             "Require schema-backed recipes, state coverage, and validation before accepting generated output.",
         ),
+        anti_pattern(
+            "AP-011",
+            "Implementation drift",
+            "Recipes, primitives, and components outside the published inventory bypass the constitutional system.",
+            "Return to the published inventory or expand the doctrine explicitly before generating more structure.",
+        ),
     ]
 }
 
@@ -1112,6 +1119,20 @@ fn validation_rules() -> Vec<ValidationRule> {
             Severity::Error,
             "Style escape hatches and invented layouts are constitutional drift.",
             "Delete the escape hatch, choose the nearest valid recipe, and re-validate.",
+        ),
+        validation_rule(
+            "V-009",
+            ValidationCategory::Composition,
+            Severity::Error,
+            "Recipes must include the canonical primitive scaffolding they depend on.",
+            "Add the missing primitive scaffolding or narrow the recipe claim until the manifest matches the real structure.",
+        ),
+        validation_rule(
+            "N-001",
+            ValidationCategory::Composition,
+            Severity::Note,
+            "Valid surfaces are called out explicitly so validation can confirm constitutional alignment as well as drift.",
+            "No repair is required.",
         ),
     ]
 }

@@ -12,8 +12,8 @@ pub use validate::validate_manifest;
 #[cfg(test)]
 mod tests {
     use new_alphabet_core::{
-        AccessibilitySnapshot, ComponentInstance, IntentKind, ProjectManifest, SurfaceManifest,
-        SurfaceRegion, ValidationCategory,
+        AccessibilitySnapshot, ComponentInstance, IntentKind, ProjectManifest, Severity,
+        SurfaceManifest, SurfaceRegion, ValidationCategory,
     };
 
     use super::*;
@@ -39,6 +39,24 @@ mod tests {
                 .iter()
                 .any(|rule| rule.category == ValidationCategory::AntiPatternUsage)
         );
+        assert!(
+            bundle
+                .anti_patterns
+                .iter()
+                .any(|pattern| pattern.id == "AP-011")
+        );
+        assert!(
+            bundle
+                .validation_rules
+                .iter()
+                .any(|rule| rule.id == "V-009" && rule.default_severity == Severity::Error)
+        );
+        assert!(
+            bundle
+                .validation_rules
+                .iter()
+                .any(|rule| rule.id == "N-001" && rule.default_severity == Severity::Note)
+        );
     }
 
     #[test]
@@ -54,7 +72,10 @@ mod tests {
         let report = validate_manifest(&example_project_manifest());
 
         assert!(report.valid);
-        assert!(report.messages.is_empty());
+        assert_eq!(report.messages.len(), 1);
+        assert_eq!(report.messages[0].rule_id, "N-001");
+        assert_eq!(report.messages[0].severity, Severity::Note);
+        assert_eq!(report.messages[0].repair, None);
     }
 
     #[test]
@@ -71,15 +92,29 @@ mod tests {
                     kind: "rail".to_owned(),
                     placement: "rail_start".to_owned(),
                 }],
-                primitives: vec!["AppShell".to_owned(), "PageGrid".to_owned()],
-                components: vec![ComponentInstance {
-                    id: "Table".to_owned(),
-                    states: vec!["default".to_owned()],
-                    accessible_name: false,
-                    keyboard_support: false,
-                    text_equivalent: false,
-                    custom_variant_props: true,
-                }],
+                primitives: vec![
+                    "AppShell".to_owned(),
+                    "PageGrid".to_owned(),
+                    "GlowRail".to_owned(),
+                ],
+                components: vec![
+                    ComponentInstance {
+                        id: "Table".to_owned(),
+                        states: vec!["default".to_owned()],
+                        accessible_name: false,
+                        keyboard_support: false,
+                        text_equivalent: false,
+                        custom_variant_props: true,
+                    },
+                    ComponentInstance {
+                        id: "MagicPanel".to_owned(),
+                        states: Vec::new(),
+                        accessible_name: true,
+                        keyboard_support: true,
+                        text_equivalent: true,
+                        custom_variant_props: false,
+                    },
+                ],
                 spacing_tokens: vec!["spacing.stack.improvised".to_owned()],
                 custom_spacing_values: vec![13],
                 accessibility: AccessibilitySnapshot {
@@ -130,6 +165,42 @@ mod tests {
                 .messages
                 .iter()
                 .any(|message| message.category == ValidationCategory::AntiPatternUsage)
+        );
+        assert!(
+            report
+                .messages
+                .iter()
+                .any(|message| message.rule_id == "AP-009")
+        );
+        assert!(
+            report
+                .messages
+                .iter()
+                .any(|message| message.rule_id == "AP-010")
+        );
+        assert!(
+            report
+                .messages
+                .iter()
+                .any(|message| message.rule_id == "AP-011")
+        );
+        assert!(
+            report
+                .messages
+                .iter()
+                .any(|message| message.rule_id == "AP-006")
+        );
+        assert!(
+            report
+                .messages
+                .iter()
+                .any(|message| message.rule_id == "AP-005")
+        );
+        assert!(
+            report
+                .messages
+                .iter()
+                .any(|message| message.rule_id == "V-009")
         );
         assert!(
             report

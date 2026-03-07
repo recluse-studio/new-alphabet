@@ -2391,6 +2391,12 @@
       "title": "AI taste simulation",
       "summary": "AI-generated output that simulates taste instead of enforcing law is outside the project.",
       "repair": "Require schema-backed recipes, state coverage, and validation before accepting generated output."
+    },
+    {
+      "id": "AP-011",
+      "title": "Implementation drift",
+      "summary": "Recipes, primitives, and components outside the published inventory bypass the constitutional system.",
+      "repair": "Return to the published inventory or expand the doctrine explicitly before generating more structure."
     }
   ],
   "validation_rules": [
@@ -2449,6 +2455,20 @@
       "default_severity": "error",
       "summary": "Style escape hatches and invented layouts are constitutional drift.",
       "repair": "Delete the escape hatch, choose the nearest valid recipe, and re-validate."
+    },
+    {
+      "id": "V-009",
+      "category": "composition",
+      "default_severity": "error",
+      "summary": "Recipes must include the canonical primitive scaffolding they depend on.",
+      "repair": "Add the missing primitive scaffolding or narrow the recipe claim until the manifest matches the real structure."
+    },
+    {
+      "id": "N-001",
+      "category": "composition",
+      "default_severity": "note",
+      "summary": "Valid surfaces are called out explicitly so validation can confirm constitutional alignment as well as drift.",
+      "repair": "No repair is required."
     }
   ],
   "schemas": [
