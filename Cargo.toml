@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "crates/new-alphabet-cli",
     "crates/new-alphabet-components",
     "crates/new-alphabet-core",
     "crates/new-alphabet-foundation",

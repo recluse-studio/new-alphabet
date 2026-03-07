@@ -180,7 +180,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 8,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B8, the command surface, CLI design principles, validation severity model, output principles, and write policy from the prior PRD.",
       "dependsOn": [
         "US-002",

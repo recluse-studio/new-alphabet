@@ -61,3 +61,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-006 | Completed the workflow recipe proof with SearchResultsWorkspace, ReviewQueue, SettingsWorkspace, and DashboardShell sharing one constrained operational family.
 2026-03-07 | DECISION | schema | The contract layer mirrors the runtime through versioned Rust data, canonical schema documents, prompt intents, and repair-oriented manifest validation instead of prose-only guidance.
 2026-03-07 | PRD | US-007 | Implemented new-alphabet-core and new-alphabet-schema with a versioned contract bundle, layer schemas, prompt intents, and constitutional validation across composition, spacing, naming, state, accessibility, and anti-pattern drift.
+2026-03-07 | DECISION | cli | The CLI stays manifest-first and contract-backed so writes remain additive while explain, inspect, validate, export, and plan all operate on the same schema bundle.
+2026-03-07 | PRD | US-008 | Implemented new-alphabet-cli with init, add recipe, add component, explain, inspect, validate, export context, and structured plan commands backed by the canonical contract bundle.

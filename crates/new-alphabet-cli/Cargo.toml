@@ -1,0 +1,16 @@
+[package]
+name = "new-alphabet-cli"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Command-line interface for New Alphabet."
+repository = "https://github.com/recluse-studio/new-alphabet"
+
+[[bin]]
+name = "new-alphabet"
+path = "src/main.rs"
+
+[dependencies]
+new-alphabet-core = { path = "../new-alphabet-core" }
+new-alphabet-schema = { path = "../new-alphabet-schema" }
+serde_json = "1.0"
