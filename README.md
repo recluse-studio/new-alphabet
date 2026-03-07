@@ -16,9 +16,10 @@ The current contents are the governing documents:
 - `progress.txt` is append-only project memory.
 - `crates/new-alphabet-foundation` contains the first runtime implementation of the constitutional foundation layer.
 - `crates/new-alphabet-primitives` contains the initial structural primitives for page shell and region geometry.
+- `crates/new-alphabet-components` contains the first semantic action components built on the primitive layer.
 - `examples/primitive-composition.json` contains the current primitive composition rules and reusable example index.
 
-The foundation runtime now exists. The structural primitive layer now includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`, with reusable composition maps and SSR-rendered examples. Semantic components, recipes, CLI, and validation are still to be implemented.
+The foundation runtime now exists. The structural primitive layer includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`, with reusable composition maps and SSR-rendered examples. Semantic component work has started with `Button` and `LinkAction`; the rest of the component inventory, recipes, CLI, and validation are still to be implemented.
 
 Current local verification is `cargo test --workspace`.
 

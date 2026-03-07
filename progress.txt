@@ -26,3 +26,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-018 | Published primitive composition maps and reusable editorial and workflow examples in documentation and JSON form.
 2026-03-07 | MILESTONE | primitives | The structural primitive layer is now complete and backed by SSR-rendered examples plus explicit composition maps.
 2026-03-07 | PRD | US-003 | Completed the structural primitive layer with responsive Leptos primitives, explicit composition rules, and reusable examples.
+2026-03-07 | DECISION | components | Action components stay finite by exposing priority, state, and type semantics instead of visual variant sprawl.
+2026-03-07 | PRD | US-019 | Implemented Button and LinkAction with explicit loading, disabled, focus, active, and hover semantics plus editorial and workflow examples.
