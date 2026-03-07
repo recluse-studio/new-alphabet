@@ -77,3 +77,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-035 | Deepened explain, inspect, validate, export, and plan so they report real framework structure, violations, and recipe-first plans instead of thin summaries.
 2026-03-07 | DECISION | prompts | Prompt examples and session bootstrap material now stay in parity with the exported prompt catalog so human and agent sessions start from the same recipe-first context.
 2026-03-07 | PRD | US-036 | Added reusable session bootstrap docs, sparse/moderate/high prompt examples, a high-specific review prompt intent, and prompt references in the public docs set.
+2026-03-07 | DECISION | demo-blog | The editorial proof app ships as a static site generator so the repo contains real BlogIndex and ArticleShell outputs rather than isolated recipe snapshots.
+2026-03-07 | PRD | US-037 | Added apps/demo-blog as a runnable editorial reference application that renders a blog index and article pages into checked-in HTML outputs with workspace tests.

@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "apps/docs",
+    "apps/demo-blog",
     "crates/new-alphabet-cli",
     "crates/new-alphabet-components",
     "crates/new-alphabet-core",
