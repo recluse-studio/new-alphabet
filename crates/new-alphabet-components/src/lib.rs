@@ -4,14 +4,16 @@ mod actions;
 mod choices;
 mod examples;
 mod fields;
+mod status;
 
 pub use actions::{ActionPriority, ActionState, Button, ButtonType, LinkAction};
 pub use choices::{Checkbox, ChoiceOption, RadioGroup, Select, Switch};
 pub use examples::{
-    EditorialActionExample, FormChoiceExample, FormFieldExample, SettingsChoiceExample,
-    SettingsFieldExample, WorkflowActionExample,
+    EditorialActionExample, EditorialStatusExample, FormChoiceExample, FormFieldExample,
+    SettingsChoiceExample, SettingsFieldExample, WorkflowActionExample, WorkflowStatusExample,
 };
 pub use fields::{FieldState, TextField, Textarea};
+pub use status::{EmptyState, InlineAlert, StatusBadge, StatusSeverity};
 
 #[cfg(test)]
 const PLAN_OPTIONS: &[ChoiceOption] = &[
@@ -217,5 +219,70 @@ mod tests {
         let html = render(|| view! { <FormChoiceExample/> }.into_any());
         assert!(html.contains("Review decision"));
         assert!(html.contains("Attach follow-up"));
+    }
+
+    #[test]
+    fn status_badge_renders_semantic_label() {
+        let html = render(|| {
+            view! {
+                <StatusBadge
+                    label="Published"
+                    severity=StatusSeverity::Success
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Published"));
+        assert!(html.contains("data-severity=\"success\""));
+    }
+
+    #[test]
+    fn inline_alert_renders_structural_message() {
+        let html = render(|| {
+            view! {
+                <InlineAlert
+                    title="Sync delayed"
+                    message="The queue will retry in one minute."
+                    severity=StatusSeverity::Warning
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Sync delayed"));
+        assert!(html.contains("The queue will retry in one minute."));
+        assert!(html.contains("role=\"status\""));
+    }
+
+    #[test]
+    fn empty_state_explains_absence_and_next_action() {
+        let html = render(|| {
+            view! {
+                <EmptyState
+                    title="No matching entries"
+                    message="Adjust the filters to broaden the archive."
+                    next_action="Clear filters"
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("No matching entries"));
+        assert!(html.contains("Clear filters"));
+    }
+
+    #[test]
+    fn editorial_status_example_renders_editorial_feedback() {
+        let html = render(|| view! { <EditorialStatusExample/> }.into_any());
+        assert!(html.contains("Published"));
+        assert!(html.contains("Archive note"));
+    }
+
+    #[test]
+    fn workflow_status_example_renders_workflow_feedback() {
+        let html = render(|| view! { <WorkflowStatusExample/> }.into_any());
+        assert!(html.contains("Sync delayed"));
+        assert!(html.contains("No matching entries"));
     }
 }

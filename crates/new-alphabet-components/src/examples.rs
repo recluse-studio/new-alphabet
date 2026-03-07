@@ -6,8 +6,9 @@ use new_alphabet_primitives::{
 };
 
 use crate::{
-    ActionPriority, ActionState, Button, Checkbox, ChoiceOption, FieldState, LinkAction,
-    RadioGroup, Select, Switch, TextField, Textarea,
+    ActionPriority, ActionState, Button, Checkbox, ChoiceOption, EmptyState, FieldState,
+    InlineAlert, LinkAction, RadioGroup, Select, StatusBadge, StatusSeverity, Switch, TextField,
+    Textarea,
 };
 
 const DENSITY_OPTIONS: &[ChoiceOption] = &[
@@ -191,6 +192,65 @@ pub fn FormChoiceExample() -> impl IntoView {
                                 label="Attach follow-up"
                                 name="attach-follow-up"
                                 checked=true
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn EditorialStatusExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Calm intent=FrameIntent::Editorial>
+            <PageGrid intent=FrameIntent::Editorial>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel strength=SurfaceStrength::Strong>
+                        <SectionHeader
+                            title="Archive note"
+                            subtitle="Status remains textual and structural rather than decorative."
+                        />
+                        <Stack spacing=StackSpace::Default>
+                            <StatusBadge
+                                label="Published"
+                                severity=StatusSeverity::Success
+                            />
+                            <InlineAlert
+                                title="Archive note"
+                                message="This issue is now part of the permanent index."
+                                severity=StatusSeverity::Info
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn WorkflowStatusExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Queue feedback"
+                            subtitle="Workflow status and absence states remain explicit."
+                        />
+                        <Stack spacing=StackSpace::Default>
+                            <InlineAlert
+                                title="Sync delayed"
+                                message="The queue will retry in one minute."
+                                severity=StatusSeverity::Warning
+                            />
+                            <EmptyState
+                                title="No matching entries"
+                                message="Adjust the filters to broaden the queue."
+                                next_action="Clear filters"
                             />
                         </Stack>
                     </Panel>
