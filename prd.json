@@ -229,7 +229,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 10,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B10 plus the prior PRD's milestones, workstreams, roadmap, success metrics, quality and testing strategy, acceptance gates, definition of done, risks, and open questions.",
       "dependsOn": [
         "US-007",

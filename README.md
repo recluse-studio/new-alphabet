@@ -112,3 +112,14 @@ The initial implementation path is:
 ## License Target
 
 The intended license target is `MIT OR Apache-2.0`.
+
+## Release Posture
+
+Public release material now lives at:
+
+- `CONTRIBUTING.md`
+- `ROADMAP.md`
+- `RELEASE_NOTES_TEMPLATE.md`
+- `.github/ISSUE_TEMPLATE/`
+- `.github/pull_request_template.md`
+- `LICENSE`, `LICENSE-MIT`, and `LICENSE-APACHE`

@@ -65,3 +65,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-008 | Implemented new-alphabet-cli with init, add recipe, add component, explain, inspect, validate, export context, and structured plan commands backed by the canonical contract bundle.
 2026-03-07 | DECISION | docs | Public documentation stays reference-first by pairing terse source documents with a DocsShell-generated manual page rather than a parallel marketing site.
 2026-03-07 | PRD | US-009 | Added the docs reference set and apps/docs generator with a New Alphabet-built manual covering foundations, primitives, components, recipes, CLI, agent workflows, contributing, roadmap, and release notes.
+2026-03-07 | DECISION | release | Public release posture lives in root roadmap, contributing, release, issue-template, and license artifacts so repository readiness is explicit instead of implied.
+2026-03-07 | PRD | US-010 | Added OSS launch materials with contributor guidance, roadmap, release-notes template, issue and PR templates, explicit dual-license files, and a README release-posture index.
