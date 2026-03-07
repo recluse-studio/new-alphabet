@@ -85,6 +85,17 @@ The checked-in prompt bootstrap set lives in `prompts/` and currently includes:
 
 These files are intended to be copy-paste ready in a coding session and to stay in parity with `schemas/prompt-intents.json`.
 
+## Public support artifacts
+
+Reference examples, exported schemas, prompt examples, and refresh scripts are published at:
+
+- `examples/README.md`
+- `schemas/README.md`
+- `prompts/README.md`
+- `scripts/README.md`
+- `apps/demo-blog/site/index.html`
+- `apps/demo-saas/site/index.html`
+
 ## Export path
 
 Use `new-alphabet export context` to emit the current bundle. The exported data is versioned and does not depend on the network.

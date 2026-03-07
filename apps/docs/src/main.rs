@@ -43,6 +43,7 @@ const SECTIONS: &[ArticleSection] = &[
         &[
             "Foundations, primitives, components, recipes, CLI, agent contract, contributing, roadmap, and release notes live in the /docs directory.",
             "Reusable session bootstrap material and sparse, moderate, and high-guidance prompt examples live in /prompts.",
+            "Public refresh scripts live in /scripts and focused example indexes live in /examples.",
             "Each document is written against the current runtime and contract rather than paraphrasing an imagined future system.",
         ],
     ),
@@ -76,7 +77,8 @@ const SECTIONS: &[ArticleSection] = &[
         "Examples",
         &[
             "Runnable examples live in the primitives, components, and recipes crates and are verified through cargo test --workspace.",
-            "Those examples are referenced again in the schema bundle so docs, validation, and scaffolding all point at the same source material.",
+            "The editorial and workflow reference outputs are checked in under apps/demo-blog/site and apps/demo-saas/site, and the focused example index lives in /examples/README.md.",
+            "Those examples are referenced again in the schema bundle so docs, validation, scaffolding, and prompt material all point at the same source material.",
         ],
     ),
 ];

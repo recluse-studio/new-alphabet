@@ -81,3 +81,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-037 | Added apps/demo-blog as a runnable editorial reference application that renders a blog index and article pages into checked-in HTML outputs with workspace tests.
 2026-03-07 | DECISION | demo-saas | The workflow proof app ships as a static site generator so search, review, settings, and dashboard surfaces can be inspected as one operational family in checked-in outputs.
 2026-03-07 | PRD | US-038 | Added apps/demo-saas as a runnable workflow reference application that renders search, review, settings, and dashboard pages into checked-in HTML outputs with workspace tests.
+2026-03-07 | DECISION | package | Public support artifacts are indexed and refreshed by checked-in scripts so docs, demos, schemas, prompts, and examples can be regenerated without private maintainer knowledge.
+2026-03-07 | PRD | US-039 | Added public example and script indexes, refresh scripts, and documentation links that tie examples, schemas, prompts, demos, and maintenance commands into one coherent package.

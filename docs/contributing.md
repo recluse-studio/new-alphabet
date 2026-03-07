@@ -21,6 +21,12 @@ Contributions must preserve the doctrine before they broaden the system.
 5. Run the relevant verification commands.
 6. Commit and push with the story id in the message.
 
+Common repo scripts:
+
+- `scripts/validate-workspace.sh`
+- `scripts/build-demo-sites.sh`
+- `scripts/export-public-artifacts.sh`
+
 ## Review posture
 
 - treat drift as constitutional breakage, not style preference,
