@@ -63,3 +63,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-007 | Implemented new-alphabet-core and new-alphabet-schema with a versioned contract bundle, layer schemas, prompt intents, and constitutional validation across composition, spacing, naming, state, accessibility, and anti-pattern drift.
 2026-03-07 | DECISION | cli | The CLI stays manifest-first and contract-backed so writes remain additive while explain, inspect, validate, export, and plan all operate on the same schema bundle.
 2026-03-07 | PRD | US-008 | Implemented new-alphabet-cli with init, add recipe, add component, explain, inspect, validate, export context, and structured plan commands backed by the canonical contract bundle.
+2026-03-07 | DECISION | docs | Public documentation stays reference-first by pairing terse source documents with a DocsShell-generated manual page rather than a parallel marketing site.
+2026-03-07 | PRD | US-009 | Added the docs reference set and apps/docs generator with a New Alphabet-built manual covering foundations, primitives, components, recipes, CLI, agent workflows, contributing, roadmap, and release notes.

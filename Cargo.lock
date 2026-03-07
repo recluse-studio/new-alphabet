@@ -938,6 +938,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "new-alphabet-docs"
+version = "0.1.0"
+dependencies = [
+ "leptos",
+ "new-alphabet-components",
+ "new-alphabet-recipes",
+ "new-alphabet-schema",
+]
+
+[[package]]
 name = "new-alphabet-foundation"
 version = "0.1.0"
 

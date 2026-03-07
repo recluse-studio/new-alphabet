@@ -205,7 +205,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 9,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B9, documentation requirements, voice guardrails, required supporting artifacts, and the docs gate from the prior PRD.",
       "dependsOn": [
         "US-005",
