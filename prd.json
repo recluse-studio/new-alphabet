@@ -84,7 +84,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B4, milestone M2, the state model, and the component contracts for Button, TextField, Select, StatusBadge, InlineAlert, EmptyState, Table, CommandBar, and DetailPane from the prior PRD.",
       "dependsOn": [
         "US-002",

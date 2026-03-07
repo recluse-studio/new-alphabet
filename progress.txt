@@ -40,3 +40,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-024 | Implemented NavIndex, CommandBar, FilterRail, and DetailPane with search, review, and documentation examples plus explicit zero-result and unavailable states.
 2026-03-07 | DECISION | components | Accessibility stays constitutional by making focus tokens, semantic anchors, description bindings, and color-independent status checks explicit across the full component inventory.
 2026-03-07 | PRD | US-025 | Added a machine-readable accessibility checklist, coverage example, and markup fixes for description bindings and focus-visible consistency across V0 components.
+2026-03-07 | MILESTONE | components | The V0 semantic component layer is now complete across action, field, feedback, dense-data, workflow, and accessibility coverage.
+2026-03-07 | PRD | US-004 | Completed the core semantic component set with finite APIs, explicit state coverage, dense-data behavior, workflow chrome, and accessibility-first checks.
