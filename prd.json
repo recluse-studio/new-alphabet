@@ -40,7 +40,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B2, milestone M1 foundations scope, and the full design-system foundation contracts from the prior PRD.",
       "dependsOn": [
         "US-001"

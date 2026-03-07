@@ -14,8 +14,11 @@ The current contents are the governing documents:
 - `prd.json` defines the machine-readable product requirements.
 - `AGENTS.md` defines the repository contract for agents working here.
 - `progress.txt` is append-only project memory.
+- `crates/new-alphabet-foundation` contains the first runtime implementation of the constitutional foundation layer.
 
-The runtime, CLI, recipes, and validation surface are planned but not yet implemented in this repository.
+The foundation runtime now exists. Primitives, components, recipes, CLI, and validation are still to be implemented.
+
+Current local verification is `cargo test --workspace`.
 
 ## Thesis
 

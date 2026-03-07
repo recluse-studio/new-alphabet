@@ -14,3 +14,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-013 | Defined the type scale roles and finite calm, regular, and dense operating modes for New Alphabet surfaces.
 2026-03-07 | DECISION | foundations | Color, border, motion, and state remain semantic, finite, and subordinate to hierarchy rather than decorative freedom.
 2026-03-07 | PRD | US-014 | Defined the color roles, border rules, motion rules, reduced-motion behavior, and shared state tokens for V0.
+2026-03-07 | DECISION | crates/new-alphabet-foundation | The first runtime crate keeps foundation law as plain Rust data contracts with no styling escape hatches or platform-specific behavior.
+2026-03-07 | PRD | US-002 | Implemented the foundation runtime as a buildable Rust crate covering grid, spacing, type, density, color, border, motion, breakpoints, and state tokens.
