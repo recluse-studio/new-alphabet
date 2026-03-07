@@ -42,3 +42,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-025 | Added a machine-readable accessibility checklist, coverage example, and markup fixes for description bindings and focus-visible consistency across V0 components.
 2026-03-07 | MILESTONE | components | The V0 semantic component layer is now complete across action, field, feedback, dense-data, workflow, and accessibility coverage.
 2026-03-07 | PRD | US-004 | Completed the core semantic component set with finite APIs, explicit state coverage, dense-data behavior, workflow chrome, and accessibility-first checks.
+2026-03-07 | DECISION | recipes | Editorial recipes stay calm and archive-led by keeping reading flow primary and secondary taxonomy or archive structures adjacent rather than promotional.
+2026-03-07 | PRD | US-026 | Implemented the BlogIndex recipe in a dedicated recipes crate with optional taxonomy, archive, and introduction regions plus editorial examples.

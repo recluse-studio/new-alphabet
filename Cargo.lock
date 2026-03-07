@@ -933,6 +933,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "new-alphabet-recipes"
+version = "0.1.0"
+dependencies = [
+ "leptos",
+ "new-alphabet-components",
+ "new-alphabet-foundation",
+ "new-alphabet-primitives",
+]
+
+[[package]]
 name = "next_tuple"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

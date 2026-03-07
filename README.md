@@ -17,9 +17,10 @@ The current contents are the governing documents:
 - `crates/new-alphabet-foundation` contains the first runtime implementation of the constitutional foundation layer.
 - `crates/new-alphabet-primitives` contains the initial structural primitives for page shell and region geometry.
 - `crates/new-alphabet-components` contains the first semantic component layer built on the primitive layer.
+- `crates/new-alphabet-recipes` contains the first recipe-level editorial and workflow compositions.
 - `examples/primitive-composition.json` contains the current primitive composition rules and reusable example index.
 
-The foundation runtime now exists. The structural primitive layer includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`, with reusable composition maps and SSR-rendered examples. Semantic component work now includes `Button`, `LinkAction`, `TextField`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `StatusBadge`, `InlineAlert`, `EmptyState`, `Table`, `MetricBlock`, `Pagination`, `NavIndex`, `CommandBar`, `FilterRail`, and `DetailPane`, plus an explicit accessibility checklist and coverage example; the remaining recipe, CLI, and validation work is still to be implemented.
+The foundation runtime now exists. The structural primitive layer includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`, with reusable composition maps and SSR-rendered examples. Semantic component work now includes `Button`, `LinkAction`, `TextField`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `StatusBadge`, `InlineAlert`, `EmptyState`, `Table`, `MetricBlock`, `Pagination`, `NavIndex`, `CommandBar`, `FilterRail`, and `DetailPane`, plus an explicit accessibility checklist and coverage example. Recipe work now begins in `crates/new-alphabet-recipes` with the first `BlogIndex` editorial surface; the remaining recipes, CLI, and validation work are still to be implemented.
 
 Current local verification is `cargo test --workspace`.
 
