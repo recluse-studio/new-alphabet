@@ -18,7 +18,7 @@ The current contents are the governing documents:
 - `crates/new-alphabet-primitives` contains the initial structural primitives for page shell and region geometry.
 - `examples/primitive-composition.json` contains the current primitive composition rules and reusable example index.
 
-The foundation runtime now exists. Primitive implementation now includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`. Components, recipes, CLI, and validation are still to be implemented.
+The foundation runtime now exists. The structural primitive layer now includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`, with reusable composition maps and SSR-rendered examples. Semantic components, recipes, CLI, and validation are still to be implemented.
 
 Current local verification is `cargo test --workspace`.
 

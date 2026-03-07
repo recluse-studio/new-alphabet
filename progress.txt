@@ -24,3 +24,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-017 | Implemented Panel, Band, SectionHeader, and Divider with editorial and settings examples proving bounded structural surfaces.
 2026-03-07 | DECISION | examples | Primitive composition rules and example coverage now live in a shared machine-readable map for later docs, validation, and agent work.
 2026-03-07 | PRD | US-018 | Published primitive composition maps and reusable editorial and workflow examples in documentation and JSON form.
+2026-03-07 | MILESTONE | primitives | The structural primitive layer is now complete and backed by SSR-rendered examples plus explicit composition maps.
+2026-03-07 | PRD | US-003 | Completed the structural primitive layer with responsive Leptos primitives, explicit composition rules, and reusable examples.
