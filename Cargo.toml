@@ -2,6 +2,7 @@
 members = [
     "apps/docs",
     "apps/demo-blog",
+    "apps/demo-saas",
     "crates/new-alphabet-cli",
     "crates/new-alphabet-components",
     "crates/new-alphabet-core",

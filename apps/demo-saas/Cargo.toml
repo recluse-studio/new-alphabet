@@ -1,0 +1,12 @@
+[package]
+name = "new-alphabet-demo-saas"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Static workflow reference application for New Alphabet."
+repository = "https://github.com/recluse-studio/new-alphabet"
+
+[dependencies]
+leptos = { version = "0.8.17", features = ["ssr"] }
+new-alphabet-components = { path = "../../crates/new-alphabet-components" }
+new-alphabet-recipes = { path = "../../crates/new-alphabet-recipes" }
