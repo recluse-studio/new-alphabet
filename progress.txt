@@ -57,3 +57,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-030 | Implemented ReviewQueue with required action, queue, and detail regions plus loading, empty, and unavailable-detail examples.
 2026-03-07 | DECISION | recipes | Settings and dashboard surfaces stay in family by using section navigation, native form controls, metrics, and context rails instead of inventing separate operational chrome.
 2026-03-07 | PRD | US-031 | Implemented SettingsWorkspace and DashboardShell with section navigation, editable panels, metric blocks, summary tables, and optional context help.
+2026-03-07 | MILESTONE | recipes | The workflow recipe layer now proves search, review, settings, and dashboard surfaces under one severe operational grammar.
+2026-03-07 | PRD | US-006 | Completed the workflow recipe proof with SearchResultsWorkspace, ReviewQueue, SettingsWorkspace, and DashboardShell sharing one constrained operational family.

@@ -130,7 +130,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 6,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B6, milestone M3, and the recipe contracts for SearchResultsWorkspace, ReviewQueue, and SettingsWorkspace from the prior PRD.",
       "dependsOn": [
         "US-003",
