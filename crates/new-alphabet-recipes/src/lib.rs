@@ -1,12 +1,18 @@
 #![forbid(unsafe_code)]
 
 mod editorial;
+mod workflow;
 
 pub use editorial::{
     ArticleAdjacentLink, ArticleAdjacentLinks, ArticleMetaItem, ArticleSection, ArticleShell,
     ArticleShellExample, ArticleShellMinimalExample, ArticleSidebarNav, BlogIndex, BlogIndexEntry,
     BlogIndexExample, BlogIndexMinimalExample, BlogIndexSection, DocsContextItem, DocsNavSection,
     DocsShell, DocsShellExample, DocsShellMinimalExample,
+};
+pub use workflow::{
+    SearchResultsWorkspace, SearchResultsWorkspaceExample, SearchResultsWorkspaceLoadingExample,
+    SearchResultsWorkspaceZeroResultsExample, WorkspaceCommands, WorkspaceDetail,
+    WorkspacePagination, WorkspaceStatus,
 };
 
 #[cfg(test)]
@@ -132,6 +138,65 @@ const MINIMAL_DOCS_SECTIONS: &[ArticleSection] = &[ArticleSection::new(
     "Foundations",
     &["A narrow docs surface can run as rail plus reading column."],
 )];
+
+#[cfg(test)]
+const SEARCH_FILTER_TYPE_OPTIONS: &[new_alphabet_components::FilterOption] = &[
+    new_alphabet_components::FilterOption::selected("essay", "Essay", 12),
+    new_alphabet_components::FilterOption::new("note", "Note", 4),
+];
+
+#[cfg(test)]
+const SEARCH_FILTER_STATE_OPTIONS: &[new_alphabet_components::FilterOption] = &[
+    new_alphabet_components::FilterOption::selected("ready", "Ready", 8),
+    new_alphabet_components::FilterOption::new("hold", "Hold", 3),
+];
+
+#[cfg(test)]
+const SEARCH_FILTERS: &[new_alphabet_components::FilterGroup] = &[
+    new_alphabet_components::FilterGroup::new("Type", SEARCH_FILTER_TYPE_OPTIONS),
+    new_alphabet_components::FilterGroup::new("State", SEARCH_FILTER_STATE_OPTIONS),
+];
+
+#[cfg(test)]
+const SEARCH_COLUMNS: &[new_alphabet_components::TableColumn] = &[
+    new_alphabet_components::TableColumn::truncate("entry", "Entry"),
+    new_alphabet_components::TableColumn::truncate("state", "State"),
+    new_alphabet_components::TableColumn::wrap("summary", "Summary"),
+];
+
+#[cfg(test)]
+const SEARCH_ROWS: &[new_alphabet_components::TableRow] = &[
+    new_alphabet_components::TableRow::new(
+        "essay-142",
+        &[
+            "Essay 142",
+            "Ready",
+            "Lead is clear and the archive note now links to the correct citation.",
+        ],
+    ),
+    new_alphabet_components::TableRow::new(
+        "essay-143",
+        &[
+            "Essay 143",
+            "Hold",
+            "Image rights note is incomplete and the caption needs tightening before release.",
+        ],
+    ),
+];
+
+#[cfg(test)]
+const SEARCH_DETAIL_FIELDS: &[new_alphabet_components::DetailField] = &[
+    new_alphabet_components::DetailField::new("State", "Ready"),
+    new_alphabet_components::DetailField::new("Owner", "Editorial"),
+    new_alphabet_components::DetailField::new("Section", "Archive"),
+];
+
+#[cfg(test)]
+const SEARCH_COMMAND_SECONDARY: &[new_alphabet_components::CommandAction] =
+    &[new_alphabet_components::CommandAction::ready(
+        "Export results",
+        "/search/export",
+    )];
 
 #[cfg(test)]
 mod tests {
@@ -329,5 +394,61 @@ mod tests {
         assert!(html.contains("Foundations"));
         assert!(!html.contains("data-region=\"detail\""));
         assert!(html.contains("data-side=\"start\""));
+    }
+
+    #[test]
+    fn search_results_workspace_renders_required_and_optional_regions() {
+        let html = render(|| {
+            view! {
+                <SearchResultsWorkspace
+                    title="Search Results Workspace"
+                    query="archive note"
+                    filters=SEARCH_FILTERS
+                    results_columns=SEARCH_COLUMNS
+                    results_rows=SEARCH_ROWS
+                    status=WorkspaceStatus::new(
+                        "Results updated",
+                        "The search index refreshed 18 seconds ago.",
+                        new_alphabet_components::StatusSeverity::Info,
+                    )
+                    commands=WorkspaceCommands::new(
+                        "Results commands",
+                        new_alphabet_components::CommandAction::ready("Open selected entry", "/search/open"),
+                        SEARCH_COMMAND_SECONDARY
+                    )
+                    detail=WorkspaceDetail::new(
+                        "Essay 142",
+                        Some("Context remains adjacent so the result field stays dense and calm."),
+                        SEARCH_DETAIL_FIELDS,
+                        new_alphabet_components::DetailPaneState::Default,
+                        None,
+                    )
+                    pagination=WorkspacePagination::new(1, 3, None, Some("/search?page=2"))
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-region=\"action_band\""));
+        assert!(html.contains("data-region=\"detail\""));
+        assert!(html.contains("Search query"));
+        assert!(html.contains("Search results"));
+    }
+
+    #[test]
+    fn search_results_workspace_loading_example_renders_loading_states() {
+        let html = render(|| view! { <SearchResultsWorkspaceLoadingExample/> }.into_any());
+
+        assert!(html.contains("Loading rows."));
+        assert!(html.contains("Loading detail."));
+    }
+
+    #[test]
+    fn search_results_workspace_zero_results_example_renders_zero_results_and_unavailable_detail() {
+        let html = render(|| view! { <SearchResultsWorkspaceZeroResultsExample/> }.into_any());
+
+        assert!(html.contains("No results match the current filters."));
+        assert!(html.contains("No rows available."));
+        assert!(html.contains("No matching result is available to inspect."));
     }
 }

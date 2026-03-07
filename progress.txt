@@ -51,3 +51,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-028 | Implemented DocsShell with required navigation and content plus optional table of contents and context detail regions in editorial examples.
 2026-03-07 | MILESTONE | recipes | The editorial recipe layer now proves archive, article, and documentation surfaces under one calm typographic family.
 2026-03-07 | PRD | US-005 | Completed the editorial recipe proof with BlogIndex, ArticleShell, and DocsShell sharing one constrained editorial grammar.
+2026-03-07 | DECISION | recipes | Workflow search surfaces keep filters, results, commands, and detail inspection in named regions so dense operations do not collapse into generic admin layouts.
+2026-03-07 | PRD | US-029 | Implemented SearchResultsWorkspace with required search rail and results region plus loading, zero-result, and unavailable-detail examples.
