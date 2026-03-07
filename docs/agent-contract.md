@@ -2,6 +2,8 @@
 
 The exported contract bundle format is `0.1.0`.
 
+The thin agent helper crate lives in `crates/new-alphabet-agent` and mirrors the checked-in bootstrap, artifact, and verification paths used by coding sessions.
+
 ## Required sections
 
 - `doctrine`

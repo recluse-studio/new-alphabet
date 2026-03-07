@@ -891,7 +891,7 @@
         "A final local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 40,
-      "passes": false,
+      "passes": true,
       "notes": "Rooted in documentation sections V0 Scope, Definition of Done, Product Shape, Monorepo Shape, Risks, and the public-OSS posture preserved in prd_v1 canonicalSpec. This is the explicit remote-completeness story.",
       "dependsOn": [
         "US-010",
