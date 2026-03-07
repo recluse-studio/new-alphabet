@@ -3,16 +3,18 @@
 mod composition;
 mod examples;
 mod frame;
+mod surfaces;
 
 pub use composition::{
     ColumnGroup, ColumnPreset, Rail, RailSide, Row, RowAlign, RowDistribution, RowGap, Stack,
     StackSpace,
 };
 pub use examples::{
-    EditorialAnchorExample, EditorialStructureExample, WorkflowStructureExample,
-    WorkspaceAnchorExample,
+    EditorialAnchorExample, EditorialStructureExample, EditorialSurfaceExample,
+    SettingsSurfaceExample, WorkflowStructureExample, WorkspaceAnchorExample,
 };
 pub use frame::{AppShell, FrameIntent, PageGrid, Region, RegionPlacement, RegionTag};
+pub use surfaces::{Band, Divider, Panel, PanelState, SectionHeader, SurfaceStrength};
 
 #[cfg(test)]
 mod tests {
@@ -50,5 +52,20 @@ mod tests {
         let html = render(|| view! { <EditorialStructureExample/> }.into_any());
         assert!(html.contains("data-gap-token=\"spacing.stack.loose\""));
         assert!(html.contains("data-columns-medium=\"2\""));
+    }
+
+    #[test]
+    fn editorial_surface_renders_panel_hierarchy() {
+        let html = render(|| view! { <EditorialSurfaceExample/> }.into_any());
+        assert!(html.contains("data-panel-state=\"default\""));
+        assert!(html.contains("data-border-token=\"border.panel.strong\""));
+    }
+
+    #[test]
+    fn settings_surface_renders_panel_state_and_divider() {
+        let html = render(|| view! { <SettingsSurfaceExample/> }.into_any());
+        assert!(html.contains("data-panel-state=\"loading\""));
+        assert!(html.contains("data-state-token=\"state.loading.muted\""));
+        assert!(html.contains("class=\"na-divider\""));
     }
 }

@@ -1,6 +1,7 @@
 use crate::{
-    AppShell, ColumnGroup, ColumnPreset, FrameIntent, PageGrid, Rail, RailSide, Region,
-    RegionPlacement, Row, RowAlign, RowDistribution, Stack, StackSpace,
+    AppShell, Band, ColumnGroup, ColumnPreset, Divider, FrameIntent, PageGrid, Panel, PanelState,
+    Rail, RailSide, Region, RegionPlacement, Row, RowAlign, RowDistribution, SectionHeader, Stack,
+    StackSpace, SurfaceStrength,
 };
 use leptos::prelude::*;
 use new_alphabet_foundation::{DensityMode, RailWidthToken, RegionClass};
@@ -74,6 +75,54 @@ pub fn WorkflowStructureExample() -> impl IntoView {
                         </Row>
                         <p>"Row and stack rhythm stay token-driven inside the primary workspace region."</p>
                     </Stack>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn EditorialSurfaceExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Calm intent=FrameIntent::Editorial>
+            <Band strength=SurfaceStrength::Strong>
+                <SectionHeader
+                    title="Issue Notes"
+                    subtitle="A bounded opening surface clarifies the editorial frame."
+                    annotation="Spring 2026"
+                />
+            </Band>
+            <PageGrid intent=FrameIntent::Editorial>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel strength=SurfaceStrength::Strong state=PanelState::Default>
+                        <SectionHeader
+                            title="Lead Essay"
+                            subtitle="Hierarchy comes from proportion, border, and spacing."
+                        />
+                        <Divider/>
+                        <p>"Panel and header structure stay quiet while the reading flow remains primary."</p>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn SettingsSurfaceExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel state=PanelState::Loading>
+                        <SectionHeader
+                            title="Account Settings"
+                            subtitle="The panel surface can express loading without inventing a new visual language."
+                            annotation="Sync pending"
+                        />
+                        <Divider strength=SurfaceStrength::Strong/>
+                        <p>"Settings panels stay bounded, explicit, and structurally legible."</p>
+                    </Panel>
                 </Region>
             </PageGrid>
         </AppShell>

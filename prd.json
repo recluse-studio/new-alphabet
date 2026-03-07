@@ -374,7 +374,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 17,
-      "passes": false,
+      "passes": true,
       "notes": "Rooted in documentation sections Layer Model, Design Rules, and the Panel contract and initial inventory preserved in prd_v1 canonicalSpec.",
       "dependsOn": [
         "US-002",
