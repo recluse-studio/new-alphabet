@@ -5,7 +5,22 @@ use new_alphabet_primitives::{
     RowDistribution, SectionHeader, Stack, StackSpace, SurfaceStrength,
 };
 
-use crate::{ActionPriority, ActionState, Button, FieldState, LinkAction, TextField, Textarea};
+use crate::{
+    ActionPriority, ActionState, Button, Checkbox, ChoiceOption, FieldState, LinkAction,
+    RadioGroup, Select, Switch, TextField, Textarea,
+};
+
+const DENSITY_OPTIONS: &[ChoiceOption] = &[
+    ChoiceOption::new("calm", "Calm"),
+    ChoiceOption::new("regular", "Regular"),
+    ChoiceOption::new("dense", "Dense"),
+];
+
+const REVIEW_DECISION_OPTIONS: &[ChoiceOption] = &[
+    ChoiceOption::new("approve", "Approve"),
+    ChoiceOption::new("hold", "Hold"),
+    ChoiceOption::new("reject", "Reject"),
+];
 
 #[component]
 pub fn EditorialActionExample() -> impl IntoView {
@@ -113,6 +128,69 @@ pub fn FormFieldExample() -> impl IntoView {
                                 help="Internal review context."
                                 state=FieldState::Success
                                 message="Saved."
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn SettingsChoiceExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Preferences"
+                            subtitle="Named choice controls stay finite and explicit."
+                        />
+                        <Stack spacing=StackSpace::Default>
+                            <Select
+                                label="Workspace density"
+                                name="workspace-density"
+                                selected="regular"
+                                options=DENSITY_OPTIONS
+                                help="Applies to queue and detail surfaces."
+                            />
+                            <Switch
+                                label="Private mode"
+                                name="private-mode"
+                                checked=true
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn FormChoiceExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Review Options"
+                            subtitle="Choice controls only appear where the options are finite and named."
+                        />
+                        <Stack spacing=StackSpace::Default>
+                            <RadioGroup
+                                label="Review decision"
+                                name="review-decision"
+                                selected="approve"
+                                options=REVIEW_DECISION_OPTIONS
+                            />
+                            <Checkbox
+                                label="Attach follow-up"
+                                name="attach-follow-up"
+                                checked=true
                             />
                         </Stack>
                     </Panel>

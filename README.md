@@ -19,7 +19,7 @@ The current contents are the governing documents:
 - `crates/new-alphabet-components` contains the first semantic action components built on the primitive layer.
 - `examples/primitive-composition.json` contains the current primitive composition rules and reusable example index.
 
-The foundation runtime now exists. The structural primitive layer includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`, with reusable composition maps and SSR-rendered examples. Semantic component work now includes `Button`, `LinkAction`, `TextField`, and `Textarea`; the rest of the component inventory, recipes, CLI, and validation are still to be implemented.
+The foundation runtime now exists. The structural primitive layer includes `AppShell`, `PageGrid`, `Region`, `Rail`, `Stack`, `Row`, `ColumnGroup`, `Panel`, `Band`, `SectionHeader`, and `Divider`, with reusable composition maps and SSR-rendered examples. Semantic component work now includes `Button`, `LinkAction`, `TextField`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, and `Switch`; the rest of the component inventory, recipes, CLI, and validation are still to be implemented.
 
 Current local verification is `cargo test --workspace`.
 

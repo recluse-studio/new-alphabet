@@ -16,7 +16,7 @@ impl Default for FieldState {
 }
 
 impl FieldState {
-    fn id(self) -> &'static str {
+    pub(crate) fn id(self) -> &'static str {
         match self {
             Self::Default => "default",
             Self::Error => "error",
@@ -37,7 +37,7 @@ impl FieldState {
         }
     }
 
-    fn aria_invalid(self) -> &'static str {
+    pub(crate) fn aria_invalid(self) -> &'static str {
         if matches!(self, Self::Error) {
             "true"
         } else {
@@ -45,7 +45,7 @@ impl FieldState {
         }
     }
 
-    fn is_disabled(self) -> bool {
+    pub(crate) fn is_disabled(self) -> bool {
         matches!(self, Self::Disabled)
     }
 }

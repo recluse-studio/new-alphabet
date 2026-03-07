@@ -1,14 +1,29 @@
 #![forbid(unsafe_code)]
 
 mod actions;
+mod choices;
 mod examples;
 mod fields;
 
 pub use actions::{ActionPriority, ActionState, Button, ButtonType, LinkAction};
+pub use choices::{Checkbox, ChoiceOption, RadioGroup, Select, Switch};
 pub use examples::{
-    EditorialActionExample, FormFieldExample, SettingsFieldExample, WorkflowActionExample,
+    EditorialActionExample, FormChoiceExample, FormFieldExample, SettingsChoiceExample,
+    SettingsFieldExample, WorkflowActionExample,
 };
 pub use fields::{FieldState, TextField, Textarea};
+
+#[cfg(test)]
+const PLAN_OPTIONS: &[ChoiceOption] = &[
+    ChoiceOption::new("solo", "Solo"),
+    ChoiceOption::new("studio", "Studio"),
+];
+
+#[cfg(test)]
+const DECISION_OPTIONS: &[ChoiceOption] = &[
+    ChoiceOption::new("approve", "Approve"),
+    ChoiceOption::new("hold", "Hold"),
+];
 
 #[cfg(test)]
 mod tests {
@@ -123,5 +138,84 @@ mod tests {
         let html = render(|| view! { <FormFieldExample/> }.into_any());
         assert!(html.contains("Submission notes"));
         assert!(html.contains("Saved."));
+    }
+
+    #[test]
+    fn select_renders_error_relationships() {
+        let html = render(|| {
+            view! {
+                <Select
+                    label="Plan"
+                    name="plan"
+                    selected="studio"
+                    options=PLAN_OPTIONS
+                    state=FieldState::Error
+                    message="Choose a supported plan."
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("aria-invalid=\"true\""));
+        assert!(html.contains("Choose a supported plan."));
+        assert!(html.contains("value=\"studio\""));
+        assert!(html.contains("selected"));
+    }
+
+    #[test]
+    fn checkbox_and_switch_render_accessible_labels() {
+        let html = render(|| {
+            view! {
+                <div>
+                    <Checkbox
+                        label="Send updates"
+                        name="updates"
+                        checked=true
+                    />
+                    <Switch
+                        label="Private mode"
+                        name="private-mode"
+                        checked=false
+                    />
+                </div>
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Send updates"));
+        assert!(html.contains("role=\"switch\""));
+        assert!(html.contains("Private mode"));
+    }
+
+    #[test]
+    fn radio_group_renders_named_options() {
+        let html = render(|| {
+            view! {
+                <RadioGroup
+                    label="Review decision"
+                    name="decision"
+                    selected="approve"
+                    options=DECISION_OPTIONS
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Review decision"));
+        assert!(html.contains("value=\"approve\" checked"));
+    }
+
+    #[test]
+    fn settings_choice_example_renders_settings_context() {
+        let html = render(|| view! { <SettingsChoiceExample/> }.into_any());
+        assert!(html.contains("Workspace density"));
+        assert!(html.contains("Private mode"));
+    }
+
+    #[test]
+    fn form_choice_example_renders_form_sequence() {
+        let html = render(|| view! { <FormChoiceExample/> }.into_any());
+        assert!(html.contains("Review decision"));
+        assert!(html.contains("Attach follow-up"));
     }
 }
