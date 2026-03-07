@@ -10,9 +10,10 @@ pub use editorial::{
     DocsShell, DocsShellExample, DocsShellMinimalExample,
 };
 pub use workflow::{
-    SearchResultsWorkspace, SearchResultsWorkspaceExample, SearchResultsWorkspaceLoadingExample,
-    SearchResultsWorkspaceZeroResultsExample, WorkspaceCommands, WorkspaceDetail,
-    WorkspacePagination, WorkspaceStatus,
+    ReviewQueue, ReviewQueueEmptyExample, ReviewQueueExample, ReviewQueueLoadingExample,
+    ReviewQueueUnavailableDetailExample, SearchResultsWorkspace, SearchResultsWorkspaceExample,
+    SearchResultsWorkspaceLoadingExample, SearchResultsWorkspaceZeroResultsExample,
+    WorkspaceCommands, WorkspaceDetail, WorkspaceNavSection, WorkspacePagination, WorkspaceStatus,
 };
 
 #[cfg(test)]
@@ -197,6 +198,55 @@ const SEARCH_COMMAND_SECONDARY: &[new_alphabet_components::CommandAction] =
         "Export results",
         "/search/export",
     )];
+
+#[cfg(test)]
+const REVIEW_NAV_ITEMS: &[new_alphabet_components::NavIndexItem] = &[
+    new_alphabet_components::NavIndexItem::current("Assigned", "/review/assigned"),
+    new_alphabet_components::NavIndexItem::new("All", "/review/all"),
+];
+
+#[cfg(test)]
+const REVIEW_NAVIGATION: WorkspaceNavSection = WorkspaceNavSection::new("Queues", REVIEW_NAV_ITEMS);
+
+#[cfg(test)]
+const REVIEW_COLUMNS: &[new_alphabet_components::TableColumn] = &[
+    new_alphabet_components::TableColumn::truncate("entry", "Entry"),
+    new_alphabet_components::TableColumn::truncate("state", "State"),
+    new_alphabet_components::TableColumn::wrap("note", "Review note"),
+];
+
+#[cfg(test)]
+const REVIEW_ROWS: &[new_alphabet_components::TableRow] = &[
+    new_alphabet_components::TableRow::new(
+        "essay-142",
+        &[
+            "Essay 142",
+            "Ready",
+            "Archive citation is resolved and the lead paragraph reads cleanly.",
+        ],
+    ),
+    new_alphabet_components::TableRow::new(
+        "essay-143",
+        &[
+            "Essay 143",
+            "Hold",
+            "Rights note is incomplete and the caption still needs tightening.",
+        ],
+    ),
+];
+
+#[cfg(test)]
+const REVIEW_ACTION_SECONDARY: &[new_alphabet_components::CommandAction] = &[
+    new_alphabet_components::CommandAction::ready("Open history", "/review/history"),
+    new_alphabet_components::CommandAction::ready("Request revision", "/review/request-revision"),
+];
+
+#[cfg(test)]
+const REVIEW_DETAIL_FIELDS: &[new_alphabet_components::DetailField] = &[
+    new_alphabet_components::DetailField::new("State", "Ready"),
+    new_alphabet_components::DetailField::new("Owner", "Editorial"),
+    new_alphabet_components::DetailField::new("Section", "Archive"),
+];
 
 #[cfg(test)]
 mod tests {
@@ -450,5 +500,68 @@ mod tests {
         assert!(html.contains("No results match the current filters."));
         assert!(html.contains("No rows available."));
         assert!(html.contains("No matching result is available to inspect."));
+    }
+
+    #[test]
+    fn review_queue_renders_required_structure_and_optional_rail() {
+        let html = render(|| {
+            view! {
+                <ReviewQueue
+                    title="Review Queue"
+                    queue_columns=REVIEW_COLUMNS
+                    queue_rows=REVIEW_ROWS
+                    actions=WorkspaceCommands::new(
+                        "Queue commands",
+                        new_alphabet_components::CommandAction::ready("Approve selected", "/review/approve"),
+                        REVIEW_ACTION_SECONDARY,
+                    )
+                    status=WorkspaceStatus::new(
+                        "Selection updated",
+                        "The queue is synced and ready for the next review pass.",
+                        new_alphabet_components::StatusSeverity::Success,
+                    )
+                    navigation=REVIEW_NAVIGATION
+                    filters=SEARCH_FILTERS
+                    detail=WorkspaceDetail::new(
+                        "Essay 142",
+                        Some("Selection stays adjacent so review decisions do not interrupt the queue rhythm."),
+                        REVIEW_DETAIL_FIELDS,
+                        new_alphabet_components::DetailPaneState::Default,
+                        None,
+                    )
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-region=\"action_band\""));
+        assert!(html.contains("data-region=\"detail\""));
+        assert!(html.contains("Queues"));
+        assert!(html.contains("Review queue"));
+    }
+
+    #[test]
+    fn review_queue_loading_example_renders_loading_state() {
+        let html = render(|| view! { <ReviewQueueLoadingExample/> }.into_any());
+
+        assert!(html.contains("Loading rows."));
+        assert!(html.contains("Loading detail."));
+    }
+
+    #[test]
+    fn review_queue_empty_example_renders_empty_state() {
+        let html = render(|| view! { <ReviewQueueEmptyExample/> }.into_any());
+
+        assert!(html.contains("No rows available."));
+        assert!(html.contains("No matching result is available to inspect."));
+    }
+
+    #[test]
+    fn review_queue_unavailable_detail_example_renders_unavailable_detail() {
+        let html = render(|| view! { <ReviewQueueUnavailableDetailExample/> }.into_any());
+
+        assert!(html.contains(
+            "The selected entry cannot be inspected because the archive is still syncing."
+        ));
     }
 }

@@ -1,8 +1,8 @@
 use leptos::prelude::*;
 use new_alphabet_components::{
     CommandAction, CommandBar, DetailField, DetailPane, DetailPaneState, FieldState, FilterGroup,
-    FilterRail, FilterRailState, InlineAlert, StatusSeverity, Table, TableColumn, TableRow,
-    TableState, TextField,
+    FilterRail, FilterRailState, InlineAlert, NavIndex, NavIndexItem, StatusSeverity, Table,
+    TableColumn, TableRow, TableState, TextField,
 };
 use new_alphabet_foundation::{DensityMode, RegionClass};
 use new_alphabet_primitives::{
@@ -96,6 +96,18 @@ impl WorkspacePagination {
             previous_href,
             next_href,
         }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct WorkspaceNavSection {
+    pub title: &'static str,
+    pub items: &'static [NavIndexItem],
+}
+
+impl WorkspaceNavSection {
+    pub const fn new(title: &'static str, items: &'static [NavIndexItem]) -> Self {
+        Self { title, items }
     }
 }
 
@@ -289,6 +301,113 @@ pub fn SearchResultsWorkspace(
     }
 }
 
+#[component]
+pub fn ReviewQueue(
+    title: &'static str,
+    queue_columns: &'static [TableColumn],
+    queue_rows: &'static [TableRow],
+    actions: WorkspaceCommands,
+    detail: WorkspaceDetail,
+    #[prop(optional)] queue_state: Option<TableState>,
+    #[prop(optional)] status: Option<WorkspaceStatus>,
+    #[prop(optional)] navigation: Option<WorkspaceNavSection>,
+    #[prop(optional)] filters: Option<&'static [FilterGroup]>,
+    #[prop(optional)] filter_state: Option<FilterRailState>,
+) -> impl IntoView {
+    let queue_state = queue_state.unwrap_or_default();
+    let filter_state = filter_state.unwrap_or_default();
+    let show_rail = navigation.is_some() || filters.is_some();
+
+    view! {
+        <AppShell density=DensityMode::Dense intent=FrameIntent::Workspace>
+            <Band strength=SurfaceStrength::Strong>
+                <SectionHeader
+                    title=title
+                    subtitle="Queue, decision, and inspection remain ordered by named regions rather than local dashboard invention."
+                    annotation="Review"
+                />
+            </Band>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::ActionBand placement=RegionPlacement::ActionBand>
+                    <Stack spacing=StackSpace::Tight>
+                        {status.map(|status| {
+                            view! {
+                                <InlineAlert
+                                    title=status.title
+                                    message=status.message
+                                    severity=status.severity
+                                />
+                            }
+                            .into_any()
+                        })}
+                        <CommandBar
+                            label=actions.label
+                            primary=actions.primary
+                            secondary=actions.secondary
+                        />
+                    </Stack>
+                </Region>
+                {if show_rail {
+                    view! {
+                        <Rail side=RailSide::Start>
+                            <Stack spacing=StackSpace::Default>
+                                {navigation.map(|navigation| {
+                                    view! {
+                                        <Panel strength=SurfaceStrength::Strong>
+                                            <SectionHeader
+                                                title=navigation.title
+                                                subtitle="Queue navigation remains bounded in the rail."
+                                            />
+                                            <NavIndex label=navigation.title items=navigation.items />
+                                        </Panel>
+                                    }
+                                    .into_any()
+                                })}
+                                {filters.map(|filters| {
+                                    view! {
+                                        <Panel>
+                                            <SectionHeader
+                                                title="Filters"
+                                                subtitle="Queue filters stay secondary to the main decision field."
+                                            />
+                                            <FilterRail
+                                                label="Review filters"
+                                                groups=filters
+                                                state=filter_state
+                                            />
+                                        </Panel>
+                                    }
+                                    .into_any()
+                                })}
+                            </Stack>
+                        </Rail>
+                    }
+                    .into_any()
+                } else {
+                    view! { <></> }.into_any()
+                }}
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Queue"
+                            subtitle="The queue field stays dense, legible, and explicit about empty and loading states."
+                        />
+                        <Table
+                            label="Review queue"
+                            columns=queue_columns
+                            rows=queue_rows
+                            state=queue_state
+                        />
+                    </Panel>
+                </Region>
+                <Region kind=RegionClass::Detail placement=RegionPlacement::Detail>
+                    {render_detail(detail)}
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
 const FILTER_TYPE_OPTIONS: &[new_alphabet_components::FilterOption] = &[
     new_alphabet_components::FilterOption::selected("essay", "Essay", 12),
     new_alphabet_components::FilterOption::new("note", "Note", 4),
@@ -369,6 +488,67 @@ const UNAVAILABLE_DETAIL: WorkspaceDetail = WorkspaceDetail::new(
     Some("No matching result is available to inspect."),
 );
 
+const REVIEW_NAV_ITEMS: &[NavIndexItem] = &[
+    NavIndexItem::current("Assigned", "/review/assigned"),
+    NavIndexItem::new("All", "/review/all"),
+];
+
+const REVIEW_NAVIGATION: WorkspaceNavSection = WorkspaceNavSection::new("Queues", REVIEW_NAV_ITEMS);
+
+const REVIEW_COLUMNS: &[TableColumn] = &[
+    TableColumn::truncate("entry", "Entry"),
+    TableColumn::truncate("state", "State"),
+    TableColumn::wrap("note", "Review note"),
+];
+
+const REVIEW_ROWS: &[TableRow] = &[
+    TableRow::new(
+        "essay-142",
+        &[
+            "Essay 142",
+            "Ready",
+            "Archive citation is resolved and the lead paragraph reads cleanly.",
+        ],
+    ),
+    TableRow::new(
+        "essay-143",
+        &[
+            "Essay 143",
+            "Hold",
+            "Rights note is incomplete and the caption still needs tightening.",
+        ],
+    ),
+];
+
+const REVIEW_ACTIONS: WorkspaceCommands = WorkspaceCommands::new(
+    "Queue commands",
+    CommandAction::ready("Approve selected", "/review/approve"),
+    &[
+        CommandAction::ready("Open history", "/review/history"),
+        CommandAction::ready("Request revision", "/review/request-revision"),
+    ],
+);
+
+const REVIEW_STATUS: WorkspaceStatus = WorkspaceStatus::new(
+    "Selection updated",
+    "The queue is synced and ready for the next review pass.",
+    StatusSeverity::Success,
+);
+
+const REVIEW_DETAIL_FIELDS: &[DetailField] = &[
+    DetailField::new("State", "Ready"),
+    DetailField::new("Owner", "Editorial"),
+    DetailField::new("Section", "Archive"),
+];
+
+const REVIEW_DETAIL: WorkspaceDetail = WorkspaceDetail::new(
+    "Essay 142",
+    Some("Selection stays adjacent so review decisions do not interrupt the queue rhythm."),
+    REVIEW_DETAIL_FIELDS,
+    DetailPaneState::Default,
+    None,
+);
+
 #[component]
 pub fn SearchResultsWorkspaceExample() -> impl IntoView {
     view! {
@@ -382,6 +562,76 @@ pub fn SearchResultsWorkspaceExample() -> impl IntoView {
             commands=SEARCH_COMMANDS
             detail=SEARCH_DETAIL
             pagination=SEARCH_PAGINATION
+        />
+    }
+}
+
+#[component]
+pub fn ReviewQueueExample() -> impl IntoView {
+    view! {
+        <ReviewQueue
+            title="Review Queue"
+            queue_columns=REVIEW_COLUMNS
+            queue_rows=REVIEW_ROWS
+            actions=REVIEW_ACTIONS
+            status=REVIEW_STATUS
+            navigation=REVIEW_NAVIGATION
+            filters=SEARCH_FILTERS
+            detail=REVIEW_DETAIL
+        />
+    }
+}
+
+#[component]
+pub fn ReviewQueueLoadingExample() -> impl IntoView {
+    view! {
+        <ReviewQueue
+            title="Review Queue"
+            queue_columns=REVIEW_COLUMNS
+            queue_rows=REVIEW_ROWS
+            queue_state=TableState::Loading
+            actions=REVIEW_ACTIONS
+            detail=WorkspaceDetail::new(
+                "Loading detail",
+                Some("Detail loading remains explicit while the queue stays visible."),
+                REVIEW_DETAIL_FIELDS
+                ,
+                DetailPaneState::Loading,
+                None,
+            )
+        />
+    }
+}
+
+#[component]
+pub fn ReviewQueueEmptyExample() -> impl IntoView {
+    view! {
+        <ReviewQueue
+            title="Review Queue"
+            queue_columns=REVIEW_COLUMNS
+            queue_rows=&[]
+            queue_state=TableState::Empty
+            actions=REVIEW_ACTIONS
+            detail=UNAVAILABLE_DETAIL
+        />
+    }
+}
+
+#[component]
+pub fn ReviewQueueUnavailableDetailExample() -> impl IntoView {
+    view! {
+        <ReviewQueue
+            title="Review Queue"
+            queue_columns=REVIEW_COLUMNS
+            queue_rows=REVIEW_ROWS
+            actions=REVIEW_ACTIONS
+            detail=WorkspaceDetail::new(
+                "Selection unavailable",
+                Some("The queue remains usable even when the selected detail is unavailable."),
+                &[],
+                DetailPaneState::Unavailable,
+                Some("The selected entry cannot be inspected because the archive is still syncing."),
+            )
         />
     }
 }
