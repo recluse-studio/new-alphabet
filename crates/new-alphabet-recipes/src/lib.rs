@@ -3,7 +3,9 @@
 mod editorial;
 
 pub use editorial::{
-    BlogIndex, BlogIndexEntry, BlogIndexExample, BlogIndexMinimalExample, BlogIndexSection,
+    ArticleAdjacentLink, ArticleAdjacentLinks, ArticleMetaItem, ArticleSection, ArticleShell,
+    ArticleShellExample, ArticleShellMinimalExample, ArticleSidebarNav, BlogIndex, BlogIndexEntry,
+    BlogIndexExample, BlogIndexMinimalExample, BlogIndexSection,
 };
 
 #[cfg(test)]
@@ -31,6 +33,59 @@ const TAXONOMY_SECTION: BlogIndexSection = BlogIndexSection::new("Taxonomy", TAX
 
 #[cfg(test)]
 const ARCHIVE_SECTION: BlogIndexSection = BlogIndexSection::new("Archive", ARCHIVE_ITEMS);
+
+#[cfg(test)]
+const ARTICLE_PARAGRAPHS_ONE: &[&str] = &[
+    "New Alphabet treats article structure as a reading device first and a navigation problem second.",
+];
+
+#[cfg(test)]
+const ARTICLE_PARAGRAPHS_TWO: &[&str] =
+    &["Support metadata belongs beside the reading flow, not inside it."];
+
+#[cfg(test)]
+const ARTICLE_SECTIONS: &[ArticleSection] = &[
+    ArticleSection::new("premise", "Premise", ARTICLE_PARAGRAPHS_ONE),
+    ArticleSection::new("adjacency", "Adjacency", ARTICLE_PARAGRAPHS_TWO),
+];
+
+#[cfg(test)]
+const ARTICLE_NAV_ITEMS: &[new_alphabet_components::NavIndexItem] = &[
+    new_alphabet_components::NavIndexItem::current("Premise", "#premise"),
+    new_alphabet_components::NavIndexItem::new("Adjacency", "#adjacency"),
+];
+
+#[cfg(test)]
+const ARTICLE_LOCAL_NAV: ArticleSidebarNav = ArticleSidebarNav::new("Contents", ARTICLE_NAV_ITEMS);
+
+#[cfg(test)]
+const ARTICLE_METADATA: &[ArticleMetaItem] = &[
+    ArticleMetaItem::new("Author", "Recluse Studio"),
+    ArticleMetaItem::new("Published", "March 2026"),
+];
+
+#[cfg(test)]
+const ARTICLE_ADJACENT: ArticleAdjacentLinks = ArticleAdjacentLinks::new(
+    Some(ArticleAdjacentLink::new(
+        "Previous: Grid Notes",
+        "/notes/grid-notes",
+    )),
+    Some(ArticleAdjacentLink::new(
+        "Next: Release Practice",
+        "/notes/release-practice",
+    )),
+);
+
+#[cfg(test)]
+const MINIMAL_ARTICLE_PARAGRAPHS: &[&str] =
+    &["A narrow article shell can remain legible without side structures."];
+
+#[cfg(test)]
+const MINIMAL_ARTICLE_SECTIONS: &[ArticleSection] = &[ArticleSection::new(
+    "opening",
+    "Opening",
+    MINIMAL_ARTICLE_PARAGRAPHS,
+)];
 
 #[cfg(test)]
 mod tests {
@@ -110,6 +165,64 @@ mod tests {
         let html = render(|| view! { <BlogIndexMinimalExample/> }.into_any());
 
         assert!(html.contains("First note"));
+        assert!(!html.contains("data-region=\"support\""));
+        assert!(html.contains("data-span-compact=\"4\""));
+    }
+
+    #[test]
+    fn article_shell_renders_header_body_and_support_regions() {
+        let html = render(|| {
+            view! {
+                <ArticleShell
+                    title="Reading Flow as Operating Law"
+                    dek="A longform shell should keep the article body primary."
+                    sections=ARTICLE_SECTIONS
+                    metadata=ARTICLE_METADATA
+                    local_navigation=ARTICLE_LOCAL_NAV
+                    adjacent=ARTICLE_ADJACENT
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Reading Flow as Operating Law"));
+        assert!(html.contains("Premise"));
+        assert!(html.contains("Contents"));
+        assert!(html.contains("Metadata"));
+        assert!(html.contains("Continue"));
+        assert!(html.contains("data-region=\"support\""));
+    }
+
+    #[test]
+    fn article_shell_omits_support_region_when_optional_sections_are_absent() {
+        let html = render(|| {
+            view! {
+                <ArticleShell
+                    title="Opening Note"
+                    sections=MINIMAL_ARTICLE_SECTIONS
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("Opening Note"));
+        assert!(!html.contains("data-region=\"support\""));
+    }
+
+    #[test]
+    fn article_shell_example_renders_reading_first_context() {
+        let html = render(|| view! { <ArticleShellExample/> }.into_any());
+
+        assert!(html.contains("Reading Flow as Operating Law"));
+        assert!(html.contains("data-intent=\"editorial\""));
+        assert!(html.contains("Previous: Grid Notes"));
+    }
+
+    #[test]
+    fn article_shell_minimal_example_renders_single_flow_article() {
+        let html = render(|| view! { <ArticleShellMinimalExample/> }.into_any());
+
+        assert!(html.contains("Opening Note"));
         assert!(!html.contains("data-region=\"support\""));
         assert!(html.contains("data-span-compact=\"4\""));
     }

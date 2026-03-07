@@ -44,3 +44,6 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-004 | Completed the core semantic component set with finite APIs, explicit state coverage, dense-data behavior, workflow chrome, and accessibility-first checks.
 2026-03-07 | DECISION | recipes | Editorial recipes stay calm and archive-led by keeping reading flow primary and secondary taxonomy or archive structures adjacent rather than promotional.
 2026-03-07 | PRD | US-026 | Implemented the BlogIndex recipe in a dedicated recipes crate with optional taxonomy, archive, and introduction regions plus editorial examples.
+2026-03-07 | DECISION | recipes | Longform recipe shells keep metadata, local navigation, and adjacent links secondary by moving them to optional support regions instead of the article body.
+2026-03-07 | PRD | US-027 | Implemented ArticleShell with required header and body regions plus optional local navigation, metadata, and adjacent links in editorial examples.
+2026-03-07 | DECISION | code_review_guidelines.md | Added a canonical review standard that evaluates New Alphabet changes as constitutional system changes across architecture, APIs, state, accessibility, testing, security, and documentation.
