@@ -5,7 +5,7 @@ use new_alphabet_primitives::{
     RowDistribution, SectionHeader, Stack, StackSpace, SurfaceStrength,
 };
 
-use crate::{ActionPriority, ActionState, Button, LinkAction};
+use crate::{ActionPriority, ActionState, Button, FieldState, LinkAction, TextField, Textarea};
 
 #[component]
 pub fn EditorialActionExample() -> impl IntoView {
@@ -59,6 +59,62 @@ pub fn WorkflowActionExample() -> impl IntoView {
                                 priority=ActionPriority::Secondary
                             />
                         </Row>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn SettingsFieldExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Profile Settings"
+                            subtitle="Fields keep labels, help, and validation relationships explicit."
+                        />
+                        <Stack spacing=StackSpace::Default>
+                            <TextField
+                                label="Display name"
+                                name="display-name"
+                                value="Recluse Studio"
+                                help="Public profile label."
+                                state=FieldState::Success
+                                message="Saved."
+                            />
+                        </Stack>
+                    </Panel>
+                </Region>
+            </PageGrid>
+        </AppShell>
+    }
+}
+
+#[component]
+pub fn FormFieldExample() -> impl IntoView {
+    view! {
+        <AppShell density=DensityMode::Regular intent=FrameIntent::Workspace>
+            <PageGrid intent=FrameIntent::Workspace>
+                <Region kind=RegionClass::Main placement=RegionPlacement::Main>
+                    <Panel>
+                        <SectionHeader
+                            title="Submission Form"
+                            subtitle="Multi-line entry remains calm and structurally explicit."
+                        />
+                        <Stack spacing=StackSpace::Default>
+                            <Textarea
+                                label="Submission notes"
+                                name="submission-notes"
+                                value="Structured feedback."
+                                help="Internal review context."
+                                state=FieldState::Success
+                                message="Saved."
+                            />
+                        </Stack>
                     </Panel>
                 </Region>
             </PageGrid>

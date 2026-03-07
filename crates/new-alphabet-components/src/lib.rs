@@ -2,9 +2,13 @@
 
 mod actions;
 mod examples;
+mod fields;
 
 pub use actions::{ActionPriority, ActionState, Button, ButtonType, LinkAction};
-pub use examples::{EditorialActionExample, WorkflowActionExample};
+pub use examples::{
+    EditorialActionExample, FormFieldExample, SettingsFieldExample, WorkflowActionExample,
+};
+pub use fields::{FieldState, TextField, Textarea};
 
 #[cfg(test)]
 mod tests {
@@ -63,5 +67,61 @@ mod tests {
         let html = render(|| view! { <WorkflowActionExample/> }.into_any());
         assert!(html.contains("Loading…"));
         assert!(html.contains("Open history"));
+    }
+
+    #[test]
+    fn text_field_renders_error_relationships() {
+        let html = render(|| {
+            view! {
+                <TextField
+                    label="Email"
+                    name="email"
+                    value="writer@example.com"
+                    state=FieldState::Error
+                    help="Used for publication updates."
+                    message="Enter a valid address."
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("aria-invalid=\"true\""));
+        assert!(html.contains("data-state=\"error\""));
+        assert!(html.contains("Used for publication updates."));
+        assert!(html.contains("Enter a valid address."));
+    }
+
+    #[test]
+    fn textarea_renders_success_relationships() {
+        let html = render(|| {
+            view! {
+                <Textarea
+                    label="Notes"
+                    name="notes"
+                    value="Structured feedback."
+                    state=FieldState::Success
+                    help="Internal review context."
+                    message="Saved."
+                />
+            }
+            .into_any()
+        });
+
+        assert!(html.contains("data-state=\"success\""));
+        assert!(html.contains("Saved."));
+    }
+
+    #[test]
+    fn settings_field_example_renders_settings_context() {
+        let html = render(|| view! { <SettingsFieldExample/> }.into_any());
+        assert!(html.contains("Display name"));
+        assert!(html.contains("Public profile label."));
+    }
+
+    #[test]
+    fn form_field_example_renders_form_context() {
+        let html = render(|| view! { <FormFieldExample/> }.into_any());
+        assert!(html.contains("Submission notes"));
+        assert!(html.contains("Saved."));
     }
 }

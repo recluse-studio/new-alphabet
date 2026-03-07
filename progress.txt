@@ -28,3 +28,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-003 | Completed the structural primitive layer with responsive Leptos primitives, explicit composition rules, and reusable examples.
 2026-03-07 | DECISION | components | Action components stay finite by exposing priority, state, and type semantics instead of visual variant sprawl.
 2026-03-07 | PRD | US-019 | Implemented Button and LinkAction with explicit loading, disabled, focus, active, and hover semantics plus editorial and workflow examples.
+2026-03-07 | DECISION | components | Text entry components keep label, help, error, and success relationships explicit through fixed field state semantics rather than ad hoc chrome.
+2026-03-07 | PRD | US-020 | Implemented TextField and Textarea with explicit label, help, message, disabled, focus, error, and success behavior plus settings and form examples.
