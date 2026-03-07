@@ -10,3 +10,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-011 | Defined the foundation token taxonomy and naming format for layout, spacing, type, density, color, border, motion, and state.
 2026-03-07 | DECISION | foundations | The constitutional grid uses 4, 8, and 12-column breakpoints with named region spans and breakpoint-only collapse rules.
 2026-03-07 | PRD | US-012 | Specified the page grid, rail widths, region spans, and responsive collapse behavior for V0 layout primitives.
+2026-03-07 | DECISION | foundations | Type roles are shared across editorial and workflow surfaces and density changes spacing, type, and table rhythm together.
+2026-03-07 | PRD | US-013 | Defined the type scale roles and finite calm, regular, and dense operating modes for New Alphabet surfaces.

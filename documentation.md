@@ -567,6 +567,44 @@ This grid spec turns the doctrine into fixed page geometry for `PageGrid`, `Regi
 - Floating utility sidecars, arbitrary offsets, and per-page breakpoint exceptions are forbidden.
 - If a surface needs a new major region pattern, the recipe or primitive contract must be expanded first.
 
+## Type Scale And Density Modes
+
+One typographic grammar serves both editorial reading and dense workflow surfaces.
+
+### Type roles
+
+| Role family | Canonical tokens | Use |
+| --- | --- | --- |
+| `display` | `type.display.large`, `type.display.default` | page openers, manifesto lines, major surface titles |
+| `heading` | `type.heading.1`, `type.heading.2`, `type.heading.3` | section hierarchy and structural breaks |
+| `body` | `type.body.reading`, `type.body.default`, `type.body.compact` | longform prose, default interface copy, compact support copy |
+| `annotation` | `type.annotation.default`, `type.annotation.strong` | metadata, labels, helper text, timestamps |
+| `data` | `type.data.label`, `type.data.cell`, `type.data.metric` | tabular labels, dense cells, metrics, and operational values |
+
+### Type rules
+
+- `display` is rare and structural, never decorative.
+- `body.reading` owns longform editorial flow.
+- `body.default` is the base interface voice for forms, settings, and workflow surfaces.
+- `body.compact` and `data.*` support dense operational surfaces without inventing a separate visual family.
+- `annotation` clarifies secondary information and must remain legible at every density.
+
+### Density modes
+
+| Mode | Spacing behavior | Type behavior | Table behavior |
+| --- | --- | --- | --- |
+| `density.calm` | widest rhythm in the token scale | prefers `body.reading` and larger headings | wrap before truncating; favors comprehension over scan speed |
+| `density.regular` | baseline rhythm for most surfaces | defaults to `body.default` and standard headings | balanced wrapping and truncation |
+| `density.dense` | compressed rhythm with no arbitrary exceptions | prefers `body.compact` and `data.*` roles | explicit truncation, tighter rows, stronger alignment discipline |
+
+### Density rules
+
+- Density is chosen by recipe, page region, or major component family, not by local whim.
+- Editorial reading surfaces default to `density.calm` or `density.regular`.
+- Tables, queues, and detail-heavy workflows may use `density.dense`.
+- Changing density must alter spacing, type choice, and table rhythm together.
+- Density modes remain finite; per-screen density invention is forbidden.
+
 ## Design Rules
 
 ### Layout law

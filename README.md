@@ -46,6 +46,8 @@ Foundation tokens follow the same rule. Their canonical identifiers are lowercas
 
 The page grid is likewise fixed by law: `compact` uses 4 columns, `medium` uses 8, and `wide` uses 12, with rails and detail regions collapsing by breakpoint rather than through ad hoc layout invention.
 
+Typography is shared across surfaces through explicit `display`, `heading`, `body`, `annotation`, and `data` roles, with finite `calm`, `regular`, and `dense` density modes instead of per-screen taste decisions.
+
 ## V0 Shape
 
 New Alphabet aims to ship three connected surfaces:
