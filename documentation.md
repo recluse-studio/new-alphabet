@@ -519,6 +519,54 @@ Canonical token identifiers use lowercase dot-separated segments.
 - JSON schema and export surfaces should preserve the same segment order.
 - Human docs, code, and exported context must describe the same token families with the same names.
 
+## Grid And Responsive Region System
+
+This grid spec turns the doctrine into fixed page geometry for `PageGrid`, `Region`, and `Rail`.
+
+### Breakpoints
+
+| Breakpoint | Columns | Role |
+| --- | --- | --- |
+| `compact` | `4` | single reading or workflow flow |
+| `medium` | `8` | main region plus one secondary structure |
+| `wide` | `12` | full editorial or workflow composition |
+
+### Region spans
+
+| Region class | `compact` | `medium` | `wide` |
+| --- | --- | --- | --- |
+| `full` | `4` | `8` | `12` |
+| `main` | `4` | `6` | `8` |
+| `support` | `4` | `2` | `4` |
+| `rail` | stacked full width | `2` | `2` or `3` |
+| `detail` | stacked full width | `8` or below `main` | `3` or `4` |
+| `action_band` | `4` | `8` | `12` |
+
+### Rail widths
+
+| Rail width token | `medium` | `wide` |
+| --- | --- | --- |
+| `layout.rail.narrow.width` | `2` columns | `2` columns |
+| `layout.rail.default.width` | `2` columns | `3` columns |
+| `layout.rail.broad.width` | `3` columns | `4` columns |
+
+### Responsive rules
+
+- `compact` permits one major vertical flow only.
+- On `compact`, rails, detail panes, and support regions collapse into stacked full-width regions.
+- `medium` permits `main` plus one adjacent `rail` or one adjacent `support` region.
+- On `medium`, a second side structure must collapse below `main`.
+- `wide` permits `rail + main`, `main + detail`, or `rail + main + detail` when a recipe explicitly allows it.
+- `action_band` remains full span at every breakpoint.
+- Region order may change only through named breakpoint rules, never through local CSS improvisation.
+
+### Hard forbiddances
+
+- Free-positioned major regions are forbidden at V0.
+- Major layout may not be defined outside named grid spans.
+- Floating utility sidecars, arbitrary offsets, and per-page breakpoint exceptions are forbidden.
+- If a surface needs a new major region pattern, the recipe or primitive contract must be expanded first.
+
 ## Design Rules
 
 ### Layout law

@@ -44,6 +44,8 @@ If a name sounds decorative, branded, or mood-driven, it is outside the doctrine
 
 Foundation tokens follow the same rule. Their canonical identifiers are lowercase, dot-separated, and role-based, using finite families such as `layout`, `spacing`, `type`, `density`, `color`, `border`, `motion`, and `state`.
 
+The page grid is likewise fixed by law: `compact` uses 4 columns, `medium` uses 8, and `wide` uses 12, with rails and detail regions collapsing by breakpoint rather than through ad hoc layout invention.
+
 ## V0 Shape
 
 New Alphabet aims to ship three connected surfaces:

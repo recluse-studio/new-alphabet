@@ -271,7 +271,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 12,
-      "passes": false,
+      "passes": true,
       "notes": "Rooted in documentation sections Core Philosophy, Layer Model, Design Rules, and the foundation grid contract preserved in prd_v1 canonicalSpec.",
       "dependsOn": [
         "US-011"

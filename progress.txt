@@ -8,3 +8,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-001 | Froze the constitution, naming law, anti-pattern registry, and doctrine hierarchy in the human and machine-readable project sources.
 2026-03-07 | DECISION | foundations | Canonical foundation tokens use lowercase dot-separated identifiers grouped into finite role-based families.
 2026-03-07 | PRD | US-011 | Defined the foundation token taxonomy and naming format for layout, spacing, type, density, color, border, motion, and state.
+2026-03-07 | DECISION | foundations | The constitutional grid uses 4, 8, and 12-column breakpoints with named region spans and breakpoint-only collapse rules.
+2026-03-07 | PRD | US-012 | Specified the page grid, rail widths, region spans, and responsive collapse behavior for V0 layout primitives.
