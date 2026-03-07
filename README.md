@@ -29,6 +29,18 @@ The project is built on a small set of laws:
 - constraint over styling freedom
 - systems over pages
 - explicit structure over decorative cleverness
+- agents need rules, not vibes
+
+## Naming Posture
+
+New Alphabet names by role, structure, and intent.
+
+- foundations use plain rule and scale names
+- primitives use structural names such as `PageGrid` and `Rail`
+- components use semantic names such as `Button` and `StatusBadge`
+- recipes use surface names such as `ArticleShell` and `ReviewQueue`
+
+If a name sounds decorative, branded, or mood-driven, it is outside the doctrine.
 
 ## V0 Shape
 
@@ -49,6 +61,8 @@ New Alphabet is not:
 - a generic SaaS starter
 - a loose visual homage without structural law
 - a prompt-friendly wrapper around arbitrary layout invention
+
+Its explicit anti-patterns include arbitrary spacing fixes, decorative wrappers, style-based naming, boolean-prop sprawl, and component-library defaults treated as product identity.
 
 ## Repository Direction
 

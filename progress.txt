@@ -4,3 +4,5 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | MILESTONE | README.md | Added the initial repository README to state the doctrine, status, scope, and implementation direction.
 2026-03-07 | DISCOVERY | repository | Pushes to origin are blocked here because the configured GitHub credentials do not have write access to recluse-studio/new-alphabet.
 2026-03-07 | DECISION | repository | Authenticated GitHub CLI as recluse-studio to enable pushes to origin over HTTPS.
+2026-03-07 | DECISION | documentation.md | New Alphabet names foundations, primitives, components, and recipes by role, structure, and intent rather than decoration.
+2026-03-07 | PRD | US-001 | Froze the constitution, naming law, anti-pattern registry, and doctrine hierarchy in the human and machine-readable project sources.

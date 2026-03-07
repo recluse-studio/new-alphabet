@@ -449,6 +449,41 @@ The PRD proposes the following layout.
 
 Each crate should own one layer or one cross-cutting concern clearly. If responsibilities blur, the system will get harder to explain and harder for agents to load correctly.
 
+## Naming Law
+
+Names in New Alphabet are constitutional labels, not brand theater.
+
+### Foundation naming
+
+- Use plain names for rules, scales, and roles.
+- Name by structural responsibility rather than visual flavor.
+- Do not invent branded token families.
+- Do not name tokens after palettes, moods, or decorative metaphors.
+
+### Primitive naming
+
+- Use structural names such as `PageGrid`, `Region`, `Rail`, `Stack`, or `Panel`.
+- Name a primitive by the geometry or containment rule it owns.
+- Do not name primitives after a finished screen, business domain, or visual style.
+
+### Component naming
+
+- Use semantic names such as `Button`, `StatusBadge`, `InlineAlert`, or `DetailPane`.
+- Name by product role and interaction meaning rather than visual treatment.
+- Do not encode color, ornament, or trend language into component names.
+
+### Recipe naming
+
+- Use product-surface names such as `ArticleShell`, `BlogIndex`, `ReviewQueue`, or `SettingsWorkspace`.
+- A recipe name must imply intent and usage context clearly.
+- Do not name recipes after atmosphere, palette, or campaign language.
+
+### Naming tests
+
+- If a name sounds decorative, it is probably wrong.
+- If a name could apply to many unrelated responsibilities, it is too vague.
+- If a name hides structure, state, or intent, it weakens the doctrine.
+
 ## Design Rules
 
 ### Layout law
@@ -487,6 +522,25 @@ Each crate should own one layer or one cross-cutting concern clearly. If respons
 - Accessible names and descriptions are required.
 - Color must never be the sole carrier of meaning.
 - Focus order and focus visibility are system-level concerns, not afterthoughts.
+
+## Anti-Patterns
+
+The following patterns are explicitly outside the New Alphabet doctrine.
+
+- Ad hoc layout rules outside named grid behavior.
+- Arbitrary spacing values used to repair local compositions.
+- Decorative wrappers with no structural responsibility.
+- Components named after style, palette, or mood.
+- Open-ended variant and boolean-prop sprawl.
+- Prompt-to-prompt layout invention without recipe or primitive fit.
+- Component-library default aesthetics treated as product identity.
+- Per-screen exceptions that weaken family resemblance.
+- Color or ornament doing work that hierarchy, type, or structure should do.
+- AI-generated output that simulates taste instead of enforcing law.
+
+### Anti-pattern reading
+
+When one of these appears, the first repair move is to delete or narrow the invalid structure before adding anything new.
 
 ## State Model
 

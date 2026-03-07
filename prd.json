@@ -19,7 +19,7 @@
         "A single local commit is created for this story, then pushed to remote, with a technically accurate commit message that includes the story ID and a random Crouwel quote or theme"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "notes": "Ports canonical backlog item B1 and milestone M0. This story owns the core thesis, aesthetic position, goals, non-goals, anti-pattern posture, naming rules, and doctrine hierarchy from the prior PRD.",
       "dependsOn": []
     },
