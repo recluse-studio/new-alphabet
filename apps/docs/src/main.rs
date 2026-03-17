@@ -9,6 +9,7 @@ use new_alphabet_schema::contract_bundle;
 const NAV_ITEMS: &[NavIndexItem] = &[
     NavIndexItem::current("Manual", "#manual"),
     NavIndexItem::new("Docs set", "#docs-set"),
+    NavIndexItem::new("Operations", "#operations"),
     NavIndexItem::new("Recipes", "#recipes"),
     NavIndexItem::new("CLI", "#cli"),
     NavIndexItem::new("Agent workflow", "#agent-workflow"),
@@ -20,6 +21,7 @@ const NAVIGATION: DocsNavSection = DocsNavSection::new("Documentation", NAV_ITEM
 const TOC_ITEMS: &[NavIndexItem] = &[
     NavIndexItem::current("Manual", "#manual"),
     NavIndexItem::new("Docs set", "#docs-set"),
+    NavIndexItem::new("Operations", "#operations"),
     NavIndexItem::new("Recipes", "#recipes"),
     NavIndexItem::new("CLI", "#cli"),
     NavIndexItem::new("Agent workflow", "#agent-workflow"),
@@ -41,10 +43,19 @@ const SECTIONS: &[ArticleSection] = &[
         "docs-set",
         "Docs set",
         &[
-            "Foundations, primitives, components, recipes, CLI, agent contract, contributing, roadmap, and release notes live in the /docs directory.",
+            "Foundations, primitives, components, recipes, CLI, validation, getting started, status, agent contract, agent quickstart, contributing, roadmap, and release notes live in the /docs directory.",
             "Reusable session bootstrap material and sparse, moderate, and high-guidance prompt examples live in /prompts.",
             "Public refresh scripts live in /scripts and focused example indexes live in /examples.",
             "Each document is written against the current runtime and contract rather than paraphrasing an imagined future system.",
+        ],
+    ),
+    ArticleSection::new(
+        "operations",
+        "Operations",
+        &[
+            "The tested adoption path lives in docs/getting-started.md and is backed by the small consumer proofs in /examples/greenfield-blog and /examples/greenfield-workspace.",
+            "The truth-first implementation matrix lives in docs/status.md and marks complete, usable, partial, and planned surfaces without marketing inflation.",
+            "Validation behavior, invalid examples, and repair loops live in docs/validation.md so enforcement remains visible and practical.",
         ],
     ),
     ArticleSection::new(

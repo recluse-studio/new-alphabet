@@ -1,0 +1,13 @@
+/home/runner/work/new-alphabet/new-alphabet/examples/greenfield-workspace/target/debug/deps/new_alphabet_components-f9969fec5b5a3bb3.d: /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/lib.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/accessibility.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/actions.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/choices.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/data_display.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/examples.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/fields.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/status.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/workflow.rs
+
+/home/runner/work/new-alphabet/new-alphabet/examples/greenfield-workspace/target/debug/deps/libnew_alphabet_components-f9969fec5b5a3bb3.rmeta: /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/lib.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/accessibility.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/actions.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/choices.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/data_display.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/examples.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/fields.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/status.rs /home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/workflow.rs
+
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/lib.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/accessibility.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/actions.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/choices.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/data_display.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/examples.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/fields.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/status.rs:
+/home/runner/work/new-alphabet/new-alphabet/crates/new-alphabet-components/src/workflow.rs:

@@ -1,0 +1,2 @@
+note [N-001] blog-index: blog-index conforms to the current recipe, state, accessibility, and anti-pattern rules.
+note [summary] examples/greenfield-blog/new-alphabet.json: 0 errors, 0 warnings, 1 notes.

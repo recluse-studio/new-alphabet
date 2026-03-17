@@ -1,0 +1,57 @@
+error [V-000] invalid-proof: Manifest schema_version 0.0.0 does not match the current bundle format 0.1.0.
+  repair: Regenerate the manifest from the current contract bundle before validating again.
+error [V-009] MagicReviewQueue!: ReviewQueue requires the PageGrid primitive in the manifest scaffolding path.
+  repair: Add the missing primitive to the scaffold or narrow the recipe usage until the manifest matches the real structure.
+error [V-009] MagicReviewQueue!: ReviewQueue requires the Region primitive in the manifest scaffolding path.
+  repair: Add the missing primitive to the scaffold or narrow the recipe usage until the manifest matches the real structure.
+error [V-009] MagicReviewQueue!: ReviewQueue requires the Band primitive in the manifest scaffolding path.
+  repair: Add the missing primitive to the scaffold or narrow the recipe usage until the manifest matches the real structure.
+error [V-001] MagicReviewQueue!: ReviewQueue is missing Region(main), so the page grid no longer has a named primary field.
+  repair: Add Region(main) before adjusting rails, detail panes, or local composition.
+error [V-001] MagicReviewQueue!: ReviewQueue requires the main region, but it is missing from the manifest.
+  repair: Restore the missing required region before refining local layout.
+error [V-001] MagicReviewQueue!: ReviewQueue requires the detail region, but it is missing from the manifest.
+  repair: Restore the missing required region before refining local layout.
+error [V-002] MagicReviewQueue!: hero is not an allowed region for ReviewQueue.
+  repair: Delete the invalid region or switch to the recipe that owns it.
+error [P-102] MagicReviewQueue!: Multiple start-side rails were declared, which breaks the bounded side-structure rule.
+  repair: Keep one rail on each side at most and move extra structure into the main field.
+error [V-003] MagicReviewQueue!: spacing.custom.13 is not a canonical New Alphabet spacing token.
+  repair: Replace the unknown spacing token with a foundation token or a Stack or Row option.
+error [P-104] MagicReviewQueue!: 1 custom spacing values were declared, which means rhythm is being repaired locally.
+  repair: Delete arbitrary spacing values and move the rhythm back into Stack, Row, or panel content tokens.
+warning [V-004] MagicReviewQueue!: MagicReviewQueue! is not a plain lowercase role id, so the name is drifting away from the naming law.
+  repair: Rename the surface with a lowercase role id such as review-queue or docs-shell.
+warning [V-004] MagicReviewQueue!: Magic Review Queue uses decorative language instead of role-based naming.
+  repair: Rename the surface by structure or task rather than mood, magic, or ornament.
+warning [AP-010] MagicReviewQueue!: Magic Review Queue reads like generated taste instead of a constitutional role label.
+  repair: Rename the surface by structure or job so the agent and human vocabulary stay aligned.
+error [V-005] MagicReviewQueue!: Table is missing required states: loading, empty, error.
+  repair: Add the missing state coverage or narrow the component usage until the contract is true.
+error [V-005] MagicReviewQueue!: Button is missing required states: default, loading, disabled, hover, active, focus_visible.
+  repair: Add the missing state coverage or narrow the component usage until the contract is true.
+error [V-006] MagicReviewQueue!: The surface declares semantic_html = false, which violates the accessibility law.
+  repair: Restore semantic HTML before refining the surface design.
+error [V-006] MagicReviewQueue!: The surface does not guarantee focus-visible behavior.
+  repair: Restore visible focus treatment and keyboard coverage before validating again.
+error [V-007] MagicReviewQueue!: The surface relies on color alone for meaning.
+  repair: Add explicit text and semantic status markup so meaning survives without color.
+error [AP-009] MagicReviewQueue!: Ornament is carrying meaning that should be carried by hierarchy and text.
+  repair: Move the meaning back into structural text, semantic status content, or explicit hierarchy.
+error [V-006] MagicReviewQueue!: Table is missing an accessible name.
+  repair: Bind the component to a label, aria-label, legend, or semantic text anchor.
+error [V-007] MagicReviewQueue!: Table is missing a text equivalent for status meaning.
+  repair: Add explicit text so the state is legible without color or decoration.
+error [V-006] MagicReviewQueue!: Button is missing an accessible name.
+  repair: Bind the component to a label, aria-label, legend, or semantic text anchor.
+error [V-006] MagicReviewQueue!: Button is missing keyboard support.
+  repair: Use the native semantic control or restore keyboard navigation behavior.
+error [V-008] MagicReviewQueue!: The manifest declares a style escape hatch, which bypasses the finite system.
+  repair: Delete the escape hatch and use approved primitives, components, or recipes instead.
+error [AP-008] MagicReviewQueue!: The surface depends on a local exception instead of family resemblance.
+  repair: Delete the exception and re-enter the shared grammar before adding anything new.
+error [AP-006] MagicReviewQueue!: The manifest declares invented_layout = true, which means layout was improvised outside the grammar.
+  repair: Choose a valid recipe or primitive combination before generating more code.
+error [AP-005] MagicReviewQueue!: Table declares custom variant props, which reintroduces open-ended API sprawl.
+  repair: Replace the freeform variant with a finite semantic option or split the component by role.
+note [summary] examples/validation/invalid-review-queue.json: 25 errors, 3 warnings, 0 notes.
