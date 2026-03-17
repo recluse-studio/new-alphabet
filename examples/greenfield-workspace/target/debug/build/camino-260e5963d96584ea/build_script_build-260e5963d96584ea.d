@@ -1,5 +1,0 @@
-/home/runner/work/new-alphabet/new-alphabet/examples/greenfield-workspace/target/debug/build/camino-260e5963d96584ea/build_script_build-260e5963d96584ea.d: /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/camino-1.2.2/build.rs
-
-/home/runner/work/new-alphabet/new-alphabet/examples/greenfield-workspace/target/debug/build/camino-260e5963d96584ea/build_script_build-260e5963d96584ea: /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/camino-1.2.2/build.rs
-
-/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/camino-1.2.2/build.rs:
