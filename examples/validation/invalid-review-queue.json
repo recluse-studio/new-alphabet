@@ -1,0 +1,70 @@
+{
+  "schema_version": "0.0.0",
+  "project_name": "invalid-proof",
+  "surfaces": [
+    {
+      "id": "MagicReviewQueue!",
+      "name": "Magic Review Queue",
+      "intent": "workspace",
+      "recipe": "ReviewQueue",
+      "regions": [
+        {
+          "kind": "action_band",
+          "placement": "action_band"
+        },
+        {
+          "kind": "rail",
+          "placement": "rail_start"
+        },
+        {
+          "kind": "rail",
+          "placement": "rail_start"
+        },
+        {
+          "kind": "hero",
+          "placement": "main"
+        }
+      ],
+      "primitives": [
+        "AppShell",
+        "Panel"
+      ],
+      "components": [
+        {
+          "id": "Table",
+          "states": [
+            "default"
+          ],
+          "accessible_name": false,
+          "keyboard_support": false,
+          "text_equivalent": false,
+          "custom_variant_props": true
+        },
+        {
+          "id": "Button",
+          "states": [
+            "ready"
+          ],
+          "accessible_name": false,
+          "keyboard_support": false,
+          "text_equivalent": false,
+          "custom_variant_props": false
+        }
+      ],
+      "spacing_tokens": [
+        "spacing.stack.tight",
+        "spacing.custom.13"
+      ],
+      "custom_spacing_values": [
+        13
+      ],
+      "accessibility": {
+        "semantic_html": false,
+        "focus_visible": false,
+        "color_independent_meaning": false
+      },
+      "style_escape_hatch": true,
+      "invented_layout": true
+    }
+  ]
+}

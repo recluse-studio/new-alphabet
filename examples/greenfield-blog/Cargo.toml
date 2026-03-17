@@ -1,0 +1,10 @@
+[package]
+name = "greenfield-blog"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos = { version = "0.8.17", features = ["ssr"] }
+new-alphabet-recipes = { path = "../../crates/new-alphabet-recipes" }
+
+[workspace]

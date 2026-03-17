@@ -1,0 +1,66 @@
+{
+  "schema_version": "0.1.0",
+  "project_name": "greenfield-blog",
+  "surfaces": [
+    {
+      "id": "blog-index",
+      "name": "BlogIndex",
+      "intent": "editorial",
+      "recipe": "BlogIndex",
+      "regions": [
+        {
+          "kind": "main",
+          "placement": "main"
+        },
+        {
+          "kind": "support",
+          "placement": "support"
+        }
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Region",
+        "Panel",
+        "Stack",
+        "SectionHeader"
+      ],
+      "components": [
+        {
+          "id": "EmptyState",
+          "states": [
+            "empty"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        },
+        {
+          "id": "NavIndex",
+          "states": [
+            "default",
+            "current"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        }
+      ],
+      "spacing_tokens": [
+        "spacing.stack.tight",
+        "spacing.stack.default",
+        "spacing.panel.content"
+      ],
+      "custom_spacing_values": [],
+      "accessibility": {
+        "semantic_html": true,
+        "focus_visible": true,
+        "color_independent_meaning": true
+      },
+      "style_escape_hatch": false,
+      "invented_layout": false
+    }
+  ]
+}

@@ -27,7 +27,7 @@ The short answer is:
 | Project name | `New Alphabet` |
 | Namesake | Wim Crouwel's _New Alphabet_ |
 | Category | Rust-first web framework |
-| Current status | proposed |
+| Current status | V0 preview; doctrine stable and implementation usable |
 | Open source intent | yes |
 | Primary release channel | GitHub |
 | License target | `MIT OR Apache-2.0` |

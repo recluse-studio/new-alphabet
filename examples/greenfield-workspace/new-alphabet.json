@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.1.0",
+  "project_name": "greenfield-workspace",
+  "surfaces": [
+    {
+      "id": "review-queue",
+      "name": "ReviewQueue",
+      "intent": "workspace",
+      "recipe": "ReviewQueue",
+      "regions": [
+        {
+          "kind": "action_band",
+          "placement": "action_band"
+        },
+        {
+          "kind": "main",
+          "placement": "main"
+        },
+        {
+          "kind": "detail",
+          "placement": "detail"
+        },
+        {
+          "kind": "rail",
+          "placement": "rail_start"
+        }
+      ],
+      "primitives": [
+        "AppShell",
+        "PageGrid",
+        "Rail",
+        "Region",
+        "Panel",
+        "Stack",
+        "Band"
+      ],
+      "components": [
+        {
+          "id": "CommandBar",
+          "states": [
+            "default",
+            "loading",
+            "disabled"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        },
+        {
+          "id": "InlineAlert",
+          "states": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        },
+        {
+          "id": "Table",
+          "states": [
+            "default",
+            "loading",
+            "empty",
+            "error"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        },
+        {
+          "id": "FilterRail",
+          "states": [
+            "default",
+            "zero_result"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        },
+        {
+          "id": "DetailPane",
+          "states": [
+            "default",
+            "loading",
+            "unavailable"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        },
+        {
+          "id": "NavIndex",
+          "states": [
+            "default",
+            "current"
+          ],
+          "accessible_name": true,
+          "keyboard_support": true,
+          "text_equivalent": true,
+          "custom_variant_props": false
+        }
+      ],
+      "spacing_tokens": [
+        "spacing.stack.tight",
+        "spacing.stack.default",
+        "spacing.panel.content"
+      ],
+      "custom_spacing_values": [],
+      "accessibility": {
+        "semantic_html": true,
+        "focus_visible": true,
+        "color_independent_meaning": true
+      },
+      "style_escape_hatch": false,
+      "invented_layout": false
+    }
+  ]
+}
