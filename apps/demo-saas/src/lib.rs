@@ -8,6 +8,7 @@ use new_alphabet_components::{
     ChoiceOption, CommandAction, DetailField, DetailPaneState, FieldState, FilterGroup,
     FilterOption, FilterRailState, NavIndexItem, StatusSeverity, TableColumn, TableRow, TableState,
 };
+use new_alphabet_foundation::render_stylesheet;
 use new_alphabet_recipes::{
     DashboardMetric, DashboardShell, ReviewQueue, SearchResultsWorkspace, SettingsControl,
     SettingsPanel, SettingsWorkspace, WorkspaceCommands, WorkspaceContextItem, WorkspaceDetail,
@@ -308,7 +309,7 @@ pub fn render_dashboard_document() -> String {
     .to_html()
     .replace("<!>", "");
 
-    html_document("Editorial Operations", body)
+    html_document("Editorial Operations", body, "assets/new-alphabet.css")
 }
 
 pub fn render_search_document() -> String {
@@ -330,7 +331,7 @@ pub fn render_search_document() -> String {
     .to_html()
     .replace("<!>", "");
 
-    html_document("Search workspace", body)
+    html_document("Search workspace", body, "../assets/new-alphabet.css")
 }
 
 pub fn render_review_document() -> String {
@@ -351,7 +352,7 @@ pub fn render_review_document() -> String {
     .to_html()
     .replace("<!>", "");
 
-    html_document("Review queue", body)
+    html_document("Review queue", body, "../assets/new-alphabet.css")
 }
 
 pub fn render_settings_document() -> String {
@@ -367,11 +368,12 @@ pub fn render_settings_document() -> String {
     .to_html()
     .replace("<!>", "");
 
-    html_document("Settings workspace", body)
+    html_document("Settings workspace", body, "../assets/new-alphabet.css")
 }
 
 pub fn write_site(site_dir: &Path) -> Result<(), String> {
     fs::create_dir_all(site_dir).map_err(|error| error.to_string())?;
+    fs::create_dir_all(site_dir.join("assets")).map_err(|error| error.to_string())?;
     fs::create_dir_all(site_dir.join("search")).map_err(|error| error.to_string())?;
     fs::create_dir_all(site_dir.join("review")).map_err(|error| error.to_string())?;
     fs::create_dir_all(site_dir.join("settings")).map_err(|error| error.to_string())?;
@@ -396,13 +398,18 @@ pub fn write_site(site_dir: &Path) -> Result<(), String> {
         render_settings_document().as_bytes(),
     )
     .map_err(|error| error.to_string())?;
+    fs::write(
+        site_dir.join("assets").join("new-alphabet.css"),
+        render_stylesheet().as_bytes(),
+    )
+    .map_err(|error| error.to_string())?;
 
     Ok(())
 }
 
-fn html_document(title: &str, body: String) -> String {
+fn html_document(title: &str, body: String, stylesheet_path: &str) -> String {
     format!(
-        "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>{title}</title>\n</head>\n<body>\n{body}\n</body>\n</html>\n"
+        "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>{title}</title>\n<link rel=\"stylesheet\" href=\"{stylesheet_path}\">\n</head>\n<body>\n{body}\n</body>\n</html>\n"
     )
 }
 
@@ -442,6 +449,7 @@ mod tests {
         assert!(site_dir.join("search/index.html").exists());
         assert!(site_dir.join("review/index.html").exists());
         assert!(site_dir.join("settings/index.html").exists());
+        assert!(site_dir.join("assets/new-alphabet.css").exists());
     }
 
     fn unique_test_dir(label: &str) -> PathBuf {

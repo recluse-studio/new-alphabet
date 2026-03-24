@@ -5,6 +5,7 @@ use std::path::Path;
 
 use leptos::prelude::*;
 use new_alphabet_components::NavIndexItem;
+use new_alphabet_foundation::render_stylesheet;
 use new_alphabet_recipes::{
     ArticleAdjacentLink, ArticleAdjacentLinks, ArticleMetaItem, ArticleSection, ArticleShell,
     ArticleSidebarNav, BlogIndex, BlogIndexEntry, BlogIndexSection,
@@ -162,7 +163,7 @@ pub fn render_archive_document() -> String {
     .to_html()
     .replace("<!>", "");
 
-    html_document("New Alphabet Journal", body)
+    html_document("New Alphabet Journal", body, "assets/new-alphabet.css")
 }
 
 fn render_article_document(article: DemoArticle) -> String {
@@ -179,12 +180,13 @@ fn render_article_document(article: DemoArticle) -> String {
     .to_html()
     .replace("<!>", "");
 
-    html_document(article.title, body)
+    html_document(article.title, body, "../assets/new-alphabet.css")
 }
 
 pub fn write_site(site_dir: &Path) -> Result<(), String> {
     fs::create_dir_all(site_dir).map_err(|error| error.to_string())?;
     fs::create_dir_all(site_dir.join("articles")).map_err(|error| error.to_string())?;
+    fs::create_dir_all(site_dir.join("assets")).map_err(|error| error.to_string())?;
 
     fs::write(
         site_dir.join("index.html"),
@@ -202,12 +204,18 @@ pub fn write_site(site_dir: &Path) -> Result<(), String> {
         .map_err(|error| error.to_string())?;
     }
 
+    fs::write(
+        site_dir.join("assets").join("new-alphabet.css"),
+        render_stylesheet().as_bytes(),
+    )
+    .map_err(|error| error.to_string())?;
+
     Ok(())
 }
 
-fn html_document(title: &str, body: String) -> String {
+fn html_document(title: &str, body: String, stylesheet_path: &str) -> String {
     format!(
-        "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>{title}</title>\n</head>\n<body>\n{body}\n</body>\n</html>\n"
+        "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>{title}</title>\n<link rel=\"stylesheet\" href=\"{stylesheet_path}\">\n</head>\n<body>\n{body}\n</body>\n</html>\n"
     )
 }
 
@@ -246,6 +254,7 @@ mod tests {
         assert!(site_dir.join("index.html").exists());
         assert!(site_dir.join("articles/grid-law.html").exists());
         assert!(site_dir.join("articles/archive-discipline.html").exists());
+        assert!(site_dir.join("assets/new-alphabet.css").exists());
     }
 
     fn unique_test_dir(label: &str) -> PathBuf {

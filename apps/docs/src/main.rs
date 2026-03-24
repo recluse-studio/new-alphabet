@@ -3,6 +3,7 @@ use std::path::PathBuf;
 
 use leptos::prelude::*;
 use new_alphabet_components::NavIndexItem;
+use new_alphabet_foundation::render_stylesheet;
 use new_alphabet_recipes::{ArticleSection, DocsContextItem, DocsNavSection, DocsShell};
 use new_alphabet_schema::contract_bundle;
 
@@ -131,12 +132,19 @@ fn main() -> Result<(), String> {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     let site_dir = root.join("site");
     fs::create_dir_all(&site_dir).map_err(|error| error.to_string())?;
+    fs::create_dir_all(site_dir.join("assets")).map_err(|error| error.to_string())?;
 
     let body = view! { <DocsIndex/> }.to_html().replace("<!>", "");
     let document = format!(
-        "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>New Alphabet Manual</title>\n</head>\n<body>\n{}\n</body>\n</html>\n",
+        "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>New Alphabet Manual</title>\n<link rel=\"stylesheet\" href=\"assets/new-alphabet.css\">\n</head>\n<body>\n{}\n</body>\n</html>\n",
         body
     );
 
-    fs::write(site_dir.join("index.html"), document.as_bytes()).map_err(|error| error.to_string())
+    fs::write(site_dir.join("index.html"), document.as_bytes())
+        .map_err(|error| error.to_string())?;
+    fs::write(
+        site_dir.join("assets").join("new-alphabet.css"),
+        render_stylesheet().as_bytes(),
+    )
+    .map_err(|error| error.to_string())
 }

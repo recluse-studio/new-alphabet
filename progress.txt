@@ -85,9 +85,15 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-07 | PRD | US-039 | Added public example and script indexes, refresh scripts, and documentation links that tie examples, schemas, prompts, demos, and maintenance commands into one coherent package.
 2026-03-07 | DECISION | remote | The remote-ready V0 repo now exposes doctrine, runtime, demos, CLI, schema export, prompts, scripts, and the agent bootstrap crate as one cloneable system with no hidden setup.
 2026-03-07 | PRD | US-040 | Published the exact remote-ready V0 repository with framework crates, agent helpers, CLI, docs app, demo apps, schemas, prompts, scripts, and OSS launch materials aligned to the documentation.
+2026-03-07 | DISCOVERY | cli | The current repo exposes a CLI and agent bootstrap/export surfaces but no MCP server entrypoint.
+2026-03-07 | DISCOVERY | cli | The current CLI scaffold writes a manifest and recipe modules but does not generate a runnable Leptos app or launch target.
+2026-03-07 | DISCOVERY | cli | The current init flow assumes an existing host Rust project because it does not create Cargo.toml, routes, or dependency wiring in a fresh directory.
+2026-03-07 | DECISION | foundations | The visual runtime now ships as a generated stylesheet emitted from the foundation tokens and reused by demos and generated sites.
+2026-03-07 | DECISION | cli | Prompt-to-site generation now uses `new-alphabet-site.json` as canonical editable source and renders viewable HTML plus CSS under `site/`.
 2026-03-16 | DISCOVERY | docs | Public docs understated repo maturity even though the runtime crates, CLI, schema bundle, demos, and agent surfaces were already usable.
 2026-03-16 | MILESTONE | docs/getting-started.md | Added the canonical greenfield and existing-project adoption path with exact commands, wiring steps, validation, and success expectations.
 2026-03-16 | MILESTONE | docs/status.md | Added a proof-backed implementation matrix that marks complete, usable, and limited surfaces across the framework, CLI, docs, demos, and validation.
 2026-03-16 | MILESTONE | examples | Added minimal editorial and workflow consumer proofs plus an invalid manifest example to show downstream adoption and the repair-oriented validation loop.
 2026-03-16 | DECISION | cli | Public CLI documentation now states current syntax, writes, exit behavior, limits, and failure cases instead of aspirational command behavior.
 2026-03-16 | DECISION | agent contract | Added a practical agent quickstart so session-start context, prompt use, recipe choice, and validation loops are explicit and minimal.
+2026-03-24 | DECISION | repository | macOS Finder metadata is ignored so working-tree noise does not pollute canonical commits.

@@ -111,7 +111,11 @@ mod tests {
 
         assert!(bootstrap.public_artifacts.contains(&"examples/README.md"));
         assert!(bootstrap.public_artifacts.contains(&"prompts/README.md"));
-        assert!(bootstrap.verification_commands.contains(&"scripts/export-public-artifacts.sh"));
+        assert!(
+            bootstrap
+                .verification_commands
+                .contains(&"scripts/export-public-artifacts.sh")
+        );
     }
 
     #[test]

@@ -3,6 +3,7 @@
 mod density;
 mod grid;
 mod spacing;
+mod stylesheet;
 mod surface;
 mod typography;
 
@@ -13,6 +14,7 @@ pub use grid::{
     allows_three_region_layout,
 };
 pub use spacing::{ALL_SPACING_TOKENS, SpacingToken};
+pub use stylesheet::render_stylesheet;
 pub use surface::{
     ALL_BORDER_TOKENS, ALL_COLOR_TOKENS, ALL_MOTION_TOKENS, ALL_STATE_TOKENS, BorderSpec,
     BorderToken, ColorToken, ColorValue, MotionSpec, MotionToken, StateSpec, StateToken,

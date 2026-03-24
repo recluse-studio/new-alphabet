@@ -919,8 +919,13 @@ version = "0.1.0"
 name = "new-alphabet-cli"
 version = "0.1.0"
 dependencies = [
+ "leptos",
+ "new-alphabet-components",
  "new-alphabet-core",
+ "new-alphabet-foundation",
+ "new-alphabet-recipes",
  "new-alphabet-schema",
+ "serde",
  "serde_json",
 ]
 
@@ -947,6 +952,7 @@ version = "0.1.0"
 dependencies = [
  "leptos",
  "new-alphabet-components",
+ "new-alphabet-foundation",
  "new-alphabet-recipes",
 ]
 
@@ -956,6 +962,7 @@ version = "0.1.0"
 dependencies = [
  "leptos",
  "new-alphabet-components",
+ "new-alphabet-foundation",
  "new-alphabet-recipes",
 ]
 
@@ -965,6 +972,7 @@ version = "0.1.0"
 dependencies = [
  "leptos",
  "new-alphabet-components",
+ "new-alphabet-foundation",
  "new-alphabet-recipes",
  "new-alphabet-schema",
 ]

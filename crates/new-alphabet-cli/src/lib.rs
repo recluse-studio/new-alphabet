@@ -1,5 +1,6 @@
 #![forbid(unsafe_code)]
 
+mod site;
 mod templates;
 
 use std::collections::BTreeSet;
@@ -7,7 +8,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use new_alphabet_core::{
-    AccessibilitySnapshot, ComponentInstance, IntentKind, ProjectManifest, Severity,
+    AccessibilitySnapshot, ComponentInstance, IntentKind, ProjectManifest, PromptIntent, Severity,
     SurfaceManifest, SurfaceRegion, ValidationMessage,
 };
 use new_alphabet_schema::{
@@ -47,6 +48,14 @@ enum Command {
     Validate {
         path: Option<String>,
     },
+    Generate {
+        prompt: String,
+        path: Option<String>,
+        name: Option<String>,
+    },
+    Render {
+        path: Option<String>,
+    },
     ExportContext {
         output: Option<String>,
     },
@@ -78,6 +87,8 @@ fn parse_command(args: &[String]) -> Result<Command, String> {
             path: args.get(2).cloned(),
         }),
         "validate" => parse_validate(args),
+        "generate" => parse_generate(args),
+        "render" => parse_render(args),
         "export" => parse_export(args),
         "plan" => parse_plan(args),
         _ => Err(help_text()),
@@ -171,6 +182,65 @@ fn parse_export(args: &[String]) -> Result<Command, String> {
     Ok(Command::ExportContext { output })
 }
 
+fn parse_generate(args: &[String]) -> Result<Command, String> {
+    let mut prompt = None;
+    let mut path = None;
+    let mut name = None;
+    let mut index = 2;
+
+    while index < args.len() {
+        match args[index].as_str() {
+            "--prompt" => {
+                let value = args
+                    .get(index + 1)
+                    .cloned()
+                    .ok_or_else(|| "generate requires a value after --prompt".to_owned())?;
+                prompt = Some(value);
+                index += 2;
+            }
+            "--path" => {
+                let value = args
+                    .get(index + 1)
+                    .cloned()
+                    .ok_or_else(|| "generate requires a value after --path".to_owned())?;
+                path = Some(value);
+                index += 2;
+            }
+            "--name" => {
+                let value = args
+                    .get(index + 1)
+                    .cloned()
+                    .ok_or_else(|| "generate requires a value after --name".to_owned())?;
+                name = Some(value);
+                index += 2;
+            }
+            _ => return Err("generate accepts only --prompt, --path, and --name".to_owned()),
+        }
+    }
+
+    Ok(Command::Generate {
+        prompt: prompt.ok_or_else(|| "generate requires --prompt".to_owned())?,
+        path,
+        name,
+    })
+}
+
+fn parse_render(args: &[String]) -> Result<Command, String> {
+    match args.get(2).map(String::as_str) {
+        None => Ok(Command::Render { path: None }),
+        Some("--path") => Ok(Command::Render {
+            path: Some(
+                args.get(3)
+                    .cloned()
+                    .ok_or_else(|| "render requires a value after --path".to_owned())?,
+            ),
+        }),
+        Some(value) => Ok(Command::Render {
+            path: Some(value.to_owned()),
+        }),
+    }
+}
+
 fn parse_plan(args: &[String]) -> Result<Command, String> {
     let intent = args
         .iter()
@@ -196,6 +266,10 @@ fn run_command(command: Command, cwd: &Path) -> Result<CommandResult, String> {
         Command::Explain { item } => explain_item(&item),
         Command::Inspect { path } => inspect_manifest(cwd, path.as_deref()),
         Command::Validate { path } => validate_project(cwd, path.as_deref()),
+        Command::Generate { prompt, path, name } => {
+            generate_site_project(cwd, &prompt, path.as_deref(), name.as_deref())
+        }
+        Command::Render { path } => render_site_project(cwd, path.as_deref()),
         Command::ExportContext { output } => export_context(cwd, output.as_deref()),
         Command::Plan { intent } => plan_intent(&intent),
     }
@@ -630,6 +704,74 @@ fn validate_project(cwd: &Path, path: Option<&str>) -> Result<CommandResult, Str
     })
 }
 
+fn generate_site_project(
+    cwd: &Path,
+    prompt: &str,
+    path: Option<&str>,
+    name: Option<&str>,
+) -> Result<CommandResult, String> {
+    let root = resolve_root(cwd, path);
+    fs::create_dir_all(&root).map_err(io_error)?;
+
+    let selected_prompt = select_prompt_intent(prompt)?;
+    let project_name = name.map(str::to_owned).unwrap_or_else(|| {
+        root.file_name()
+            .and_then(|value| value.to_str())
+            .unwrap_or("new-alphabet-site")
+            .to_owned()
+    });
+
+    let source_path = root.join(site::SITE_SOURCE_FILE);
+    let mut wrote_files = Vec::new();
+    let site_source = if source_path.exists() {
+        site::load_site_source(&root)?
+    } else {
+        let seeded = site::seed_site_source(&project_name, &selected_prompt.id, prompt)?;
+        let content = serde_json::to_string_pretty(&seeded).map_err(|error| error.to_string())?;
+        write_if_changed(&source_path, &content, &mut wrote_files)?;
+        seeded
+    };
+
+    let manifest = site::manifest_for_site_source(
+        &site_source,
+        site::recipe_inventory(&site_source)
+            .into_iter()
+            .map(|(recipe, intent)| recipe_surface_manifest(&recipe, intent))
+            .collect(),
+    );
+    write_json_file(&root.join(MANIFEST_FILE), &manifest, &mut wrote_files)?;
+
+    let rendered_files = site::write_site(&root)?;
+    for path in rendered_files {
+        if !wrote_files.contains(&path) {
+            wrote_files.push(path);
+        }
+    }
+
+    Ok(CommandResult {
+        stdout: if wrote_files.is_empty() {
+            format!("generate {}: no file changes", selected_prompt.id)
+        } else {
+            format!(
+                "generate {}: wrote {}",
+                selected_prompt.id,
+                relative_write_list(&wrote_files, &root)
+            )
+        },
+        wrote_files,
+    })
+}
+
+fn render_site_project(cwd: &Path, path: Option<&str>) -> Result<CommandResult, String> {
+    let root = resolve_root(cwd, path);
+    let wrote_files = site::write_site(&root)?;
+
+    Ok(CommandResult {
+        stdout: describe_writes("render", &wrote_files, &root),
+        wrote_files,
+    })
+}
+
 fn export_context(cwd: &Path, output: Option<&str>) -> Result<CommandResult, String> {
     let bundle = serialize_bundle_pretty().map_err(|error| error.to_string())?;
     let mut wrote_files = Vec::new();
@@ -655,17 +797,8 @@ fn export_context(cwd: &Path, output: Option<&str>) -> Result<CommandResult, Str
 }
 
 fn plan_intent(intent: &str) -> Result<CommandResult, String> {
+    let best = select_prompt_intent(intent)?;
     let bundle = contract_bundle();
-    let intent_words = token_set(intent);
-    let best = bundle
-        .prompt_intents
-        .iter()
-        .max_by_key(|prompt| {
-            token_set(&prompt.prompt)
-                .intersection(&intent_words)
-                .count()
-        })
-        .ok_or_else(|| "No prompt intents are available.".to_owned())?;
     let recipe = bundle
         .recipes
         .iter()
@@ -686,6 +819,20 @@ fn plan_intent(intent: &str) -> Result<CommandResult, String> {
         ),
         wrote_files: Vec::new(),
     })
+}
+
+fn select_prompt_intent(intent: &str) -> Result<PromptIntent, String> {
+    let bundle = contract_bundle();
+    let intent_words = token_set(intent);
+    bundle
+        .prompt_intents
+        .into_iter()
+        .max_by_key(|prompt| {
+            token_set(&prompt.prompt)
+                .intersection(&intent_words)
+                .count()
+        })
+        .ok_or_else(|| "No prompt intents are available.".to_owned())
 }
 
 fn recipe_surface_manifest(recipe_name: &str, intent: IntentKind) -> SurfaceManifest {
@@ -892,7 +1039,14 @@ fn describe_writes(command: &str, wrote_files: &[PathBuf], root: &Path) -> Strin
         return format!("{command}: no file changes");
     }
 
-    let lines = wrote_files
+    format!(
+        "{command}: wrote {}",
+        relative_write_list(wrote_files, root)
+    )
+}
+
+fn relative_write_list(wrote_files: &[PathBuf], root: &Path) -> String {
+    wrote_files
         .iter()
         .map(|path| {
             path.strip_prefix(root)
@@ -900,8 +1054,8 @@ fn describe_writes(command: &str, wrote_files: &[PathBuf], root: &Path) -> Strin
                 .display()
                 .to_string()
         })
-        .collect::<Vec<_>>();
-    format!("{command}: wrote {}", lines.join(", "))
+        .collect::<Vec<_>>()
+        .join(", ")
 }
 
 fn format_validation_message(message: &ValidationMessage) -> String {
@@ -961,7 +1115,7 @@ fn io_error(error: std::io::Error) -> String {
 }
 
 fn help_text() -> String {
-    "new-alphabet <command>\ncommands: init, add recipe <name>, add component <name>, explain <item>, inspect [path], validate [path], export context [--output path], plan <intent>".to_owned()
+    "new-alphabet <command>\ncommands: init, add recipe <name>, add component <name>, explain <item>, inspect [path], validate [path], generate --prompt <intent> [--path path] [--name name], render [path], export context [--output path], plan <intent>".to_owned()
 }
 
 #[cfg(test)]
@@ -1117,6 +1271,58 @@ mod tests {
 
         assert!(result.stdout.contains("error"));
         assert!(result.stdout.contains("note [summary]"));
+    }
+
+    #[test]
+    fn generate_writes_visual_blog_site_from_prompt() {
+        let root = unique_test_dir("generate-blog");
+        let result = run_from(
+            [
+                "new-alphabet",
+                "generate",
+                "--prompt",
+                "Build the front page to a dynamic blog site",
+                "--name",
+                "Signal Press",
+            ],
+            &root,
+        )
+        .expect("generate");
+
+        assert!(result.stdout.contains("prompt.blog"));
+        assert!(root.join("new-alphabet-site.json").exists());
+        assert!(root.join("new-alphabet.json").exists());
+        assert!(root.join("site/index.html").exists());
+        assert!(root.join("site/articles/grid-law.html").exists());
+        assert!(root.join("site/assets/new-alphabet.css").exists());
+    }
+
+    #[test]
+    fn render_regenerates_html_from_site_source_json() {
+        let root = unique_test_dir("render-blog");
+        run_from(
+            [
+                "new-alphabet",
+                "generate",
+                "--prompt",
+                "Build the front page to a dynamic blog site",
+                "--name",
+                "Signal Press",
+            ],
+            &root,
+        )
+        .expect("generate");
+
+        let path = root.join("new-alphabet-site.json");
+        let updated = fs::read_to_string(&path)
+            .expect("source")
+            .replace("Signal Press Journal", "Archive Review");
+        fs::write(&path, updated.as_bytes()).expect("write updated source");
+
+        run_from(["new-alphabet", "render"], &root).expect("render");
+        let html = fs::read_to_string(root.join("site/index.html")).expect("html");
+
+        assert!(html.contains("Archive Review"));
     }
 
     #[test]
