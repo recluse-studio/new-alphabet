@@ -104,3 +104,9 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-27 | DECISION | flavors | GpuiWorkbench binds GPUI pane structure, compact density, virtualization-first dense lists, and work-first center content under the same New Alphabet law.
 2026-03-27 | DECISION | flavors | Relm4Workbench binds ApplicationWindow, Paned shells, ColumnView discipline, GTK CSS region law, and compact native densities under the same New Alphabet law.
 2026-03-27 | DECISION | flavors | DesktopHtmlWorkbench binds desktop-shell HTML and CSS semantics for Leptos, Yew, Dioxus, and Azul without allowing website chrome, centered wrappers, or loose spacing to weaken the workbench law.
+2026-03-27 | DECISION | flavors | SlintWorkbench binds Slint layout discipline, explicit logical-px sizing, constrained text inputs, and GridLayout-first dense panels under the same New Alphabet law.
+2026-03-27 | DECISION | flavors | EguiWorkbench binds compact style installation, explicit text and spacing law, panel-first shell structure, and restrained framing under the same New Alphabet law.
+2026-03-27 | DECISION | flavors | IcedWorkbench binds strict Fill and FillPortion discipline, bounded pane sizing, shallow padding, and central-body scrolling under the same New Alphabet law.
+2026-03-27 | DECISION | workbench-policy | Dense work-surface tasks now load a cross-stack workbench policy before widget design when no host flavor already imposes stricter shell law.
+2026-03-27 | DECISION | workbench-policy | Cross-stack workbench policy now fixes desktop-first legibility targets, 10-14 visible rows, restrained typography and chrome, and a seven-point final review for serious product UI.
+2026-03-27 | DECISION | gridnik-tightening-spec.md | Added a corrective tightening spec that calls for exact dense defaults, explicit host-bound flavors, visible grid law, and lower-chrome workbench surfaces closer to Gridnik severity.

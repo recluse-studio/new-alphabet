@@ -12,6 +12,8 @@ const NAV_ITEMS: &[NavIndexItem] = &[
     NavIndexItem::new("Docs set", "#docs-set"),
     NavIndexItem::new("Operations", "#operations"),
     NavIndexItem::new("Flavors", "#flavors"),
+    NavIndexItem::new("Workbench policy", "#workbench-policy"),
+    NavIndexItem::new("Gridnik tightening", "#gridnik-tightening"),
     NavIndexItem::new("Recipes", "#recipes"),
     NavIndexItem::new("CLI", "#cli"),
     NavIndexItem::new("Agent workflow", "#agent-workflow"),
@@ -25,6 +27,8 @@ const TOC_ITEMS: &[NavIndexItem] = &[
     NavIndexItem::new("Docs set", "#docs-set"),
     NavIndexItem::new("Operations", "#operations"),
     NavIndexItem::new("Flavors", "#flavors"),
+    NavIndexItem::new("Workbench policy", "#workbench-policy"),
+    NavIndexItem::new("Gridnik tightening", "#gridnik-tightening"),
     NavIndexItem::new("Recipes", "#recipes"),
     NavIndexItem::new("CLI", "#cli"),
     NavIndexItem::new("Agent workflow", "#agent-workflow"),
@@ -46,8 +50,7 @@ const SECTIONS: &[ArticleSection] = &[
         "docs-set",
         "Docs set",
         &[
-            "Foundations, primitives, components, recipes, CLI, validation, getting started, status, agent contract, agent quickstart, contributing, roadmap, and release notes live in the /docs directory.",
-            "Foundations, runtime flavors, primitives, components, recipes, CLI, validation, getting started, status, agent contract, agent quickstart, contributing, roadmap, and release notes live in the /docs directory.",
+            "Foundations, workbench policy, Gridnik tightening, runtime flavors, primitives, components, recipes, CLI, validation, getting started, status, agent contract, agent quickstart, contributing, roadmap, and release notes live in the /docs directory.",
             "Reusable session bootstrap material and sparse, moderate, and high-guidance prompt examples live in /prompts.",
             "Public refresh scripts live in /scripts and focused example indexes live in /examples.",
             "Each document is written against the current runtime and contract rather than paraphrasing an imagined future system.",
@@ -69,6 +72,22 @@ const SECTIONS: &[ArticleSection] = &[
             "Runtime flavor binds the New Alphabet constitution to a specific Rust UI stack without changing the aesthetic law.",
             "LeptosSsr is the canonical proof runtime, and DioxusDesktopWorkbench, TauriLeptosWorkbench, TauriYewWorkbench, FloemWorkbench, GpuiWorkbench, Relm4Workbench, SlintWorkbench, EguiWorkbench, and IcedWorkbench are explicit host-stack bindings in the contract bundle.",
             "When a task names a host stack or platform boundary, agents should choose a flavor before choosing a recipe.",
+        ],
+    ),
+    ArticleSection::new(
+        "workbench-policy",
+        "Workbench Policy",
+        &[
+            "Workbench policy is the cross-stack default for dense desktop surfaces when the host stack is unspecified or when a flavor does not already impose a stricter shell rule.",
+            "It fixes dense token defaults, shell-first build order, first-viewport expectations, typography and visual restraint, preferred patterns, banned chrome, row-density expectations, and a mandatory self-audit for row count, shell dimensions, and stretch behavior.",
+        ],
+    ),
+    ArticleSection::new(
+        "gridnik-tightening",
+        "Gridnik Tightening",
+        &[
+            "The Gridnik tightening spec is a corrective document, not a new law layer: it identifies where recent additions became too approximate or too broad and prescribes how to narrow them.",
+            "Its core demands are exact dense defaults, explicit host-bound flavors, visible grid law, stricter card abolition, stronger typographic restraint, and explicit chrome budgets.",
         ],
     ),
     ArticleSection::new(

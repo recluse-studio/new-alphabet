@@ -227,5 +227,99 @@
       "Card-heavy framing, oversized empty states, or decorative chrome that weakens the native workbench feel.",
       "Per-widget style hacks that bypass shared GTK CSS classes."
     ]
+  },
+  {
+    "id": "SlintWorkbench",
+    "runtime": "Slint desktop",
+    "purpose": "Dense desktop workbench binding for Slint with explicit layout law, constrained pane sizing, and token-driven shell structure.",
+    "stack": [
+      "Slint",
+      "HorizontalLayout",
+      "VerticalLayout",
+      "GridLayout"
+    ],
+    "required_bindings": [
+      "Use Slint layouts for all structure and never build the shell with loose Rectangle primitives.",
+      "Set Window.default-font-size explicitly and use logical px consistently throughout the surface.",
+      "Set spacing and padding explicitly on every layout that establishes shell or panel structure.",
+      "Use preferred-width or preferred-height for sidebar, toolbar, and inspector regions and use min or max widths when panes must stay legible."
+    ],
+    "laws": [
+      "Do not use percentage widths except at the top shell level where the application frame is being divided.",
+      "Favor a HorizontalLayout and VerticalLayout shell before introducing GridLayout for dense forms, metadata panels, or inspector regions.",
+      "Put TextInput only inside constrained layouts so fields never float in unconstrained space.",
+      "Use GridLayout for dense forms and metadata panels rather than improvised row stacks.",
+      "Shell composition should read as a serious desktop workbench rather than decorative scene graph construction.",
+      "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token where Slint styling applies rounding."
+    ],
+    "anti_patterns": [
+      "Loose Rectangle shells used as structural layout.",
+      "Implicit spacing or padding in structural layouts.",
+      "Percentage-based pane sizing below the top shell level.",
+      "Unconstrained TextInput fields or improvised dense forms built without GridLayout."
+    ]
+  },
+  {
+    "id": "EguiWorkbench",
+    "runtime": "egui desktop",
+    "purpose": "Dense desktop workbench binding for egui with explicit compact style installation, panel shell structure, and restrained framing.",
+    "stack": [
+      "egui",
+      "SidePanel",
+      "TopBottomPanel",
+      "CentralPanel",
+      "Grid"
+    ],
+    "required_bindings": [
+      "Emit install_compact_style(ctx) before any screen code so compact New Alphabet density is installed first.",
+      "Set text_styles explicitly for Heading, Body, Button, and Small.",
+      "Set spacing.item_spacing, spacing.button_padding, spacing.interact_size.y, and spacing.window_margin explicitly.",
+      "Use SidePanel, TopBottomPanel, and CentralPanel for the shell and keep scrolling inside central content only."
+    ],
+    "laws": [
+      "Avoid nested Frame::group calls and do not use more than one framed wrapper around routine content.",
+      "Avoid ui.add_space values above 8.0 so spacing stays disciplined and severe.",
+      "Prefer Grid for dense label-value regions and compact form layouts.",
+      "Keep the shell panel-first and do not let local framed wrappers become the page hierarchy.",
+      "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token where egui styling applies rounding."
+    ],
+    "anti_patterns": [
+      "Screen code emitted before install_compact_style(ctx).",
+      "Implicit egui text styles or spacing defaults standing in for explicit density law.",
+      "Nested Frame::group wrappers around routine content.",
+      "Scrolling outside the central content region or dense forms built without Grid."
+    ]
+  },
+  {
+    "id": "IcedWorkbench",
+    "runtime": "Iced desktop",
+    "purpose": "Dense desktop workbench binding for Iced with strict fill discipline, bounded pane sizing, and table-first shell structure.",
+    "stack": [
+      "Iced",
+      "Length::Fill",
+      "Length::FillPortion",
+      "Scrollable"
+    ],
+    "required_bindings": [
+      "Length::Fill is allowed only on the app root container, the main content pane, scrollable regions, and first-level split panes.",
+      "Length::FillPortion is allowed only on the first split between major panes.",
+      "Buttons, labels, chips, form rows, and tool groups use Shrink or Fixed sizing instead of Fill behavior.",
+      "Prefer Scrollable only around the main body and never around the whole application shell."
+    ],
+    "laws": [
+      "Sidebar width stays between Fixed(232.0) and Fixed(260.0) and inspector width stays between Fixed(280.0) and Fixed(340.0).",
+      "Toolbar height stays between Fixed(34.0) and Fixed(38.0).",
+      "Row and Column spacing should not exceed 8 unless there is an explicit structural reason.",
+      "Row and Column padding should not exceed 8 outside the root shell.",
+      "Never nest more than two padded containers.",
+      "Prefer table or list rows over cards so routine content stays dense and legible.",
+      "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token where Iced styling applies rounding."
+    ],
+    "anti_patterns": [
+      "Length::Fill applied to buttons, labels, chips, form rows, or local tool groups.",
+      "Length::FillPortion used below the first split between major panes.",
+      "Scrollable wrapped around the entire app shell.",
+      "Card-first routine content or padding stacks deeper than two containers."
+    ]
   }
 ]

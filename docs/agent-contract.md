@@ -77,6 +77,7 @@ The checked-in export set lives in `schemas/` and currently includes:
 Load targeted layer docs only when the task touches that layer:
 
 - `docs/foundations.md`
+- `docs/workbench-policy.md`
 - `docs/flavors.md`
 - `docs/primitives.md`
 - `docs/components.md`

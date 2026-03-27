@@ -1378,13 +1378,14 @@ To make the repo legible quickly, the next docs should be:
 
 1. `README.md` for quick start and thesis.
 2. `docs/foundations.md` for constitutional design rules.
-3. `docs/flavors.md` for runtime flavor contracts.
-4. `docs/primitives.md` for the layout grammar.
-5. `docs/components.md` for semantic APIs and state matrices.
-6. `docs/recipes.md` for full-screen compositions.
-7. `docs/cli.md` for command contracts.
-8. `docs/agent-contract.md` for schema and export format.
-9. `docs/contributing.md` for contribution posture and doctrine-preserving change rules.
+3. `docs/workbench-policy.md` for the cross-stack dense work-surface default when stack-specific law is absent.
+4. `docs/flavors.md` for runtime flavor contracts.
+5. `docs/primitives.md` for the layout grammar.
+6. `docs/components.md` for semantic APIs and state matrices.
+7. `docs/recipes.md` for full-screen compositions.
+8. `docs/cli.md` for command contracts.
+9. `docs/agent-contract.md` for schema and export format.
+10. `docs/contributing.md` for contribution posture and doctrine-preserving change rules.
 
 ## Short Thesis
 

@@ -17,6 +17,7 @@ Use `docs/status.md` for the proof-backed implementation matrix.
 - `AGENTS.md` defines the repository contract for agents working here.
 - `progress.txt` is append-only project memory.
 - `crates/new-alphabet-foundation` contains the first runtime implementation of the constitutional foundation layer.
+- `docs/workbench-policy.md` defines the cross-stack default shell and density law for dense work surfaces when stack-specific flavor law is absent.
 - `docs/flavors.md` defines runtime flavors as explicit host-stack bindings for the same constitution.
 - `crates/new-alphabet-core` contains the shared schema, manifest, and validation report types used by tooling.
 - `crates/new-alphabet-primitives` contains the initial structural primitives for page shell and region geometry.

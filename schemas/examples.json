@@ -42,6 +42,27 @@
     "summary": "Native Relm4 and GTK4 workbench binding with paned shells, ColumnView discipline, and GTK CSS region law under New Alphabet law."
   },
   {
+    "id": "example.flavor.slint_workbench",
+    "layer": "flavor",
+    "target": "SlintWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Dense Slint workbench binding with layout-only shell structure, explicit sizing, and GridLayout discipline under New Alphabet law."
+  },
+  {
+    "id": "example.flavor.egui_workbench",
+    "layer": "flavor",
+    "target": "EguiWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Dense egui workbench binding with compact style installation, panel shell structure, and restrained framing under New Alphabet law."
+  },
+  {
+    "id": "example.flavor.iced_workbench",
+    "layer": "flavor",
+    "target": "IcedWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Dense Iced workbench binding with strict fill discipline, bounded pane sizing, and central-body scrolling under New Alphabet law."
+  },
+  {
     "id": "example.primitive.editorial_anchor",
     "layer": "primitive",
     "target": "EditorialAnchorExample",

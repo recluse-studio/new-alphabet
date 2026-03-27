@@ -117,6 +117,47 @@ If the host stack changes but the result stops looking severe, typographic, calm
 - hierarchy law: primary actions stay visible without scrolling, scrolling stays local to the main content region, and separators do more work than card framing
 - visual law: first builds keep the canonical New Alphabet palette strict and corners stay subtly rounded when CSS rounding is applied
 
+### `SlintWorkbench`
+
+- runtime: Slint desktop
+- use when: the surface should stay dense and work-first while Slint owns layout structure through its explicit layout system
+- stack: Slint, HorizontalLayout, VerticalLayout, GridLayout
+- shell law: use layouts for all structure and never build the shell with loose Rectangle primitives
+- sizing law: use logical px throughout, set `Window.default-font-size` explicitly, use `preferred-width` or `preferred-height` for sidebar, toolbar, and inspector, and use min or max widths when panes must stay legible
+- layout law: set spacing and padding explicitly on every structural layout and do not use percentage widths except at the top shell level
+- input law: place `TextInput` only inside constrained layouts
+- dense-panel law: prefer `GridLayout` for dense forms and metadata panels and favor `HorizontalLayout` plus `VerticalLayout` for the primary shell before inventing custom geometry
+- visual law: first builds keep the canonical New Alphabet palette strict and corners stay subtly rounded where Slint styling applies rounding
+
+### `EguiWorkbench`
+
+- runtime: egui desktop
+- use when: the surface should stay compact and work-first while egui owns the shell through panel structure and explicit style installation
+- stack: egui, `SidePanel`, `TopBottomPanel`, `CentralPanel`, `Grid`
+- startup law: emit `install_compact_style(ctx)` before any screen code
+- typography law: set `text_styles` explicitly for `Heading`, `Body`, `Button`, and `Small`
+- spacing law: set `spacing.item_spacing`, `spacing.button_padding`, `spacing.interact_size.y`, and `spacing.window_margin` explicitly
+- shell law: use `SidePanel`, `TopBottomPanel`, and `CentralPanel` for shell structure and keep scrolling inside central content only
+- framing law: avoid nested `Frame::group` calls and avoid more than one framed wrapper around routine content
+- density law: avoid `ui.add_space` values above `8.0`
+- dense-panel law: prefer `Grid` for dense label-value regions and compact form layouts
+- visual law: first builds keep the canonical New Alphabet palette strict and corners stay subtly rounded where egui styling applies rounding
+
+### `IcedWorkbench`
+
+- runtime: Iced desktop
+- use when: the surface should stay table-first and work-first while Iced owns shell structure through strict fill discipline and bounded panes
+- stack: Iced, `Length::Fill`, `Length::FillPortion`, `Scrollable`
+- fill law: `Length::Fill` is allowed only on the app root container, the main content pane, scrollable regions, and first-level split panes
+- split law: `Length::FillPortion` is allowed only on the first split between major panes
+- control law: buttons, labels, chips, form rows, and tool groups use `Shrink` or `Fixed` sizing
+- sizing law: sidebar width stays between `Fixed(232.0)` and `Fixed(260.0)`, inspector width stays between `Fixed(280.0)` and `Fixed(340.0)`, and toolbar height stays between `Fixed(34.0)` and `Fixed(38.0)`
+- spacing law: `Row` and `Column` spacing stays at or below `8` unless structurally justified, and padding stays at or below `8` outside the root shell
+- wrapper law: never nest more than two padded containers
+- scrolling law: prefer `Scrollable` only around the main body and never around the whole app
+- hierarchy law: prefer table or list rows over cards
+- visual law: first builds keep the canonical New Alphabet palette strict and corners stay subtly rounded where Iced styling applies rounding
+
 ## Anti-patterns
 
 - treating flavors as theme packs,
@@ -128,4 +169,7 @@ If the host stack changes but the result stops looking severe, typographic, calm
 - repeated banner alerts, oversized iconography, or decorative chrome that steals vertical space,
 - nested GTK box hierarchies used to fake grids or tables,
 - centered page wrappers, max-width content columns, hero headers, or giant empty banners inside desktop shells,
+- loose Rectangle shells, implicit layout spacing, or unconstrained text inputs in Slint,
+- egui screens that skip install_compact_style, depend on default spacing, or stack nested Frame::group wrappers around routine content,
+- Iced screens that use Fill on local controls, wrap Scrollable around the whole shell, or turn routine rows into cards,
 - letting a chart become the page hierarchy.
