@@ -1,5 +1,6 @@
 use crate::{
-    BorderToken, ColorToken, DensityMode, MotionToken, SpacingToken, TypeToken, body_for_density,
+    BorderToken, ColorToken, DensityMode, MotionToken, RadiusToken, SpacingToken, TypeToken,
+    body_for_density,
 };
 
 const MEDIUM_BREAKPOINT_REM: u8 = 48;
@@ -49,6 +50,7 @@ pub fn render_stylesheet() -> String {
     let border_panel_strong = BorderToken::PanelStrong.spec().width_px;
     let border_control_default = BorderToken::ControlDefault.spec().width_px;
     let border_control_focus = BorderToken::ControlFocus.spec().width_px;
+    let radius_subtle = RadiusToken::CornerSubtle.spec().value_px;
     let transition_fast = MotionToken::TransitionFast.spec().duration_ms;
     let transition_default = MotionToken::TransitionDefault.spec().duration_ms;
 
@@ -83,6 +85,7 @@ pub fn render_stylesheet() -> String {
   --na-border-panel-strong: {border_panel_strong}px;
   --na-border-control-default: {border_control_default}px;
   --na-border-control-focus: {border_control_focus}px;
+  --na-radius-subtle: {radius_subtle}px;
   --na-motion-fast: {transition_fast}ms;
   --na-motion-default: {transition_default}ms;
   --na-shadow-panel: 0 1px 0 rgba(17, 17, 17, 0.06);
@@ -220,6 +223,7 @@ img {{
 .na-inline-alert {{
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
+  border-radius: var(--na-radius-subtle);
 }}
 
 .na-panel,
@@ -421,6 +425,7 @@ img {{
   {annotation}
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  border-radius: var(--na-radius-subtle);
   transition:
     background-color var(--na-motion-fast) ease-out,
     color var(--na-motion-fast) ease-out,
@@ -517,7 +522,7 @@ img {{
   background: var(--na-canvas-elevated);
   color: var(--na-text-primary);
   font: inherit;
-  border-radius: 0;
+  border-radius: var(--na-radius-subtle);
 }}
 
 .na-checkbox label,
@@ -550,6 +555,7 @@ img {{
   padding: var(--na-space-stack-tight);
   border: 1px solid var(--na-emphasis-subtle);
   background: rgba(236, 231, 218, 0.5);
+  border-radius: var(--na-radius-subtle);
 }}
 
 .na-filter-rail__group label {{
@@ -711,6 +717,7 @@ mod tests {
         let stylesheet = render_stylesheet();
 
         assert!(stylesheet.contains("--na-canvas-base"));
+        assert!(stylesheet.contains("--na-radius-subtle"));
         assert!(stylesheet.contains(".na-page-grid"));
         assert!(stylesheet.contains(".na-panel"));
         assert!(stylesheet.contains(".na-link-action"));

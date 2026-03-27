@@ -1,5 +1,47 @@
 [
   {
+    "id": "example.flavor.leptos_ssr",
+    "layer": "flavor",
+    "target": "LeptosSsr",
+    "source_path": "docs/flavors.md",
+    "summary": "Canonical web runtime binding that keeps SSR, hydration, and recipe geometry under one law."
+  },
+  {
+    "id": "example.flavor.dioxus_desktop_workbench",
+    "layer": "flavor",
+    "target": "DioxusDesktopWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Desktop workbench binding for Dioxus, Polars, and Charton under New Alphabet law."
+  },
+  {
+    "id": "example.flavor.desktop_html_workbench",
+    "layer": "flavor",
+    "target": "DesktopHtmlWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "General desktop-shell binding for Leptos, Yew, Dioxus, or Azul when HTML and CSS semantics should still read as a dense native workbench."
+  },
+  {
+    "id": "example.flavor.floem_workbench",
+    "layer": "flavor",
+    "target": "FloemWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Dense Floem workbench binding with host-specific density and wrapper discipline under New Alphabet law."
+  },
+  {
+    "id": "example.flavor.gpui_workbench",
+    "layer": "flavor",
+    "target": "GpuiWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Dense GPUI workbench binding with structured panes, compact density, and virtualization-first lists under New Alphabet law."
+  },
+  {
+    "id": "example.flavor.relm4_workbench",
+    "layer": "flavor",
+    "target": "Relm4Workbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Native Relm4 and GTK4 workbench binding with paned shells, ColumnView discipline, and GTK CSS region law under New Alphabet law."
+  },
+  {
     "id": "example.primitive.editorial_anchor",
     "layer": "primitive",
     "target": "EditorialAnchorExample",

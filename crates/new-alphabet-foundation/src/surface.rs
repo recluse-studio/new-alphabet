@@ -151,6 +151,32 @@ impl BorderToken {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum RadiusToken {
+    CornerSubtle,
+}
+
+pub const ALL_RADIUS_TOKENS: [RadiusToken; 1] = [RadiusToken::CornerSubtle];
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct RadiusSpec {
+    pub value_px: u8,
+}
+
+impl RadiusToken {
+    pub const fn id(self) -> &'static str {
+        match self {
+            Self::CornerSubtle => "radius.corner.subtle",
+        }
+    }
+
+    pub const fn spec(self) -> RadiusSpec {
+        match self {
+            Self::CornerSubtle => RadiusSpec { value_px: 5 },
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum MotionToken {
     TransitionFast,
     TransitionDefault,

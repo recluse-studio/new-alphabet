@@ -1,15 +1,15 @@
 use new_alphabet_components::COMPONENT_ACCESSIBILITY_CHECKS;
 use new_alphabet_core::{
     AntiPattern, ComponentContract, CompositionRule, CompositionRuleKind, ContractBundle,
-    ContractOptionGroup, DoctrineSummary, FoundationFamily, FoundationToken, IntentKind, LayerKind,
-    NamedValue, PrimitiveContract, ProjectManifest, PromptIntent, PromptLevel, RecipeContract,
-    ReferenceExample, SchemaDocument, Severity, StateContract, SurfaceManifest, SurfaceRegion,
-    ValidationCategory, ValidationRule,
+    ContractOptionGroup, DoctrineSummary, FlavorContract, FoundationFamily, FoundationToken,
+    IntentKind, LayerKind, NamedValue, PrimitiveContract, ProjectManifest, PromptIntent,
+    PromptLevel, RecipeContract, ReferenceExample, SchemaDocument, Severity, StateContract,
+    SurfaceManifest, SurfaceRegion, ValidationCategory, ValidationRule,
 };
 use new_alphabet_foundation::{
     ALL_BORDER_TOKENS, ALL_BREAKPOINTS, ALL_COLOR_TOKENS, ALL_DENSITY_MODES, ALL_MOTION_TOKENS,
-    ALL_RAIL_WIDTH_TOKENS, ALL_REGION_CLASSES, ALL_SPACING_TOKENS, ALL_STATE_TOKENS,
-    ALL_TYPE_TOKENS, FOUNDATION_SPEC,
+    ALL_RAIL_WIDTH_TOKENS, ALL_RADIUS_TOKENS, ALL_REGION_CLASSES, ALL_SPACING_TOKENS,
+    ALL_STATE_TOKENS, ALL_TYPE_TOKENS, FOUNDATION_SPEC,
 };
 use serde_json::{Error, Value, json};
 
@@ -22,6 +22,7 @@ pub fn contract_bundle() -> ContractBundle {
         bundle_format_version: bundle_format_version().to_owned(),
         doctrine: doctrine_summary(),
         foundations: foundation_families(),
+        flavors: flavor_contracts(),
         primitives: primitive_contracts(),
         components: component_contracts(),
         recipes: recipe_contracts(),
@@ -34,6 +35,7 @@ pub fn contract_bundle() -> ContractBundle {
         prompt_intents: prompt_intents(),
         generation_sequence: vec![
             "Interpret user intent.".to_owned(),
+            "Choose an explicit runtime flavor when the task names a host stack or platform boundary.".to_owned(),
             "Choose a recipe or primitive composition before writing UI code.".to_owned(),
             "Select semantic components that satisfy the required states.".to_owned(),
             "Generate only valid structures and finite variants.".to_owned(),
@@ -41,6 +43,7 @@ pub fn contract_bundle() -> ContractBundle {
         ],
         repair_sequence: vec![
             "Inspect the current structure.".to_owned(),
+            "Confirm that the runtime flavor still matches the named host stack and platform.".to_owned(),
             "Identify which constitutional rule is being violated.".to_owned(),
             "Prefer narrowing or deleting invalid structure before adding new abstractions."
                 .to_owned(),
@@ -142,6 +145,7 @@ fn doctrine_summary() -> DoctrineSummary {
         ]),
         required_session_context: text_list(&[
             "foundations",
+            "flavors",
             "primitives",
             "components",
             "recipes",
@@ -310,6 +314,23 @@ fn foundation_families() -> Vec<FoundationFamily> {
                 .collect(),
         },
         FoundationFamily {
+            id: "foundation.radius".to_owned(),
+            title: "Radius".to_owned(),
+            tokens: ALL_RADIUS_TOKENS
+                .into_iter()
+                .map(|token| {
+                    let spec = token.spec();
+                    FoundationToken {
+                        id: token.id().to_owned(),
+                        description:
+                            "Corner radius stays subtle and fixed so surfaces remain severe."
+                                .to_owned(),
+                        values: vec![named_value("value_px", spec.value_px.to_string())],
+                    }
+                })
+                .collect(),
+        },
+        FoundationFamily {
             id: "foundation.motion".to_owned(),
             title: "Motion".to_owned(),
             tokens: ALL_MOTION_TOKENS
@@ -357,6 +378,217 @@ fn foundation_families() -> Vec<FoundationFamily> {
                     }
                 })
                 .collect(),
+        },
+    ]
+}
+
+fn flavor_contracts() -> Vec<FlavorContract> {
+    vec![
+        FlavorContract {
+            id: "LeptosSsr".to_owned(),
+            runtime: "Leptos SSR and hydration".to_owned(),
+            purpose:
+                "Canonical New Alphabet web runtime for editorial and workspace surfaces."
+                    .to_owned(),
+            stack: text_list(&["Leptos", "semantic HTML", "SSR", "hydration"]),
+            required_bindings: text_list(&[
+                "Leptos owns routing, shell composition, and hydration-safe state.",
+                "New Alphabet foundations emit the stylesheet and token law.",
+                "Recipes remain the first choice for surface geometry.",
+            ]),
+            laws: text_list(&[
+                "The constitution stays primary and hydration must not change layout meaning.",
+                "Semantic HTML stays visible rather than disappearing behind opaque wrappers.",
+                "First builds keep the canonical New Alphabet palette strict.",
+                "Corners use the subtle radius token instead of improvised rounding.",
+            ]),
+            anti_patterns: text_list(&[
+                "Hydration-only layout shifts.",
+                "Router chrome that displaces the primary work surface.",
+                "Runtime palette improvisation or theme-family sprawl at V0.",
+            ]),
+        },
+        FlavorContract {
+            id: "DioxusDesktopWorkbench".to_owned(),
+            runtime: "Dioxus desktop".to_owned(),
+            purpose: "Dense desktop analytics binding for table-first work surfaces with native Rust services.".to_owned(),
+            stack: text_list(&["Dioxus Desktop", "Polars", "Charton", "SVG output"]),
+            required_bindings: text_list(&[
+                "Dioxus owns the shell, pane layout, and local interaction state.",
+                "Polars owns filtering, shaping, grouping, aggregation, sorting, and export slices.",
+                "Charton owns chart grammar, scales, legends, and SVG rendering output.",
+            ]),
+            laws: text_list(&[
+                "The application is a workbench, not a dashboard mural or marketing page.",
+                "Query state is shared so table, chart, summary metrics, and inspector derive from the same Rust state.",
+                "Charts live in bounded panes and stay subordinate to the table or list.",
+                "Use left rail, central work surface, and right analysis pane before inventing new geometry.",
+                "First builds keep the canonical New Alphabet palette strict and later adjustments may only remap semantic color roles.",
+                "Corners use the subtle radius token across panes, controls, and chart containers.",
+            ]),
+            anti_patterns: text_list(&[
+                "Hand-drawn chart primitives in Dioxus when Charton can express the chart.",
+                "Full-window charts that push the primary table below the fold.",
+                "Oversized cards, welcome states, or web-marketing headers on data screens.",
+            ]),
+        },
+        FlavorContract {
+            id: "TauriWorkbench".to_owned(),
+            runtime: "Tauri shell with Leptos or Yew frontend".to_owned(),
+            purpose: "Desktop workbench binding for a thin web-style frontend and native Rust data commands.".to_owned(),
+            stack: text_list(&[
+                "Tauri",
+                "Leptos or Yew",
+                "Polars",
+                "Charton",
+                "SVG output",
+                "Vega-Lite JSON",
+            ]),
+            required_bindings: text_list(&[
+                "Tauri owns the native shell and command boundary.",
+                "The frontend owns shell layout, interaction, and direct SVG embedding.",
+                "Polars and Charton live in native Rust commands or native state rather than frontend WASM by default.",
+                "Frontend requests shaped table slices, chart SVG, and optional chart spec JSON instead of raw datasets.",
+            ]),
+            laws: text_list(&[
+                "Heavy aggregation stays in Rust and never migrates into the frontend view layer.",
+                "Use CSS grid for shell geometry with fixed sidebar width, fixed toolbar height, minmax(0, 1fr) main surface, and explicit chart-pane bounds.",
+                "Chart transport prefers SVG first, Vega-Lite JSON second, and PNG only for export or fallback.",
+                "Charts embed directly in bounded panes, preserve viewBox, use explicit compact height, and never push filters or toolbar controls below the fold.",
+                "Command boundaries stay coarse: one command for query refresh, one for chart refresh, and one for export.",
+                "The table remains the anchor surface and stays legible at 1440x900.",
+                "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token.",
+            ]),
+            anti_patterns: text_list(&[
+                "Heavy aggregation or schema shaping in frontend WASM.",
+                "Dozens of chatty Tauri command calls for one user action.",
+                "Ad hoc nested flex shells that weaken the workbench hierarchy.",
+                "Charts that dominate the window or collapse the table below the fold.",
+            ]),
+        },
+        FlavorContract {
+            id: "DesktopHtmlWorkbench".to_owned(),
+            runtime:
+                "Desktop shell with Leptos, Yew, Dioxus, or Azul using HTML and CSS layout semantics"
+                    .to_owned(),
+            purpose: "General dense desktop workbench binding for Rust UI stacks that compose the window as an application surface rather than a website.".to_owned(),
+            stack: text_list(&[
+                "Tauri",
+                "Leptos",
+                "Yew",
+                "Dioxus",
+                "Azul",
+                "HTML semantics",
+                "CSS grid or disciplined flex",
+            ]),
+            required_bindings: text_list(&[
+                "Build the shell first and treat the window as an application surface rather than a centered page.",
+                "Use a desktop shell with a left sidebar between 232 and 256, a top toolbar between 34 and 38, an optional right inspector between 280 and 320, and a central work surface that resolves to minmax(0, 1fr).",
+                "Use CSS grid or disciplined flex composition for shell geometry rather than ad hoc nested wrappers.",
+                "Keep the first viewport at 1440x900 on the actual work surface instead of on headers, banners, or decorative chrome.",
+            ]),
+            laws: text_list(&[
+                "Page titles stay at or below 20px, section titles stay between 15 and 16px, body text stays at 13px, and meta text stays at 12px.",
+                "Controls stay around 32px tall and table or list rows stay between 28 and 32px so density reads as desktop work rather than responsive marketing UI.",
+                "Use the gap scale 4, 6, 8, and 12, keep outer padding at 8, and keep panel padding at 8.",
+                "Prefer list and detail, table and detail, split panes, compact forms, sticky toolbars, sticky table headers, plain surfaces, and thin separators.",
+                "Do not use centered page wrappers, max-width content columns, hero headers, giant empty banners, oversized cards for routine content, or vertical stacks of big full-width panels.",
+                "Avoid any area below the fold caused by non-content chrome and make real working rows visible immediately at 1440x900.",
+                "Self-audit should report shell grid or pane structure, sidebar width, toolbar height, body font size, visible rows at 1440x900, and any below-the-fold loss caused by chrome.",
+                "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token.",
+            ]),
+            anti_patterns: text_list(&[
+                "Responsive marketing tropes inside a desktop window.",
+                "Giant Tailwind-like spacing, decorative gradient backgrounds, or card mosaics.",
+                "Centered empty states when data exists or nested wrappers that each add padding.",
+                "Chrome-heavy shells that push useful work below the fold.",
+            ]),
+        },
+        FlavorContract {
+            id: "FloemWorkbench".to_owned(),
+            runtime: "Floem desktop".to_owned(),
+            purpose: "Dense desktop workbench binding for Floem with disciplined stacks, wrapper restraint, and native Rust data services.".to_owned(),
+            stack: text_list(&["Floem", "Polars", "Charton", "SVG output"]),
+            required_bindings: text_list(&[
+                "Floem owns the shell through h_stack and v_stack composition rather than free layout invention.",
+                "One root style layer sets shared density and typography and child regions override it rarely.",
+                "Polars owns file reads, lazy queries, joins, filters, aggregations, table slices, and export-ready datasets.",
+                "Charton owns chart grammar, theming, axis policy, legend policy, and SVG-first output.",
+            ]),
+            laws: text_list(&[
+                "Dense shell bindings use body 13, meta 12, section title 16, page title 20, control height 32, toolbar height 36, sidebar width 240, inspector width 300, gap x 8, gap y 6, and panel padding 8.",
+                "Use container only for a real style boundary, clip boundary, or region identity and report wrapper count per major region.",
+                "Use virtual_stack for long lists and keep scrolling inside the main content region.",
+                "Rows should read as desktop rows rather than mobile cards and the first render must show real work instead of decorative empty space.",
+                "The table remains primary, the chart remains explanatory, and no chart should push the working table below the fold.",
+                "No spacing value should exceed 12 unless the separation is structurally necessary and explicitly explained.",
+                "Business aggregation never lives in the view layer and chart geometry is never hand-assembled when Charton can express it declaratively.",
+                "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token.",
+            ]),
+            anti_patterns: text_list(&[
+                "Casual container wrappers that add padding without region identity.",
+                "Marketing-card layouts, giant headers, or decorative empty regions.",
+                "Heavy aggregation or chart logic in the Floem view layer.",
+                "Global scrolling that weakens the fixed workbench shell.",
+            ]),
+        },
+        FlavorContract {
+            id: "GpuiWorkbench".to_owned(),
+            runtime: "GPUI desktop".to_owned(),
+            purpose: "Dense desktop tool binding for GPUI with disciplined pane structure, compact controls, and work-first surfaces.".to_owned(),
+            stack: text_list(&["GPUI", "Polars", "Charton", "SVG output"]),
+            required_bindings: text_list(&[
+                "GPUI owns the application shell through horizontal and vertical flex composition rather than freeform canvas behavior.",
+                "The shell keeps a fixed left navigation width, a flexible center pane, an optional fixed right inspector, and one compact top toolbar row.",
+                "Polars owns file reads, lazy queries, joins, filters, aggregations, table slices, and export-ready datasets.",
+                "Charton owns chart grammar, theming, axis policy, legend policy, and SVG-first output.",
+            ]),
+            laws: text_list(&[
+                "Default text reads around 13px, page titles stay at or below 20px, and compact controls stay around 32px tall.",
+                "Use gaps mostly 4, 6, or 8 and padding mostly 6 or 8 so density stays tight and predictable.",
+                "Scrolling lives in the content region rather than across the whole shell.",
+                "Prefer virtualized list or table components for dense datasets and report virtualization usage in self-audit.",
+                "Prefer dock and split-pane patterns for multi-surface tools and simple surfaces over card piles.",
+                "Leaf controls shrink to content or fixed compact sizes and full-size leaf widgets appear only when the leaf is the real editor or table.",
+                "The center pane must show useful content immediately at 1440x900.",
+                "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token.",
+            ]),
+            anti_patterns: text_list(&[
+                "Freeform canvas composition that weakens structured pane hierarchy.",
+                "Giant panes with one tiny child.",
+                "Repeated banner alerts, oversized iconography, or decorative chrome that steals vertical space.",
+                "Nested padding on every wrapper or giant flex children used as decorative whitespace.",
+            ]),
+        },
+        FlavorContract {
+            id: "Relm4Workbench".to_owned(),
+            runtime: "Relm4 with GTK4 and libadwaita".to_owned(),
+            purpose: "Native desktop workbench binding for Relm4 with GTK structure, compact density, and serious data surfaces.".to_owned(),
+            stack: text_list(&["Relm4", "GTK4", "libadwaita", "Polars", "Charton", "SVG output"]),
+            required_bindings: text_list(&[
+                "Use ApplicationWindow as the root shell and a compact HeaderBar or top toolbar as the primary action row.",
+                "Use Paned for two- or three-pane shells and ScrolledWindow around main content regions.",
+                "Use ListView or ColumnView for datasets, Stack or StackSwitcher for major modes, and dialogs or popovers only for secondary actions.",
+                "Polars owns file reads, lazy queries, joins, filters, aggregations, table slices, and export-ready datasets.",
+                "Charton owns chart grammar, theming, axis policy, legend policy, and SVG-first output.",
+            ]),
+            laws: text_list(&[
+                "Sidebar width-request stays between 232 and 256 and inspector width-request stays between 280 and 320.",
+                "Spacing and margins stay mostly between 6 and 8 so controls read as compact desktop controls rather than tablet controls.",
+                "Assign css-classes to all major regions and theme with GTK CSS instead of per-widget styling hacks.",
+                "Use ColumnView for multi-column data rather than nested boxes pretending to be a table.",
+                "Do not nest Box inside Box inside Box to fake grid structure and do not rely on card-heavy framing.",
+                "Dense rows ellipsize long labels, keep row height stable, and avoid unexpected wrapping.",
+                "Primary actions stay visible without scrolling and scrolling remains local to the main content region.",
+                "Use subtle borders or separators where useful and avoid giant title blocks or oversized empty states.",
+                "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token when CSS rounding is applied.",
+            ]),
+            anti_patterns: text_list(&[
+                "Nested box hierarchies used as fake tables or grids.",
+                "Wrapped row labels that expand dense list height unexpectedly.",
+                "Card-heavy framing, oversized empty states, or decorative chrome that weakens the native workbench feel.",
+                "Per-widget style hacks that bypass shared GTK CSS classes.",
+            ]),
         },
     ]
 }
@@ -1152,6 +1384,12 @@ fn schema_documents() -> Vec<SchemaDocument> {
             document: foundations_schema(),
         },
         SchemaDocument {
+            id: "new-alphabet.flavors".to_owned(),
+            title: "New Alphabet Runtime Flavors".to_owned(),
+            layer: LayerKind::Flavor,
+            document: flavors_schema(),
+        },
+        SchemaDocument {
             id: "new-alphabet.primitives".to_owned(),
             title: "New Alphabet Primitives".to_owned(),
             layer: LayerKind::Primitive,
@@ -1185,6 +1423,7 @@ fn prompt_intents() -> Vec<PromptIntent> {
             level: PromptLevel::Sparse,
             prompt: "Build me a blog for longform essays and notes using New Alphabet."
                 .to_owned(),
+            recommended_flavor: Some("LeptosSsr".to_owned()),
             recommended_recipe: "BlogIndex".to_owned(),
             plan_outline: text_list(&[
                 "Choose BlogIndex for the archive surface and ArticleShell for reading flow.",
@@ -1199,6 +1438,7 @@ fn prompt_intents() -> Vec<PromptIntent> {
             prompt:
                 "Build me a B2B admin workspace for reviewing submissions with a left rail, dense table, and right-side detail pane."
                     .to_owned(),
+            recommended_flavor: Some("LeptosSsr".to_owned()),
             recommended_recipe: "ReviewQueue".to_owned(),
             plan_outline: text_list(&[
                 "Choose ReviewQueue because the prompt names queue, action, and detail structure.",
@@ -1217,6 +1457,7 @@ fn prompt_intents() -> Vec<PromptIntent> {
             prompt:
                 "Build a dense review workspace with left navigation rail, center results table, right detail pane, persistent action strip, loading and dirty states, and a calm editorial tone."
                     .to_owned(),
+            recommended_flavor: Some("LeptosSsr".to_owned()),
             recommended_recipe: "ReviewQueue".to_owned(),
             plan_outline: text_list(&[
                 "Choose ReviewQueue because the prompt explicitly names navigation, results, detail, and action structure.",
@@ -1236,6 +1477,7 @@ fn prompt_intents() -> Vec<PromptIntent> {
             prompt:
                 "Use New Alphabet to scaffold a settings workspace with section navigation and editable panels."
                     .to_owned(),
+            recommended_flavor: Some("LeptosSsr".to_owned()),
             recommended_recipe: "SettingsWorkspace".to_owned(),
             plan_outline: text_list(&[
                 "Choose SettingsWorkspace and keep navigation in the rail and editable panels in the main region.",
@@ -1254,6 +1496,7 @@ fn prompt_intents() -> Vec<PromptIntent> {
             prompt:
                 "Explain which recipe I should use for a documentation site with article pages and archive navigation."
                     .to_owned(),
+            recommended_flavor: Some("LeptosSsr".to_owned()),
             recommended_recipe: "DocsShell".to_owned(),
             plan_outline: text_list(&[
                 "Use DocsShell for the documentation index and ArticleShell for the reading pages.",
@@ -1267,6 +1510,48 @@ fn prompt_intents() -> Vec<PromptIntent> {
 
 fn reference_examples() -> Vec<ReferenceExample> {
     vec![
+        reference_example(
+            "example.flavor.leptos_ssr",
+            LayerKind::Flavor,
+            "LeptosSsr",
+            "docs/flavors.md",
+            "Canonical web runtime binding that keeps SSR, hydration, and recipe geometry under one law.",
+        ),
+        reference_example(
+            "example.flavor.dioxus_desktop_workbench",
+            LayerKind::Flavor,
+            "DioxusDesktopWorkbench",
+            "docs/flavors.md",
+            "Desktop workbench binding for Dioxus, Polars, and Charton under New Alphabet law.",
+        ),
+        reference_example(
+            "example.flavor.desktop_html_workbench",
+            LayerKind::Flavor,
+            "DesktopHtmlWorkbench",
+            "docs/flavors.md",
+            "General desktop-shell binding for Leptos, Yew, Dioxus, or Azul when HTML and CSS semantics should still read as a dense native workbench.",
+        ),
+        reference_example(
+            "example.flavor.floem_workbench",
+            LayerKind::Flavor,
+            "FloemWorkbench",
+            "docs/flavors.md",
+            "Dense Floem workbench binding with host-specific density and wrapper discipline under New Alphabet law.",
+        ),
+        reference_example(
+            "example.flavor.gpui_workbench",
+            LayerKind::Flavor,
+            "GpuiWorkbench",
+            "docs/flavors.md",
+            "Dense GPUI workbench binding with structured panes, compact density, and virtualization-first lists under New Alphabet law.",
+        ),
+        reference_example(
+            "example.flavor.relm4_workbench",
+            LayerKind::Flavor,
+            "Relm4Workbench",
+            "docs/flavors.md",
+            "Native Relm4 and GTK4 workbench binding with paned shells, ColumnView discipline, and GTK CSS region law under New Alphabet law.",
+        ),
         reference_example(
             "example.primitive.editorial_anchor",
             LayerKind::Primitive,
@@ -1343,6 +1628,7 @@ fn contract_bundle_schema() -> Value {
             "bundle_format_version",
             "doctrine",
             "foundations",
+            "flavors",
             "primitives",
             "components",
             "recipes",
@@ -1359,6 +1645,7 @@ fn contract_bundle_schema() -> Value {
             "bundle_format_version": {"type": "string"},
             "doctrine": {"type": "object"},
             "foundations": {"type": "array"},
+            "flavors": {"type": "array"},
             "primitives": {"type": "array"},
             "components": {"type": "array"},
             "recipes": {"type": "array"},
@@ -1416,6 +1703,27 @@ fn foundations_schema() -> Value {
                     }
                 }
             }
+        }
+    })
+}
+
+fn flavors_schema() -> Value {
+    json!({
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://schemas.newalphabet.dev/flavors-0.1.0.json",
+        "title": "New Alphabet Runtime Flavors",
+        "type": "array",
+        "items": {
+            "type": "object",
+            "required": [
+                "id",
+                "runtime",
+                "purpose",
+                "stack",
+                "required_bindings",
+                "laws",
+                "anti_patterns"
+            ]
         }
     })
 }

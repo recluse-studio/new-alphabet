@@ -28,6 +28,7 @@
   --na-border-panel-strong: 2px;
   --na-border-control-default: 1px;
   --na-border-control-focus: 2px;
+  --na-radius-subtle: 5px;
   --na-motion-fast: 120ms;
   --na-motion-default: 180ms;
   --na-shadow-panel: 0 1px 0 rgba(17, 17, 17, 0.06);
@@ -171,6 +172,7 @@ img {
 .na-inline-alert {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
+  border-radius: var(--na-radius-subtle);
 }
 
 .na-panel,
@@ -392,6 +394,7 @@ img {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  border-radius: var(--na-radius-subtle);
   transition:
     background-color var(--na-motion-fast) ease-out,
     color var(--na-motion-fast) ease-out,
@@ -492,7 +495,7 @@ img {
   background: var(--na-canvas-elevated);
   color: var(--na-text-primary);
   font: inherit;
-  border-radius: 0;
+  border-radius: var(--na-radius-subtle);
 }
 
 .na-checkbox label,
@@ -527,6 +530,7 @@ img {
   padding: var(--na-space-stack-tight);
   border: 1px solid var(--na-emphasis-subtle);
   background: rgba(236, 231, 218, 0.5);
+  border-radius: var(--na-radius-subtle);
 }
 
 .na-filter-rail__group label {

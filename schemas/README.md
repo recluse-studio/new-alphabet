@@ -9,6 +9,7 @@ This directory contains the checked-in export set generated from the real New Al
 ## Split exports
 
 - `foundations.json`
+- `flavors.json`
 - `primitives.json`
 - `components.json`
 - `recipes.json`
@@ -23,6 +24,7 @@ This directory contains the checked-in export set generated from the real New Al
 
 - `contract-bundle.schema.json`
 - `foundations.schema.json`
+- `flavors.schema.json`
 - `primitives.schema.json`
 - `components.schema.json`
 - `recipes.schema.json`

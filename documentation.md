@@ -17,7 +17,7 @@ The short answer is:
 
 - New Alphabet is a strict alternative to vibe-coded web products.
 - It uses a Crouwelian design constitution rather than loose taste.
-- It is implemented as a Rust-first, Leptos-native framework.
+- It is implemented as a Rust-first framework with Leptos as the canonical proof runtime and explicit runtime flavors for other Rust UI stacks.
 - It is distributed as framework code, a CLI, and an agent-readable contract surface.
 
 ## Status
@@ -157,7 +157,7 @@ New Alphabet does not aim to:
 - imitate only Crouwel's look while ignoring his logic,
 - use AI as a source of decorative randomness,
 - ship native mobile or desktop runtimes initially,
-- build multi-framework adapters before Leptos is proven,
+- treat multiple Rust UI stacks as interchangeable without explicit flavor contracts,
 - or claim a full autonomous design agent at V0.
 
 ### Practical reading of the non-goals
@@ -174,7 +174,8 @@ For example:
 
 New Alphabet is:
 
-- a Rust-first, Leptos-native framework for web blogs, documentation sites, and web-based SaaS,
+- a Rust-first framework with Leptos as the canonical proof runtime for web blogs, documentation sites, and web-based SaaS,
+- a constitution that can bind to explicit runtime flavors without changing the aesthetic law,
 - a strict visual and compositional doctrine, not just a package of components,
 - a design grammar that can generate both editorial and operational surfaces,
 - a CLI for scaffolding, explanation, inspection, and validation,
@@ -190,6 +191,25 @@ New Alphabet is not:
 - a purely stylistic homage to mid-century modernism,
 - a "tasteful SaaS starter" with no doctrine,
 - or an excuse to let agents improvise without constraints.
+
+## Runtime Flavors
+
+New Alphabet now distinguishes between doctrine and runtime flavor.
+
+- doctrine is the invariant law,
+- runtime flavor is the host-stack binding,
+- recipe is the surface geometry,
+- runner is the executable scaffold or application entrypoint for a chosen flavor.
+
+This means the project can support Leptos, Dioxus, and other Rust UI stacks without becoming multiple design systems.
+
+The rule is strict:
+
+- flavor may change renderer, shell ownership, and native service bindings,
+- flavor may not change hierarchy, density, type law, spacing law, or the overall aesthetic,
+- first builds keep the canonical palette strict,
+- corners stay subtly rounded through the shared radius token,
+- every new stack must enter through an explicit flavor contract rather than a loose adapter.
 
 ## Anti-Vibe-Coded Position
 
@@ -1358,12 +1378,13 @@ To make the repo legible quickly, the next docs should be:
 
 1. `README.md` for quick start and thesis.
 2. `docs/foundations.md` for constitutional design rules.
-3. `docs/primitives.md` for the layout grammar.
-4. `docs/components.md` for semantic APIs and state matrices.
-5. `docs/recipes.md` for full-screen compositions.
-6. `docs/cli.md` for command contracts.
-7. `docs/agent-contract.md` for schema and export format.
-8. `docs/contributing.md` for contribution posture and doctrine-preserving change rules.
+3. `docs/flavors.md` for runtime flavor contracts.
+4. `docs/primitives.md` for the layout grammar.
+5. `docs/components.md` for semantic APIs and state matrices.
+6. `docs/recipes.md` for full-screen compositions.
+7. `docs/cli.md` for command contracts.
+8. `docs/agent-contract.md` for schema and export format.
+9. `docs/contributing.md` for contribution posture and doctrine-preserving change rules.
 
 ## Short Thesis
 

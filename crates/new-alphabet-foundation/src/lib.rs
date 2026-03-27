@@ -16,8 +16,9 @@ pub use grid::{
 pub use spacing::{ALL_SPACING_TOKENS, SpacingToken};
 pub use stylesheet::render_stylesheet;
 pub use surface::{
-    ALL_BORDER_TOKENS, ALL_COLOR_TOKENS, ALL_MOTION_TOKENS, ALL_STATE_TOKENS, BorderSpec,
-    BorderToken, ColorToken, ColorValue, MotionSpec, MotionToken, StateSpec, StateToken,
+    ALL_BORDER_TOKENS, ALL_COLOR_TOKENS, ALL_MOTION_TOKENS, ALL_RADIUS_TOKENS, ALL_STATE_TOKENS,
+    BorderSpec, BorderToken, ColorToken, ColorValue, MotionSpec, MotionToken, RadiusSpec,
+    RadiusToken, StateSpec, StateToken,
 };
 pub use typography::{
     ALL_TYPE_TOKENS, TypeStyle, TypeToken, body_for_density, table_text_for_density,
@@ -70,6 +71,7 @@ mod tests {
     #[test]
     fn state_and_motion_rules_are_explicit() {
         assert_eq!(MotionToken::ReducedNone.spec().duration_ms, 0);
+        assert_eq!(RadiusToken::CornerSubtle.spec().value_px, 5);
         assert_eq!(
             StateToken::FocusRing.spec().border,
             Some(BorderToken::ControlFocus)

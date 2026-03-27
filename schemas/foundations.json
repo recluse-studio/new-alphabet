@@ -873,6 +873,22 @@
     ]
   },
   {
+    "id": "foundation.radius",
+    "title": "Radius",
+    "tokens": [
+      {
+        "id": "radius.corner.subtle",
+        "description": "Corner radius stays subtle and fixed so surfaces remain severe.",
+        "values": [
+          {
+            "name": "value_px",
+            "value": "5"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "foundation.motion",
     "title": "Motion",
     "tokens": [

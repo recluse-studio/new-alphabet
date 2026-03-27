@@ -2,6 +2,9 @@
 
 Recipes are full-surface compositions built from foundations, primitives, and semantic components.
 
+Runtime flavor chooses the host stack.
+Recipe chooses the surface geometry.
+
 ## Editorial recipes
 
 - `BlogIndex`

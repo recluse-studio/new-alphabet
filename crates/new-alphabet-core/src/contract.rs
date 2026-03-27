@@ -5,6 +5,7 @@ use serde_json::Value;
 #[serde(rename_all = "snake_case")]
 pub enum LayerKind {
     Foundation,
+    Flavor,
     Primitive,
     Component,
     Recipe,
@@ -79,6 +80,17 @@ pub struct FoundationFamily {
     pub id: String,
     pub title: String,
     pub tokens: Vec<FoundationToken>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct FlavorContract {
+    pub id: String,
+    pub runtime: String,
+    pub purpose: String,
+    pub stack: Vec<String>,
+    pub required_bindings: Vec<String>,
+    pub laws: Vec<String>,
+    pub anti_patterns: Vec<String>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
@@ -177,6 +189,7 @@ pub struct PromptIntent {
     pub id: String,
     pub level: PromptLevel,
     pub prompt: String,
+    pub recommended_flavor: Option<String>,
     pub recommended_recipe: String,
     pub plan_outline: Vec<String>,
     pub validation_focus: Vec<String>,
@@ -187,6 +200,7 @@ pub struct ContractBundle {
     pub bundle_format_version: String,
     pub doctrine: DoctrineSummary,
     pub foundations: Vec<FoundationFamily>,
+    pub flavors: Vec<FlavorContract>,
     pub primitives: Vec<PrimitiveContract>,
     pub components: Vec<ComponentContract>,
     pub recipes: Vec<RecipeContract>,

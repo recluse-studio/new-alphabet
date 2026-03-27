@@ -143,7 +143,7 @@ fn parse_add(args: &[String]) -> Result<Command, String> {
 
 fn parse_explain(args: &[String]) -> Result<Command, String> {
     let item = args.get(2).cloned().ok_or_else(|| {
-        "explain requires a primitive, component, recipe, token, or rule id".to_owned()
+        "explain requires a flavor, primitive, component, recipe, token, or rule id".to_owned()
     })?;
     Ok(Command::Explain { item })
 }
@@ -467,6 +467,26 @@ fn explain_item(item: &str) -> Result<CommandResult, String> {
         });
     }
 
+    if let Some(flavor) = bundle
+        .flavors
+        .iter()
+        .find(|flavor| normalize(&flavor.id) == item_key)
+    {
+        return Ok(CommandResult {
+            stdout: format!(
+                "flavor {}\nruntime: {}\npurpose: {}\nstack: {}\nrequired_bindings: {}\nlaws: {}\nanti_patterns: {}",
+                flavor.id,
+                flavor.runtime,
+                flavor.purpose,
+                list_or_none(&flavor.stack),
+                list_or_none(&flavor.required_bindings),
+                list_or_none(&flavor.laws),
+                list_or_none(&flavor.anti_patterns)
+            ),
+            wrote_files: Vec::new(),
+        });
+    }
+
     if let Some(component) = bundle
         .components
         .iter()
@@ -549,7 +569,7 @@ fn explain_item(item: &str) -> Result<CommandResult, String> {
         });
     }
 
-    Err("No matching primitive, component, recipe, rule, or token was found.".to_owned())
+    Err("No matching flavor, primitive, component, recipe, rule, or token was found.".to_owned())
 }
 
 fn inspect_manifest(cwd: &Path, path: Option<&str>) -> Result<CommandResult, String> {
@@ -799,6 +819,10 @@ fn export_context(cwd: &Path, output: Option<&str>) -> Result<CommandResult, Str
 fn plan_intent(intent: &str) -> Result<CommandResult, String> {
     let best = select_prompt_intent(intent)?;
     let bundle = contract_bundle();
+    let flavor_line = best
+        .recommended_flavor
+        .as_deref()
+        .unwrap_or("none");
     let recipe = bundle
         .recipes
         .iter()
@@ -807,8 +831,9 @@ fn plan_intent(intent: &str) -> Result<CommandResult, String> {
 
     Ok(CommandResult {
         stdout: format!(
-            "plan {}\nrecipe: {}\nrequired_regions: {}\nrequired_primitives: {}\nrecommended_components: {}\nreference_examples: {}\nsteps:\n- {}\nvalidation_focus: {}",
+            "plan {}\nflavor: {}\nrecipe: {}\nrequired_regions: {}\nrequired_primitives: {}\nrecommended_components: {}\nreference_examples: {}\nsteps:\n- {}\nvalidation_focus: {}",
             best.id,
+            flavor_line,
             best.recommended_recipe,
             list_or_none(&recipe.required_regions),
             list_or_none(&recipe.primitives),
@@ -1238,6 +1263,21 @@ mod tests {
     }
 
     #[test]
+    fn explain_flavor_reports_runtime_and_law() {
+        let root = unique_test_dir("explain-flavor");
+        let result = run_from(
+            ["new-alphabet", "explain", "DioxusDesktopWorkbench"],
+            &root,
+        )
+        .expect("explain flavor");
+
+        assert!(result.stdout.contains("runtime: Dioxus desktop"));
+        assert!(result.stdout.contains("stack:"));
+        assert!(result.stdout.contains("required_bindings:"));
+        assert!(result.stdout.contains("anti_patterns:"));
+    }
+
+    #[test]
     fn inspect_reports_framework_inventory_and_rule_violations() {
         let root = unique_test_dir("inspect");
         fs::create_dir_all(&root).expect("root");
@@ -1357,6 +1397,7 @@ mod tests {
         )
         .expect("plan");
 
+        assert!(result.stdout.contains("flavor: LeptosSsr"));
         assert!(result.stdout.contains("recipe: ReviewQueue"));
         assert!(result.stdout.contains("required_regions:"));
         assert!(result.stdout.contains("recommended_components:"));
@@ -1376,6 +1417,7 @@ mod tests {
         .expect("plan");
 
         assert!(result.stdout.contains("plan prompt.review_workspace_dense"));
+        assert!(result.stdout.contains("flavor: LeptosSsr"));
         assert!(result.stdout.contains("recipe: ReviewQueue"));
         assert!(
             result

@@ -12,6 +12,7 @@
     ],
     "required_session_context": [
       "foundations",
+      "flavors",
       "primitives",
       "components",
       "recipes",
@@ -901,6 +902,22 @@
       ]
     },
     {
+      "id": "foundation.radius",
+      "title": "Radius",
+      "tokens": [
+        {
+          "id": "radius.corner.subtle",
+          "description": "Corner radius stays subtle and fixed so surfaces remain severe.",
+          "values": [
+            {
+              "name": "value_px",
+              "value": "5"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "foundation.motion",
       "title": "Motion",
       "tokens": [
@@ -1090,6 +1107,237 @@
             }
           ]
         }
+      ]
+    }
+  ],
+  "flavors": [
+    {
+      "id": "LeptosSsr",
+      "runtime": "Leptos SSR and hydration",
+      "purpose": "Canonical New Alphabet web runtime for editorial and workspace surfaces.",
+      "stack": [
+        "Leptos",
+        "semantic HTML",
+        "SSR",
+        "hydration"
+      ],
+      "required_bindings": [
+        "Leptos owns routing, shell composition, and hydration-safe state.",
+        "New Alphabet foundations emit the stylesheet and token law.",
+        "Recipes remain the first choice for surface geometry."
+      ],
+      "laws": [
+        "The constitution stays primary and hydration must not change layout meaning.",
+        "Semantic HTML stays visible rather than disappearing behind opaque wrappers.",
+        "First builds keep the canonical New Alphabet palette strict.",
+        "Corners use the subtle radius token instead of improvised rounding."
+      ],
+      "anti_patterns": [
+        "Hydration-only layout shifts.",
+        "Router chrome that displaces the primary work surface.",
+        "Runtime palette improvisation or theme-family sprawl at V0."
+      ]
+    },
+    {
+      "id": "DioxusDesktopWorkbench",
+      "runtime": "Dioxus desktop",
+      "purpose": "Dense desktop analytics binding for table-first work surfaces with native Rust services.",
+      "stack": [
+        "Dioxus Desktop",
+        "Polars",
+        "Charton",
+        "SVG output"
+      ],
+      "required_bindings": [
+        "Dioxus owns the shell, pane layout, and local interaction state.",
+        "Polars owns filtering, shaping, grouping, aggregation, sorting, and export slices.",
+        "Charton owns chart grammar, scales, legends, and SVG rendering output."
+      ],
+      "laws": [
+        "The application is a workbench, not a dashboard mural or marketing page.",
+        "Query state is shared so table, chart, summary metrics, and inspector derive from the same Rust state.",
+        "Charts live in bounded panes and stay subordinate to the table or list.",
+        "Use left rail, central work surface, and right analysis pane before inventing new geometry.",
+        "First builds keep the canonical New Alphabet palette strict and later adjustments may only remap semantic color roles.",
+        "Corners use the subtle radius token across panes, controls, and chart containers."
+      ],
+      "anti_patterns": [
+        "Hand-drawn chart primitives in Dioxus when Charton can express the chart.",
+        "Full-window charts that push the primary table below the fold.",
+        "Oversized cards, welcome states, or web-marketing headers on data screens."
+      ]
+    },
+    {
+      "id": "TauriWorkbench",
+      "runtime": "Tauri shell with Leptos or Yew frontend",
+      "purpose": "Desktop workbench binding for a thin web-style frontend and native Rust data commands.",
+      "stack": [
+        "Tauri",
+        "Leptos or Yew",
+        "Polars",
+        "Charton",
+        "SVG output",
+        "Vega-Lite JSON"
+      ],
+      "required_bindings": [
+        "Tauri owns the native shell and command boundary.",
+        "The frontend owns shell layout, interaction, and direct SVG embedding.",
+        "Polars and Charton live in native Rust commands or native state rather than frontend WASM by default.",
+        "Frontend requests shaped table slices, chart SVG, and optional chart spec JSON instead of raw datasets."
+      ],
+      "laws": [
+        "Heavy aggregation stays in Rust and never migrates into the frontend view layer.",
+        "Use CSS grid for shell geometry with fixed sidebar width, fixed toolbar height, minmax(0, 1fr) main surface, and explicit chart-pane bounds.",
+        "Chart transport prefers SVG first, Vega-Lite JSON second, and PNG only for export or fallback.",
+        "Charts embed directly in bounded panes, preserve viewBox, use explicit compact height, and never push filters or toolbar controls below the fold.",
+        "Command boundaries stay coarse: one command for query refresh, one for chart refresh, and one for export.",
+        "The table remains the anchor surface and stays legible at 1440x900.",
+        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+      ],
+      "anti_patterns": [
+        "Heavy aggregation or schema shaping in frontend WASM.",
+        "Dozens of chatty Tauri command calls for one user action.",
+        "Ad hoc nested flex shells that weaken the workbench hierarchy.",
+        "Charts that dominate the window or collapse the table below the fold."
+      ]
+    },
+    {
+      "id": "DesktopHtmlWorkbench",
+      "runtime": "Desktop shell with Leptos, Yew, Dioxus, or Azul using HTML and CSS layout semantics",
+      "purpose": "General dense desktop workbench binding for Rust UI stacks that compose the window as an application surface rather than a website.",
+      "stack": [
+        "Tauri",
+        "Leptos",
+        "Yew",
+        "Dioxus",
+        "Azul",
+        "HTML semantics",
+        "CSS grid or disciplined flex"
+      ],
+      "required_bindings": [
+        "Build the shell first and treat the window as an application surface rather than a centered page.",
+        "Use a desktop shell with a left sidebar between 232 and 256, a top toolbar between 34 and 38, an optional right inspector between 280 and 320, and a central work surface that resolves to minmax(0, 1fr).",
+        "Use CSS grid or disciplined flex composition for shell geometry rather than ad hoc nested wrappers.",
+        "Keep the first viewport at 1440x900 on the actual work surface instead of on headers, banners, or decorative chrome."
+      ],
+      "laws": [
+        "Page titles stay at or below 20px, section titles stay between 15 and 16px, body text stays at 13px, and meta text stays at 12px.",
+        "Controls stay around 32px tall and table or list rows stay between 28 and 32px so density reads as desktop work rather than responsive marketing UI.",
+        "Use the gap scale 4, 6, 8, and 12, keep outer padding at 8, and keep panel padding at 8.",
+        "Prefer list and detail, table and detail, split panes, compact forms, sticky toolbars, sticky table headers, plain surfaces, and thin separators.",
+        "Do not use centered page wrappers, max-width content columns, hero headers, giant empty banners, oversized cards for routine content, or vertical stacks of big full-width panels.",
+        "Avoid any area below the fold caused by non-content chrome and make real working rows visible immediately at 1440x900.",
+        "Self-audit should report shell grid or pane structure, sidebar width, toolbar height, body font size, visible rows at 1440x900, and any below-the-fold loss caused by chrome.",
+        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+      ],
+      "anti_patterns": [
+        "Responsive marketing tropes inside a desktop window.",
+        "Giant Tailwind-like spacing, decorative gradient backgrounds, or card mosaics.",
+        "Centered empty states when data exists or nested wrappers that each add padding.",
+        "Chrome-heavy shells that push useful work below the fold."
+      ]
+    },
+    {
+      "id": "FloemWorkbench",
+      "runtime": "Floem desktop",
+      "purpose": "Dense desktop workbench binding for Floem with disciplined stacks, wrapper restraint, and native Rust data services.",
+      "stack": [
+        "Floem",
+        "Polars",
+        "Charton",
+        "SVG output"
+      ],
+      "required_bindings": [
+        "Floem owns the shell through h_stack and v_stack composition rather than free layout invention.",
+        "One root style layer sets shared density and typography and child regions override it rarely.",
+        "Polars owns file reads, lazy queries, joins, filters, aggregations, table slices, and export-ready datasets.",
+        "Charton owns chart grammar, theming, axis policy, legend policy, and SVG-first output."
+      ],
+      "laws": [
+        "Dense shell bindings use body 13, meta 12, section title 16, page title 20, control height 32, toolbar height 36, sidebar width 240, inspector width 300, gap x 8, gap y 6, and panel padding 8.",
+        "Use container only for a real style boundary, clip boundary, or region identity and report wrapper count per major region.",
+        "Use virtual_stack for long lists and keep scrolling inside the main content region.",
+        "Rows should read as desktop rows rather than mobile cards and the first render must show real work instead of decorative empty space.",
+        "The table remains primary, the chart remains explanatory, and no chart should push the working table below the fold.",
+        "No spacing value should exceed 12 unless the separation is structurally necessary and explicitly explained.",
+        "Business aggregation never lives in the view layer and chart geometry is never hand-assembled when Charton can express it declaratively.",
+        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+      ],
+      "anti_patterns": [
+        "Casual container wrappers that add padding without region identity.",
+        "Marketing-card layouts, giant headers, or decorative empty regions.",
+        "Heavy aggregation or chart logic in the Floem view layer.",
+        "Global scrolling that weakens the fixed workbench shell."
+      ]
+    },
+    {
+      "id": "GpuiWorkbench",
+      "runtime": "GPUI desktop",
+      "purpose": "Dense desktop tool binding for GPUI with disciplined pane structure, compact controls, and work-first surfaces.",
+      "stack": [
+        "GPUI",
+        "Polars",
+        "Charton",
+        "SVG output"
+      ],
+      "required_bindings": [
+        "GPUI owns the application shell through horizontal and vertical flex composition rather than freeform canvas behavior.",
+        "The shell keeps a fixed left navigation width, a flexible center pane, an optional fixed right inspector, and one compact top toolbar row.",
+        "Polars owns file reads, lazy queries, joins, filters, aggregations, table slices, and export-ready datasets.",
+        "Charton owns chart grammar, theming, axis policy, legend policy, and SVG-first output."
+      ],
+      "laws": [
+        "Default text reads around 13px, page titles stay at or below 20px, and compact controls stay around 32px tall.",
+        "Use gaps mostly 4, 6, or 8 and padding mostly 6 or 8 so density stays tight and predictable.",
+        "Scrolling lives in the content region rather than across the whole shell.",
+        "Prefer virtualized list or table components for dense datasets and report virtualization usage in self-audit.",
+        "Prefer dock and split-pane patterns for multi-surface tools and simple surfaces over card piles.",
+        "Leaf controls shrink to content or fixed compact sizes and full-size leaf widgets appear only when the leaf is the real editor or table.",
+        "The center pane must show useful content immediately at 1440x900.",
+        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+      ],
+      "anti_patterns": [
+        "Freeform canvas composition that weakens structured pane hierarchy.",
+        "Giant panes with one tiny child.",
+        "Repeated banner alerts, oversized iconography, or decorative chrome that steals vertical space.",
+        "Nested padding on every wrapper or giant flex children used as decorative whitespace."
+      ]
+    },
+    {
+      "id": "Relm4Workbench",
+      "runtime": "Relm4 with GTK4 and libadwaita",
+      "purpose": "Native desktop workbench binding for Relm4 with GTK structure, compact density, and serious data surfaces.",
+      "stack": [
+        "Relm4",
+        "GTK4",
+        "libadwaita",
+        "Polars",
+        "Charton",
+        "SVG output"
+      ],
+      "required_bindings": [
+        "Use ApplicationWindow as the root shell and a compact HeaderBar or top toolbar as the primary action row.",
+        "Use Paned for two- or three-pane shells and ScrolledWindow around main content regions.",
+        "Use ListView or ColumnView for datasets, Stack or StackSwitcher for major modes, and dialogs or popovers only for secondary actions.",
+        "Polars owns file reads, lazy queries, joins, filters, aggregations, table slices, and export-ready datasets.",
+        "Charton owns chart grammar, theming, axis policy, legend policy, and SVG-first output."
+      ],
+      "laws": [
+        "Sidebar width-request stays between 232 and 256 and inspector width-request stays between 280 and 320.",
+        "Spacing and margins stay mostly between 6 and 8 so controls read as compact desktop controls rather than tablet controls.",
+        "Assign css-classes to all major regions and theme with GTK CSS instead of per-widget styling hacks.",
+        "Use ColumnView for multi-column data rather than nested boxes pretending to be a table.",
+        "Do not nest Box inside Box inside Box to fake grid structure and do not rely on card-heavy framing.",
+        "Dense rows ellipsize long labels, keep row height stable, and avoid unexpected wrapping.",
+        "Primary actions stay visible without scrolling and scrolling remains local to the main content region.",
+        "Use subtle borders or separators where useful and avoid giant title blocks or oversized empty states.",
+        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token when CSS rounding is applied."
+      ],
+      "anti_patterns": [
+        "Nested box hierarchies used as fake tables or grids.",
+        "Wrapped row labels that expand dense list height unexpectedly.",
+        "Card-heavy framing, oversized empty states, or decorative chrome that weakens the native workbench feel.",
+        "Per-widget style hacks that bypass shared GTK CSS classes."
       ]
     }
   ],
@@ -2498,6 +2746,9 @@
           "examples": {
             "type": "array"
           },
+          "flavors": {
+            "type": "array"
+          },
           "foundations": {
             "type": "array"
           },
@@ -2536,6 +2787,7 @@
           "bundle_format_version",
           "doctrine",
           "foundations",
+          "flavors",
           "primitives",
           "components",
           "recipes",
@@ -2613,6 +2865,29 @@
           "type": "object"
         },
         "title": "New Alphabet Foundations",
+        "type": "array"
+      }
+    },
+    {
+      "id": "new-alphabet.flavors",
+      "title": "New Alphabet Runtime Flavors",
+      "layer": "flavor",
+      "document": {
+        "$id": "https://schemas.newalphabet.dev/flavors-0.1.0.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "items": {
+          "required": [
+            "id",
+            "runtime",
+            "purpose",
+            "stack",
+            "required_bindings",
+            "laws",
+            "anti_patterns"
+          ],
+          "type": "object"
+        },
+        "title": "New Alphabet Runtime Flavors",
         "type": "array"
       }
     },
@@ -2734,6 +3009,48 @@
   ],
   "examples": [
     {
+      "id": "example.flavor.leptos_ssr",
+      "layer": "flavor",
+      "target": "LeptosSsr",
+      "source_path": "docs/flavors.md",
+      "summary": "Canonical web runtime binding that keeps SSR, hydration, and recipe geometry under one law."
+    },
+    {
+      "id": "example.flavor.dioxus_desktop_workbench",
+      "layer": "flavor",
+      "target": "DioxusDesktopWorkbench",
+      "source_path": "docs/flavors.md",
+      "summary": "Desktop workbench binding for Dioxus, Polars, and Charton under New Alphabet law."
+    },
+    {
+      "id": "example.flavor.desktop_html_workbench",
+      "layer": "flavor",
+      "target": "DesktopHtmlWorkbench",
+      "source_path": "docs/flavors.md",
+      "summary": "General desktop-shell binding for Leptos, Yew, Dioxus, or Azul when HTML and CSS semantics should still read as a dense native workbench."
+    },
+    {
+      "id": "example.flavor.floem_workbench",
+      "layer": "flavor",
+      "target": "FloemWorkbench",
+      "source_path": "docs/flavors.md",
+      "summary": "Dense Floem workbench binding with host-specific density and wrapper discipline under New Alphabet law."
+    },
+    {
+      "id": "example.flavor.gpui_workbench",
+      "layer": "flavor",
+      "target": "GpuiWorkbench",
+      "source_path": "docs/flavors.md",
+      "summary": "Dense GPUI workbench binding with structured panes, compact density, and virtualization-first lists under New Alphabet law."
+    },
+    {
+      "id": "example.flavor.relm4_workbench",
+      "layer": "flavor",
+      "target": "Relm4Workbench",
+      "source_path": "docs/flavors.md",
+      "summary": "Native Relm4 and GTK4 workbench binding with paned shells, ColumnView discipline, and GTK CSS region law under New Alphabet law."
+    },
+    {
       "id": "example.primitive.editorial_anchor",
       "layer": "primitive",
       "target": "EditorialAnchorExample",
@@ -2802,6 +3119,7 @@
       "id": "prompt.blog",
       "level": "sparse",
       "prompt": "Build me a blog for longform essays and notes using New Alphabet.",
+      "recommended_flavor": "LeptosSsr",
       "recommended_recipe": "BlogIndex",
       "plan_outline": [
         "Choose BlogIndex for the archive surface and ArticleShell for reading flow.",
@@ -2818,6 +3136,7 @@
       "id": "prompt.review_workspace",
       "level": "moderate",
       "prompt": "Build me a B2B admin workspace for reviewing submissions with a left rail, dense table, and right-side detail pane.",
+      "recommended_flavor": "LeptosSsr",
       "recommended_recipe": "ReviewQueue",
       "plan_outline": [
         "Choose ReviewQueue because the prompt names queue, action, and detail structure.",
@@ -2834,6 +3153,7 @@
       "id": "prompt.review_workspace_dense",
       "level": "high",
       "prompt": "Build a dense review workspace with left navigation rail, center results table, right detail pane, persistent action strip, loading and dirty states, and a calm editorial tone.",
+      "recommended_flavor": "LeptosSsr",
       "recommended_recipe": "ReviewQueue",
       "plan_outline": [
         "Choose ReviewQueue because the prompt explicitly names navigation, results, detail, and action structure.",
@@ -2851,6 +3171,7 @@
       "id": "prompt.settings",
       "level": "high",
       "prompt": "Use New Alphabet to scaffold a settings workspace with section navigation and editable panels.",
+      "recommended_flavor": "LeptosSsr",
       "recommended_recipe": "SettingsWorkspace",
       "plan_outline": [
         "Choose SettingsWorkspace and keep navigation in the rail and editable panels in the main region.",
@@ -2867,6 +3188,7 @@
       "id": "prompt.docs",
       "level": "moderate",
       "prompt": "Explain which recipe I should use for a documentation site with article pages and archive navigation.",
+      "recommended_flavor": "LeptosSsr",
       "recommended_recipe": "DocsShell",
       "plan_outline": [
         "Use DocsShell for the documentation index and ArticleShell for the reading pages.",
@@ -2881,6 +3203,7 @@
   ],
   "generation_sequence": [
     "Interpret user intent.",
+    "Choose an explicit runtime flavor when the task names a host stack or platform boundary.",
     "Choose a recipe or primitive composition before writing UI code.",
     "Select semantic components that satisfy the required states.",
     "Generate only valid structures and finite variants.",
@@ -2888,6 +3211,7 @@
   ],
   "repair_sequence": [
     "Inspect the current structure.",
+    "Confirm that the runtime flavor still matches the named host stack and platform.",
     "Identify which constitutional rule is being violated.",
     "Prefer narrowing or deleting invalid structure before adding new abstractions.",
     "Re-validate after repair."

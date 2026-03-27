@@ -20,6 +20,9 @@
     "examples": {
       "type": "array"
     },
+    "flavors": {
+      "type": "array"
+    },
     "foundations": {
       "type": "array"
     },
@@ -58,6 +61,7 @@
     "bundle_format_version",
     "doctrine",
     "foundations",
+    "flavors",
     "primitives",
     "components",
     "recipes",

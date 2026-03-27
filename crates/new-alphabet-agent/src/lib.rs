@@ -26,6 +26,7 @@ pub const REQUIRED_SESSION_FILES: &[&str] = &[
 
 pub const BUILD_DOCS: &[&str] = &[
     "docs/foundations.md",
+    "docs/flavors.md",
     "docs/primitives.md",
     "docs/components.md",
     "docs/recipes.md",
@@ -37,12 +38,14 @@ pub const VALIDATION_DOCS: &[&str] = &[
     "docs/cli.md",
     "docs/agent-contract.md",
     "docs/foundations.md",
+    "docs/flavors.md",
     "docs/components.md",
     "docs/recipes.md",
 ];
 
 pub const EXPLAIN_DOCS: &[&str] = &[
     "docs/foundations.md",
+    "docs/flavors.md",
     "docs/primitives.md",
     "docs/components.md",
     "docs/recipes.md",
@@ -101,6 +104,7 @@ mod tests {
         let bootstrap = bootstrap_for(AgentTaskKind::BuildSurface);
 
         assert_eq!(bootstrap.required_files, REQUIRED_SESSION_FILES);
+        assert!(bootstrap.targeted_docs.contains(&"docs/flavors.md"));
         assert!(bootstrap.targeted_docs.contains(&"docs/recipes.md"));
         assert!(bootstrap.targeted_docs.contains(&"docs/components.md"));
     }
@@ -123,6 +127,7 @@ mod tests {
         let bootstrap = session_bootstrap_text();
 
         assert!(bootstrap.contains("schemas/context-bundle-0.1.0.json"));
+        assert!(bootstrap.contains("Choose an explicit runtime flavor"));
         assert!(bootstrap.contains("Choose an existing recipe or allowed primitive composition"));
     }
 }

@@ -24,14 +24,24 @@ mod tests {
 
         assert_eq!(bundle.bundle_format_version, "0.1.0");
         assert!(!bundle.foundations.is_empty());
+        assert!(!bundle.flavors.is_empty());
         assert!(!bundle.primitives.is_empty());
         assert!(!bundle.components.is_empty());
         assert!(!bundle.recipes.is_empty());
         assert!(
             bundle
+                .flavors
+                .iter()
+                .any(|flavor| flavor.id == "DioxusDesktopWorkbench")
+        );
+        assert!(
+            bundle
                 .prompt_intents
                 .iter()
-                .any(|prompt| prompt.recommended_recipe == "BlogIndex")
+                .any(|prompt| {
+                    prompt.recommended_recipe == "BlogIndex"
+                        && prompt.recommended_flavor.as_deref() == Some("LeptosSsr")
+                })
         );
         assert!(
             bundle

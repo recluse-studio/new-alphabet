@@ -97,3 +97,10 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-16 | DECISION | cli | Public CLI documentation now states current syntax, writes, exit behavior, limits, and failure cases instead of aspirational command behavior.
 2026-03-16 | DECISION | agent contract | Added a practical agent quickstart so session-start context, prompt use, recipe choice, and validation loops are explicit and minimal.
 2026-03-24 | DECISION | repository | macOS Finder metadata is ignored so working-tree noise does not pollute canonical commits.
+2026-03-27 | DISCOVERY | flavors | The correct language for multi-stack New Alphabet support is runtime flavor, which binds a host Rust UI stack without changing the constitution.
+2026-03-27 | DECISION | foundations | Surfaces and controls now use one subtle 5px corner-radius token while first-build palette choices remain strict by semantic role.
+2026-03-27 | DECISION | flavors | TauriWorkbench binds Tauri shell, Leptos or Yew frontend layout, and native Rust Polars and Charton commands without moving heavy data work into WASM.
+2026-03-27 | DECISION | flavors | FloemWorkbench binds Floem stack composition, host-specific dense measurements, wrapper restraint, and native Rust Polars and Charton ownership under the same New Alphabet law.
+2026-03-27 | DECISION | flavors | GpuiWorkbench binds GPUI pane structure, compact density, virtualization-first dense lists, and work-first center content under the same New Alphabet law.
+2026-03-27 | DECISION | flavors | Relm4Workbench binds ApplicationWindow, Paned shells, ColumnView discipline, GTK CSS region law, and compact native densities under the same New Alphabet law.
+2026-03-27 | DECISION | flavors | DesktopHtmlWorkbench binds desktop-shell HTML and CSS semantics for Leptos, Yew, Dioxus, and Azul without allowing website chrome, centered wrappers, or loose spacing to weaken the workbench law.

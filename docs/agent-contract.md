@@ -10,6 +10,7 @@ Use `docs/agent-quickstart.md` for the minimum session-start workflow.
 
 - `doctrine`
 - `foundations`
+- `flavors`
 - `primitives`
 - `components`
 - `recipes`
@@ -29,6 +30,7 @@ The current schema crate exports documents for:
 
 - the full contract bundle,
 - foundations,
+- runtime flavors,
 - primitives,
 - components,
 - recipes,
@@ -38,6 +40,7 @@ The checked-in export set lives in `schemas/` and currently includes:
 
 - `context-bundle-0.1.0.json`
 - `foundations.json`
+- `flavors.json`
 - `primitives.json`
 - `components.json`
 - `recipes.json`
@@ -57,6 +60,7 @@ The checked-in export set lives in `schemas/` and currently includes:
 
 ## Prompt and repair model
 
+- generation chooses an explicit runtime flavor when the task names a host stack or platform boundary,
 - generation chooses a recipe or allowed primitive composition before writing UI code,
 - prompt intents remain finite and tied to real recipes,
 - repair prefers deleting invalid structure before adding abstraction,
@@ -73,6 +77,7 @@ The checked-in export set lives in `schemas/` and currently includes:
 Load targeted layer docs only when the task touches that layer:
 
 - `docs/foundations.md`
+- `docs/flavors.md`
 - `docs/primitives.md`
 - `docs/components.md`
 - `docs/recipes.md`

@@ -1,0 +1,18 @@
+{
+  "$id": "https://schemas.newalphabet.dev/flavors-0.1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "items": {
+    "required": [
+      "id",
+      "runtime",
+      "purpose",
+      "stack",
+      "required_bindings",
+      "laws",
+      "anti_patterns"
+    ],
+    "type": "object"
+  },
+  "title": "New Alphabet Runtime Flavors",
+  "type": "array"
+}

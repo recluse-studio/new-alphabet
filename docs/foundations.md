@@ -13,6 +13,7 @@ The foundation layer fixes:
 - density modes,
 - color roles,
 - border rules,
+- radius rules,
 - motion rules,
 - and state tokens.
 
@@ -42,7 +43,9 @@ These contracts live in `crates/new-alphabet-foundation`.
 ## Surface language
 
 - color roles are semantic and finite,
+- first builds keep the canonical palette strict,
 - border weight carries hierarchy,
+- corner radius stays subtle and token-driven,
 - motion is short and reduced-motion aware,
 - global state tokens stay explicit.
 

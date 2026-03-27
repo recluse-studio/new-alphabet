@@ -3,6 +3,7 @@
     "id": "prompt.blog",
     "level": "sparse",
     "prompt": "Build me a blog for longform essays and notes using New Alphabet.",
+    "recommended_flavor": "LeptosSsr",
     "recommended_recipe": "BlogIndex",
     "plan_outline": [
       "Choose BlogIndex for the archive surface and ArticleShell for reading flow.",
@@ -19,6 +20,7 @@
     "id": "prompt.review_workspace",
     "level": "moderate",
     "prompt": "Build me a B2B admin workspace for reviewing submissions with a left rail, dense table, and right-side detail pane.",
+    "recommended_flavor": "LeptosSsr",
     "recommended_recipe": "ReviewQueue",
     "plan_outline": [
       "Choose ReviewQueue because the prompt names queue, action, and detail structure.",
@@ -35,6 +37,7 @@
     "id": "prompt.review_workspace_dense",
     "level": "high",
     "prompt": "Build a dense review workspace with left navigation rail, center results table, right detail pane, persistent action strip, loading and dirty states, and a calm editorial tone.",
+    "recommended_flavor": "LeptosSsr",
     "recommended_recipe": "ReviewQueue",
     "plan_outline": [
       "Choose ReviewQueue because the prompt explicitly names navigation, results, detail, and action structure.",
@@ -52,6 +55,7 @@
     "id": "prompt.settings",
     "level": "high",
     "prompt": "Use New Alphabet to scaffold a settings workspace with section navigation and editable panels.",
+    "recommended_flavor": "LeptosSsr",
     "recommended_recipe": "SettingsWorkspace",
     "plan_outline": [
       "Choose SettingsWorkspace and keep navigation in the rail and editable panels in the main region.",
@@ -68,6 +72,7 @@
     "id": "prompt.docs",
     "level": "moderate",
     "prompt": "Explain which recipe I should use for a documentation site with article pages and archive navigation.",
+    "recommended_flavor": "LeptosSsr",
     "recommended_recipe": "DocsShell",
     "plan_outline": [
       "Use DocsShell for the documentation index and ArticleShell for the reading pages.",
