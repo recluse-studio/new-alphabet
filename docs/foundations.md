@@ -45,7 +45,7 @@ These contracts live in `crates/new-alphabet-foundation`.
 - color roles are semantic and finite,
 - first builds keep the canonical palette strict,
 - border weight carries hierarchy,
-- corner radius stays subtle and token-driven,
+- entity corners stay subtle and token-driven while the background grid remains sharp,
 - motion is short and reduced-motion aware,
 - global state tokens stay explicit.
 

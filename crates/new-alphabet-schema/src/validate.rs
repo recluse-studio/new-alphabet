@@ -2,11 +2,14 @@ use std::collections::BTreeSet;
 
 use new_alphabet_components::COMPONENT_ACCESSIBILITY_CHECKS;
 use new_alphabet_core::{
-    ProjectManifest, Severity, SurfaceManifest, ValidationCategory, ValidationMessage,
-    ValidationReport,
+    FlavorContract, ProjectManifest, Severity, SurfaceManifest, ValidationCategory,
+    ValidationMessage, ValidationReport,
 };
 
-use crate::bundle_format_version;
+use crate::{bundle_format_version, contract_bundle};
+
+const FLAVORS_DOC: &str = include_str!("../../../docs/flavors.md");
+const WORKBENCH_POLICY_DOC: &str = include_str!("../../../docs/workbench-policy.md");
 
 pub fn validate_manifest(manifest: &ProjectManifest) -> ValidationReport {
     let mut report = ValidationReport::new();
@@ -33,6 +36,31 @@ pub fn validate_manifest(manifest: &ProjectManifest) -> ValidationReport {
     report
 }
 
+pub fn lint_contract_bundle() -> ValidationReport {
+    let mut report = ValidationReport::new();
+    let bundle = contract_bundle();
+
+    validate_flavor_boundaries(&bundle.flavors, &mut report);
+    validate_flavor_law_precision(&bundle.flavors, &mut report);
+    validate_workbench_flavor_shell_mapping(&bundle.flavors, &mut report);
+    validate_doc_precision("docs/flavors.md", FLAVORS_DOC, &mut report);
+    validate_doc_precision(
+        "docs/workbench-policy.md",
+        WORKBENCH_POLICY_DOC,
+        &mut report,
+    );
+    validate_workbench_policy_structure(WORKBENCH_POLICY_DOC, &mut report);
+    validate_workbench_policy_bans(WORKBENCH_POLICY_DOC, &mut report);
+    validate_corner_rule_language("docs/flavors.md", FLAVORS_DOC, &mut report);
+    validate_corner_rule_language(
+        "docs/workbench-policy.md",
+        WORKBENCH_POLICY_DOC,
+        &mut report,
+    );
+
+    report
+}
+
 fn validate_surface(surface: &SurfaceManifest, report: &mut ValidationReport) {
     let before = report.messages.len();
 
@@ -55,6 +83,188 @@ fn validate_surface(surface: &SurfaceManifest, report: &mut ValidationReport) {
             ),
         ));
     }
+}
+
+fn validate_flavor_boundaries(flavors: &[FlavorContract], report: &mut ValidationReport) {
+    for flavor in flavors {
+        if matches!(
+            flavor.id.as_str(),
+            "DesktopHtmlWorkbench" | "TauriWorkbench"
+        ) {
+            report.push(message(
+                "V-010",
+                Severity::Error,
+                ValidationCategory::Composition,
+                flavor.id.as_str(),
+                format!(
+                    "{} is a broad runtime bucket rather than an explicit host boundary.",
+                    flavor.id
+                ),
+                "Split the bucket into concrete runtime bindings or move the cross-stack law into the workbench policy.",
+            ));
+        }
+    }
+}
+
+fn validate_flavor_law_precision(flavors: &[FlavorContract], report: &mut ValidationReport) {
+    for flavor in flavors {
+        for clause in flavor.required_bindings.iter().chain(flavor.laws.iter()) {
+            if let Some(phrase) = approximate_phrase(clause) {
+                report.push(message(
+                    "V-011",
+                    Severity::Error,
+                    ValidationCategory::Composition,
+                    flavor.id.as_str(),
+                    format!(
+                        "{} uses approximate normative language (`{}`), which weakens exact token and shell law.",
+                        flavor.id, phrase
+                    ),
+                    "Replace the vague clause with an exact default or add a host-specific tolerance explanation.",
+                ));
+            }
+        }
+    }
+}
+
+fn validate_workbench_flavor_shell_mapping(
+    flavors: &[FlavorContract],
+    report: &mut ValidationReport,
+) {
+    for flavor in flavors
+        .iter()
+        .filter(|flavor| flavor.id.ends_with("Workbench"))
+    {
+        let joined = flavor
+            .required_bindings
+            .iter()
+            .chain(flavor.laws.iter())
+            .map(|line| line.to_ascii_lowercase())
+            .collect::<Vec<_>>()
+            .join(" ");
+
+        let has_shell_term = joined.contains("shell");
+        let has_region_term = [
+            "rail",
+            "sidebar",
+            "toolbar",
+            "pane",
+            "panel",
+            "main surface",
+            "main content",
+            "center pane",
+            "inspector",
+            "detail",
+            "sidepanel",
+            "centralpanel",
+            "topbottompanel",
+            "paned",
+        ]
+        .iter()
+        .any(|term| joined.contains(term));
+
+        if !has_shell_term || !has_region_term {
+            report.push(message(
+                "V-010",
+                Severity::Error,
+                ValidationCategory::Composition,
+                flavor.id.as_str(),
+                format!(
+                    "{} does not map its workbench shell back to explicit region structure strongly enough.",
+                    flavor.id
+                ),
+                "State shell ownership first and bind the workbench to explicit rails, panes, toolbar bands, or inspector regions.",
+            ));
+        }
+    }
+}
+
+fn validate_doc_precision(target: &str, content: &str, report: &mut ValidationReport) {
+    for (index, line) in content.lines().enumerate() {
+        let Some(phrase) = approximate_phrase(line) else {
+            continue;
+        };
+
+        report.push(message(
+            "V-011",
+            Severity::Error,
+            ValidationCategory::Composition,
+            &format!("{target}:{}", index + 1),
+            format!(
+                "{target} uses approximate normative language (`{}`), which weakens exact workbench law.",
+                phrase
+            ),
+            "Replace the vague wording with an exact default or explain the host-forced tolerance explicitly.",
+        ));
+    }
+}
+
+fn validate_workbench_policy_structure(content: &str, report: &mut ValidationReport) {
+    for heading in [
+        "## Grid and region law",
+        "## Chrome budget",
+        "## Acceptance criteria",
+    ] {
+        if !content.contains(heading) {
+            report.push(message(
+                "V-012",
+                Severity::Error,
+                ValidationCategory::Composition,
+                "docs/workbench-policy.md",
+                format!(
+                    "docs/workbench-policy.md is missing the required `{heading}` section."
+                ),
+                "Restore the missing section so grid law, chrome budget, and acceptance criteria remain explicit.",
+            ));
+        }
+    }
+}
+
+fn validate_workbench_policy_bans(content: &str, report: &mut ValidationReport) {
+    let required_bans = [
+        "hero headers",
+        "welcome banners",
+        "dashboard-card mosaics",
+        "decorative gradients",
+        "nested containers that each add padding",
+    ];
+
+    for term in required_bans {
+        if !content.contains(term) {
+            report.push(message(
+                "V-012",
+                Severity::Error,
+                ValidationCategory::AntiPatternUsage,
+                "docs/workbench-policy.md",
+                format!(
+                    "docs/workbench-policy.md no longer bans `{term}`, so chrome drift is under-specified."
+                ),
+                "Restore the missing anti-pattern ban so routine work surfaces stay severe and quiet.",
+            ));
+        }
+    }
+}
+
+fn validate_corner_rule_language(target: &str, content: &str, report: &mut ValidationReport) {
+    let lowered = content.to_ascii_lowercase();
+    let mentions_entity_rounding =
+        lowered.contains("entity surfaces and controls use the subtle radius token");
+    let mentions_sharp_background = lowered.contains("background grid remains sharp")
+        || lowered.contains("background grid stays sharp");
+
+    if mentions_entity_rounding && mentions_sharp_background {
+        return;
+    }
+
+    report.push(message(
+        "V-012",
+        Severity::Error,
+        ValidationCategory::Composition,
+        target,
+        format!(
+            "{target} does not preserve the corner law that keeps the background grid sharp while entity surfaces stay subtly rounded."
+        ),
+        "State the corner split explicitly so entity rounding never bleeds into the background grid.",
+    ));
 }
 
 fn validate_inventory(surface: &SurfaceManifest, report: &mut ValidationReport) {
@@ -586,6 +796,41 @@ fn decorative_terms() -> &'static [&'static str] {
     &[
         "vibe", "magic", "sparkle", "cute", "ornament", "mood", "delight",
     ]
+}
+
+fn approximate_phrase(line: &str) -> Option<&'static str> {
+    let lowered = line.to_ascii_lowercase();
+
+    if lowered.contains("mostly") {
+        return Some("mostly");
+    }
+
+    if lowered.contains("usually") {
+        return Some("usually");
+    }
+
+    if contains_approximate_number_phrase(&lowered, "around") {
+        return Some("around");
+    }
+
+    if contains_approximate_number_phrase(&lowered, "about") {
+        return Some("about");
+    }
+
+    None
+}
+
+fn contains_approximate_number_phrase(line: &str, keyword: &str) -> bool {
+    let pattern = format!("{keyword} ");
+    let Some(index) = line.find(&pattern) else {
+        return false;
+    };
+
+    line[index + pattern.len()..]
+        .chars()
+        .skip_while(|character| character.is_ascii_whitespace())
+        .next()
+        .is_some_and(|character| character.is_ascii_digit())
 }
 
 fn message(

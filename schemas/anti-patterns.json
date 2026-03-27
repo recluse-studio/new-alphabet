@@ -64,5 +64,17 @@
     "title": "Implementation drift",
     "summary": "Recipes, primitives, and components outside the published inventory bypass the constitutional system.",
     "repair": "Return to the published inventory or expand the doctrine explicitly before generating more structure."
+  },
+  {
+    "id": "AP-012",
+    "title": "Broad flavor bucket",
+    "summary": "A runtime flavor that hides multiple unrelated host stacks weakens explicit host binding and turns policy into taste.",
+    "repair": "Split the bucket into concrete host bindings or move the guidance into workbench policy."
+  },
+  {
+    "id": "AP-013",
+    "title": "Workbench chrome drift",
+    "summary": "Dense product work that grows hero chrome, card mosaics, decorative gradients, or wrapper pyramids abandons the workbench law.",
+    "repair": "Return the surface to rows, panes, dividers, compact controls, and explicit region hierarchy."
   }
 ]

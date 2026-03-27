@@ -7,7 +7,7 @@ pub use catalog::{
     bundle_format_version, contract_bundle, example_project_manifest, serialize_bundle_pretty,
     serialize_manifest_pretty,
 };
-pub use validate::validate_manifest;
+pub use validate::{lint_contract_bundle, validate_manifest};
 
 #[cfg(test)]
 mod tests {
@@ -36,13 +36,26 @@ mod tests {
         );
         assert!(
             bundle
-                .prompt_intents
+                .flavors
                 .iter()
-                .any(|prompt| {
-                    prompt.recommended_recipe == "BlogIndex"
-                        && prompt.recommended_flavor.as_deref() == Some("LeptosSsr")
-                })
+                .any(|flavor| flavor.id == "TauriLeptosWorkbench")
         );
+        assert!(
+            bundle
+                .flavors
+                .iter()
+                .any(|flavor| flavor.id == "TauriYewWorkbench")
+        );
+        assert!(
+            bundle
+                .flavors
+                .iter()
+                .all(|flavor| flavor.id != "DesktopHtmlWorkbench" && flavor.id != "TauriWorkbench")
+        );
+        assert!(bundle.prompt_intents.iter().any(|prompt| {
+            prompt.recommended_recipe == "BlogIndex"
+                && prompt.recommended_flavor.as_deref() == Some("LeptosSsr")
+        }));
         assert!(
             bundle
                 .validation_rules
@@ -57,9 +70,39 @@ mod tests {
         );
         assert!(
             bundle
+                .anti_patterns
+                .iter()
+                .any(|pattern| pattern.id == "AP-012")
+        );
+        assert!(
+            bundle
+                .anti_patterns
+                .iter()
+                .any(|pattern| pattern.id == "AP-013")
+        );
+        assert!(
+            bundle
                 .validation_rules
                 .iter()
                 .any(|rule| rule.id == "V-009" && rule.default_severity == Severity::Error)
+        );
+        assert!(
+            bundle
+                .validation_rules
+                .iter()
+                .any(|rule| rule.id == "V-010" && rule.default_severity == Severity::Error)
+        );
+        assert!(
+            bundle
+                .validation_rules
+                .iter()
+                .any(|rule| rule.id == "V-011" && rule.default_severity == Severity::Error)
+        );
+        assert!(
+            bundle
+                .validation_rules
+                .iter()
+                .any(|rule| rule.id == "V-012" && rule.default_severity == Severity::Error)
         );
         assert!(
             bundle
@@ -86,6 +129,14 @@ mod tests {
         assert_eq!(report.messages[0].rule_id, "N-001");
         assert_eq!(report.messages[0].severity, Severity::Note);
         assert_eq!(report.messages[0].repair, None);
+    }
+
+    #[test]
+    fn contract_bundle_lint_passes() {
+        let report = lint_contract_bundle();
+
+        assert!(report.valid);
+        assert!(report.messages.is_empty());
     }
 
     #[test]

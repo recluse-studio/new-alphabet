@@ -12,7 +12,8 @@ use new_alphabet_core::{
     SurfaceManifest, SurfaceRegion, ValidationMessage,
 };
 use new_alphabet_schema::{
-    bundle_format_version, contract_bundle, serialize_bundle_pretty, validate_manifest,
+    bundle_format_version, contract_bundle, lint_contract_bundle, serialize_bundle_pretty,
+    validate_manifest,
 };
 
 use crate::templates::{
@@ -48,6 +49,7 @@ enum Command {
     Validate {
         path: Option<String>,
     },
+    LintContract,
     Generate {
         prompt: String,
         path: Option<String>,
@@ -87,6 +89,7 @@ fn parse_command(args: &[String]) -> Result<Command, String> {
             path: args.get(2).cloned(),
         }),
         "validate" => parse_validate(args),
+        "lint-contract" => Ok(Command::LintContract),
         "generate" => parse_generate(args),
         "render" => parse_render(args),
         "export" => parse_export(args),
@@ -266,6 +269,7 @@ fn run_command(command: Command, cwd: &Path) -> Result<CommandResult, String> {
         Command::Explain { item } => explain_item(&item),
         Command::Inspect { path } => inspect_manifest(cwd, path.as_deref()),
         Command::Validate { path } => validate_project(cwd, path.as_deref()),
+        Command::LintContract => lint_contract(),
         Command::Generate { prompt, path, name } => {
             generate_site_project(cwd, &prompt, path.as_deref(), name.as_deref())
         }
@@ -724,6 +728,26 @@ fn validate_project(cwd: &Path, path: Option<&str>) -> Result<CommandResult, Str
     })
 }
 
+fn lint_contract() -> Result<CommandResult, String> {
+    let report = lint_contract_bundle();
+    let mut lines = report
+        .messages
+        .iter()
+        .map(format_validation_message)
+        .collect::<Vec<_>>();
+
+    if lines.is_empty() {
+        lines.push(
+            "note [validation] contract bundle conforms to the current doctrine lint.".to_owned(),
+        );
+    }
+
+    Ok(CommandResult {
+        stdout: lines.join("\n"),
+        wrote_files: Vec::new(),
+    })
+}
+
 fn generate_site_project(
     cwd: &Path,
     prompt: &str,
@@ -819,10 +843,7 @@ fn export_context(cwd: &Path, output: Option<&str>) -> Result<CommandResult, Str
 fn plan_intent(intent: &str) -> Result<CommandResult, String> {
     let best = select_prompt_intent(intent)?;
     let bundle = contract_bundle();
-    let flavor_line = best
-        .recommended_flavor
-        .as_deref()
-        .unwrap_or("none");
+    let flavor_line = best.recommended_flavor.as_deref().unwrap_or("none");
     let recipe = bundle
         .recipes
         .iter()
@@ -1140,7 +1161,7 @@ fn io_error(error: std::io::Error) -> String {
 }
 
 fn help_text() -> String {
-    "new-alphabet <command>\ncommands: init, add recipe <name>, add component <name>, explain <item>, inspect [path], validate [path], generate --prompt <intent> [--path path] [--name name], render [path], export context [--output path], plan <intent>".to_owned()
+    "new-alphabet <command>\ncommands: init, add recipe <name>, add component <name>, explain <item>, inspect [path], validate [path], lint-contract, generate --prompt <intent> [--path path] [--name name], render [path], export context [--output path], plan <intent>".to_owned()
 }
 
 #[cfg(test)]
@@ -1175,6 +1196,14 @@ mod tests {
         assert_eq!(result.stdout, "init: no file changes");
         let manifest = fs::read_to_string(root.join("new-alphabet.json")).expect("manifest");
         assert!(manifest.contains("\"project_name\": \"proof\""));
+    }
+
+    #[test]
+    fn lint_contract_passes_for_current_bundle() {
+        let root = unique_test_dir("lint-contract");
+        let result = run_from(["new-alphabet", "lint-contract"], &root).expect("lint contract");
+
+        assert!(result.stdout.contains("contract bundle conforms"));
     }
 
     #[test]
@@ -1265,11 +1294,8 @@ mod tests {
     #[test]
     fn explain_flavor_reports_runtime_and_law() {
         let root = unique_test_dir("explain-flavor");
-        let result = run_from(
-            ["new-alphabet", "explain", "DioxusDesktopWorkbench"],
-            &root,
-        )
-        .expect("explain flavor");
+        let result = run_from(["new-alphabet", "explain", "DioxusDesktopWorkbench"], &root)
+            .expect("explain flavor");
 
         assert!(result.stdout.contains("runtime: Dioxus desktop"));
         assert!(result.stdout.contains("stack:"));

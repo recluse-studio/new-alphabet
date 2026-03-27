@@ -63,6 +63,27 @@
     "repair": "Add the missing primitive scaffolding or narrow the recipe claim until the manifest matches the real structure."
   },
   {
+    "id": "V-010",
+    "category": "anti_pattern_usage",
+    "default_severity": "error",
+    "summary": "Runtime flavors must bind one concrete host boundary and must not collapse multiple unrelated runtimes into one bucket.",
+    "repair": "Split the broad flavor into concrete host bindings or move the cross-stack guidance into workbench policy."
+  },
+  {
+    "id": "V-011",
+    "category": "composition",
+    "default_severity": "error",
+    "summary": "Normative workbench and flavor law must use exact defaults unless a host boundary requires narrow, explained tolerance.",
+    "repair": "Replace approximate wording with exact law or explain the remaining tolerance as a host constraint."
+  },
+  {
+    "id": "V-012",
+    "category": "anti_pattern_usage",
+    "default_severity": "error",
+    "summary": "Workbench policy must ban hero chrome, card mosaics, decorative gradients, and wrapper pyramids explicitly.",
+    "repair": "Restore the workbench chrome budget and the explicit banned-pattern list before treating the policy as canonical."
+  },
+  {
     "id": "N-001",
     "category": "composition",
     "default_severity": "note",

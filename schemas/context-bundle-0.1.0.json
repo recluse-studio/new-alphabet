@@ -1130,7 +1130,7 @@
         "The constitution stays primary and hydration must not change layout meaning.",
         "Semantic HTML stays visible rather than disappearing behind opaque wrappers.",
         "First builds keep the canonical New Alphabet palette strict.",
-        "Corners use the subtle radius token instead of improvised rounding."
+        "Entity surfaces and controls use the subtle radius token while the background grid remains sharp."
       ],
       "anti_patterns": [
         "Hydration-only layout shifts.",
@@ -1157,9 +1157,9 @@
         "The application is a workbench, not a dashboard mural or marketing page.",
         "Query state is shared so table, chart, summary metrics, and inspector derive from the same Rust state.",
         "Charts live in bounded panes and stay subordinate to the table or list.",
-        "Use left rail, central work surface, and right analysis pane before inventing new geometry.",
+        "Use left rail, compact top controls, central work surface, and right analysis pane before inventing new geometry.",
         "First builds keep the canonical New Alphabet palette strict and later adjustments may only remap semantic color roles.",
-        "Corners use the subtle radius token across panes, controls, and chart containers."
+        "Corners use the subtle radius token across panes, controls, and chart containers while the background grid remains sharp."
       ],
       "anti_patterns": [
         "Hand-drawn chart primitives in Dioxus when Charton can express the chart.",
@@ -1168,12 +1168,12 @@
       ]
     },
     {
-      "id": "TauriWorkbench",
-      "runtime": "Tauri shell with Leptos or Yew frontend",
-      "purpose": "Desktop workbench binding for a thin web-style frontend and native Rust data commands.",
+      "id": "TauriLeptosWorkbench",
+      "runtime": "Tauri shell with Leptos frontend",
+      "purpose": "Desktop workbench binding for a Leptos frontend in Tauri with native Rust data commands.",
       "stack": [
         "Tauri",
-        "Leptos or Yew",
+        "Leptos",
         "Polars",
         "Charton",
         "SVG output",
@@ -1181,18 +1181,19 @@
       ],
       "required_bindings": [
         "Tauri owns the native shell and command boundary.",
-        "The frontend owns shell layout, interaction, and direct SVG embedding.",
-        "Polars and Charton live in native Rust commands or native state rather than frontend WASM by default.",
-        "Frontend requests shaped table slices, chart SVG, and optional chart spec JSON instead of raw datasets."
+        "Leptos owns shell layout, interaction, and direct SVG embedding.",
+        "Polars and Charton live in native Rust commands or native state rather than frontend WASM.",
+        "The frontend requests shaped table slices, chart SVG, and optional chart spec JSON instead of raw datasets."
       ],
       "laws": [
         "Heavy aggregation stays in Rust and never migrates into the frontend view layer.",
-        "Use CSS grid for shell geometry with fixed sidebar width, fixed toolbar height, minmax(0, 1fr) main surface, and explicit chart-pane bounds.",
-        "Chart transport prefers SVG first, Vega-Lite JSON second, and PNG only for export or fallback.",
+        "Use CSS grid for shell geometry with sidebar width 248, toolbar height 36, main surface minmax(0, 1fr), and inspector width 300 when the inspector is present.",
+        "Chart transport uses SVG first, Vega-Lite JSON second, and PNG only for export or fallback.",
         "Charts embed directly in bounded panes, preserve viewBox, use explicit compact height, and never push filters or toolbar controls below the fold.",
         "Command boundaries stay coarse: one command for query refresh, one for chart refresh, and one for export.",
-        "The table remains the anchor surface and stays legible at 1440x900.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+        "The table remains the anchor surface and shows real work at 1440x900.",
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp.",
+        "The Tauri shell plus Leptos frontend boundary is exact, so no additional host tolerance is required here."
       ],
       "anti_patterns": [
         "Heavy aggregation or schema shaping in frontend WASM.",
@@ -1202,39 +1203,38 @@
       ]
     },
     {
-      "id": "DesktopHtmlWorkbench",
-      "runtime": "Desktop shell with Leptos, Yew, Dioxus, or Azul using HTML and CSS layout semantics",
-      "purpose": "General dense desktop workbench binding for Rust UI stacks that compose the window as an application surface rather than a website.",
+      "id": "TauriYewWorkbench",
+      "runtime": "Tauri shell with Yew frontend",
+      "purpose": "Desktop workbench binding for a Yew frontend in Tauri with native Rust data commands.",
       "stack": [
         "Tauri",
-        "Leptos",
         "Yew",
-        "Dioxus",
-        "Azul",
-        "HTML semantics",
-        "CSS grid or disciplined flex"
+        "Polars",
+        "Charton",
+        "SVG output",
+        "Vega-Lite JSON"
       ],
       "required_bindings": [
-        "Build the shell first and treat the window as an application surface rather than a centered page.",
-        "Use a desktop shell with a left sidebar between 232 and 256, a top toolbar between 34 and 38, an optional right inspector between 280 and 320, and a central work surface that resolves to minmax(0, 1fr).",
-        "Use CSS grid or disciplined flex composition for shell geometry rather than ad hoc nested wrappers.",
-        "Keep the first viewport at 1440x900 on the actual work surface instead of on headers, banners, or decorative chrome."
+        "Tauri owns the native shell and command boundary.",
+        "Yew owns shell layout, interaction, and direct SVG embedding.",
+        "Polars and Charton live in native Rust commands or native state rather than frontend WASM.",
+        "The frontend requests shaped table slices, chart SVG, and optional chart spec JSON instead of raw datasets."
       ],
       "laws": [
-        "Page titles stay at or below 20px, section titles stay between 15 and 16px, body text stays at 13px, and meta text stays at 12px.",
-        "Controls stay around 32px tall and table or list rows stay between 28 and 32px so density reads as desktop work rather than responsive marketing UI.",
-        "Use the gap scale 4, 6, 8, and 12, keep outer padding at 8, and keep panel padding at 8.",
-        "Prefer list and detail, table and detail, split panes, compact forms, sticky toolbars, sticky table headers, plain surfaces, and thin separators.",
-        "Do not use centered page wrappers, max-width content columns, hero headers, giant empty banners, oversized cards for routine content, or vertical stacks of big full-width panels.",
-        "Avoid any area below the fold caused by non-content chrome and make real working rows visible immediately at 1440x900.",
-        "Self-audit should report shell grid or pane structure, sidebar width, toolbar height, body font size, visible rows at 1440x900, and any below-the-fold loss caused by chrome.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+        "Heavy aggregation stays in Rust and never migrates into the frontend view layer.",
+        "Use CSS grid for shell geometry with sidebar width 248, toolbar height 36, main surface minmax(0, 1fr), and inspector width 300 when the inspector is present.",
+        "Chart transport uses SVG first, Vega-Lite JSON second, and PNG only for export or fallback.",
+        "Charts embed directly in bounded panes, preserve viewBox, use explicit compact height, and never push filters or toolbar controls below the fold.",
+        "Command boundaries stay coarse: one command for query refresh, one for chart refresh, and one for export.",
+        "The table remains the anchor surface and shows real work at 1440x900.",
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp.",
+        "The Tauri shell plus Yew frontend boundary is exact, so no additional host tolerance is required here."
       ],
       "anti_patterns": [
-        "Responsive marketing tropes inside a desktop window.",
-        "Giant Tailwind-like spacing, decorative gradient backgrounds, or card mosaics.",
-        "Centered empty states when data exists or nested wrappers that each add padding.",
-        "Chrome-heavy shells that push useful work below the fold."
+        "Heavy aggregation or schema shaping in frontend WASM.",
+        "Dozens of chatty Tauri command calls for one user action.",
+        "Ad hoc nested flex shells that weaken the workbench hierarchy.",
+        "Charts that dominate the window or collapse the table below the fold."
       ]
     },
     {
@@ -1259,9 +1259,9 @@
         "Use virtual_stack for long lists and keep scrolling inside the main content region.",
         "Rows should read as desktop rows rather than mobile cards and the first render must show real work instead of decorative empty space.",
         "The table remains primary, the chart remains explanatory, and no chart should push the working table below the fold.",
-        "No spacing value should exceed 12 unless the separation is structurally necessary and explicitly explained.",
+        "Values above 12 are invalid in the default dense shell; Floem uses 8 for shell rhythm and 6 for dense vertical rhythm.",
         "Business aggregation never lives in the view layer and chart geometry is never hand-assembled when Charton can express it declaratively.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp."
       ],
       "anti_patterns": [
         "Casual container wrappers that add padding without region identity.",
@@ -1287,14 +1287,15 @@
         "Charton owns chart grammar, theming, axis policy, legend policy, and SVG-first output."
       ],
       "laws": [
-        "Default text reads around 13px, page titles stay at or below 20px, and compact controls stay around 32px tall.",
-        "Use gaps mostly 4, 6, or 8 and padding mostly 6 or 8 so density stays tight and predictable.",
+        "Default text uses 13px, page titles stay at or below 20px, and compact controls use 32px height.",
+        "GPUI uses 8 for structural padding, 8 for shell gaps, and 6 only inside dense local control groups; 4 is reserved for inline micro-spacing.",
         "Scrolling lives in the content region rather than across the whole shell.",
         "Prefer virtualized list or table components for dense datasets and report virtualization usage in self-audit.",
         "Prefer dock and split-pane patterns for multi-surface tools and simple surfaces over card piles.",
         "Leaf controls shrink to content or fixed compact sizes and full-size leaf widgets appear only when the leaf is the real editor or table.",
         "The center pane must show useful content immediately at 1440x900.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token."
+        "The 8 and 6 split exists because GPUI dock surfaces and local tool groups need two exact rhythms rather than one approximate spacing band.",
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp."
       ],
       "anti_patterns": [
         "Freeform canvas composition that weakens structured pane hierarchy.",
@@ -1324,14 +1325,15 @@
       ],
       "laws": [
         "Sidebar width-request stays between 232 and 256 and inspector width-request stays between 280 and 320.",
-        "Spacing and margins stay mostly between 6 and 8 so controls read as compact desktop controls rather than tablet controls.",
+        "GTK spacing uses 8 for shell and panel structure and 6 for dense control rhythm.",
         "Assign css-classes to all major regions and theme with GTK CSS instead of per-widget styling hacks.",
         "Use ColumnView for multi-column data rather than nested boxes pretending to be a table.",
         "Do not nest Box inside Box inside Box to fake grid structure and do not rely on card-heavy framing.",
         "Dense rows ellipsize long labels, keep row height stable, and avoid unexpected wrapping.",
         "Primary actions stay visible without scrolling and scrolling remains local to the main content region.",
         "Use subtle borders or separators where useful and avoid giant title blocks or oversized empty states.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token when CSS rounding is applied."
+        "The width-request bands remain narrow ranges because GTK and libadwaita widget metrics vary slightly across native control rendering.",
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp when CSS rounding is applied."
       ],
       "anti_patterns": [
         "Nested box hierarchies used as fake tables or grids.",
@@ -1362,7 +1364,7 @@
         "Put TextInput only inside constrained layouts so fields never float in unconstrained space.",
         "Use GridLayout for dense forms and metadata panels rather than improvised row stacks.",
         "Shell composition should read as a serious desktop workbench rather than decorative scene graph construction.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token where Slint styling applies rounding."
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp where Slint styling applies rounding."
       ],
       "anti_patterns": [
         "Loose Rectangle shells used as structural layout.",
@@ -1390,10 +1392,10 @@
       ],
       "laws": [
         "Avoid nested Frame::group calls and do not use more than one framed wrapper around routine content.",
-        "Avoid ui.add_space values above 8.0 so spacing stays disciplined and severe.",
+        "Use ui.add_space only at 4.0 or 8.0 and prefer 0.0 when layout containers already carry the rhythm.",
         "Prefer Grid for dense label-value regions and compact form layouts.",
         "Keep the shell panel-first and do not let local framed wrappers become the page hierarchy.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token where egui styling applies rounding."
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp where egui styling applies rounding."
       ],
       "anti_patterns": [
         "Screen code emitted before install_compact_style(ctx).",
@@ -1421,11 +1423,12 @@
       "laws": [
         "Sidebar width stays between Fixed(232.0) and Fixed(260.0) and inspector width stays between Fixed(280.0) and Fixed(340.0).",
         "Toolbar height stays between Fixed(34.0) and Fixed(38.0).",
-        "Row and Column spacing should not exceed 8 unless there is an explicit structural reason.",
-        "Row and Column padding should not exceed 8 outside the root shell.",
+        "Row and Column spacing uses 8 for structural rhythm and 4 only inside dense inline control groups.",
+        "Row and Column padding uses 8 outside the root shell and does not exceed 8.",
         "Never nest more than two padded containers.",
         "Prefer table or list rows over cards so routine content stays dense and legible.",
-        "First builds keep the canonical New Alphabet palette strict and corners use the subtle radius token where Iced styling applies rounding."
+        "The width bands remain narrow ranges because Iced split panes and content tables need a small tolerance band to stay legible across window states.",
+        "Corners use the subtle radius token on entity surfaces and controls while the background grid remains sharp where Iced styling applies rounding."
       ],
       "anti_patterns": [
         "Length::Fill applied to buttons, labels, chips, form rows, or local tool groups.",
@@ -2739,6 +2742,18 @@
       "title": "Implementation drift",
       "summary": "Recipes, primitives, and components outside the published inventory bypass the constitutional system.",
       "repair": "Return to the published inventory or expand the doctrine explicitly before generating more structure."
+    },
+    {
+      "id": "AP-012",
+      "title": "Broad flavor bucket",
+      "summary": "A runtime flavor that hides multiple unrelated host stacks weakens explicit host binding and turns policy into taste.",
+      "repair": "Split the bucket into concrete host bindings or move the guidance into workbench policy."
+    },
+    {
+      "id": "AP-013",
+      "title": "Workbench chrome drift",
+      "summary": "Dense product work that grows hero chrome, card mosaics, decorative gradients, or wrapper pyramids abandons the workbench law.",
+      "repair": "Return the surface to rows, panes, dividers, compact controls, and explicit region hierarchy."
     }
   ],
   "validation_rules": [
@@ -2804,6 +2819,27 @@
       "default_severity": "error",
       "summary": "Recipes must include the canonical primitive scaffolding they depend on.",
       "repair": "Add the missing primitive scaffolding or narrow the recipe claim until the manifest matches the real structure."
+    },
+    {
+      "id": "V-010",
+      "category": "anti_pattern_usage",
+      "default_severity": "error",
+      "summary": "Runtime flavors must bind one concrete host boundary and must not collapse multiple unrelated runtimes into one bucket.",
+      "repair": "Split the broad flavor into concrete host bindings or move the cross-stack guidance into workbench policy."
+    },
+    {
+      "id": "V-011",
+      "category": "composition",
+      "default_severity": "error",
+      "summary": "Normative workbench and flavor law must use exact defaults unless a host boundary requires narrow, explained tolerance.",
+      "repair": "Replace approximate wording with exact law or explain the remaining tolerance as a host constraint."
+    },
+    {
+      "id": "V-012",
+      "category": "anti_pattern_usage",
+      "default_severity": "error",
+      "summary": "Workbench policy must ban hero chrome, card mosaics, decorative gradients, and wrapper pyramids explicitly.",
+      "repair": "Restore the workbench chrome budget and the explicit banned-pattern list before treating the policy as canonical."
     },
     {
       "id": "N-001",
@@ -3117,11 +3153,18 @@
       "summary": "Desktop workbench binding for Dioxus, Polars, and Charton under New Alphabet law."
     },
     {
-      "id": "example.flavor.desktop_html_workbench",
+      "id": "example.flavor.tauri_leptos_workbench",
       "layer": "flavor",
-      "target": "DesktopHtmlWorkbench",
+      "target": "TauriLeptosWorkbench",
       "source_path": "docs/flavors.md",
-      "summary": "General desktop-shell binding for Leptos, Yew, Dioxus, or Azul when HTML and CSS semantics should still read as a dense native workbench."
+      "summary": "Tauri desktop workbench binding for a Leptos frontend with native Rust data services under New Alphabet law."
+    },
+    {
+      "id": "example.flavor.tauri_yew_workbench",
+      "layer": "flavor",
+      "target": "TauriYewWorkbench",
+      "source_path": "docs/flavors.md",
+      "summary": "Tauri desktop workbench binding for a Yew frontend with native Rust data services under New Alphabet law."
     },
     {
       "id": "example.flavor.floem_workbench",

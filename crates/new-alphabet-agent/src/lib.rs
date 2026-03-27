@@ -107,7 +107,11 @@ mod tests {
         let bootstrap = bootstrap_for(AgentTaskKind::BuildSurface);
 
         assert_eq!(bootstrap.required_files, REQUIRED_SESSION_FILES);
-        assert!(bootstrap.targeted_docs.contains(&"docs/workbench-policy.md"));
+        assert!(
+            bootstrap
+                .targeted_docs
+                .contains(&"docs/workbench-policy.md")
+        );
         assert!(bootstrap.targeted_docs.contains(&"docs/flavors.md"));
         assert!(bootstrap.targeted_docs.contains(&"docs/recipes.md"));
         assert!(bootstrap.targeted_docs.contains(&"docs/components.md"));

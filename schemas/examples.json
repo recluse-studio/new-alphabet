@@ -14,11 +14,18 @@
     "summary": "Desktop workbench binding for Dioxus, Polars, and Charton under New Alphabet law."
   },
   {
-    "id": "example.flavor.desktop_html_workbench",
+    "id": "example.flavor.tauri_leptos_workbench",
     "layer": "flavor",
-    "target": "DesktopHtmlWorkbench",
+    "target": "TauriLeptosWorkbench",
     "source_path": "docs/flavors.md",
-    "summary": "General desktop-shell binding for Leptos, Yew, Dioxus, or Azul when HTML and CSS semantics should still read as a dense native workbench."
+    "summary": "Tauri desktop workbench binding for a Leptos frontend with native Rust data services under New Alphabet law."
+  },
+  {
+    "id": "example.flavor.tauri_yew_workbench",
+    "layer": "flavor",
+    "target": "TauriYewWorkbench",
+    "source_path": "docs/flavors.md",
+    "summary": "Tauri desktop workbench binding for a Yew frontend with native Rust data services under New Alphabet law."
   },
   {
     "id": "example.flavor.floem_workbench",

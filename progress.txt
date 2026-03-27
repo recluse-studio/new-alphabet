@@ -110,3 +110,8 @@ RULE | Append new lines; do not rewrite history, and record corrections as new l
 2026-03-27 | DECISION | workbench-policy | Dense work-surface tasks now load a cross-stack workbench policy before widget design when no host flavor already imposes stricter shell law.
 2026-03-27 | DECISION | workbench-policy | Cross-stack workbench policy now fixes desktop-first legibility targets, 10-14 visible rows, restrained typography and chrome, and a seven-point final review for serious product UI.
 2026-03-27 | DECISION | gridnik-tightening-spec.md | Added a corrective tightening spec that calls for exact dense defaults, explicit host-bound flavors, visible grid law, and lower-chrome workbench surfaces closer to Gridnik severity.
+2026-03-27 | DECISION | flavors | Broad runtime buckets were removed in favor of explicit TauriLeptosWorkbench and TauriYewWorkbench bindings so cross-stack policy no longer masquerades as flavor law.
+2026-03-27 | DECISION | workbench-policy | Workbench policy now binds exact dense defaults, explicit grid and chrome-budget sections, and pass-fail acceptance criteria for serious desktop work surfaces.
+2026-03-27 | PRD | schema | Added contract-bundle lint and CLI access that reject broad flavor buckets, vague normative language, and workbench policy drift before public artifacts are regenerated.
+2026-03-27 | MISTAKE | flavors | TauriWorkbench was too broad because it collapsed two frontend bindings into one runtime flavor and is superseded by TauriLeptosWorkbench and TauriYewWorkbench.
+2026-03-27 | MISTAKE | flavors | DesktopHtmlWorkbench was policy disguised as flavor and is superseded by workbench policy plus explicit host-bound flavors.
